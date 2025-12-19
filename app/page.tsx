@@ -16,10 +16,6 @@ const OurStorySection = dynamic(
   () => import("@/components/our-story-section").then((mod) => ({ default: mod.OurStorySection })),
   { ssr: true },
 )
-const TestimonialsSection = dynamic(
-  () => import("@/components/testimonials-section").then((mod) => ({ default: mod.TestimonialsSection })),
-  { ssr: true },
-)
 const BooksSection = dynamic(
   () => import("@/components/books-section").then((mod) => ({ default: mod.BooksSection })),
   { ssr: true },
@@ -40,10 +36,6 @@ const DownloadSection = dynamic(
   () => import("@/components/download-section").then((mod) => ({ default: mod.DownloadSection })),
   { ssr: true },
 )
-const DonationSection = dynamic(
-  () => import("@/components/donation-section").then((mod) => ({ default: mod.DonationSection })),
-  { ssr: true },
-)
 const Footer = dynamic(() => import("@/components/footer").then((mod) => ({ default: mod.Footer })), { ssr: true })
 
 export default function HomePage() {
@@ -61,7 +53,6 @@ export default function HomePage() {
       <SafetyPrivacySection />
       <FAQSection />
       <DownloadSection />
-      <DonationSection />
       <Footer />
     </main>
   )
