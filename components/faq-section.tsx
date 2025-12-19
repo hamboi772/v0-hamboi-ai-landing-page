@@ -2,7 +2,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 
 const faqs = [
   {
-    question: "Is Hamboi AI free?",
+    question: "Is Hamboi Mindcare free?",
     answer:
       "Hamboi offers a free tier with essential features including unlimited conversations, mood tracking, and access to coping strategies. Premium features like advanced insights and priority support are available with a subscription.",
   },

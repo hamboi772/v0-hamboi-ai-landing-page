@@ -12,7 +12,7 @@ const footerLinks = {
     { name: "Features", href: "#features" },
     { name: "How It Works", href: "#how-it-works" },
     { name: "Download", href: "#download" },
-    { name: "Pricing", href: "#pricing" },
+    { name: "Our Story", href: "#our-story" },
   ],
   company: [
     { name: "About Us", href: "/about" },
@@ -64,7 +64,7 @@ export function Footer() {
               <div className="w-10 h-10 rounded-full bg-gradient-to-br from-hamboi-purple to-hamboi-blue flex items-center justify-center">
                 <Heart className="h-5 w-5 text-white" />
               </div>
-              <span className="text-xl font-bold">Hamboi AI</span>
+              <span className="text-xl font-bold">Hamboi Mindcare</span>
             </Link>
             <p className="text-white/60 max-w-sm">
               Your mental health companion. Providing 24/7 support for teens navigating life's challenges. You're not
@@ -87,9 +87,9 @@ export function Footer() {
             <ul className="space-y-2">
               {footerLinks.product.map((link) => (
                 <li key={link.name}>
-                  <a href={link.href} className="text-white/60 hover:text-white transition-colors">
+                  <Link href={link.href} className="text-white/60 hover:text-white transition-colors">
                     {link.name}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -100,9 +100,9 @@ export function Footer() {
             <ul className="space-y-2">
               {footerLinks.company.map((link) => (
                 <li key={link.name}>
-                  <a href={link.href} className="text-white/60 hover:text-white transition-colors">
+                  <Link href={link.href} className="text-white/60 hover:text-white transition-colors">
                     {link.name}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -113,9 +113,9 @@ export function Footer() {
             <ul className="space-y-2">
               {footerLinks.legal.map((link) => (
                 <li key={link.name}>
-                  <a href={link.href} className="text-white/60 hover:text-white transition-colors">
+                  <Link href={link.href} className="text-white/60 hover:text-white transition-colors">
                     {link.name}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -124,11 +124,11 @@ export function Footer() {
 
         <div className="border-t border-white/10 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-white/60 text-sm">
-            © {new Date().getFullYear()} Hamboi AI. All rights reserved. Built with{" "}
+            © {new Date().getFullYear()} Hamboi Mindcare. All rights reserved. Built with{" "}
             <Heart className="h-4 w-4 inline text-red-400" /> for teens everywhere.
           </p>
           <p className="text-white/40 text-xs">
-            Hamboi AI is a support tool, not a replacement for professional mental health care.
+            Hamboi Mindcare is a support tool, not a replacement for professional mental health care.
           </p>
         </div>
       </div>

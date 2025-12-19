@@ -2,12 +2,12 @@
 
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
-import { Mic, Sparkles } from "lucide-react"
-import { VoiceDemoModal } from "@/components/voice-demo-modal"
+import { MessageSquare, Sparkles } from "lucide-react"
+import { ChatDemoModal } from "@/components/chat-demo-modal"
 import { AppStoreBadges } from "@/components/app-store-badges"
 
 export function HeroSection() {
-  const [isVoiceDemoOpen, setIsVoiceDemoOpen] = useState(false)
+  const [isChatDemoOpen, setIsChatDemoOpen] = useState(false)
 
   return (
     <>
@@ -30,19 +30,29 @@ export function HeroSection() {
                 </span>
               </h1>
 
+              <div className="bg-white/60 backdrop-blur-sm rounded-2xl p-6 border border-hamboi-purple/20 shadow-sm">
+                <p className="text-sm font-semibold text-hamboi-purple uppercase tracking-wider mb-2">HAMBOI</p>
+                <p className="text-base md:text-lg font-medium text-hamboi-dark leading-relaxed">
+                  <span className="text-hamboi-purple">H</span>ealth <span className="text-hamboi-purple">A</span>
+                  dvancement for <span className="text-hamboi-purple">M</span>ental{" "}
+                  <span className="text-hamboi-purple">B</span>alance and <span className="text-hamboi-purple">O</span>
+                  ptimistic <span className="text-hamboi-purple">I</span>ntervention
+                </p>
+              </div>
+
               <p className="text-lg md:text-xl text-hamboi-dark/70 max-w-lg text-pretty">
-                Talk to Hamboi AI anytime you need support. Try it now — just press the button and talk! You're not
-                alone.
+                Talk to Hamboi Mindcare anytime you need support. Try it now — just press the button and talk! You're
+                not alone.
               </p>
 
               <div className="flex flex-col gap-6">
                 <Button
                   size="lg"
-                  onClick={() => setIsVoiceDemoOpen(true)}
+                  onClick={() => setIsChatDemoOpen(true)}
                   className="bg-gradient-to-r from-hamboi-purple to-hamboi-blue hover:opacity-90 text-white text-lg px-8 py-6 rounded-full shadow-lg shadow-hamboi-purple/25 transition-all hover:shadow-xl hover:shadow-hamboi-purple/30 w-fit"
                 >
-                  <Mic className="h-5 w-5 mr-2" />
-                  Try Voice Demo
+                  <MessageSquare className="h-5 w-5 mr-2" />
+                  Try Chat Demo
                 </Button>
 
                 <div className="space-y-2">
@@ -63,7 +73,8 @@ export function HeroSection() {
                   ))}
                 </div>
                 <p className="text-sm text-hamboi-dark/70">
-                  <span className="font-semibold text-hamboi-dark">50,000+ teens</span> are feeling better with Hamboi
+                  <span className="font-semibold text-hamboi-dark">Join our growing community</span> of teens finding
+                  support with Hamboi
                 </p>
               </div>
             </div>
@@ -96,7 +107,7 @@ export function HeroSection() {
                 <div className="absolute -top-4 -right-4 bg-white rounded-2xl shadow-xl p-4 border border-hamboi-purple/10">
                   <div className="flex items-center gap-3">
                     <div className="w-12 h-12 rounded-full bg-hamboi-purple/20 flex items-center justify-center">
-                      <Mic className="w-6 h-6 text-hamboi-purple" />
+                      <MessageSquare className="w-6 h-6 text-hamboi-purple" />
                     </div>
                     <div>
                       <p className="font-semibold text-hamboi-dark">24/7 Support</p>
@@ -110,7 +121,7 @@ export function HeroSection() {
         </div>
       </section>
 
-      <VoiceDemoModal isOpen={isVoiceDemoOpen} onClose={() => setIsVoiceDemoOpen(false)} />
+      <ChatDemoModal isOpen={isChatDemoOpen} onClose={() => setIsChatDemoOpen(false)} />
     </>
   )
 }

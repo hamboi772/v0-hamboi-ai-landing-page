@@ -7,24 +7,21 @@ interface AppStoreBadgesProps {
 }
 
 export function AppStoreBadges({ className = "", variant = "dark", size = "default" }: AppStoreBadgesProps) {
-  // Replace these with your actual app store URLs
-  const appStoreUrl = "https://apps.apple.com/app/hamboi-ai"
-  const playStoreUrl = "https://play.google.com/store/apps/details?id=com.hamboi.ai"
+  const playStoreUrl = "https://play.google.com/store/apps/details?id=com.hamboimindcare"
 
   const badgeHeight = size === "large" ? "h-14" : "h-12"
-  const badgeStyles = variant === "light" ? "brightness-0 invert" : ""
 
   return (
     <div className={`flex flex-col sm:flex-row gap-4 ${className}`}>
-      {/* Apple App Store Badge */}
-      <Link
-        href={appStoreUrl}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="transition-transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-hamboi-purple focus:ring-offset-2 rounded-lg"
-        aria-label="Download on the App Store"
+      <div
+        className="relative transition-transform hover:scale-105 rounded-lg opacity-60 cursor-not-allowed"
+        aria-label="iOS version coming soon"
       >
-        <svg className={`${badgeHeight} w-auto ${badgeStyles}`} viewBox="0 0 120 40" xmlns="http://www.w3.org/2000/svg">
+        <svg
+          className={`${badgeHeight} w-auto ${variant === "light" ? "brightness-0 invert" : ""}`}
+          viewBox="0 0 120 40"
+          xmlns="http://www.w3.org/2000/svg"
+        >
           <rect width="120" height="40" rx="5" fill="#000" />
           <path
             d="M24.769 20.3c-.024-2.656 2.169-3.933 2.269-3.995-1.235-1.807-3.159-2.055-3.843-2.083-1.636-.166-3.193.963-4.022.963-.829 0-2.11-.939-3.467-.914-1.784.026-3.429 1.038-4.347 2.636-1.854 3.217-.474 7.984 1.332 10.596.883 1.278 1.936 2.715 3.319 2.663 1.332-.053 1.835-.862 3.446-.862 1.611 0 2.063.862 3.472.835 1.434-.023 2.344-1.303 3.222-2.584 1.015-1.484 1.433-2.92 1.458-2.995-.032-.015-2.798-1.073-2.828-4.26h-.011z"
@@ -41,9 +38,11 @@ export function AppStoreBadges({ className = "", variant = "dark", size = "defau
             App Store
           </text>
         </svg>
-      </Link>
+        <div className="absolute inset-0 flex items-center justify-center bg-black/60 rounded-lg">
+          <span className="text-white font-semibold text-xs px-3 py-1 bg-hamboi-purple rounded-full">Coming Soon</span>
+        </div>
+      </div>
 
-      {/* Google Play Store Badge */}
       <Link
         href={playStoreUrl}
         target="_blank"

@@ -5,7 +5,7 @@ const features = [
   {
     icon: MessageCircle,
     title: "24/7 AI Support",
-    description: "Always here when you need someone to talk to. Day or night, Hamboi is ready to listen.",
+    description: "Always here when you need someone to talk to. Day or night, Hamboi Mindcare is ready to listen.",
     color: "text-hamboi-purple",
     bgColor: "bg-hamboi-purple/10",
   },
@@ -58,7 +58,7 @@ export function FeaturesSection() {
             </span>
           </h2>
           <p className="text-lg text-hamboi-dark/70 max-w-2xl mx-auto">
-            Hamboi AI is designed with your wellbeing in mind. Here's how we help you navigate life's challenges.
+            Hamboi Mindcare is designed with your wellbeing in mind. Here's how we help you navigate life's challenges.
           </p>
         </div>
 
