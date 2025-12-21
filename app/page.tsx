@@ -1,48 +1,19 @@
-import dynamic from "next/dynamic"
 import { Header } from "@/components/header"
 import { HeroSection } from "@/components/hero-section"
 import { FeaturesSection } from "@/components/features-section"
 import { CrisisBanner } from "@/components/crisis-banner"
 import { DonationSection } from "@/components/donation-section"
 import { MentalHealthResources } from "@/components/mental-health-resources"
-
-const HowItWorksSection = dynamic(
-  () => import("@/components/how-it-works-section").then((mod) => ({ default: mod.HowItWorksSection })),
-  { ssr: true },
-)
-const DailyWellnessTip = dynamic(
-  () => import("@/components/daily-wellness-tip").then((mod) => ({ default: mod.DailyWellnessTip })),
-  { ssr: false },
-)
-const SafetyPrivacySection = dynamic(
-  () => import("@/components/safety-privacy-section").then((mod) => ({ default: mod.SafetyPrivacySection })),
-  { ssr: true },
-)
-const OurStorySection = dynamic(
-  () => import("@/components/our-story-section").then((mod) => ({ default: mod.OurStorySection })),
-  { ssr: true },
-)
-const BooksSection = dynamic(
-  () => import("@/components/books-section").then((mod) => ({ default: mod.BooksSection })),
-  { ssr: true },
-)
-const SurveySection = dynamic(
-  () => import("@/components/survey-section").then((mod) => ({ default: mod.SurveySection })),
-  { ssr: true },
-)
-const MotivationalMessagesSection = dynamic(
-  () =>
-    import("@/components/motivational-messages-section").then((mod) => ({ default: mod.MotivationalMessagesSection })),
-  { ssr: true },
-)
-const FAQSection = dynamic(() => import("@/components/faq-section").then((mod) => ({ default: mod.FAQSection })), {
-  ssr: true,
-})
-const DownloadSection = dynamic(
-  () => import("@/components/download-section").then((mod) => ({ default: mod.DownloadSection })),
-  { ssr: true },
-)
-const Footer = dynamic(() => import("@/components/footer").then((mod) => ({ default: mod.Footer })), { ssr: true })
+import { HowItWorksSection } from "@/components/how-it-works-section"
+import { DailyWellnessTipWrapper } from "@/components/daily-wellness-tip-wrapper"
+import { SafetyPrivacySection } from "@/components/safety-privacy-section"
+import { OurStorySection } from "@/components/our-story-section"
+import { BooksSection } from "@/components/books-section"
+import { SurveySection } from "@/components/survey-section"
+import { MotivationalMessagesSection } from "@/components/motivational-messages-section"
+import { FAQSection } from "@/components/faq-section"
+import { DownloadSection } from "@/components/download-section"
+import { Footer } from "@/components/footer"
 
 export default function HomePage() {
   return (
@@ -50,7 +21,7 @@ export default function HomePage() {
       <CrisisBanner />
       <Header />
       <HeroSection />
-      <DailyWellnessTip />
+      <DailyWellnessTipWrapper />
       <FeaturesSection />
       <HowItWorksSection />
       <OurStorySection />

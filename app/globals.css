@@ -4,31 +4,32 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  --background: oklch(0.99 0.005 280);
-  --foreground: oklch(0.2 0.02 280);
+  /* Updated to softer, more calming color palette for mental health app */
+  --background: oklch(0.98 0.01 120);
+  --foreground: oklch(0.25 0.02 260);
   --card: oklch(1 0 0);
-  --card-foreground: oklch(0.2 0.02 280);
+  --card-foreground: oklch(0.25 0.02 260);
   --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.2 0.02 280);
-  --primary: oklch(0.65 0.18 280);
+  --popover-foreground: oklch(0.25 0.02 260);
+  --primary: oklch(0.62 0.15 270);
   --primary-foreground: oklch(0.98 0 0);
-  --secondary: oklch(0.95 0.02 280);
-  --secondary-foreground: oklch(0.2 0.02 280);
-  --muted: oklch(0.95 0.01 280);
-  --muted-foreground: oklch(0.5 0.02 280);
-  --accent: oklch(0.92 0.03 280);
-  --accent-foreground: oklch(0.2 0.02 280);
+  --secondary: oklch(0.94 0.02 120);
+  --secondary-foreground: oklch(0.25 0.02 260);
+  --muted: oklch(0.96 0.01 120);
+  --muted-foreground: oklch(0.52 0.02 260);
+  --accent: oklch(0.68 0.12 210);
+  --accent-foreground: oklch(0.98 0 0);
   --destructive: oklch(0.577 0.245 27.325);
-  --destructive-foreground: oklch(0.577 0.245 27.325);
-  --border: oklch(0.9 0.02 280);
-  --input: oklch(0.9 0.02 280);
-  --ring: oklch(0.65 0.18 280);
+  --destructive-foreground: oklch(0.98 0 0);
+  --border: oklch(0.92 0.01 120);
+  --input: oklch(0.92 0.01 120);
+  --ring: oklch(0.62 0.15 270);
   --chart-1: oklch(0.646 0.222 41.116);
   --chart-2: oklch(0.6 0.118 184.704);
   --chart-3: oklch(0.398 0.07 227.392);
   --chart-4: oklch(0.828 0.189 84.429);
   --chart-5: oklch(0.769 0.188 70.08);
-  --radius: 0.75rem;
+  --radius: 1rem;
   --sidebar: oklch(0.985 0 0);
   --sidebar-foreground: oklch(0.145 0 0);
   --sidebar-primary: oklch(0.205 0 0);
@@ -38,14 +39,15 @@
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
 
-  /* Custom Hamboi colors */
-  --hamboi-purple: oklch(0.65 0.18 280);
-  --hamboi-blue: oklch(0.68 0.15 240);
-  --hamboi-green: oklch(0.75 0.15 160);
-  --hamboi-pink: oklch(0.72 0.18 350); /* adding hamboi-pink color for donation section */
-  --hamboi-calm: oklch(0.6 0.12 220);
-  --hamboi-light: oklch(0.97 0.02 280);
-  --hamboi-dark: oklch(0.25 0.03 280);
+  /* New soothing color palette for Hamboi */
+  --hamboi-purple: oklch(0.62 0.15 270);
+  --hamboi-blue: oklch(0.68 0.12 210);
+  --hamboi-green: oklch(0.72 0.12 150);
+  --hamboi-pink: oklch(0.75 0.15 350);
+  --hamboi-calm: oklch(0.7 0.1 200);
+  --hamboi-light: oklch(0.97 0.01 120);
+  --hamboi-dark: oklch(0.28 0.02 260);
+  --hamboi-warm: oklch(0.82 0.08 80);
 }
 
 .dark {
@@ -123,14 +125,15 @@
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
 
-  /* Hamboi brand colors */
+  /* Register new Hamboi brand colors */
   --color-hamboi-purple: var(--hamboi-purple);
   --color-hamboi-blue: var(--hamboi-blue);
   --color-hamboi-green: var(--hamboi-green);
-  --color-hamboi-pink: var(--hamboi-pink); /* registering hamboi-pink in Tailwind theme */
+  --color-hamboi-pink: var(--hamboi-pink);
   --color-hamboi-calm: var(--hamboi-calm);
   --color-hamboi-light: var(--hamboi-light);
   --color-hamboi-dark: var(--hamboi-dark);
+  --color-hamboi-warm: var(--hamboi-warm);
 }
 
 @layer base {
@@ -166,4 +169,57 @@ html {
 .animate-gradient-shift {
   background-size: 200% 200%;
   animation: gradient-shift 3s ease infinite;
+}
+
+/* Adding smooth animations for mental health app */
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse-soft {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 0.6s ease-out;
+}
+
+.animate-pulse-soft {
+  animation: pulse-soft 3s ease-in-out infinite;
+}
+
+/* Smooth transitions for interactive elements */
+.smooth-hover {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.smooth-hover:hover {
+  transform: translateY(-4px);
 }

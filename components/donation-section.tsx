@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import { Heart, Copy, Check } from "lucide-react"
 
 export function DonationSection() {
   const [copiedField, setCopiedField] = useState<string | null>(null)
@@ -12,51 +13,86 @@ export function DonationSection() {
   }
 
   return (
-    <section id="donation-section" className="w-full py-16 px-4 bg-blue-100 min-h-[500px]">
+    <section
+      id="donation-section"
+      className="w-full py-20 px-4 bg-gradient-to-br from-hamboi-warm/20 via-hamboi-pink/10 to-hamboi-light"
+    >
       <div className="max-w-3xl mx-auto">
-        <h2 className="text-4xl font-bold text-center mb-3 text-gray-900">Support Hamboi Mindcare 💚</h2>
-        <p className="text-center text-gray-700 mb-10 text-lg">
-          Help us keep Hamboi free for all teens who need mental health support
-        </p>
+        <div className="text-center mb-12 animate-fade-in-up">
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-hamboi-green/10 rounded-full text-hamboi-green text-sm font-medium mb-4">
+            <Heart className="h-4 w-4" />
+            <span>Support Our Mission</span>
+          </div>
+          <h2 className="text-4xl md:text-5xl font-bold mb-4">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-hamboi-purple to-hamboi-pink">
+              Support Hamboi Mindcare
+            </span>
+          </h2>
+          <p className="text-hamboi-dark/70 text-lg leading-relaxed">
+            Help us keep Hamboi free for all teens who need mental health support
+          </p>
+        </div>
 
-        <div className="bg-white rounded-xl shadow-2xl p-8 mb-8 border-4 border-blue-600">
-          <h3 className="text-2xl font-bold mb-8 text-center text-blue-900">Donate via OPay</h3>
+        <div className="bg-white/80 backdrop-blur-sm rounded-3xl shadow-xl p-8 mb-8 border border-hamboi-purple/20 smooth-hover">
+          <h3 className="text-2xl font-bold mb-8 text-center text-hamboi-dark">Donate via OPay</h3>
 
-          <div className="space-y-6">
-            <div className="p-5 bg-blue-50 rounded-lg border-2 border-blue-200">
-              <p className="text-sm text-gray-600 font-semibold">Bank</p>
-              <p className="font-bold text-lg">OPay</p>
+          <div className="space-y-5">
+            <div className="p-5 bg-hamboi-light rounded-2xl border border-hamboi-purple/10">
+              <p className="text-sm text-hamboi-dark/60 font-semibold mb-1">Bank</p>
+              <p className="font-bold text-lg text-hamboi-dark">OPay</p>
             </div>
 
-            <div className="p-5 bg-blue-50 rounded-lg flex items-center justify-between gap-3 border-2 border-blue-200">
+            <div className="p-5 bg-hamboi-light rounded-2xl flex items-center justify-between gap-3 border border-hamboi-purple/10">
               <div>
-                <p className="text-sm text-gray-600 font-semibold">Account Name</p>
-                <p className="font-bold text-lg">Sekinat Arinola Abiodun</p>
+                <p className="text-sm text-hamboi-dark/60 font-semibold mb-1">Account Name</p>
+                <p className="font-bold text-lg text-hamboi-dark">Sekinat Arinola Abiodun</p>
               </div>
               <button
                 onClick={() => copyToClipboard("Sekinat Arinola Abiodun", "name")}
-                className="px-4 py-2 bg-blue-600 text-white rounded-lg text-sm font-bold hover:bg-blue-700 transition-colors"
+                className="px-5 py-2.5 bg-gradient-to-r from-hamboi-purple to-hamboi-blue text-white rounded-xl text-sm font-bold hover:opacity-90 transition-all flex items-center gap-2 shadow-sm hover:shadow-md"
               >
-                {copiedField === "name" ? "✓ Copied!" : "Copy"}
+                {copiedField === "name" ? (
+                  <>
+                    <Check className="h-4 w-4" />
+                    Copied!
+                  </>
+                ) : (
+                  <>
+                    <Copy className="h-4 w-4" />
+                    Copy
+                  </>
+                )}
               </button>
             </div>
 
-            <div className="p-5 bg-blue-50 rounded-lg flex items-center justify-between gap-3 border-2 border-blue-200">
+            <div className="p-5 bg-hamboi-light rounded-2xl flex items-center justify-between gap-3 border border-hamboi-purple/10">
               <div>
-                <p className="text-sm text-gray-600 font-semibold">Account Number</p>
-                <p className="font-bold text-2xl">8169533452</p>
+                <p className="text-sm text-hamboi-dark/60 font-semibold mb-1">Account Number</p>
+                <p className="font-bold text-2xl text-hamboi-dark font-mono">8169533452</p>
               </div>
               <button
                 onClick={() => copyToClipboard("8169533452", "number")}
-                className="px-4 py-2 bg-blue-600 text-white rounded-lg text-sm font-bold hover:bg-blue-700 transition-colors"
+                className="px-5 py-2.5 bg-gradient-to-r from-hamboi-purple to-hamboi-blue text-white rounded-xl text-sm font-bold hover:opacity-90 transition-all flex items-center gap-2 shadow-sm hover:shadow-md"
               >
-                {copiedField === "number" ? "✓ Copied!" : "Copy"}
+                {copiedField === "number" ? (
+                  <>
+                    <Check className="h-4 w-4" />
+                    Copied!
+                  </>
+                ) : (
+                  <>
+                    <Copy className="h-4 w-4" />
+                    Copy
+                  </>
+                )}
               </button>
             </div>
           </div>
         </div>
 
-        <p className="text-center text-gray-700 text-base mt-8 font-medium">Thank you for supporting mental wellness</p>
+        <p className="text-center text-hamboi-dark/70 text-lg font-medium animate-pulse-soft">
+          Thank you for supporting mental wellness 💚
+        </p>
       </div>
     </section>
   )
