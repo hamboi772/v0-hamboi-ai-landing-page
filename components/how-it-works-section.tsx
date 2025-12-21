@@ -10,8 +10,8 @@ const steps = [
   {
     icon: MessageSquare,
     step: "02",
-    title: "Talk or Type with Hamboi AI",
-    description: "Share what's on your mind. Voice or text — whatever feels right.",
+    title: "Chat with Hamboi AI",
+    description: "Share what's on your mind through text chat.",
   },
   {
     icon: Sparkles,

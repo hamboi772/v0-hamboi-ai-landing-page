@@ -33,8 +33,8 @@ export function OurStorySection() {
                   <div className="mt-4 pt-4 border-t border-white/20">
                     <p className="text-sm text-purple-100 uppercase tracking-wide mb-1">HAMBOI stands for:</p>
                     <p className="text-white/90 text-sm leading-relaxed">
-                      <strong>H</strong>ealth <strong>A</strong>dvancement for <strong>M</strong>ental{" "}
-                      <strong>B</strong>alance and <strong>O</strong>ptimistic <strong>I</strong>ntervention
+                      <strong>H</strong>ope <strong>A</strong>nd <strong>M</strong>ind <strong>B</strong>alance:{" "}
+                      <strong>O</strong>ngoing <strong>I</strong>mprovement
                     </p>
                   </div>
                 </div>

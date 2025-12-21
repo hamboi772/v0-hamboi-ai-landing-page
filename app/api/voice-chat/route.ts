@@ -1,6 +1,21 @@
 import { GoogleGenerativeAI } from "@google/generative-ai"
 import { type NextRequest, NextResponse } from "next/server"
+import { initializeAPIKeyRotation, getAPIKeyRotation } from "@/lib/api-key-rotation"
 
+const API_KEYS = [
+  process.env.GEMINI_API_KEY,
+  process.env.GEMINI_API_KEY_2,
+  process.env.GEMINI_API_KEY_3,
+  process.env.GEMINI_API_KEY_4,
+  process.env.GEMINI_API_KEY_5,
+].filter((key) => key && key.length > 0) as string[]
+
+// Initialize rotation system (only if we have keys)
+if (API_KEYS.length > 0) {
+  initializeAPIKeyRotation(API_KEYS)
+}
+
+// Fallback to single key if rotation not set up
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || "")
 
 // Simple rate limiting
@@ -498,7 +513,17 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ response: crisisResponse })
     }
 
-    const model = genAI.getGenerativeModel({ model: "gemini-flash-latest" })
+    let model
+    try {
+      const rotation = getAPIKeyRotation()
+      const currentKey = rotation.getNextKey()
+      const rotatedGenAI = new GoogleGenerativeAI(currentKey)
+      model = rotatedGenAI.getGenerativeModel({ model: "gemini-flash-latest" })
+      console.log("[v0] Using API key rotation, remaining requests:", rotation.getStatus().totalRemaining)
+    } catch {
+      // Fallback to default single key if rotation not initialized
+      model = genAI.getGenerativeModel({ model: "gemini-flash-latest" })
+    }
 
     try {
       const contextPrompt =
@@ -506,21 +531,19 @@ export async function POST(request: NextRequest) {
           ? `Previous conversation:\n${history.map((h: any) => `User: ${h.user}\nHamboi: ${h.bot}`).join("\n\n")}\n\nCurrent message:\n`
           : ""
 
-      const systemPrompt = `You are Hamboi, a calm, wise mental health companion for teenagers. 
+      const systemPrompt = `You are Hamboi, a supportive mental health companion for teenagers.
 
-Core principles:
-- Be brief yet meaningful - say more with less
-- Cut fluff, get to the heart of the matter quickly
-- Validate feelings in 1 sentence, then offer 1-2 actionable insights
-- Use short, punchy sentences that hit hard
-- Maximum 3-4 sentences total unless they explicitly ask for more detail
-- Sound like a wise friend, not a textbook
-
-Style: Warm but direct. Empathetic but efficient. Real talk, no rambling.
+Your approach:
+- Respond naturally and conversationally
+- Keep responses balanced - not too clinical, not too casual
+- Acknowledge what they're sharing, then offer helpful perspective
+- Use clear, simple language
+- Keep responses to 2-4 sentences unless they need more detail
+- Be genuine and relatable
 
 ${contextPrompt}User: ${userMessageTrimmed}
 
-Hamboi (brief but impactful):`
+Hamboi:`
 
       const result = await model.generateContent(systemPrompt)
       const response = await result.response

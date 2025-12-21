@@ -80,7 +80,9 @@ export function ChatDemoModal({ isOpen, onClose }: ChatDemoModalProps) {
       const data = await res.json()
 
       if (data.error) {
-        setError(data.error)
+        setError(
+          data.error === "quota-exceeded" ? "You have reached your message limit. Please try again later." : data.error,
+        )
         setIsProcessing(false)
         return
       }

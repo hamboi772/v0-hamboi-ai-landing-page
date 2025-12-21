@@ -3,10 +3,16 @@ import { Header } from "@/components/header"
 import { HeroSection } from "@/components/hero-section"
 import { FeaturesSection } from "@/components/features-section"
 import { CrisisBanner } from "@/components/crisis-banner"
+import { DonationSection } from "@/components/donation-section"
+import { MentalHealthResources } from "@/components/mental-health-resources"
 
 const HowItWorksSection = dynamic(
   () => import("@/components/how-it-works-section").then((mod) => ({ default: mod.HowItWorksSection })),
   { ssr: true },
+)
+const DailyWellnessTip = dynamic(
+  () => import("@/components/daily-wellness-tip").then((mod) => ({ default: mod.DailyWellnessTip })),
+  { ssr: false },
 )
 const SafetyPrivacySection = dynamic(
   () => import("@/components/safety-privacy-section").then((mod) => ({ default: mod.SafetyPrivacySection })),
@@ -44,6 +50,7 @@ export default function HomePage() {
       <CrisisBanner />
       <Header />
       <HeroSection />
+      <DailyWellnessTip />
       <FeaturesSection />
       <HowItWorksSection />
       <OurStorySection />
@@ -51,8 +58,10 @@ export default function HomePage() {
       <BooksSection />
       <SurveySection />
       <SafetyPrivacySection />
+      <MentalHealthResources />
       <FAQSection />
       <DownloadSection />
+      <DonationSection />
       <Footer />
     </main>
   )

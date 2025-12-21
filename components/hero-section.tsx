@@ -33,10 +33,10 @@ export function HeroSection() {
               <div className="bg-white/60 backdrop-blur-sm rounded-2xl p-6 border border-hamboi-purple/20 shadow-sm">
                 <p className="text-sm font-semibold text-hamboi-purple uppercase tracking-wider mb-2">HAMBOI</p>
                 <p className="text-base md:text-lg font-medium text-hamboi-dark leading-relaxed">
-                  <span className="text-hamboi-purple">H</span>ealth <span className="text-hamboi-purple">A</span>
-                  dvancement for <span className="text-hamboi-purple">M</span>ental{" "}
-                  <span className="text-hamboi-purple">B</span>alance and <span className="text-hamboi-purple">O</span>
-                  ptimistic <span className="text-hamboi-purple">I</span>ntervention
+                  <span className="text-hamboi-purple">H</span>ope <span className="text-hamboi-purple">A</span>nd{" "}
+                  <span className="text-hamboi-purple">M</span>ind <span className="text-hamboi-purple">B</span>alance:{" "}
+                  <span className="text-hamboi-purple">O</span>ngoing <span className="text-hamboi-purple">I</span>
+                  mprovement
                 </p>
               </div>
 
@@ -46,14 +46,16 @@ export function HeroSection() {
               </p>
 
               <div className="flex flex-col gap-6">
-                <Button
-                  size="lg"
-                  onClick={() => setIsChatDemoOpen(true)}
-                  className="bg-gradient-to-r from-hamboi-purple to-hamboi-blue hover:opacity-90 text-white text-lg px-8 py-6 rounded-full shadow-lg shadow-hamboi-purple/25 transition-all hover:shadow-xl hover:shadow-hamboi-purple/30 w-fit"
-                >
-                  <MessageSquare className="h-5 w-5 mr-2" />
-                  Try Chat Demo
-                </Button>
+                <div className="flex flex-wrap gap-4">
+                  <Button
+                    size="lg"
+                    onClick={() => setIsChatDemoOpen(true)}
+                    className="bg-gradient-to-r from-hamboi-purple to-hamboi-blue hover:opacity-90 text-white text-lg px-8 py-6 rounded-full shadow-lg shadow-hamboi-purple/25 transition-all hover:shadow-xl hover:shadow-hamboi-purple/30"
+                  >
+                    <MessageSquare className="h-5 w-5 mr-2" />
+                    Try Chat Demo
+                  </Button>
+                </div>
 
                 <div className="space-y-2">
                   <p className="text-sm text-hamboi-dark/60">Download the app:</p>

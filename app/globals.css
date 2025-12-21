@@ -42,6 +42,7 @@
   --hamboi-purple: oklch(0.65 0.18 280);
   --hamboi-blue: oklch(0.68 0.15 240);
   --hamboi-green: oklch(0.75 0.15 160);
+  --hamboi-pink: oklch(0.72 0.18 350); /* adding hamboi-pink color for donation section */
   --hamboi-calm: oklch(0.6 0.12 220);
   --hamboi-light: oklch(0.97 0.02 280);
   --hamboi-dark: oklch(0.25 0.03 280);
@@ -126,6 +127,7 @@
   --color-hamboi-purple: var(--hamboi-purple);
   --color-hamboi-blue: var(--hamboi-blue);
   --color-hamboi-green: var(--hamboi-green);
+  --color-hamboi-pink: var(--hamboi-pink); /* registering hamboi-pink in Tailwind theme */
   --color-hamboi-calm: var(--hamboi-calm);
   --color-hamboi-light: var(--hamboi-light);
   --color-hamboi-dark: var(--hamboi-dark);

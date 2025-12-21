@@ -22,7 +22,7 @@ export function Header() {
           <Link
             href="/"
             className="flex items-center gap-2"
-            title="HAMBOI - Health Advancement for Mental Balance and Optimistic Intervention"
+            title="HAMBOI - Hope And Mind Balance: Ongoing Improvement"
           >
             <div className="w-10 h-10 rounded-full bg-gradient-to-br from-hamboi-purple to-hamboi-blue flex items-center justify-center">
               <Heart className="h-5 w-5 text-white" />

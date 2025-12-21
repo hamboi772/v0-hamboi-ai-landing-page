@@ -1,58 +1,62 @@
 "use client"
 
-import { Button } from "@/components/ui/button"
-import { Heart } from "lucide-react"
+import { useState } from "react"
 
 export function DonationSection() {
-  const handleDonate = () => {
-    const donationUrl = "https://flutterwave.com/pay/hamboimindcare-donate"
-    window.open(donationUrl, "_blank")
+  const [copiedField, setCopiedField] = useState<string | null>(null)
+
+  const copyToClipboard = (text: string, field: string) => {
+    navigator.clipboard.writeText(text)
+    setCopiedField(field)
+    setTimeout(() => setCopiedField(null), 2000)
   }
 
   return (
-    <section className="py-16 bg-gradient-to-r from-hamboi-pink/10 via-white to-hamboi-purple/10">
-      <div className="container mx-auto px-4">
-        <div className="max-w-3xl mx-auto text-center space-y-6">
-          <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-hamboi-pink/20 mb-4">
-            <Heart className="h-8 w-8 text-hamboi-pink" fill="currentColor" />
+    <section id="donation-section" className="w-full py-16 px-4 bg-blue-100 min-h-[500px]">
+      <div className="max-w-3xl mx-auto">
+        <h2 className="text-4xl font-bold text-center mb-3 text-gray-900">Support Hamboi Mindcare 💚</h2>
+        <p className="text-center text-gray-700 mb-10 text-lg">
+          Help us keep Hamboi free for all teens who need mental health support
+        </p>
+
+        <div className="bg-white rounded-xl shadow-2xl p-8 mb-8 border-4 border-blue-600">
+          <h3 className="text-2xl font-bold mb-8 text-center text-blue-900">Donate via OPay</h3>
+
+          <div className="space-y-6">
+            <div className="p-5 bg-blue-50 rounded-lg border-2 border-blue-200">
+              <p className="text-sm text-gray-600 font-semibold">Bank</p>
+              <p className="font-bold text-lg">OPay</p>
+            </div>
+
+            <div className="p-5 bg-blue-50 rounded-lg flex items-center justify-between gap-3 border-2 border-blue-200">
+              <div>
+                <p className="text-sm text-gray-600 font-semibold">Account Name</p>
+                <p className="font-bold text-lg">Sekinat Arinola Abiodun</p>
+              </div>
+              <button
+                onClick={() => copyToClipboard("Sekinat Arinola Abiodun", "name")}
+                className="px-4 py-2 bg-blue-600 text-white rounded-lg text-sm font-bold hover:bg-blue-700 transition-colors"
+              >
+                {copiedField === "name" ? "✓ Copied!" : "Copy"}
+              </button>
+            </div>
+
+            <div className="p-5 bg-blue-50 rounded-lg flex items-center justify-between gap-3 border-2 border-blue-200">
+              <div>
+                <p className="text-sm text-gray-600 font-semibold">Account Number</p>
+                <p className="font-bold text-2xl">8169533452</p>
+              </div>
+              <button
+                onClick={() => copyToClipboard("8169533452", "number")}
+                className="px-4 py-2 bg-blue-600 text-white rounded-lg text-sm font-bold hover:bg-blue-700 transition-colors"
+              >
+                {copiedField === "number" ? "✓ Copied!" : "Copy"}
+              </button>
+            </div>
           </div>
-
-          <h2 className="text-3xl md:text-4xl font-bold text-balance">Support Hamboi Mindcare</h2>
-
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Your donation helps us keep Hamboi free for all teens who need mental health support. Every contribution, no
-            matter how small, makes a difference in a young person's life.
-          </p>
-
-          <div className="grid md:grid-cols-3 gap-6 pt-6 pb-8">
-            <div className="p-6 rounded-lg bg-white shadow-sm border border-gray-100">
-              <p className="text-2xl font-bold text-hamboi-purple">₦1,000</p>
-              <p className="text-sm text-muted-foreground mt-2">Supports 10 chat sessions</p>
-            </div>
-            <div className="p-6 rounded-lg bg-white shadow-sm border border-gray-100">
-              <p className="text-2xl font-bold text-hamboi-purple">₦5,000</p>
-              <p className="text-sm text-muted-foreground mt-2">Covers server costs for a week</p>
-            </div>
-            <div className="p-6 rounded-lg bg-white shadow-sm border border-gray-100">
-              <p className="text-2xl font-bold text-hamboi-purple">₦10,000+</p>
-              <p className="text-sm text-muted-foreground mt-2">Helps us reach more teens</p>
-            </div>
-          </div>
-
-          <Button
-            onClick={handleDonate}
-            size="lg"
-            className="bg-hamboi-pink hover:bg-hamboi-pink/90 text-white px-8 py-6 text-lg rounded-full"
-          >
-            <Heart className="h-5 w-5 mr-2" fill="currentColor" />
-            Donate Now
-          </Button>
-
-          <p className="text-sm text-muted-foreground pt-4">
-            Hamboi Mindcare is committed to transparency. All donations go directly toward maintaining and improving our
-            services.
-          </p>
         </div>
+
+        <p className="text-center text-gray-700 text-base mt-8 font-medium">Thank you for supporting mental wellness</p>
       </div>
     </section>
   )
