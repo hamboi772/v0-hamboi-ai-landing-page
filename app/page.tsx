@@ -14,6 +14,7 @@ import { MotivationalMessagesSection } from "@/components/motivational-messages-
 import { FAQSection } from "@/components/faq-section"
 import { DownloadSection } from "@/components/download-section"
 import { Footer } from "@/components/footer"
+import { InstallPrompt } from "@/components/install-prompt"
 
 export default function HomePage() {
   return (
@@ -34,6 +35,7 @@ export default function HomePage() {
       <DownloadSection />
       <DonationSection />
       <Footer />
+      <InstallPrompt />
     </main>
   )
 }

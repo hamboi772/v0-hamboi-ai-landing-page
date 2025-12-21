@@ -1,0 +1,41 @@
+{
+  "name": "Hamboi Mindcare - Mental Health Support for Teens",
+  "short_name": "Hamboi Mindcare",
+  "description": "Your 24/7 mental health companion. Talk to Hamboi AI anytime you need support. Private, safe, and always here for you.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#A78BFA",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/icon-192.jpg",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-512.jpg",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["health", "lifestyle", "medical"],
+  "shortcuts": [
+    {
+      "name": "Chat with Hamboi AI",
+      "short_name": "Chat",
+      "description": "Start a conversation with Hamboi AI",
+      "url": "/?chat=true",
+      "icons": [{ "src": "/icon-192.jpg", "sizes": "192x192" }]
+    },
+    {
+      "name": "Crisis Support",
+      "short_name": "Crisis",
+      "description": "Get immediate crisis support",
+      "url": "/#crisis",
+      "icons": [{ "src": "/icon-192.jpg", "sizes": "192x192" }]
+    }
+  ]
+}
