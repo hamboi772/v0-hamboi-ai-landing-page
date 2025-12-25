@@ -15,6 +15,9 @@ import { FAQSection } from "@/components/faq-section"
 import { DownloadSection } from "@/components/download-section"
 import { Footer } from "@/components/footer"
 import { InstallPrompt } from "@/components/install-prompt"
+import { WelcomeBackModal } from "@/components/welcome-back-modal"
+import { ShareAppModal } from "@/components/share-app-modal"
+import { DailyCheckIn } from "@/components/daily-check-in"
 
 export default function HomePage() {
   return (
@@ -36,6 +39,9 @@ export default function HomePage() {
       <DonationSection />
       <Footer />
       <InstallPrompt />
+      <WelcomeBackModal />
+      <ShareAppModal />
+      <DailyCheckIn />
     </main>
   )
 }

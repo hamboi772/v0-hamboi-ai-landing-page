@@ -1,12 +1,39 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect, useRef } from "react"
+import QRCode from "qrcode"
 
 export function QRCodeDisplay() {
   const appUrl = "https://v0-hamboi-ai-landing-page-7e7t-ge0ebg3mq.vercel.app"
-  const qrCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=${encodeURIComponent(appUrl)}`
-
+  const canvasRef = useRef<HTMLCanvasElement>(null)
   const [copied, setCopied] = useState(false)
+  const [qrGenerated, setQrGenerated] = useState(false)
+
+  useEffect(() => {
+    console.log("[v0] Starting QR code generation")
+    if (canvasRef.current) {
+      QRCode.toCanvas(
+        canvasRef.current,
+        appUrl,
+        {
+          width: 300,
+          margin: 2,
+          color: {
+            dark: "#7C3AED",
+            light: "#FFFFFF",
+          },
+        },
+        (error) => {
+          if (error) {
+            console.error("[v0] QR code generation error:", error)
+          } else {
+            console.log("[v0] QR code generated successfully")
+            setQrGenerated(true)
+          }
+        },
+      )
+    }
+  }, [appUrl])
 
   const handleCopy = () => {
     navigator.clipboard.writeText(appUrl)
@@ -15,10 +42,18 @@ export function QRCodeDisplay() {
   }
 
   const handleDownload = () => {
-    const link = document.createElement("a")
-    link.href = qrCodeUrl
-    link.download = "hamboi-mindcare-qr-code.png"
-    link.click()
+    if (canvasRef.current) {
+      canvasRef.current.toBlob((blob) => {
+        if (blob) {
+          const url = URL.createObjectURL(blob)
+          const link = document.createElement("a")
+          link.href = url
+          link.download = "hamboi-mindcare-qr-code.png"
+          link.click()
+          URL.revokeObjectURL(url)
+        }
+      })
+    }
   }
 
   return (
@@ -28,13 +63,19 @@ export function QRCodeDisplay() {
         <p className="text-gray-600 mb-6">Scan to install the app</p>
 
         <div className="bg-white p-6 rounded-xl border-4 border-purple-200 mb-6 inline-block">
-          <img src={qrCodeUrl || "/placeholder.svg"} alt="QR Code for Hamboi MindCare" className="w-64 h-64" />
+          <canvas ref={canvasRef} className="mx-auto" style={{ display: qrGenerated ? "block" : "none" }} />
+          {!qrGenerated && (
+            <div className="w-[300px] h-[300px] flex items-center justify-center">
+              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-purple-600"></div>
+            </div>
+          )}
         </div>
 
         <div className="space-y-3">
           <button
             onClick={handleDownload}
-            className="w-full bg-gradient-to-r from-purple-600 to-blue-600 text-white py-3 px-6 rounded-lg font-semibold hover:from-purple-700 hover:to-blue-700 transition-all"
+            disabled={!qrGenerated}
+            className="w-full bg-gradient-to-r from-purple-600 to-blue-600 text-white py-3 px-6 rounded-lg font-semibold hover:from-purple-700 hover:to-blue-700 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
           >
             Download QR Code
           </button>

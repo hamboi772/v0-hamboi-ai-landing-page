@@ -91,7 +91,7 @@ export function DonationSection() {
         </div>
 
         <p className="text-center text-hamboi-dark/70 text-lg font-medium animate-pulse-soft">
-          Thank you for supporting mental wellness 💚
+          Thank you for supporting mental wellness
         </p>
       </div>
     </section>
