@@ -246,4 +246,281 @@ export const bookContents: Record<string, BookContent> = {
       },
     ],
   },
+  "healing-the-african-mind": {
+    id: "healing-the-african-mind",
+    title: "Healing the African Mind: Understanding Mental Health in Nigeria",
+    author: "Dr. Maymunah Kadiri",
+    chapters: [
+      {
+        number: 1,
+        title: "Mental Health in Nigerian Context",
+        content: [
+          "Mental health challenges in Nigeria are often misunderstood and stigmatized. Many Nigerians struggle silently because seeking help is seen as a sign of weakness or spiritual failure.",
+          "In our culture, mental illness is frequently attributed to supernatural causes - witchcraft, generational curses, or spiritual attacks. While faith is important, medical treatment is equally crucial.",
+          "Depression, anxiety, and other mental health conditions are real medical conditions, not moral failings or signs of weak faith.",
+          "The good news is that awareness is growing. More Nigerians are recognizing that mental health is just as important as physical health.",
+          "This book aims to bridge the gap between traditional beliefs and modern mental health understanding, helping you navigate both worlds.",
+        ],
+      },
+      {
+        number: 2,
+        title: "Breaking the Stigma",
+        content: [
+          "In Nigerian society, admitting you're struggling with mental health can feel like risking everything - your reputation, relationships, even your job prospects.",
+          "We often hear phrases like 'na weakness,' 'prayer go solve am,' or 'nothing dey wrong with you.' These attitudes prevent people from getting the help they need.",
+          "The truth is that mental illness affects people of all backgrounds, education levels, and faith traditions. It's not about weakness - it's about brain chemistry and life circumstances.",
+          "Many successful Nigerians struggle with mental health issues privately. You're not alone, and seeking help is a sign of strength, not weakness.",
+          "We must start conversations in our families, churches, and mosques about mental health. Silence only deepens the suffering.",
+        ],
+      },
+      {
+        number: 3,
+        title: "Understanding Depression in Nigerian Youth",
+        content: [
+          "Young Nigerians face unique pressures: academic expectations, unemployment, family responsibilities, and social media comparisons.",
+          "The pressure to 'succeed' and meet family expectations can be overwhelming. When things don't go as planned, depression can set in.",
+          "Signs of depression in Nigerian youth often include: persistent sadness, loss of interest in activities, changes in sleep and appetite, difficulty concentrating on studies.",
+          "Remember: Depression is not laziness. It's not about not trying hard enough or not praying enough. It's a medical condition that requires proper treatment.",
+          "If you're experiencing these symptoms, please reach out to a mental health professional. There are affordable and free resources available in Nigeria.",
+        ],
+      },
+      {
+        number: 4,
+        title: "Practical Steps to Mental Wellness",
+        content: [
+          "Mental wellness in the Nigerian context requires a holistic approach - addressing physical, emotional, social, and spiritual needs.",
+          "Connect with supportive friends and family who understand your struggle. Building a strong support system is crucial.",
+          "Engage in regular physical activity. Even a 20-minute walk daily can significantly improve your mood.",
+          "Maintain a routine. Structure helps when your mind feels chaotic. Set regular times for waking, eating, and sleeping.",
+          "Seek professional help when needed. Therapy and medication are tools, not signs of failure. Many Nigerian psychiatrists and psychologists understand our cultural context.",
+        ],
+      },
+      {
+        number: 5,
+        title: "Faith and Mental Health",
+        content: [
+          "As a Nigerian, your faith may be central to your identity. The good news is that faith and mental health treatment can work together.",
+          "Prayer, meditation, and spiritual practices can be powerful sources of comfort and strength alongside professional treatment.",
+          "Remember that God can work through doctors, therapists, and medication. Seeking medical help doesn't show lack of faith.",
+          "Many religious leaders now recognize the importance of mental health. Don't let anyone make you feel guilty for taking care of your mental wellbeing.",
+          "Your mental health journey can deepen your faith as you experience God's healing through multiple channels.",
+        ],
+      },
+    ],
+  },
+  "the-naija-mind": {
+    id: "the-naija-mind",
+    title: "The Naija Mind: Thriving Beyond Stress",
+    author: "Dr. Femi Olugbile",
+    chapters: [
+      {
+        number: 1,
+        title: "Understanding the Nigerian Experience",
+        content: [
+          "To be Nigerian is to be resilient. We face daily challenges that would overwhelm many - economic hardship, infrastructure problems, security concerns.",
+          "This constant stress takes a toll on our mental health, even when we don't realize it. We've normalized chronic stress as 'just how life is.'",
+          "But living under constant pressure isn't normal, and it's not sustainable. Your mental health matters just as much as your physical health.",
+          "This book explores the unique mental health challenges facing Nigerians and provides culturally relevant solutions.",
+          "We'll look at how to thrive, not just survive, in the Nigerian context.",
+        ],
+      },
+      {
+        number: 2,
+        title: "The Impact of Economic Stress",
+        content: [
+          "Financial stress is one of the leading causes of mental health problems in Nigeria. The pressure to provide, succeed, and 'make it' is immense.",
+          "Many Nigerians work multiple jobs just to make ends meet, leaving no time for rest or self-care.",
+          "This chronic financial stress can lead to anxiety, depression, and relationship problems.",
+          "While we can't always change our economic circumstances immediately, we can change how we respond to financial stress.",
+          "Learning to manage financial anxiety is crucial for mental wellness in Nigeria.",
+        ],
+      },
+      {
+        number: 3,
+        title: "Family Expectations and Mental Health",
+        content: [
+          "In Nigerian culture, family is everything. But family expectations can also be a major source of stress and anxiety.",
+          "The pressure to meet family expectations - get the right degree, secure the right job, marry the right person - can be overwhelming.",
+          "Many young Nigerians struggle with the conflict between their personal goals and family expectations.",
+          "It's important to set healthy boundaries while still honoring your family. You can love your family and still prioritize your mental health.",
+          "Remember: you cannot pour from an empty cup. Taking care of yourself enables you to better care for your family.",
+        ],
+      },
+      {
+        number: 4,
+        title: "Building Resilience",
+        content: [
+          "Resilience is the ability to bounce back from adversity. As Nigerians, we're already resilient - but we can develop even more strength.",
+          "Resilience isn't about never struggling. It's about having strategies to cope when challenges arise.",
+          "Build a strong support network. Don't try to carry everything alone. Reach out to friends, family, or support groups.",
+          "Practice self-care regularly, not just when you're at breaking point. Small daily practices add up.",
+          "Remember your past victories. You've overcome challenges before. You can do it again.",
+        ],
+      },
+    ],
+  },
+  "mental-wellness-for-african-youth": {
+    id: "mental-wellness-for-african-youth",
+    title: "Mental Wellness for African Youth",
+    author: "Dr. Chioma Nwosu",
+    chapters: [
+      {
+        number: 1,
+        title: "The Silent Struggle",
+        content: [
+          "African youth face unique mental health challenges that are often invisible to the older generation.",
+          "Social media pressure, academic stress, unemployment, and relationship issues compound with cultural expectations.",
+          "Many young Africans feel trapped between traditional values and modern realities, leading to identity confusion and anxiety.",
+          "The pressure to be perfect - to succeed academically, financially, and socially - is crushing many young people.",
+          "This book is for you if you're struggling silently, feeling like no one understands your pain.",
+        ],
+      },
+      {
+        number: 2,
+        title: "Understanding Anxiety in Young Africans",
+        content: [
+          "Anxiety among African youth is on the rise, fueled by economic uncertainty, social pressure, and uncertain futures.",
+          "You might experience anxiety as constant worry, panic attacks, difficulty sleeping, or physical symptoms like headaches and stomach problems.",
+          "Anxiety often comes with guilt - 'I should be grateful,' 'Others have it worse,' 'I'm being dramatic.'",
+          "But your pain is valid. Anxiety is not weakness. It's your brain's response to overwhelming stress.",
+          "The first step to managing anxiety is acknowledging it without judgment.",
+        ],
+      },
+      {
+        number: 3,
+        title: "Social Media and Mental Health",
+        content: [
+          "Social media shows everyone's highlight reel while you're living your behind-the-scenes reality.",
+          "Constant comparison leads to feelings of inadequacy, depression, and anxiety. Everyone seems to be doing better than you.",
+          "Remember: social media is curated. People post their wins, not their struggles. What you see is not the full picture.",
+          "It's okay to limit social media use or take breaks. Your mental health is more important than staying updated.",
+          "Focus on your own journey. Your timeline is different from everyone else's, and that's perfectly fine.",
+        ],
+      },
+      {
+        number: 4,
+        title: "Finding Your Voice",
+        content: [
+          "Many African youth struggle to express their feelings because they fear being dismissed or misunderstood.",
+          "Finding your voice means learning to communicate your needs, boundaries, and emotions clearly and respectfully.",
+          "Start small. Practice expressing your feelings with trusted friends or through journaling.",
+          "Remember that your feelings matter. You don't need permission to feel what you feel.",
+          "Speaking up for your mental health is not disrespecting your elders - it's taking responsibility for your wellbeing.",
+        ],
+      },
+      {
+        number: 5,
+        title: "Building Your Future",
+        content: [
+          "Despite the challenges, you can build a fulfilling future. Your current struggles don't define your entire life.",
+          "Set realistic goals that align with your values, not just societal expectations or social media standards.",
+          "Invest in your mental health now. The coping skills you develop today will serve you throughout life.",
+          "Surround yourself with positive, supportive people who encourage your growth.",
+          "Remember: it's okay to ask for help. Seeking therapy or counseling is wise, not weak.",
+        ],
+      },
+    ],
+  },
+  "mindful-living-in-lagos": {
+    id: "mindful-living-in-lagos",
+    title: "Mindful Living in Lagos: Finding Peace in the Chaos",
+    author: "Adaeze Chukwuemeka",
+    chapters: [
+      {
+        number: 1,
+        title: "The Lagos Hustle",
+        content: [
+          "Lagos never sleeps. The constant noise, traffic, crowds, and hustle can leave you feeling depleted and overwhelmed.",
+          "In a city where everyone is grinding, taking time for mental health can feel like luxury you can't afford.",
+          "But burnout is real, and it's becoming increasingly common among Lagosians. You can't pour from an empty cup.",
+          "This book explores practical ways to find peace and maintain mental wellness in one of Africa's most hectic cities.",
+          "You don't have to leave Lagos to find peace. You can create pockets of calm in the chaos.",
+        ],
+      },
+      {
+        number: 2,
+        title: "Morning Mindfulness in Traffic",
+        content: [
+          "Lagos traffic is inevitable. Instead of letting it stress you out, use it as an opportunity for mindfulness.",
+          "While stuck in traffic, practice deep breathing. Inhale for 4 counts, hold for 4, exhale for 4.",
+          "Listen to calming music, podcasts, or audiobooks that nourish your mind rather than news that increases anxiety.",
+          "Use traffic time for positive affirmations. Remind yourself of your goals and strengths.",
+          "Remember: traffic is outside your control. Your response to it is within your control.",
+        ],
+      },
+      {
+        number: 3,
+        title: "Setting Boundaries in a Busy City",
+        content: [
+          "In Lagos, everyone wants something from you - family, friends, colleagues. Learning to say no is crucial for mental health.",
+          "Saying no doesn't make you selfish. It makes you wise. You can't be everything to everyone.",
+          "Set clear work-life boundaries. Just because Lagos operates 24/7 doesn't mean you should.",
+          "Schedule time for rest and self-care as seriously as you schedule meetings.",
+          "Remember: rest is productive. It's not wasted time - it's necessary recharge time.",
+        ],
+      },
+      {
+        number: 4,
+        title: "Finding Community and Support",
+        content: [
+          "Despite Lagos's size, many people feel isolated and lonely. Building genuine connections is essential for mental wellness.",
+          "Seek out communities that align with your interests and values - faith groups, hobby clubs, support groups.",
+          "Don't try to navigate Lagos life alone. We're stronger together.",
+          "Be vulnerable with trusted friends. Share your struggles, not just your successes.",
+          "Remember: everyone in Lagos is hustling and struggling in some way. You're not alone in this.",
+        ],
+      },
+    ],
+  },
+  "overcoming-trauma-the-african-way": {
+    id: "overcoming-trauma-the-african-way",
+    title: "Overcoming Trauma: The African Way",
+    author: "Prof. Bola Ola",
+    chapters: [
+      {
+        number: 1,
+        title: "Understanding Trauma in African Context",
+        content: [
+          "Trauma is real in the African experience - from historical traumas of colonization to personal traumas of violence, loss, and hardship.",
+          "Many Africans have experienced traumatic events but don't recognize them as trauma because we're taught to be strong and move on.",
+          "Trauma doesn't just go away because you ignore it. Unhealed trauma affects your mental health, relationships, and physical health.",
+          "Common sources of trauma in Nigeria include violence, loss of loved ones, accidents, and childhood abuse or neglect.",
+          "Healing from trauma is possible. It requires acknowledgment, support, and often professional help.",
+        ],
+      },
+      {
+        number: 2,
+        title: "The Impact of Collective Trauma",
+        content: [
+          "Nigerians experience collective trauma from national events - economic crises, political violence, disasters.",
+          "These shared traumatic experiences affect entire communities, not just individuals.",
+          "The #EndSARS movement revealed collective trauma from police brutality and government neglect.",
+          "Collective healing requires community support, dialogue, and systemic change.",
+          "Individual healing and collective healing support each other. As you heal, you contribute to community healing.",
+        ],
+      },
+      {
+        number: 3,
+        title: "Traditional Healing and Modern Therapy",
+        content: [
+          "African traditional healing practices have supported mental wellness for centuries. These practices have value and shouldn't be dismissed.",
+          "At the same time, modern trauma therapy offers evidence-based techniques that can accelerate healing.",
+          "The best approach often combines both - honoring traditional wisdom while embracing modern science.",
+          "Community support, storytelling, and spiritual practices can complement professional therapy.",
+          "Don't let anyone tell you it's either traditional or modern. You can benefit from both.",
+        ],
+      },
+      {
+        number: 4,
+        title: "Rebuilding After Trauma",
+        content: [
+          "Healing from trauma is not linear. Some days will be better than others. That's normal and okay.",
+          "Focus on small steps forward. Progress is progress, no matter how small.",
+          "Surround yourself with safe, supportive people who respect your healing journey.",
+          "Practice self-compassion. You're doing the best you can with the resources you have.",
+          "Remember: your trauma doesn't define you. You're more than what happened to you.",
+        ],
+      },
+    ],
+  },
 }
