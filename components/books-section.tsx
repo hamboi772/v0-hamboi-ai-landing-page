@@ -1,13 +1,15 @@
 "use client"
 
 import { useState } from "react"
-import { Book, ExternalLink, Star, ChevronLeft, ChevronRight } from "lucide-react"
+import { Book, ExternalLink, Star, ChevronLeft, ChevronRight, BookOpen } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
+import Link from "next/link"
 
 const books = [
   {
+    id: "the-happiness-trap",
     title: "The Happiness Trap",
     author: "Russ Harris",
     authorInfo: "Renowned psychotherapist and ACT trainer",
@@ -17,8 +19,10 @@ const books = [
     rating: 4.8,
     link: "https://www.amazon.com/Happiness-Trap-Struggling-Start-Living/dp/1590305841",
     color: "from-blue-500 to-cyan-500",
+    hasContent: true, // Added flag to indicate books with reading content
   },
   {
+    id: "feeling-good",
     title: "Feeling Good: The New Mood Therapy",
     author: "David D. Burns",
     authorInfo: "Stanford psychiatrist and CBT pioneer",
@@ -28,8 +32,10 @@ const books = [
     rating: 4.7,
     link: "https://www.amazon.com/Feeling-Good-New-Mood-Therapy/dp/0380810336",
     color: "from-amber-500 to-orange-500",
+    hasContent: true, // Added flag to indicate books with reading content
   },
   {
+    id: "the-anxiety-phobia-workbook",
     title: "The Anxiety and Phobia Workbook",
     author: "Edmund J. Bourne",
     authorInfo: "Leading anxiety specialist with 30+ years experience",
@@ -39,8 +45,10 @@ const books = [
     rating: 4.6,
     link: "https://www.amazon.com/Anxiety-Phobia-Workbook-Edmund-Bourne/dp/1626252157",
     color: "from-purple-500 to-pink-500",
+    hasContent: false,
   },
   {
+    id: "maybe-you-should-talk-to-someone",
     title: "Maybe You Should Talk to Someone",
     author: "Lori Gottlieb",
     authorInfo: "Psychotherapist and New York Times bestselling author",
@@ -50,8 +58,10 @@ const books = [
     rating: 4.9,
     link: "https://www.amazon.com/Maybe-You-Should-Talk-Someone/dp/1328662055",
     color: "from-emerald-500 to-teal-500",
+    hasContent: false,
   },
   {
+    id: "the-body-keeps-the-score",
     title: "The Body Keeps the Score",
     author: "Bessel van der Kolk",
     authorInfo: "World-renowned trauma expert and psychiatrist",
@@ -61,8 +71,10 @@ const books = [
     rating: 4.8,
     link: "https://www.amazon.com/Body-Keeps-Score-Healing-Trauma/dp/0143127748",
     color: "from-rose-500 to-red-500",
+    hasContent: false,
   },
   {
+    id: "mindfulness-for-beginners",
     title: "Mindfulness for Beginners",
     author: "Jon Kabat-Zinn",
     authorInfo: "Creator of Mindfulness-Based Stress Reduction",
@@ -72,6 +84,7 @@ const books = [
     rating: 4.5,
     link: "https://www.amazon.com/Mindfulness-Beginners-Reclaiming-Present-Moment/dp/1622036670",
     color: "from-indigo-500 to-violet-500",
+    hasContent: false,
   },
 ]
 
@@ -154,15 +167,25 @@ export function BooksSection() {
                       <Star className="w-4 h-4 fill-amber-400 text-amber-400" />
                       <span className="text-sm font-medium">{book.rating}</span>
                     </div>
-                    <a
-                      href={book.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1 text-sm text-purple-600 hover:text-purple-700 font-medium"
-                    >
-                      Learn More
-                      <ExternalLink className="w-3 h-3" />
-                    </a>
+                    {/* Conditional button - Read Now for books with content, Learn More for external links */}
+                    {book.hasContent ? (
+                      <Link href={`/read/${book.id}`}>
+                        <Button size="sm" variant="ghost" className="text-purple-600 hover:text-purple-700">
+                          <BookOpen className="w-3 h-3 mr-1" />
+                          Read Now
+                        </Button>
+                      </Link>
+                    ) : (
+                      <a
+                        href={book.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1 text-sm text-purple-600 hover:text-purple-700 font-medium"
+                      >
+                        Learn More
+                        <ExternalLink className="w-3 h-3" />
+                      </a>
+                    )}
                   </div>
                 </CardContent>
               </Card>
