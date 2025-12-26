@@ -74,10 +74,14 @@ export function JournalManager() {
       return
     }
 
+    console.log("[v0] Starting journal save, user_id:", userId, "editing:", !!editingEntry)
+
     setLoading(true)
     try {
       const url = editingEntry ? `/api/journal/${editingEntry.id}` : "/api/journal"
       const method = editingEntry ? "PUT" : "POST"
+
+      console.log("[v0] Journal API call:", method, url)
 
       const response = await fetch(url, {
         method,
@@ -88,7 +92,9 @@ export function JournalManager() {
         }),
       })
 
+      console.log("[v0] Journal API response status:", response.status)
       const data = await response.json()
+      console.log("[v0] Journal API response data:", data)
 
       if (data.success) {
         toast.success(editingEntry ? "Entry updated" : "Entry created")
@@ -97,11 +103,12 @@ export function JournalManager() {
         setEditingEntry(null)
         fetchEntries()
       } else {
+        console.error("[v0] Journal save failed:", data.error)
         toast.error(data.error || "Failed to save entry")
       }
     } catch (error) {
       console.error("[v0] Save journal error:", error)
-      toast.error("Failed to save entry")
+      toast.error("Failed to save entry. Check console for details.")
     } finally {
       setLoading(false)
     }

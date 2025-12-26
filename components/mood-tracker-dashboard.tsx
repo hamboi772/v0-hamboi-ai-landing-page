@@ -63,6 +63,8 @@ export function MoodTrackerDashboard() {
       return
     }
 
+    console.log("[v0] Starting mood save, user_id:", userId, "mood:", selectedMood)
+
     setLoading(true)
     try {
       const response = await fetch("/api/moods", {
@@ -75,7 +77,9 @@ export function MoodTrackerDashboard() {
         }),
       })
 
+      console.log("[v0] Mood API response status:", response.status)
       const data = await response.json()
+      console.log("[v0] Mood API response data:", data)
 
       if (data.success) {
         toast.success("Mood saved successfully!")
@@ -83,11 +87,12 @@ export function MoodTrackerDashboard() {
         setNote("")
         fetchMoodHistory()
       } else {
+        console.error("[v0] Mood save failed:", data.error)
         toast.error(data.error || "Failed to save mood")
       }
     } catch (error) {
       console.error("[v0] Save mood error:", error)
-      toast.error("Failed to save mood")
+      toast.error("Failed to save mood. Check console for details.")
     } finally {
       setLoading(false)
     }

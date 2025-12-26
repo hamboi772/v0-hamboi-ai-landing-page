@@ -36,28 +36,40 @@ export function ReferralDashboard() {
   }, [])
 
   const fetchOrCreateReferral = async () => {
+    console.log("[v0] Fetching referral for user:", userId)
+
     setLoading(true)
     try {
       // Try to fetch existing referral
+      console.log("[v0] Checking for existing referral...")
       let response = await fetch(`/api/referrals?referrer_id=${userId}`)
+      console.log("[v0] Referral fetch response status:", response.status)
       let data = await response.json()
+      console.log("[v0] Referral fetch data:", data)
 
       if (!data.referral) {
         // Create new referral code
+        console.log("[v0] No existing referral, creating new one...")
         response = await fetch("/api/referrals", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ referrer_id: userId }),
         })
+        console.log("[v0] Referral create response status:", response.status)
         data = await response.json()
+        console.log("[v0] Referral create data:", data)
       }
 
       if (data.success) {
+        console.log("[v0] Referral loaded successfully:", data.referral)
         setReferral(data.referral)
+      } else {
+        console.error("[v0] Referral load failed:", data.error)
+        toast.error(data.error || "Failed to load referral")
       }
     } catch (error) {
       console.error("[v0] Referral fetch error:", error)
-      toast.error("Failed to load referral data")
+      toast.error("Failed to load referral data. Check console for details.")
     } finally {
       setLoading(false)
     }
