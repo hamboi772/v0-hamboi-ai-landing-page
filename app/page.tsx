@@ -18,6 +18,7 @@ import { InstallPrompt } from "@/components/install-prompt"
 import { WelcomeBackModal } from "@/components/welcome-back-modal"
 import { ShareAppModal } from "@/components/share-app-modal"
 import { DailyCheckIn } from "@/components/daily-check-in"
+import { ReferralTracker } from "@/components/referral-tracker"
 
 export default function HomePage() {
   return (
@@ -42,6 +43,7 @@ export default function HomePage() {
       <WelcomeBackModal />
       <ShareAppModal />
       <DailyCheckIn />
+      <ReferralTracker />
     </main>
   )
 }

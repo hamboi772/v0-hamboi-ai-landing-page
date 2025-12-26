@@ -2,9 +2,10 @@
 
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
-import { MessageSquare, Sparkles } from "lucide-react"
+import { MessageSquare, Sparkles, LayoutDashboard } from "lucide-react"
 import { ChatDemoModal } from "@/components/chat-demo-modal"
 import { AppStoreBadges } from "@/components/app-store-badges"
+import Link from "next/link"
 
 export function HeroSection() {
   const [isChatDemoOpen, setIsChatDemoOpen] = useState(false)
@@ -55,6 +56,16 @@ export function HeroSection() {
                     <MessageSquare className="h-5 w-5 mr-2" />
                     Try Chat Demo
                   </Button>
+                  <Link href="/features">
+                    <Button
+                      size="lg"
+                      variant="outline"
+                      className="border-2 border-hamboi-purple text-hamboi-purple hover:bg-hamboi-purple/10 text-lg px-8 py-6 rounded-full bg-transparent"
+                    >
+                      <LayoutDashboard className="h-5 w-5 mr-2" />
+                      My Dashboard
+                    </Button>
+                  </Link>
                 </div>
 
                 <div className="space-y-2">

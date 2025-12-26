@@ -43,12 +43,14 @@ export function Header() {
           </nav>
 
           <div className="hidden md:flex items-center gap-4">
-            <Button
-              variant="outline"
-              className="border-hamboi-purple text-hamboi-purple hover:bg-hamboi-purple/10 bg-transparent"
-            >
-              Download App
-            </Button>
+            <Link href="/features">
+              <Button
+                variant="outline"
+                className="border-hamboi-purple text-hamboi-purple hover:bg-hamboi-purple/10 bg-transparent"
+              >
+                My Dashboard
+              </Button>
+            </Link>
           </div>
 
           <button
@@ -72,7 +74,9 @@ export function Header() {
                 {link.label}
               </a>
             ))}
-            <Button className="w-full bg-hamboi-purple hover:bg-hamboi-purple/90">Download App</Button>
+            <Link href="/features" onClick={() => setIsMobileMenuOpen(false)}>
+              <Button className="w-full bg-hamboi-purple hover:bg-hamboi-purple/90">My Dashboard</Button>
+            </Link>
           </nav>
         )}
       </div>
