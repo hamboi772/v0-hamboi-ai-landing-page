@@ -1,5 +1,7 @@
 import { type NextRequest, NextResponse } from "next/server"
-import { createClient } from "@/lib/supabase/server"
+import { createClient } from "@supabase/supabase-js"
+
+const supabase = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.SUPABASE_SERVICE_ROLE_KEY!)
 
 export async function PUT(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
@@ -7,7 +9,7 @@ export async function PUT(request: NextRequest, { params }: { params: Promise<{ 
     const body = await request.json()
     const { title, content, mood_tag } = body
 
-    const supabase = await createClient()
+    console.log("[v0] Updating journal entry:", id)
 
     const { data, error } = await supabase
       .from("journal_entries")
@@ -21,11 +23,15 @@ export async function PUT(request: NextRequest, { params }: { params: Promise<{ 
       .select()
       .single()
 
-    if (error) throw error
+    if (error) {
+      console.error("[v0] Journal update error:", error)
+      throw error
+    }
 
+    console.log("[v0] Journal entry updated successfully")
     return NextResponse.json({ success: true, entry: data })
   } catch (error) {
-    console.error("Update journal error:", error)
+    console.error("[v0] Update journal error:", error)
     return NextResponse.json({ error: "Failed to update journal entry" }, { status: 500 })
   }
 }
@@ -33,15 +39,20 @@ export async function PUT(request: NextRequest, { params }: { params: Promise<{ 
 export async function DELETE(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
     const { id } = await params
-    const supabase = await createClient()
+
+    console.log("[v0] Deleting journal entry:", id)
 
     const { error } = await supabase.from("journal_entries").delete().eq("id", id)
 
-    if (error) throw error
+    if (error) {
+      console.error("[v0] Journal delete error:", error)
+      throw error
+    }
 
+    console.log("[v0] Journal entry deleted successfully")
     return NextResponse.json({ success: true })
   } catch (error) {
-    console.error("Delete journal error:", error)
+    console.error("[v0] Delete journal error:", error)
     return NextResponse.json({ error: "Failed to delete journal entry" }, { status: 500 })
   }
 }

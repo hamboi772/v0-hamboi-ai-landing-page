@@ -1,5 +1,7 @@
 import { type NextRequest, NextResponse } from "next/server"
-import { createClient } from "@/lib/supabase/server"
+import { createClient } from "@supabase/supabase-js"
+
+const supabase = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.SUPABASE_SERVICE_ROLE_KEY!)
 
 function generateReferralCode(length = 8): string {
   const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789" // Removed confusing chars
@@ -15,16 +17,17 @@ export async function POST(request: NextRequest) {
     const body = await request.json()
     const { referrer_id } = body
 
+    console.log("[v0] Creating referral code for:", referrer_id)
+
     if (!referrer_id) {
       return NextResponse.json({ error: "Referrer ID required" }, { status: 400 })
     }
-
-    const supabase = await createClient()
 
     // Check if user already has a referral code
     const { data: existing } = await supabase.from("referrals").select("*").eq("referrer_id", referrer_id).single()
 
     if (existing) {
+      console.log("[v0] Returning existing referral code")
       return NextResponse.json({ success: true, referral: existing })
     }
 
@@ -51,11 +54,15 @@ export async function POST(request: NextRequest) {
       .select()
       .single()
 
-    if (error) throw error
+    if (error) {
+      console.error("[v0] Referral insert error:", error)
+      throw error
+    }
 
+    console.log("[v0] Referral code created:", code)
     return NextResponse.json({ success: true, referral: data })
   } catch (error) {
-    console.error("Create referral error:", error)
+    console.error("[v0] Create referral error:", error)
     return NextResponse.json({ error: "Failed to create referral code" }, { status: 500 })
   }
 }
@@ -65,19 +72,23 @@ export async function GET(request: NextRequest) {
     const { searchParams } = new URL(request.url)
     const referrer_id = searchParams.get("referrer_id")
 
+    console.log("[v0] Fetching referral for:", referrer_id)
+
     if (!referrer_id) {
       return NextResponse.json({ error: "Referrer ID required" }, { status: 400 })
     }
 
-    const supabase = await createClient()
-
     const { data, error } = await supabase.from("referrals").select("*").eq("referrer_id", referrer_id).single()
 
-    if (error && error.code !== "PGRST116") throw error
+    if (error && error.code !== "PGRST116") {
+      console.error("[v0] Referral fetch error:", error)
+      throw error
+    }
 
+    console.log("[v0] Referral data:", data ? "found" : "not found")
     return NextResponse.json({ success: true, referral: data || null })
   } catch (error) {
-    console.error("Fetch referral error:", error)
+    console.error("[v0] Fetch referral error:", error)
     return NextResponse.json({ error: "Failed to fetch referral data" }, { status: 500 })
   }
 }

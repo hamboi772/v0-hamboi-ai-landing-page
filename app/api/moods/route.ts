@@ -1,10 +1,14 @@
 import { type NextRequest, NextResponse } from "next/server"
-import { createClient } from "@/lib/supabase/server"
+import { createClient } from "@supabase/supabase-js"
+
+const supabase = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.SUPABASE_SERVICE_ROLE_KEY!)
 
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json()
     const { mood_value, note, user_id } = body
+
+    console.log("[v0] Saving mood:", { mood_value, user_id, has_note: !!note })
 
     if (!mood_value || mood_value < 1 || mood_value > 5) {
       return NextResponse.json({ error: "Invalid mood value (1-5 required)" }, { status: 400 })
@@ -13,8 +17,6 @@ export async function POST(request: NextRequest) {
     if (!user_id) {
       return NextResponse.json({ error: "User ID required" }, { status: 400 })
     }
-
-    const supabase = await createClient()
 
     const { data, error } = await supabase
       .from("moods")
@@ -26,11 +28,15 @@ export async function POST(request: NextRequest) {
       .select()
       .single()
 
-    if (error) throw error
+    if (error) {
+      console.error("[v0] Supabase mood insert error:", error)
+      throw error
+    }
 
+    console.log("[v0] Mood saved successfully:", data)
     return NextResponse.json({ success: true, mood: data })
   } catch (error) {
-    console.error("Mood tracking error:", error)
+    console.error("[v0] Mood tracking error:", error)
     return NextResponse.json({ error: "Failed to save mood" }, { status: 500 })
   }
 }
@@ -41,11 +47,11 @@ export async function GET(request: NextRequest) {
     const user_id = searchParams.get("user_id")
     const days = Number.parseInt(searchParams.get("days") || "30")
 
+    console.log("[v0] Fetching moods for user:", user_id)
+
     if (!user_id) {
       return NextResponse.json({ error: "User ID required" }, { status: 400 })
     }
-
-    const supabase = await createClient()
 
     // Calculate date range
     const startDate = new Date()
@@ -58,11 +64,15 @@ export async function GET(request: NextRequest) {
       .gte("created_at", startDate.toISOString())
       .order("created_at", { ascending: true })
 
-    if (error) throw error
+    if (error) {
+      console.error("[v0] Supabase mood fetch error:", error)
+      throw error
+    }
 
+    console.log("[v0] Fetched moods:", data?.length || 0, "entries")
     return NextResponse.json({ success: true, moods: data || [] })
   } catch (error) {
-    console.error("Fetch moods error:", error)
+    console.error("[v0] Fetch moods error:", error)
     return NextResponse.json({ error: "Failed to fetch moods" }, { status: 500 })
   }
 }
