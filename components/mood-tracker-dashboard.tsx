@@ -118,23 +118,24 @@ export function MoodTrackerDashboard() {
           <CardDescription>Track your mood to understand patterns over time</CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
-          <div className="flex justify-between gap-2">
+          <div className="grid grid-cols-3 sm:grid-cols-5 gap-2 sm:gap-3">
             {moods.map((mood) => {
               const Icon = mood.icon
               return (
                 <button
                   key={mood.value}
                   onClick={() => setSelectedMood(mood.value)}
-                  className={`flex flex-col items-center gap-2 p-4 rounded-xl border-2 transition-all hover:scale-105 ${
+                  className={`flex flex-col items-center gap-1.5 sm:gap-2 p-3 sm:p-4 rounded-xl border-2 transition-all hover:scale-105 ${
                     selectedMood === mood.value ? `border-gray-400 bg-gray-50` : "border-gray-200 hover:border-gray-300"
                   }`}
                 >
-                  <Icon className={`h-8 w-8 ${mood.color}`} />
-                  <span className="text-sm font-medium">{mood.label}</span>
+                  <Icon className={`h-6 w-6 sm:h-8 sm:w-8 ${mood.color}`} />
+                  <span className="text-xs sm:text-sm font-medium text-center leading-tight">{mood.label}</span>
                 </button>
               )
             })}
           </div>
+          {/* </CHANGE> */}
 
           <div className="space-y-2">
             <label className="text-sm font-medium">Add a note (optional)</label>
