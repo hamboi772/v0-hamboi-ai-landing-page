@@ -30,10 +30,7 @@
       "favicon": "./assets/favicon.png"
     },
     "extra": {
-      "apiUrl": "https://v0-hamboi-ai-landing-page-7e7t-ge0ebg3mq.vercel.app",
-      "eas": {
-        "projectId": "hamboi-mindcare"
-      }
+      "apiUrl": "https://hamboimindcare.site"
     },
     "plugins": []
   }
