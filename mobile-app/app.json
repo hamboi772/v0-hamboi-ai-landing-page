@@ -23,16 +23,7 @@
       },
       "package": "com.hamboimindcare.app",
       "versionCode": 1,
-      "permissions": ["INTERNET"]
-    },
-    "web": {
-      "favicon": "./assets/favicon.png"
-    },
-    "extra": {
-      "eas": {
-        "projectId": "your-project-id-here"
-      },
-      "apiUrl": "https://hamboimindcare.site"
+      "permissions": []
     }
   }
 }

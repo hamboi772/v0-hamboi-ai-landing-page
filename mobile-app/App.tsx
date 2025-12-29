@@ -1,64 +1,64 @@
-import { NavigationContainer } from "@react-navigation/native"
-import { createNativeStackNavigator } from "@react-navigation/native-stack"
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
 import { StatusBar } from "expo-status-bar"
-import { Ionicons } from "@expo/vector-icons"
-import HomeScreen from "./screens/HomeScreen"
-import ChatScreen from "./screens/ChatScreen"
-import ResourcesScreen from "./screens/ResourcesScreen"
-import CrisisScreen from "./screens/CrisisScreen"
-import MoodTrackerScreen from "./screens/MoodTrackerScreen"
-import JournalScreen from "./screens/JournalScreen"
-import BooksScreen from "./screens/BooksScreen"
-import ReferralScreen from "./screens/ReferralScreen"
-import FeaturesScreen from "./screens/FeaturesScreen"
-
-const Stack = createNativeStackNavigator()
-const Tab = createBottomTabNavigator()
-
-function MainTabs() {
-  return (
-    <Tab.Navigator
-      screenOptions={({ route }) => ({
-        tabBarIcon: ({ focused, color, size }) => {
-          let iconName: any
-          if (route.name === "Home") iconName = focused ? "home" : "home-outline"
-          else if (route.name === "Features") iconName = focused ? "apps" : "apps-outline"
-          else if (route.name === "Books") iconName = focused ? "book" : "book-outline"
-          else if (route.name === "Chat") iconName = focused ? "chatbubbles" : "chatbubbles-outline"
-          return <Ionicons name={iconName} size={size} color={color} />
-        },
-        tabBarActiveTintColor: "#8B5CF6",
-        tabBarInactiveTintColor: "gray",
-        headerStyle: { backgroundColor: "#8B5CF6" },
-        headerTintColor: "#fff",
-        headerTitleStyle: { fontWeight: "bold" },
-      })}
-    >
-      <Tab.Screen name="Home" component={HomeScreen} options={{ title: "Hamboi Mindcare" }} />
-      <Tab.Screen name="Features" component={FeaturesScreen} options={{ title: "My Features" }} />
-      <Tab.Screen name="Books" component={BooksScreen} options={{ title: "Books" }} />
-      <Tab.Screen name="Chat" component={ChatScreen} options={{ title: "Chat AI" }} />
-    </Tab.Navigator>
-  )
-}
+import { StyleSheet, Text, View, TouchableOpacity, Linking } from "react-native"
 
 export default function App() {
+  const openWebsite = () => {
+    Linking.openURL("https://hamboimindcare.site")
+  }
+
   return (
-    <NavigationContainer>
+    <View style={styles.container}>
       <StatusBar style="auto" />
-      <Stack.Navigator>
-        <Stack.Screen name="Main" component={MainTabs} options={{ headerShown: false }} />
-        <Stack.Screen name="Resources" component={ResourcesScreen} options={{ title: "Resources" }} />
-        <Stack.Screen
-          name="Crisis"
-          component={CrisisScreen}
-          options={{ title: "Crisis Support", headerStyle: { backgroundColor: "#DC2626" }, headerTintColor: "#fff" }}
-        />
-        <Stack.Screen name="MoodTracker" component={MoodTrackerScreen} options={{ title: "Mood Tracker" }} />
-        <Stack.Screen name="Journal" component={JournalScreen} options={{ title: "Journal" }} />
-        <Stack.Screen name="Referral" component={ReferralScreen} options={{ title: "Refer & Earn" }} />
-      </Stack.Navigator>
-    </NavigationContainer>
+      <Text style={styles.title}>Hamboi Mindcare</Text>
+      <Text style={styles.subtitle}>Your Mental Wellness Companion</Text>
+
+      <TouchableOpacity style={styles.button} onPress={openWebsite}>
+        <Text style={styles.buttonText}>Open Hamboi Mindcare</Text>
+      </TouchableOpacity>
+
+      <Text style={styles.description}>
+        Access all features including mood tracking, journaling, mental health resources, and AI chat support.
+      </Text>
+    </View>
   )
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
+    padding: 20,
+  },
+  title: {
+    fontSize: 32,
+    fontWeight: "bold",
+    color: "#8B5CF6",
+    marginBottom: 10,
+  },
+  subtitle: {
+    fontSize: 18,
+    color: "#6B7280",
+    marginBottom: 40,
+    textAlign: "center",
+  },
+  button: {
+    backgroundColor: "#8B5CF6",
+    paddingHorizontal: 40,
+    paddingVertical: 15,
+    borderRadius: 10,
+    marginBottom: 30,
+  },
+  buttonText: {
+    color: "#fff",
+    fontSize: 18,
+    fontWeight: "bold",
+  },
+  description: {
+    fontSize: 14,
+    color: "#9CA3AF",
+    textAlign: "center",
+    lineHeight: 20,
+  },
+})
