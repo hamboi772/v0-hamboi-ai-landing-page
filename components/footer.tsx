@@ -16,10 +16,11 @@ const footerLinks = {
   ],
   company: [
     { name: "About Us", href: "/about" },
+    { name: "Our Founders", href: "/about/founders" }, // Added Founders link to Company section
     { name: "Careers", href: "/careers" },
     { name: "Blog", href: "/blog" },
     { name: "Contact", href: "/contact" },
-    { name: "Donate", href: "/donate" }, // Added Donate link to footer company section
+    { name: "Donate", href: "/donate" },
   ],
   legal: [
     { name: "Privacy Policy", href: "/privacy" },
