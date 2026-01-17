@@ -34,7 +34,7 @@ export function OurStorySection() {
                     <p className="text-sm text-purple-100 uppercase tracking-wide mb-1">HAMBOI stands for:</p>
                     <p className="text-white/90 text-sm leading-relaxed">
                       <strong>H</strong>ope <strong>A</strong>nd <strong>M</strong>ind <strong>B</strong>alance:{" "}
-                      <strong>O</strong>ngoing <strong>I</strong>mprovement
+                      <strong>O</strong>utreach <strong>I</strong>nitiative
                     </p>
                   </div>
                 </div>
