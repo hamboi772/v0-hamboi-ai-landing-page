@@ -43,6 +43,15 @@ export function Header() {
           </nav>
 
           <div className="hidden md:flex items-center gap-4">
+            <Link href="/donate">
+              <Button
+                variant="outline"
+                className="border-hamboi-pink text-hamboi-pink hover:bg-hamboi-pink/10 bg-transparent"
+              >
+                <Heart className="h-4 w-4 mr-2 fill-current" />
+                Donate
+              </Button>
+            </Link>
             <Link href="/features">
               <Button
                 variant="outline"
@@ -74,6 +83,12 @@ export function Header() {
                 {link.label}
               </a>
             ))}
+            <Link href="/donate" onClick={() => setIsMobileMenuOpen(false)}>
+              <Button className="w-full bg-gradient-to-r from-hamboi-pink to-hamboi-purple hover:opacity-90">
+                <Heart className="h-4 w-4 mr-2 fill-current" />
+                Donate
+              </Button>
+            </Link>
             <Link href="/features" onClick={() => setIsMobileMenuOpen(false)}>
               <Button className="w-full bg-hamboi-purple hover:bg-hamboi-purple/90">My Dashboard</Button>
             </Link>

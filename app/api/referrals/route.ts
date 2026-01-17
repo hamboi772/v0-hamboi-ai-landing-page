@@ -12,7 +12,14 @@ function generateCode(): string {
 
 export async function POST(request: NextRequest) {
   try {
-    const supabase = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.SUPABASE_SERVICE_ROLE_KEY!)
+    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
+    const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY
+
+    if (!supabaseUrl || !supabaseKey) {
+      return NextResponse.json({ error: "Database not configured" }, { status: 503 })
+    }
+
+    const supabase = createClient(supabaseUrl, supabaseKey)
 
     const body = await request.json()
     const { referrer_id } = body
@@ -42,7 +49,14 @@ export async function POST(request: NextRequest) {
 
 export async function GET(request: NextRequest) {
   try {
-    const supabase = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.SUPABASE_SERVICE_ROLE_KEY!)
+    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
+    const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY
+
+    if (!supabaseUrl || !supabaseKey) {
+      return NextResponse.json({ error: "Database not configured" }, { status: 503 })
+    }
+
+    const supabase = createClient(supabaseUrl, supabaseKey)
 
     const { searchParams } = new URL(request.url)
     const referrer_id = searchParams.get("referrer_id")

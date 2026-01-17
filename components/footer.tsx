@@ -19,6 +19,7 @@ const footerLinks = {
     { name: "Careers", href: "/careers" },
     { name: "Blog", href: "/blog" },
     { name: "Contact", href: "/contact" },
+    { name: "Donate", href: "/donate" }, // Added Donate link to footer company section
   ],
   legal: [
     { name: "Privacy Policy", href: "/privacy" },

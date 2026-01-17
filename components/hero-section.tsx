@@ -36,8 +36,8 @@ export function HeroSection() {
                 <p className="text-base md:text-lg font-medium text-hamboi-dark leading-relaxed">
                   <span className="text-hamboi-purple">H</span>ope <span className="text-hamboi-purple">A</span>nd{" "}
                   <span className="text-hamboi-purple">M</span>ind <span className="text-hamboi-purple">B</span>alance:{" "}
-                  <span className="text-hamboi-purple">O</span>utreach <span className="text-hamboi-purple">I</span>
-                  nitiative
+                  <span className="text-hamboi-purple">O</span>ngoing <span className="text-hamboi-purple">I</span>
+                  mprovement
                 </p>
               </div>
 

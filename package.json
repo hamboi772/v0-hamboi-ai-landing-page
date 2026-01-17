@@ -73,6 +73,7 @@
     "react-native-linear-gradient": "2.8.3",
     "react-native-safe-area-context": "latest",
     "react-native-screens": "latest",
+    "react-paystack": "^5.0.0",
     "react-resizable-panels": "^2.1.7",
     "recharts": "2.15.4",
     "sonner": "^1.7.4",

@@ -19,7 +19,7 @@ export default function HomeScreen({ navigation }: any) {
           </Text>
           <View style={styles.acronymBox}>
             <Text style={styles.acronymLabel}>HAMBOI</Text>
-            <Text style={styles.acronymText}>Hope And Mind Balance: Ongoing Improvement</Text>
+            <Text style={styles.acronymText}>Hope And Mind Balance: Outreach Initiative</Text>
           </View>
           <Text style={styles.heroDescription}>
             Talk to Hamboi Mindcare anytime you need support. You're not alone.
