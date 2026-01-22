@@ -4,7 +4,7 @@ import Image from "next/image"
 import { Button } from "@/components/ui/button"
 
 const founder = {
-  name: "Abdulhameed Abolarinwa Abiodun",
+  name: "Abiodun Abdulhameed Abolarinwa",
   role: "Founder & CEO",
   image: "/images/founder-abdulhameed.webp",
   title: "Young Nigerian Innovator & Mental Health Advocate",
