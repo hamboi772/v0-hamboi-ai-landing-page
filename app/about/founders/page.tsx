@@ -5,9 +5,9 @@ import { Button } from "@/components/ui/button"
 
 const founder = {
   name: "Abiodun Abdulhameed Abolarinwa",
-  role: "Founder & CEO",
+  role: "Founder, Hamboi Mindcare",
   image: "/images/founder-abdulhameed.webp",
-  title: "Young Nigerian Innovator & Mental Health Advocate",
+  title: "Teen Mental Health Advocate & Youth Innovator",
   bio: "A passionate advocate for teen mental health who created Hamboi Mindcare from personal experience. As a member of Team Nigeria for the FIRST Global Challenge 2025, he contributed to the team's success and was honored with the prestigious Dr. Mae Jemison Award for International Unity.",
   achievements: [
     "Dr. Mae Jemison Award - Bronze Medal (FIRST Global 2025)",
