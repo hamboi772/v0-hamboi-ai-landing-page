@@ -9,6 +9,8 @@
     "start": "next start"
   },
   "dependencies": {
+    "@expo/dom-webview": "latest",
+    "@expo/metro-runtime": "latest",
     "@expo/vector-icons": "15.0.3",
     "@google/generative-ai": "0.24.1",
     "@hookform/resolvers": "^3.10.0",
@@ -73,6 +75,7 @@
     "react-native-linear-gradient": "2.8.3",
     "react-native-safe-area-context": "latest",
     "react-native-screens": "latest",
+    "react-native-webview": "latest",
     "react-paystack": "^5.0.0",
     "react-resizable-panels": "^2.1.7",
     "recharts": "2.15.4",

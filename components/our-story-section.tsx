@@ -1,4 +1,5 @@
 import { Heart, Sparkles, Users } from "lucide-react"
+import Image from "next/image"
 
 export function OurStorySection() {
   return (
@@ -22,9 +23,15 @@ export function OurStorySection() {
             {/* Founder Image Section */}
             <div className="bg-gradient-to-r from-purple-500 to-blue-500 p-8 md:p-12 text-white">
               <div className="flex flex-col md:flex-row items-center gap-8">
-                {/* Avatar Placeholder */}
-                <div className="w-32 h-32 md:w-40 md:h-40 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center flex-shrink-0 border-4 border-white/30">
-                  <span className="text-5xl md:text-6xl font-bold">AH</span>
+                {/* Founder Photo */}
+                <div className="w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden flex-shrink-0 border-4 border-white/30 shadow-xl">
+                  <Image
+                    src="/images/founder-story.webp"
+                    alt="Abdulhameed Abolarinwa Abiodun - Founder of Hamboi Mindcare"
+                    width={160}
+                    height={160}
+                    className="w-full h-full object-cover"
+                  />
                 </div>
                 <div>
                   <h3 className="text-2xl md:text-3xl font-bold mb-2">Abiodun Abdul Hameed</h3>

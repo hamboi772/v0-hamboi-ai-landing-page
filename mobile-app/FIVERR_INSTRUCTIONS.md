@@ -20,17 +20,17 @@ I need you to build an Android APK file from my React Native/Expo app code that 
 ### What You Need to Do
 
 1. **Install Dependencies**
-   ```bash
+   \`\`\`bash
    cd mobile-app
    npm install
-   ```
+   \`\`\`
 
 2. **Build Production APK**
-   ```bash
+   \`\`\`bash
    npm install -g eas-cli
    eas login
    eas build --platform android --profile production
-   ```
+   \`\`\`
 
 3. **Deliver to Me**
    - The .apk file (production-ready)

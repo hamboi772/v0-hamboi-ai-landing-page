@@ -132,11 +132,11 @@ File: `scripts/002_create_mood_journal_referral_tables.sql`
 ## Next Steps to Activate
 
 ### 1. Run Database Script
-```sql
+\`\`\`sql
 -- Go to Supabase Dashboard → SQL Editor
 -- Paste contents of scripts/002_create_mood_journal_referral_tables.sql
 -- Run the script
-```
+\`\`\`
 
 ### 2. Publish the App
 - Click "Publish" button in v0 chat

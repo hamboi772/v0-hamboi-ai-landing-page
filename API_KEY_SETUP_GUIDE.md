@@ -45,13 +45,13 @@ This gives you **100 free requests per day** by rotating between 5 keys.
 3. Click **Settings** → **Environment Variables**
 4. Add these 5 variables:
 
-```
+\`\`\`
 GEMINI_API_KEY = [Your first API key]
 GEMINI_API_KEY_2 = [Your second API key]
 GEMINI_API_KEY_3 = [Your third API key]
 GEMINI_API_KEY_4 = [Your fourth API key]
 GEMINI_API_KEY_5 = [Your fifth API key]
-```
+\`\`\`
 
 5. Click **Save**
 6. Go to **Deployments** tab
@@ -69,7 +69,7 @@ The system automatically:
 
 Add this endpoint to check your API status:
 
-```typescript
+\`\`\`typescript
 // app/api/key-status/route.ts
 import { NextResponse } from "next/server"
 import { getAPIKeyRotation } from "@/lib/api-key-rotation"
@@ -86,7 +86,7 @@ export async function GET() {
     return NextResponse.json({ success: false, error: "Rotation not initialized" })
   }
 }
-```
+\`\`\`
 
 Visit `/api/key-status` to see remaining requests.
 

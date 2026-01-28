@@ -3,7 +3,7 @@
 ## Social Media Posts (WhatsApp Status, Instagram, Facebook, Twitter)
 
 ### Post 1 - Main Launch Announcement
-```
+\`\`\`
 🌟 Introducing Hamboi MindCare 🌟
 
 Free mental health support designed specifically for Nigerian teens!
@@ -21,10 +21,10 @@ Visit: hamboimindcare.site
 Your mental health matters. Take the first step today 💜
 
 #MentalHealthMatters #NigerianYouth #TeenMentalHealth #HamboiMindCare
-```
+\`\`\`
 
 ### Post 2 - Feature Highlight
-```
+\`\`\`
 Struggling with stress, anxiety, or just need someone to talk to?
 
 Hamboi MindCare is here for you:
@@ -38,10 +38,10 @@ Hamboi MindCare is here for you:
 hamboimindcare.site
 
 Share with someone who needs this 💜
-```
+\`\`\`
 
 ### Post 3 - Short Version (WhatsApp Status)
-```
+\`\`\`
 🧠💜 Hamboi MindCare is LIVE!
 
 Free mental health support for Nigerian teens.
@@ -51,7 +51,7 @@ Mood tracker | Journal | AI Chat | Resources
 👉 hamboimindcare.site
 
 Share this with your friends!
-```
+\`\`\`
 
 ---
 
@@ -64,7 +64,7 @@ Share this with your friends!
 
 **Email Body:**
 
-```
+\`\`\`
 Dear [Principal/Counselor/Pastor/Youth Leader Name],
 
 I hope this message finds you well.
@@ -105,14 +105,14 @@ Thank you for your time and for the important work you do supporting young peopl
 Warm regards,
 [Your Name]
 [Your Contact Information]
-```
+\`\`\`
 
 ---
 
 ## WhatsApp Message Templates
 
 ### Template 1 - For Group Chats
-```
+\`\`\`
 Hey everyone! 👋
 
 I wanted to share something important with you all.
@@ -131,10 +131,10 @@ Everything is anonymous and free. No sign-up needed.
 Check it out: hamboimindcare.site
 
 If you're going through anything or just want to understand your emotions better, this might help. Share with friends who might need it too 💜
-```
+\`\`\`
 
 ### Template 2 - Personal Messages
-```
+\`\`\`
 Hi! Hope you're doing well.
 
 I came across this mental health platform called Hamboi MindCare that's made for Nigerian teens. It's completely free and anonymous.
@@ -144,7 +144,7 @@ It has tools like mood tracking, journaling, and even an AI chat if you need som
 Thought you might find it helpful: hamboimindcare.site
 
 No pressure - just wanted to share in case you or someone you know could use it 💜
-```
+\`\`\`
 
 ---
 
@@ -153,12 +153,12 @@ No pressure - just wanted to share in case you or someone you know could use it 
 ### Story 1 - Announcement
 Background: Purple gradient
 Text: 
-```
+\`\`\`
 NEW: Hamboi MindCare
 Free Mental Health Support
 For Nigerian Teens
 Swipe Up: hamboimindcare.site
-```
+\`\`\`
 
 ### Story 2 - Question Sticker
 Background: Soft lavender

@@ -13,33 +13,33 @@ A React Native mobile app for mental health support built with Expo.
 ## Setup
 
 1. Install dependencies:
-```bash
+\`\`\`bash
 npm install
-```
+\`\`\`
 
 2. Start the development server:
-```bash
+\`\`\`bash
 npm start
-```
+\`\`\`
 
 3. Run on Android:
-```bash
+\`\`\`bash
 npm run android
-```
+\`\`\`
 
 4. Run on iOS:
-```bash
+\`\`\`bash
 npm run ios
-```
+\`\`\`
 
 ## Building for Production
 
 ### Android (Play Store)
 
 1. Build APK/AAB:
-```bash
+\`\`\`bash
 expo build:android
-```
+\`\`\`
 
 2. Follow the prompts to configure your app signing
 
@@ -50,9 +50,9 @@ expo build:android
 ### iOS (App Store)
 
 1. Build IPA:
-```bash
+\`\`\`bash
 expo build:ios
-```
+\`\`\`
 
 2. Follow the prompts to configure your certificates
 
@@ -70,9 +70,9 @@ To change this, edit `app.json` under `expo.extra.apiUrl`
 ## Publishing
 
 To publish updates over-the-air:
-```bash
+\`\`\`bash
 expo publish
-```
+\`\`\`
 
 ## Support
 

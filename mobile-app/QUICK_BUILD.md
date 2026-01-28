@@ -4,31 +4,31 @@ For experienced developers who just want the commands:
 
 ## Initial Setup (Once)
 
-```bash
+\`\`\`bash
 cd mobile-app
 npm install
 npm install -g eas-cli
 eas login
 eas build:configure
-```
+\`\`\`
 
 ## Build AAB
 
-```bash
+\`\`\`bash
 eas build --platform android --profile production
-```
+\`\`\`
 
 ## Build APK (for testing)
 
-```bash
+\`\`\`bash
 eas build --platform android --profile preview
-```
+\`\`\`
 
 ## Check Build Status
 
-```bash
+\`\`\`bash
 eas build:list
-```
+\`\`\`
 
 ## Download Latest Build
 

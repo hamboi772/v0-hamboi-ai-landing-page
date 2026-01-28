@@ -29,17 +29,17 @@
 
 **Vercel will show you DNS records like this:**
 
-```
+\`\`\`
 Type: A
 Name: @
 Value: 76.76.21.21
-```
+\`\`\`
 
-```
+\`\`\`
 Type: CNAME
 Name: www
 Value: cname.vercel-dns.com
-```
+\`\`\`
 
 **Copy these values - you'll need them in Step 3**
 

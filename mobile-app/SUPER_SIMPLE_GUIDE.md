@@ -126,9 +126,9 @@ Now you need to tell the computer "Go to my app folder!"
 ### **The Type-It Way:**
 
 Type this in the command box:
-```
+\`\`\`
 cd Desktop/hamboi-mindcare/mobile-app
-```
+\`\`\`
 Then press **ENTER**
 
 **Done! ✅ You're in the app folder!**
@@ -142,9 +142,9 @@ Think of building an app like baking a cake - you need ingredients!
 ### **Get Ingredient 1:**
 
 In the command box, type:
-```
+\`\`\`
 npm install
-```
+\`\`\`
 
 Press **ENTER**
 
@@ -158,9 +158,9 @@ Press **ENTER**
 ### **Get Ingredient 2 (The Oven):**
 
 In the command box, type:
-```
+\`\`\`
 npm install -g eas-cli
-```
+\`\`\`
 
 Press **ENTER**
 
@@ -178,9 +178,9 @@ Press **ENTER**
 You need a FREE account to build the app.
 
 In the command box, type:
-```
+\`\`\`
 eas login
-```
+\`\`\`
 
 Press **ENTER**
 
@@ -205,9 +205,9 @@ Press **ENTER**
 This is the exciting part!
 
 In the command box, type:
-```
+\`\`\`
 eas build --platform android --profile production
-```
+\`\`\`
 
 Press **ENTER**
 
