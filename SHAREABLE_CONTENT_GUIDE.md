@@ -9,7 +9,7 @@
 ## Copy-Paste Messages for Sharing
 
 ### WhatsApp Message
-```
+\`\`\`
 Hey! 👋 I found this amazing app for Nigerian teens dealing with mental health challenges.
 
 Hamboi MindCare offers:
@@ -21,17 +21,17 @@ Hamboi MindCare offers:
 It's a PWA so you can install it directly from the website - no app store needed!
 
 Check it out: [Your URL]
-```
+\`\`\`
 
 ### WhatsApp Status Caption
-```
+\`\`\`
 Mental health matters 💜
 Found this free support app for Nigerian teens
 Swipe up to check out Hamboi MindCare 👆
-```
+\`\`\`
 
 ### Twitter/X Post
-```
+\`\`\`
 Nigerian teens deserve mental health support. 
 
 Hamboi MindCare is a free app offering:
@@ -44,10 +44,10 @@ No Play Store needed - install directly from the site.
 [Your URL]
 
 #MentalHealthNG #NigerianYouth #MentalHealthMatters
-```
+\`\`\`
 
 ### Instagram Caption
-```
+\`\`\`
 Mental health support made accessible 💜
 
 Hamboi MindCare is here for Nigerian teenagers who need:
@@ -59,10 +59,10 @@ Hamboi MindCare is here for Nigerian teenagers who need:
 Swipe up or check link in bio to install 👆
 
 #MentalHealthNG #NigerianYouth #MentalHealthMatters #HamboiCare #TeenSupport
-```
+\`\`\`
 
 ### TikTok Video Script
-```
+\`\`\`
 POV: You found a free mental health app for Nigerian teens 🇳🇬
 
 [Show app interface]
@@ -76,11 +76,11 @@ No app store needed - install from the website!
 Link in bio 💜
 
 #MentalHealthNG #NigerianTikTok #MentalHealthMatters #TeenSupport #Nigeria
-```
+\`\`\`
 
 ## Influencer Outreach Template
 
-```
+\`\`\`
 Hi [Name],
 
 I came across your content about [mental health/youth issues] and really appreciate the work you do.
@@ -95,7 +95,7 @@ Link: [Your URL]
 
 Thanks for considering,
 [Your Name]
-```
+\`\`\`
 
 ## Retention Features Added
 

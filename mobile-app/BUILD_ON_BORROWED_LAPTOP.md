@@ -82,9 +82,9 @@
 3. Press **Enter**
 4. A black box appears
 5. Type this (replace "YourName" with actual Windows username):
-   ```
+   \`\`\`
    cd Desktop\v0-hamboi-ai-landing-page\mobile-app
-   ```
+   \`\`\`
 6. Press **Enter**
 
 **Tip:** Don't know your username? 
@@ -102,9 +102,9 @@
 2. Type **"terminal"**
 3. Press **Enter**
 4. Type:
-   ```
+   \`\`\`
    cd Desktop/v0-hamboi-ai-landing-page/mobile-app
-   ```
+   \`\`\`
 5. Press **Enter**
 
 **Easier way for Mac:**
@@ -119,9 +119,9 @@
 ### Step 5: Install App Dependencies
 
 In the command box, type:
-```
+\`\`\`
 npm install
-```
+\`\`\`
 
 Press **Enter** and wait.
 
@@ -140,9 +140,9 @@ Press **Enter** and wait.
 ### Step 6: Install Build Tool (EAS)
 
 Type this:
-```
+\`\`\`
 npm install -g eas-cli
-```
+\`\`\`
 
 Press **Enter** and wait (2-3 minutes).
 
@@ -160,9 +160,9 @@ Press **Enter** and wait (2-3 minutes).
 ### Step 7: Sign Up for Expo
 
 Type:
-```
+\`\`\`
 eas login
-```
+\`\`\`
 
 Press **Enter**.
 
@@ -195,9 +195,9 @@ Press **Enter**.
 ### Step 8: Start the Build
 
 Type this command:
-```
+\`\`\`
 eas build --platform android --profile production
-```
+\`\`\`
 
 Press **Enter**.
 
@@ -222,11 +222,11 @@ Press **Enter**.
    - DON'T close the window!
 
 5. When finished, you'll see:
-   ```
+   \`\`\`
    ✔ Build finished!
    
    Download URL: https://expo.dev/artifacts/eas/xxxxx.aab
-   ```
+   \`\`\`
 
 ---
 

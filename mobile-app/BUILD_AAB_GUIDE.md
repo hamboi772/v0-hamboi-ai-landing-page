@@ -34,25 +34,25 @@ You need these installed on your laptop:
 
 ### Step 3: Navigate to Mobile App Folder
 
-```bash
+\`\`\`bash
 cd path/to/hamboi-mindcare/mobile-app
-```
+\`\`\`
 
 Replace `path/to/hamboi-mindcare` with the actual path where you extracted the project.
 
 ### Step 4: Install Dependencies
 
-```bash
+\`\`\`bash
 npm install
-```
+\`\`\`
 
 This will take 2-5 minutes. Wait for it to complete.
 
 ### Step 5: Install EAS CLI
 
-```bash
+\`\`\`bash
 npm install -g eas-cli
-```
+\`\`\`
 
 This installs the Expo Application Services CLI globally on your laptop.
 
@@ -65,17 +65,17 @@ This installs the Expo Application Services CLI globally on your laptop.
 
 ### Step 7: Login to Expo
 
-```bash
+\`\`\`bash
 eas login
-```
+\`\`\`
 
 Enter your Expo email and password when prompted.
 
 ### Step 8: Configure Your Project
 
-```bash
+\`\`\`bash
 eas build:configure
-```
+\`\`\`
 
 When asked:
 - Select **Android**
@@ -83,9 +83,9 @@ When asked:
 
 ### Step 9: Build the AAB
 
-```bash
+\`\`\`bash
 eas build --platform android --profile production
-```
+\`\`\`
 
 **What happens now:**
 - EAS uploads your code to Expo's servers

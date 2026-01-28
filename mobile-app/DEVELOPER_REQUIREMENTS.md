@@ -32,7 +32,7 @@ I have a **complete, ready-to-build Expo React Native application**. I need you 
 
 The mobile app code is in the `mobile-app/` folder with:
 
-```
+\`\`\`
 mobile-app/
 ├── App.tsx                  # Main app entry
 ├── app.json                 # App configuration
@@ -44,36 +44,36 @@ mobile-app/
 │   ├── ResourcesScreen.tsx
 │   └── CrisisScreen.tsx
 └── assets/                  # Icons and images
-```
+\`\`\`
 
 ---
 
 ## Build Instructions
 
 ### Step 1: Install Dependencies
-```bash
+\`\`\`bash
 cd mobile-app
 npm install
-```
+\`\`\`
 
 ### Step 2: Install EAS CLI
-```bash
+\`\`\`bash
 npm install -g eas-cli
-```
+\`\`\`
 
 ### Step 3: Login to Expo (or create account)
-```bash
+\`\`\`bash
 eas login
-```
+\`\`\`
 If you don't have an Expo account, create one at expo.dev (it's free)
 
 ### Step 4: Configure Build
 The project is already configured in `eas.json` with production profile for AAB build.
 
 ### Step 5: Build AAB
-```bash
+\`\`\`bash
 eas build --platform android --profile production
-```
+\`\`\`
 
 This command will:
 - Upload the code to Expo's build servers

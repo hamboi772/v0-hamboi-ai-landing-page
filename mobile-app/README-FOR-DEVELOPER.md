@@ -7,25 +7,25 @@ Thank you for building this app! This is a complete Expo/React Native project re
 ## What You Need To Do
 
 1. Install dependencies:
-```bash
+\`\`\`bash
 cd mobile-app
 npm install
-```
+\`\`\`
 
 2. Install EAS CLI globally:
-```bash
+\`\`\`bash
 npm install -g eas-cli
-```
+\`\`\`
 
 3. Login to Expo (you can use your own account):
-```bash
+\`\`\`bash
 eas login
-```
+\`\`\`
 
 4. Build the Android App Bundle (AAB):
-```bash
+\`\`\`bash
 eas build --platform android --profile production
-```
+\`\`\`
 
 5. Wait for the build to complete (10-15 minutes)
 6. Download the .aab file from the link Expo provides
@@ -46,6 +46,6 @@ No additional setup needed. Just run the commands above.
 
 ## Support
 If you encounter any issues, the configuration is standard Expo setup. Refer to Expo documentation at docs.expo.dev
-```
+\`\`\`
 
-```json file="" isHidden
+\`\`\`json file="" isHidden

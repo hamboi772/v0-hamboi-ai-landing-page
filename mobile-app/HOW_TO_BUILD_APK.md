@@ -26,9 +26,9 @@ This guide will walk you through building an Android APK file that you can uploa
 
 **Verify Installation:**
 Open Terminal (Mac/Linux) or Command Prompt (Windows) and type:
-```bash
+\`\`\`bash
 node --version
-```
+\`\`\`
 You should see something like: v20.x.x
 
 ## Step 2: Open Terminal/Command Prompt
@@ -51,14 +51,14 @@ You should see something like: v20.x.x
 In Terminal/Command Prompt, type:
 
 **If you saved it in Downloads:**
-```bash
+\`\`\`bash
 cd Downloads/mobile-app
-```
+\`\`\`
 
 **If you saved it in Documents:**
-```bash
+\`\`\`bash
 cd Documents/mobile-app
-```
+\`\`\`
 
 **If you're not sure where it is:**
 - Windows: Type `dir` to see files in current location
@@ -67,9 +67,9 @@ cd Documents/mobile-app
 ## Step 4: Install Dependencies
 
 Type this command and press Enter:
-```bash
+\`\`\`bash
 npm install
-```
+\`\`\`
 
 **What this does:** Downloads all the code libraries your app needs
 **How long:** 2-5 minutes
@@ -80,9 +80,9 @@ Wait until you see a prompt again (usually shows your folder path).
 ## Step 5: Install Expo CLI
 
 Type this command:
-```bash
+\`\`\`bash
 npm install -g eas-cli
-```
+\`\`\`
 
 **What this does:** Installs Expo's build tool globally on your computer
 **How long:** 1-2 minutes
@@ -98,9 +98,9 @@ Go to https://expo.dev in your browser:
 ## Step 7: Login to Expo
 
 Back in Terminal/Command Prompt, type:
-```bash
+\`\`\`bash
 eas login
-```
+\`\`\`
 
 **What happens:**
 - It asks for your email: Type the email you used for Expo account
@@ -113,9 +113,9 @@ You should see: "Logged in as [your-email]"
 ## Step 8: Build the APK
 
 Now type this command:
-```bash
+\`\`\`bash
 eas build --platform android --profile production
-```
+\`\`\`
 
 **What happens next:**
 

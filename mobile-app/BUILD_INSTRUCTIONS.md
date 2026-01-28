@@ -10,28 +10,28 @@
 
 ### 1. Install Dependencies
 
-```bash
+\`\`\`bash
 cd mobile-app
 npm install
-```
+\`\`\`
 
 ### 2. Login to Expo
 
-```bash
+\`\`\`bash
 eas login
-```
+\`\`\`
 
 ### 3. Configure the Project
 
-```bash
+\`\`\`bash
 eas build:configure
-```
+\`\`\`
 
 ### 4. Build APK for Play Store
 
-```bash
+\`\`\`bash
 eas build --platform android --profile production
-```
+\`\`\`
 
 This will:
 - Upload your code to Expo servers
@@ -64,9 +64,9 @@ After the build completes, you'll get a download link. Download the APK file.
 
 For a faster build to test:
 
-```bash
+\`\`\`bash
 eas build --platform android --profile preview
-```
+\`\`\`
 
 This creates an APK you can install directly without Play Store.
 
