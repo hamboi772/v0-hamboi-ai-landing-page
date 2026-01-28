@@ -100,7 +100,7 @@ const books = [
     hasContent: true,
   },
   {
-    id: "the-anxiety-phobia-workbook",
+    id: "the-anxiety-and-phobia-workbook",
     title: "The Anxiety and Phobia Workbook",
     author: "Edmund J. Bourne",
     authorInfo: "Leading anxiety specialist with 30+ years experience",
