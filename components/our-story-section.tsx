@@ -13,9 +13,9 @@ export function OurStorySection() {
               Our Story
             </span>
             <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4 text-balance">
-              The Bronze Medal We Won from Our Bedrooms
+              Built From Real Experiences
             </h2>
-            <p className="text-muted-foreground text-lg">How a robotics award led to a mental health mission</p>
+            <p className="text-muted-foreground text-lg">The story behind Hamboi MindCare</p>
           </div>
 
           {/* Story Card */}
@@ -61,83 +61,39 @@ export function OurStorySection() {
             <div className="p-8 md:p-12">
               <div className="prose prose-lg max-w-none">
                 <p className="text-foreground text-lg leading-relaxed mb-6">
-                  In competitive robotics, 2025 was meant to be our year. As part of Team Nigeria, my teammates and I 
-                  spent months coding, building, failing, fixing, and trying again. All that hard work paid off when 
-                  we won the <strong>Dr. Mae Jemison Award for International Unity</strong> at the FIRST Global Challenge, 
-                  earning a Bronze Medal and ranking among teams from around the world.
+                  {'"'}My name is Abiodun Abdul Hameed. I{`'`}m a 15-year-old student from Nigeria, and Hamboi MindCare 
+                  didn{`'`}t start in a boardroom or a tech lab. It started from real experiences — things my family 
+                  and I went through, and feelings I didn{`'`}t always know how to talk about.{'"'}
                 </p>
 
                 <p className="text-muted-foreground leading-relaxed mb-6">
-                  On paper, it was a big win. But we weren{`'`}t there. While students from over 190 countries gathered 
-                  in Panama City, my teammates and I were still at home in Nigeria. Not because our robot failed. Not 
-                  because we weren{`'`}t good enough. But because of visa issues and financial challenges.
+                  Growing up, I saw how mental health struggles can quietly affect families and young people. I also 
+                  felt the pressure that many teenagers feel — school stress, expectations, and moments where it feels 
+                  like you have to be strong all the time.
+                </p>
+
+                <p className="text-muted-foreground leading-relaxed mb-6">
+                  In Nigeria and many parts of the world, mental health is not something teenagers talk about openly. 
+                  There is often silence, misunderstanding, or fear of being judged. Sometimes, you just need a safe 
+                  place to breathe and feel understood.
                 </p>
 
                 <div className="bg-teal-50 rounded-2xl p-6 my-8 border-l-4 border-teal-500">
                   <p className="text-teal-900 font-medium italic text-lg">
-                    {'"'}We watched the opening ceremony on our phones. We were global medalists — watching from our bedrooms.{'"'}
+                    {'"'}I created Hamboi MindCare because I wanted to build the friend I wished I had during hard 
+                    moments — something that could listen, share helpful ideas, and remind young people that their 
+                    feelings matter.{'"'}
                   </p>
                 </div>
 
-                <h4 className="text-xl font-bold text-foreground mt-8 mb-4">What It Felt Like to Be "Stuck"</h4>
-
                 <p className="text-muted-foreground leading-relaxed mb-6">
-                  Being a young Nigerian student comes with a lot of pressure. You{`'`}re expected to do well in school, 
-                  build skills, dream big, and somehow not get tired. When something finally works out — and then gets 
-                  taken away — it hurts more than people realize.
-                </p>
-
-                <p className="text-muted-foreground leading-relaxed mb-6">
-                  That moment made me think deeply. If we — students who had just won an international award — felt 
-                  frustrated and drained, what about other students who don{`'`}t get recognition at all? So many young 
-                  people are stressed, overwhelmed, and silently struggling.
-                </p>
-
-                <h4 className="text-xl font-bold text-foreground mt-8 mb-4">How Hamboi MindCare Started</h4>
-
-                <p className="text-muted-foreground leading-relaxed mb-6">
-                  That experience pushed me to act. I decided that if I couldn{`'`}t travel to Panama, I would still 
-                  build something that matters. That{`'`}s how <strong>Hamboi MindCare</strong> was born.
-                </p>
-
-                <p className="text-muted-foreground leading-relaxed mb-6">
-                  I used what I learned from robotics — problem-solving and logic — and applied it to mental health 
-                  awareness. Hamboi MindCare is a student-led platform created to support young people through AI 
-                  conversations, reflection tools, and shared experiences.
-                </p>
-
-                <div className="bg-gray-50 rounded-2xl p-6 my-8">
-                  <p className="text-gray-700 font-medium mb-3">It{`'`}s for:</p>
-                  <ul className="space-y-2 text-muted-foreground">
-                    <li className="flex items-center gap-2">
-                      <span className="w-2 h-2 bg-teal-500 rounded-full"></span>
-                      Students stressed about exams
-                    </li>
-                    <li className="flex items-center gap-2">
-                      <span className="w-2 h-2 bg-teal-500 rounded-full"></span>
-                      Teens feeling overwhelmed or misunderstood
-                    </li>
-                    <li className="flex items-center gap-2">
-                      <span className="w-2 h-2 bg-teal-500 rounded-full"></span>
-                      Young people who just need to know they{`'`}re not alone
-                    </li>
-                  </ul>
-                  <p className="text-muted-foreground mt-4 text-sm italic">
-                    It{`'`}s not therapy. It{`'`}s a safe starting place.
-                  </p>
-                </div>
-
-                <h4 className="text-xl font-bold text-foreground mt-8 mb-4">What Unity Means to Me Now</h4>
-
-                <p className="text-muted-foreground leading-relaxed mb-6">
-                  Our award was for International Unity. I{`'`}ve learned that unity isn{`'`}t about being in the same 
-                  country. It{`'`}s about understanding each other{`'`}s struggles and choosing to support one another anyway.
+                  Hamboi MindCare is my way of telling other teenagers: you are not alone. It{`'`}s a student-led 
+                  space for learning, sharing, and supporting one another through articles, reflections, and conversations.
                 </p>
 
                 <p className="text-foreground font-medium text-lg leading-relaxed">
-                  We may have been grounded, but our ideas were not. With Hamboi MindCare, I want to help prove that 
-                  you don{`'`}t need to leave your country to make an impact. Sometimes, change starts right where you 
-                  are — at 15, with a laptop, a phone, and a strong reason to care.
+                  You don{`'`}t have to have everything figured out. Sometimes, just knowing someone understands is 
+                  enough to take the next step.
                 </p>
               </div>
 
