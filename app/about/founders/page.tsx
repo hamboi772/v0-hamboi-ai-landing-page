@@ -175,6 +175,16 @@ export default function FoundersPage() {
                     ))}
                   </ul>
                 </div>
+
+                {/* Read Full Story Button */}
+                <div className="mt-6 pt-6 border-t border-gray-100">
+                  <Link href="/about/article">
+                    <Button className="w-full bg-gradient-to-r from-purple-600 to-blue-500 text-white hover:opacity-90">
+                      <Award className="w-4 h-4 mr-2" />
+                      Read Full Story: "The Bronze Medal We Won from Our Bedrooms"
+                    </Button>
+                  </Link>
+                </div>
               </div>
             </div>
           </div>

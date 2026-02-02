@@ -1,5 +1,7 @@
-import { Award, Globe, Heart, Sparkles, Users } from "lucide-react"
+import { Award, Globe, Heart, Sparkles, Users, ArrowRight } from "lucide-react"
 import Image from "next/image"
+import Link from "next/link"
+import { Button } from "@/components/ui/button"
 
 export function OurStorySection() {
   return (
@@ -133,7 +135,7 @@ export function OurStorySection() {
           {/* Call to Action */}
           <div className="text-center mt-12">
             <p className="text-muted-foreground mb-4">Join us in our mission to support teen mental health</p>
-            <div className="flex flex-wrap justify-center gap-4">
+            <div className="flex flex-wrap justify-center gap-4 mb-6">
               <span className="inline-flex items-center gap-2 bg-teal-100 text-teal-700 px-4 py-2 rounded-full text-sm font-medium">
                 <Heart className="w-4 h-4" />
                 Made with love in Nigeria
@@ -143,6 +145,13 @@ export function OurStorySection() {
                 For teens everywhere
               </span>
             </div>
+            <Link href="/about/article">
+              <Button className="bg-gradient-to-r from-teal-500 to-cyan-600 text-white hover:opacity-90">
+                <Award className="w-4 h-4 mr-2" />
+                Read Full Story: "The Bronze Medal We Won from Our Bedrooms"
+                <ArrowRight className="w-4 h-4 ml-2" />
+              </Button>
+            </Link>
           </div>
         </div>
       </div>
