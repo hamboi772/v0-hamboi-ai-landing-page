@@ -16,7 +16,8 @@ const footerLinks = {
   ],
   company: [
     { name: "About Us", href: "/about" },
-    { name: "Our Founders", href: "/about/founders" }, // Added Founders link to Company section
+    { name: "Our Founders", href: "/about/founders" },
+    { name: "Founder's Story", href: "/about/article" },
     { name: "Careers", href: "/careers" },
     { name: "Blog", href: "/blog" },
     { name: "Contact", href: "/contact" },
