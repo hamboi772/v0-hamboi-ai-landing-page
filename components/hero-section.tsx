@@ -1,14 +1,55 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
-import { MessageSquare, Sparkles, LayoutDashboard } from "lucide-react"
+import { MessageSquare, Sparkles, LayoutDashboard, Download, Smartphone, X } from "lucide-react"
 import { ChatDemoModal } from "@/components/chat-demo-modal"
 import { AppStoreBadges } from "@/components/app-store-badges"
 import Link from "next/link"
 
 export function HeroSection() {
   const [isChatDemoOpen, setIsChatDemoOpen] = useState(false)
+  const [deferredPrompt, setDeferredPrompt] = useState<any>(null)
+  const [isInstallable, setIsInstallable] = useState(false)
+  const [isIOS, setIsIOS] = useState(false)
+  const [showIOSInstructions, setShowIOSInstructions] = useState(false)
+
+  useEffect(() => {
+    const isIOSDevice = /iPad|iPhone|iPod/.test(navigator.userAgent) && !(window as any).MSStream
+    setIsIOS(isIOSDevice)
+
+    const isStandalone = window.matchMedia('(display-mode: standalone)').matches || 
+                         (window.navigator as any).standalone === true
+    
+    if (!isStandalone) {
+      setIsInstallable(true)
+    }
+
+    const handler = (e: Event) => {
+      e.preventDefault()
+      setDeferredPrompt(e)
+      setIsInstallable(true)
+    }
+
+    window.addEventListener("beforeinstallprompt", handler)
+    return () => window.removeEventListener("beforeinstallprompt", handler)
+  }, [])
+
+  const handleInstallClick = async () => {
+    if (isIOS) {
+      setShowIOSInstructions(true)
+      return
+    }
+
+    if (deferredPrompt) {
+      deferredPrompt.prompt()
+      const { outcome } = await deferredPrompt.userChoice
+      if (outcome === "accepted") {
+        setIsInstallable(false)
+      }
+      setDeferredPrompt(null)
+    }
+  }
 
   return (
     <>
@@ -68,8 +109,18 @@ export function HeroSection() {
                   </Link>
                 </div>
 
-                <div className="space-y-2">
-                  <p className="text-sm text-hamboi-dark/60">Download the app:</p>
+                <div className="space-y-3">
+                  <p className="text-sm text-hamboi-dark/60 font-medium">Install the app on your phone:</p>
+                  {isInstallable && (
+                    <Button
+                      size="lg"
+                      onClick={handleInstallClick}
+                      className="bg-gradient-to-r from-green-500 to-teal-500 hover:opacity-90 text-white px-6 py-5 rounded-full shadow-lg"
+                    >
+                      <Download className="h-5 w-5 mr-2" />
+                      Install Hamboi Mindcare
+                    </Button>
+                  )}
                   <AppStoreBadges />
                 </div>
               </div>
@@ -135,6 +186,49 @@ export function HeroSection() {
       </section>
 
       <ChatDemoModal isOpen={isChatDemoOpen} onClose={() => setIsChatDemoOpen(false)} />
+
+      {/* iOS Install Instructions Modal */}
+      {showIOSInstructions && (
+        <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4" onClick={() => setShowIOSInstructions(false)}>
+          <div className="bg-white rounded-2xl p-6 max-w-sm w-full" onClick={(e) => e.stopPropagation()}>
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-lg font-bold text-hamboi-dark">Install on iPhone/iPad</h3>
+              <button onClick={() => setShowIOSInstructions(false)} className="p-1">
+                <X className="h-5 w-5" />
+              </button>
+            </div>
+            <div className="space-y-4">
+              <div className="flex items-start gap-3">
+                <div className="w-8 h-8 rounded-full bg-hamboi-purple/10 flex items-center justify-center flex-shrink-0">
+                  <span className="text-hamboi-purple font-bold">1</span>
+                </div>
+                <p className="text-hamboi-dark/70">Tap the <strong>Share</strong> button at the bottom of Safari (the square with an arrow pointing up)</p>
+              </div>
+              <div className="flex items-start gap-3">
+                <div className="w-8 h-8 rounded-full bg-hamboi-purple/10 flex items-center justify-center flex-shrink-0">
+                  <span className="text-hamboi-purple font-bold">2</span>
+                </div>
+                <p className="text-hamboi-dark/70">Scroll down and tap <strong>"Add to Home Screen"</strong></p>
+              </div>
+              <div className="flex items-start gap-3">
+                <div className="w-8 h-8 rounded-full bg-hamboi-purple/10 flex items-center justify-center flex-shrink-0">
+                  <span className="text-hamboi-purple font-bold">3</span>
+                </div>
+                <p className="text-hamboi-dark/70">Tap <strong>"Add"</strong> in the top right corner</p>
+              </div>
+            </div>
+            <div className="mt-6 p-4 bg-hamboi-light rounded-xl">
+              <div className="flex items-center gap-3">
+                <Smartphone className="h-6 w-6 text-hamboi-purple" />
+                <p className="text-sm text-hamboi-dark/70">Hamboi Mindcare will appear on your home screen like a regular app!</p>
+              </div>
+            </div>
+            <Button onClick={() => setShowIOSInstructions(false)} className="w-full mt-4 bg-hamboi-purple hover:bg-hamboi-purple/90">
+              Got it!
+            </Button>
+          </div>
+        </div>
+      )}
     </>
   )
 }
