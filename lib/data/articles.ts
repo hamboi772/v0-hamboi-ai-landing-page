@@ -6,6 +6,8 @@ export interface Article {
     name: string
     role: string
     school: string
+    image?: string
+    bio?: string
   }
   category: string
   readTime: string
@@ -46,6 +48,8 @@ export const articles: Article[] = [
       name: "Fareeah Bada",
       role: "Head Girl",
       school: "Ansar-ud-Deen Academy",
+      image: "/images/authors/fareeah-bada.jpg",
+      bio: "Fareeah Bada is the Head Girl of Ansar-ud-Deen Academy, where she leads by example both academically and in character. A passionate advocate for student wellbeing, Fareeah uses her voice and writing to inspire her peers to embrace resilience, self-reflection, and growth. Her article on dealing with failure reflects her belief that setbacks are not endings, but opportunities to become stronger.",
     },
     category: "Student Voices",
     readTime: "6 min read",

@@ -1,5 +1,6 @@
 import { Heart, ArrowLeft, ArrowRight, Calendar, Clock, User, BookOpen, Sparkles } from "lucide-react"
 import Link from "next/link"
+import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { articles } from "@/lib/data/articles"
 
@@ -132,9 +133,21 @@ export default function ArticlesPage() {
                     <p className="text-hamboi-dark/60 leading-relaxed mb-6">{article.description}</p>
                     <div className="flex items-center justify-between flex-wrap gap-4">
                       <div className="flex items-center gap-3">
-                        <div className="w-9 h-9 rounded-full bg-hamboi-purple/10 flex items-center justify-center">
-                          <User className="w-4 h-4 text-hamboi-purple" />
-                        </div>
+                        {article.author.image ? (
+                          <div className="w-10 h-10 rounded-full overflow-hidden ring-2 ring-hamboi-purple/10 flex-shrink-0">
+                            <Image
+                              src={article.author.image || "/placeholder.svg"}
+                              alt={article.author.name}
+                              width={40}
+                              height={40}
+                              className="w-full h-full object-cover"
+                            />
+                          </div>
+                        ) : (
+                          <div className="w-10 h-10 rounded-full bg-hamboi-purple/10 flex items-center justify-center flex-shrink-0">
+                            <User className="w-5 h-5 text-hamboi-purple" />
+                          </div>
+                        )}
                         <div>
                           <p className="font-semibold text-hamboi-dark text-sm">{article.author.name}</p>
                           <p className="text-xs text-hamboi-dark/50">
