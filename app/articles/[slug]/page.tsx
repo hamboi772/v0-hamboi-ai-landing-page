@@ -1,5 +1,6 @@
-import { Heart, ArrowLeft, Calendar, Clock, User, Share2, BookOpen } from "lucide-react"
+import { Heart, ArrowLeft, Calendar, Clock, User, Share2, BookOpen, Smartphone } from "lucide-react"
 import Link from "next/link"
+import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { getArticleBySlug, getAllArticles } from "@/lib/data/articles"
 import { notFound } from "next/navigation"
@@ -86,11 +87,23 @@ export default async function ArticleDetailPage({
 
             {/* Author Info */}
             <div className="flex items-center justify-center gap-4 mb-8">
-              <div className="w-12 h-12 rounded-full bg-hamboi-purple/10 flex items-center justify-center">
-                <User className="w-6 h-6 text-hamboi-purple" />
-              </div>
+              {article.author.image ? (
+                <div className="w-14 h-14 rounded-full overflow-hidden ring-2 ring-hamboi-purple/20 ring-offset-2 flex-shrink-0">
+                  <Image
+                    src={article.author.image || "/placeholder.svg"}
+                    alt={article.author.name}
+                    width={56}
+                    height={56}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+              ) : (
+                <div className="w-14 h-14 rounded-full bg-hamboi-purple/10 flex items-center justify-center flex-shrink-0">
+                  <User className="w-7 h-7 text-hamboi-purple" />
+                </div>
+              )}
               <div className="text-left">
-                <p className="font-semibold text-hamboi-dark">{article.author.name}</p>
+                <p className="font-bold text-hamboi-dark text-lg">{article.author.name}</p>
                 <p className="text-sm text-hamboi-dark/50">
                   {article.author.role}, {article.author.school}
                 </p>
@@ -165,23 +178,40 @@ export default async function ArticleDetailPage({
 
               {/* Author Box */}
               <div className="mt-12 pt-8 border-t border-hamboi-purple/10">
-                <h3 className="text-sm font-semibold text-hamboi-dark/40 uppercase tracking-wide mb-4">
+                <h3 className="text-sm font-semibold text-hamboi-dark/40 uppercase tracking-wide mb-6">
                   About the Author
                 </h3>
-                <div className="flex items-start gap-4">
-                  <div className="w-16 h-16 rounded-full bg-hamboi-purple/10 flex items-center justify-center flex-shrink-0">
-                    <User className="w-8 h-8 text-hamboi-purple" />
-                  </div>
-                  <div>
-                    <p className="font-bold text-hamboi-dark">{article.author.name}</p>
-                    <p className="text-hamboi-dark/60 text-sm mt-1">
-                      {article.author.role} at {article.author.school}. A passionate student voice contributing to
-                      mental health awareness through Hamboi Mindcare.
-                    </p>
-                    <span className="inline-flex items-center gap-1 bg-hamboi-purple/10 text-hamboi-purple px-2.5 py-1 rounded-full text-xs font-medium mt-3">
-                      <BookOpen className="w-3 h-3" />
-                      Student Contributor
-                    </span>
+                <div className="bg-gradient-to-br from-hamboi-light to-hamboi-purple/5 rounded-2xl p-6 md:p-8">
+                  <div className="flex flex-col sm:flex-row items-center sm:items-start gap-5">
+                    {article.author.image ? (
+                      <div className="w-24 h-24 rounded-2xl overflow-hidden ring-2 ring-hamboi-purple/20 ring-offset-2 flex-shrink-0 shadow-lg">
+                        <Image
+                          src={article.author.image || "/placeholder.svg"}
+                          alt={article.author.name}
+                          width={96}
+                          height={96}
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+                    ) : (
+                      <div className="w-24 h-24 rounded-2xl bg-hamboi-purple/10 flex items-center justify-center flex-shrink-0">
+                        <User className="w-10 h-10 text-hamboi-purple" />
+                      </div>
+                    )}
+                    <div className="text-center sm:text-left">
+                      <p className="font-bold text-hamboi-dark text-xl">{article.author.name}</p>
+                      <p className="text-hamboi-purple font-medium text-sm mt-0.5">
+                        {article.author.role}, {article.author.school}
+                      </p>
+                      <p className="text-hamboi-dark/60 text-sm mt-3 leading-relaxed">
+                        {article.author.bio ||
+                          `A passionate student voice contributing to mental health awareness through Hamboi Mindcare.`}
+                      </p>
+                      <span className="inline-flex items-center gap-1.5 bg-hamboi-purple/10 text-hamboi-purple px-3 py-1.5 rounded-full text-xs font-medium mt-4">
+                        <BookOpen className="w-3.5 h-3.5" />
+                        Student Contributor
+                      </span>
+                    </div>
                   </div>
                 </div>
               </div>
