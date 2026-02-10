@@ -188,6 +188,119 @@ export const articles: Article[] = [
       },
     ],
   },
+  {
+    slug: "managing-stress-finding-balance-in-a-demanding-world",
+    title: "Managing Stress: Finding Balance in a Demanding World",
+    description:
+      "Stress is a natural response to pressure, but unmanaged stress can affect mental clarity, physical health, and overall well-being. Learn practical strategies for finding balance.",
+    author: {
+      name: "Fareeah Bada",
+      role: "Head Girl",
+      school: "Ansar-ud-Deen Academy",
+      image: "/images/authors/fareeah-bada.jpg",
+      bio: "Fareeah Bada is the Head Girl of Ansar-ud-Deen Academy, where she leads by example both academically and in character. A passionate advocate for student wellbeing, Fareeah uses her voice and writing to inspire her peers to embrace resilience, self-reflection, and growth.",
+    },
+    category: "Student Voices",
+    readTime: "7 min read",
+    publishedDate: "February 2026",
+    featured: false,
+    content: [
+      {
+        type: "paragraph",
+        text: "Stress is a natural response to pressure. It appears when demands exceed our perceived ability to cope, whether those demands come from school, work, relationships, finances, or personal expectations. While a small amount of stress can motivate action, unmanaged stress can gradually affect mental clarity, physical health, and overall well-being. Learning how to manage stress is therefore not a luxury, but a necessity.",
+      },
+      {
+        type: "heading",
+        text: "Recognizing the Sources of Stress",
+      },
+      {
+        type: "paragraph",
+        text: "The first step in managing stress is awareness. Stress often feels overwhelming because its sources are unclear or ignored. Common stressors include heavy workloads, tight deadlines, fear of failure, uncertainty about the future, and unresolved conflicts.",
+      },
+      {
+        type: "paragraph",
+        text: "Identifying what triggers stress allows individuals to respond intentionally rather than react emotionally. When stress is named, it becomes easier to manage.",
+      },
+      {
+        type: "heading",
+        text: "Understanding Stress Responses",
+      },
+      {
+        type: "paragraph",
+        text: "Stress affects people differently. Some experience headaches, fatigue, or loss of appetite, while others struggle with irritability, anxiety, or difficulty concentrating. These responses are signals from the body and mind that balance is being disrupted.",
+      },
+      {
+        type: "paragraph",
+        text: "Ignoring these signs can worsen the impact of stress. Paying attention to them helps in choosing the right coping strategies early.",
+      },
+      {
+        type: "heading",
+        text: "Healthy Stress-Management Strategies",
+      },
+      {
+        type: "paragraph",
+        text: "Effective stress management does not eliminate stress entirely; it helps regulate it. Some practical strategies include:",
+      },
+      {
+        type: "list",
+        items: [
+          "Time management: Breaking tasks into smaller steps reduces pressure and increases focus.",
+          "Rest and sleep: Adequate rest restores mental and physical energy.",
+          "Physical activity: Exercise releases tension and improves mood.",
+          "Mindful breathing: Slow, deep breathing calms the nervous system.",
+          "Setting boundaries: Knowing when to say no prevents burnout.",
+        ],
+      },
+      {
+        type: "paragraph",
+        text: "These habits create stability in daily life, even during demanding periods.",
+      },
+      {
+        type: "heading",
+        text: "Mental and Emotional Balance",
+      },
+      {
+        type: "paragraph",
+        text: "Managing stress also involves internal discipline. Negative self-talk and constant comparison intensify pressure. Replacing self-criticism with realistic expectations promotes emotional balance.",
+      },
+      {
+        type: "paragraph",
+        text: "Talking to trusted friends, mentors, or professionals can also reduce stress. Sharing concerns often brings clarity and emotional relief.",
+      },
+      {
+        type: "heading",
+        text: "Stress in Academic and Professional Life",
+      },
+      {
+        type: "paragraph",
+        text: "In academic and work environments, stress often stems from performance expectations. While striving for excellence is positive, excessive pressure can lead to exhaustion.",
+      },
+      {
+        type: "paragraph",
+        text: "Learning to prioritize tasks, accept imperfections, and focus on effort rather than outcomes reduces unnecessary tension. Growth is most sustainable when it is balanced with care.",
+      },
+      {
+        type: "heading",
+        text: "Building Long-Term Resilience",
+      },
+      {
+        type: "paragraph",
+        text: "Long-term stress management requires consistency. Developing routines, maintaining healthy habits, and regularly evaluating personal limits strengthen resilience over time.",
+      },
+      {
+        type: "quote",
+        text: "Stress does not disappear when life becomes easier; it becomes manageable when coping skills improve.",
+      },
+      {
+        type: "heading",
+        text: "Conclusion",
+      },
+      {
+        type: "paragraph",
+        text: "Stress is an unavoidable part of life, but it does not have to control it. With awareness, healthy habits, and emotional balance, stress can be managed effectively. When handled properly, stressful moments become opportunities to strengthen self-discipline, resilience, and personal growth.",
+      },
+    ],
+  },
 ]
 
 export function getArticleBySlug(slug: string): Article | undefined {
