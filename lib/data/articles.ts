@@ -301,6 +301,153 @@ export const articles: Article[] = [
       },
     ],
   },
+  {
+    slug: "when-your-best-isnt-enough-dealing-with-a-low-score",
+    title: "When Your Best Isn't Enough: Dealing with a Low Score",
+    description:
+      "You stayed up late, revised every page, pushed through the tiredness... and still the score disappointed. Here's how to process that pain and turn it into growth.",
+    author: {
+      name: "Aliyah Ali",
+      role: "Social Prefect",
+      school: "Ansar-ud-Deen Academy",
+      image: "/images/authors/aliyah-ali.jpg",
+      bio: "Aliyah Ali is the Social Prefect at Ansar-ud-Deen Academy, known for her inspiring and supportive nature. She is passionate about uplifting her peers through honest, relatable writing that speaks directly to the struggles students face every day.",
+    },
+    category: "Student Voices",
+    readTime: "5 min read",
+    publishedDate: "February 2026",
+    featured: false,
+    content: [
+      {
+        type: "paragraph",
+        text: "You've stayed up late, revised every page, pushed through the tiredness... and still the score stares back at you: low. Disappointing. Not what you expected after all that effort.",
+      },
+      {
+        type: "paragraph",
+        text: "That gut-punch feeling is real. It can make you question everything: \"Am I even good enough?\"",
+      },
+      {
+        type: "paragraph",
+        text: "Here's the truth most people won't say out loud \u2014 your best won't always be enough right now, and that's okay. It doesn't mean you're broken. It means you're human in a world that isn't always fair.",
+      },
+      {
+        type: "heading",
+        text: "First, Let It Hurt (But Don't Stay There)",
+      },
+      {
+        type: "paragraph",
+        text: "Give yourself 24 hours to feel the sting. Cry, vent to a friend, punch a pillow, eat comfort food \u2014 whatever helps. Suppressing it only makes it explode later.",
+      },
+      {
+        type: "paragraph",
+        text: "Then, breathe. Literally. Take five slow breaths and remind yourself: This number is feedback, not your identity.",
+      },
+      {
+        type: "heading",
+        text: "Talk to Yourself Like You'd Talk to Your Best Friend",
+      },
+      {
+        type: "paragraph",
+        text: "Imagine your closest person got this same score after trying hard. Would you call them useless? Probably not. You'd say:",
+      },
+      {
+        type: "list",
+        items: [
+          "\"You gave it everything \u2014 that's huge.\"",
+          "\"One result doesn't cancel out all your intelligence and hard work.\"",
+          "\"We'll figure out the next step together.\"",
+        ],
+      },
+      {
+        type: "paragraph",
+        text: "Now say those same kind words to yourself. It feels awkward at first, but it works.",
+      },
+      {
+        type: "heading",
+        text: "Quick Reality Check Questions",
+      },
+      {
+        type: "paragraph",
+        text: "Ask yourself these (write the answers if you can):",
+      },
+      {
+        type: "list",
+        items: [
+          "What parts did I actually do well? (Be specific \u2014 you probably nailed some sections.)",
+          "Were there outside factors? (Tough marker, bad day, unclear questions, sickness?)",
+          "What can I control next time? (Different study method, more practice questions, asking for help earlier?)",
+        ],
+      },
+      {
+        type: "paragraph",
+        text: "Most low scores come from a mix of effort gaps + external stuff \u2014 not pure \"I'm not capable.\"",
+      },
+      {
+        type: "heading",
+        text: "Flip the Script: Growth Mode On",
+      },
+      {
+        type: "paragraph",
+        text: "The people who end up winning long-term aren't the ones who never get low scores. They're the ones who treat low scores like data.",
+      },
+      {
+        type: "paragraph",
+        text: "Try saying:",
+      },
+      {
+        type: "list",
+        items: [
+          "Not \"I'm a failure\" \u2192 \"This shows me where to level up.\"",
+          "Not \"I'll never get it\" \u2192 \"I haven't got it yet.\"",
+        ],
+      },
+      {
+        type: "paragraph",
+        text: "Your brain literally grows stronger when you push through challenges \u2014 science backs this.",
+      },
+      {
+        type: "heading",
+        text: "One Tiny Step Today",
+      },
+      {
+        type: "paragraph",
+        text: "Don't try to fix everything at once. Pick one small action:",
+      },
+      {
+        type: "list",
+        items: [
+          "Watch one 10-minute YouTube explanation on the hardest topic",
+          "Message a friend or teacher: \"Can you help me understand where I went wrong?\"",
+          "Do 15 minutes of active recall instead of re-reading",
+          "Go for a walk to clear your head",
+        ],
+      },
+      {
+        type: "paragraph",
+        text: "Small wins rebuild belief faster than big dramatic changes.",
+      },
+      {
+        type: "heading",
+        text: "The Bottom Line",
+      },
+      {
+        type: "paragraph",
+        text: "A low score after real effort hurts because you care \u2014 and caring is proof you're someone who wants to grow.",
+      },
+      {
+        type: "quote",
+        text: "You are not defined by this moment. You are defined by what you do next.",
+      },
+      {
+        type: "paragraph",
+        text: "You've already shown you can give your best. Now show yourself you can rise after it wasn't enough.",
+      },
+      {
+        type: "paragraph",
+        text: "You've got more in you than one score can ever measure. Keep going \u2014 we're rooting for you.",
+      },
+    ],
+  },
 ]
 
 export function getArticleBySlug(slug: string): Article | undefined {
