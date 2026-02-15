@@ -242,7 +242,7 @@ export default async function ArticleDetailPage({
                     Read More Articles
                   </Button>
                 </Link>
-                <a href="mailto:hamboiteam@gmail.com?subject=Article Submission for Hamboi Mindcare">
+                <a href="mailto:hamboimindcare.help@gmail.com?subject=Article Submission for Hamboi Mindcare">
                   <Button variant="outline" className="border-white text-white hover:bg-white/10 bg-transparent">
                     Submit an Article
                   </Button>
