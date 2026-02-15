@@ -1,7 +1,8 @@
-import { Heart, ArrowLeft, Calendar, Clock, User, Share2, BookOpen, Smartphone } from "lucide-react"
+import { Heart, ArrowLeft, Calendar, Clock, User, BookOpen, Smartphone } from "lucide-react"
 import Link from "next/link"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
+import { ArticleShareButton } from "@/components/article-share-button"
 import { getArticleBySlug, getAllArticles } from "@/lib/data/articles"
 import { notFound } from "next/navigation"
 import type { Metadata } from "next"
@@ -220,10 +221,7 @@ export default async function ArticleDetailPage({
               <div className="mt-8 pt-8 border-t border-hamboi-purple/10">
                 <div className="flex items-center justify-between flex-wrap gap-4">
                   <p className="text-hamboi-dark/60 text-sm">Found this helpful? Share it with a friend.</p>
-                  <Button variant="outline" size="sm" className="border-hamboi-purple/20 bg-transparent text-hamboi-dark">
-                    <Share2 className="w-4 h-4 mr-2" />
-                    Share
-                  </Button>
+                  <ArticleShareButton title={article.title} description={article.description} />
                 </div>
               </div>
             </div>
