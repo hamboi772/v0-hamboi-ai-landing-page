@@ -173,7 +173,7 @@ export default function ArticlesPage() {
                 We believe every student has a story worth sharing. If you have written an article on mental health,
                 resilience, or personal growth, we would love to feature it here.
               </p>
-              <a href="mailto:hamboiteam@gmail.com?subject=Article Submission for Hamboi Mindcare">
+              <a href="mailto:hamboimindcare.help@gmail.com?subject=Article Submission for Hamboi Mindcare">
                 <Button className="bg-hamboi-purple hover:bg-hamboi-purple/90 text-white">
                   Submit Your Article
                 </Button>
