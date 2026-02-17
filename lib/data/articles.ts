@@ -448,6 +448,136 @@ export const articles: Article[] = [
       },
     ],
   },
+  {
+    slug: "peer-pressure-and-mental-health",
+    title: "Peer Pressure and Mental Health",
+    description:
+      "Peer pressure is something most of us face, even if we don't like to admit it. Learn how to protect your peace while staying true to who you are.",
+    author: {
+      name: "Abiodun Abdul Hameed",
+      role: "Founder",
+      school: "Hamboi MindCare",
+      image: "/images/founder-abdulhameed.webp",
+      bio: "Abiodun Abdul Hameed is the 15-year-old founder of Hamboi MindCare, a mental health platform built for Nigerian teens. Driven by his own experiences and a passion for youth wellbeing, Abiodun writes to connect with young people going through real struggles.",
+    },
+    category: "Founder's Corner",
+    readTime: "5 min read",
+    publishedDate: "February 2026",
+    featured: false,
+    content: [
+      {
+        type: "paragraph",
+        text: "Let's be honest \u2014 peer pressure is something most of us face, even if we don't like to admit it.",
+      },
+      {
+        type: "paragraph",
+        text: "It's that quiet feeling that you need to act a certain way just to fit in. Laugh when something isn't funny. Say yes when you want to say no. Pretend you're okay so you don't look \"weird\" or \"different.\" And over time, it can really mess with your mental health.",
+      },
+      {
+        type: "heading",
+        text: "When Fitting In Starts to Hurt",
+      },
+      {
+        type: "paragraph",
+        text: "Wanting friends is normal. Wanting to belong is human. But when you constantly feel like you have to change who you are just to be accepted, it becomes draining.",
+      },
+      {
+        type: "paragraph",
+        text: "You may start feeling:",
+      },
+      {
+        type: "list",
+        items: [
+          "Tired all the time",
+          "Anxious before hanging out with certain people",
+          "Bad about yourself after trying to impress others",
+          "Confused about who you really are",
+        ],
+      },
+      {
+        type: "paragraph",
+        text: "And the worst part? You might blame yourself for feeling this way.",
+      },
+      {
+        type: "heading",
+        text: "Why It Feels So Heavy as a Teen",
+      },
+      {
+        type: "paragraph",
+        text: "As teens, friendships feel like everything. Being left out hurts. Being judged hurts. Social media doesn't help either \u2014 it makes it look like everyone else has life figured out, when in reality, most people are struggling quietly.",
+      },
+      {
+        type: "paragraph",
+        text: "So you start comparing. And comparison slowly steals your peace.",
+      },
+      {
+        type: "heading",
+        text: "Signs You're Under Too Much Pressure",
+      },
+      {
+        type: "paragraph",
+        text: "You don't have to be \"broken\" to be affected. Some signs include:",
+      },
+      {
+        type: "list",
+        items: [
+          "You agree to things you're uncomfortable with",
+          "You hide your real opinions or feelings",
+          "You feel anxious around people who are supposed to be your friends",
+          "You feel relieved when you're finally alone",
+        ],
+      },
+      {
+        type: "paragraph",
+        text: "If this sounds like you, you're not weak. You're human.",
+      },
+      {
+        type: "heading",
+        text: "Protecting Your Peace",
+      },
+      {
+        type: "paragraph",
+        text: "You don't need to fight everyone. Sometimes protecting your mental health looks like:",
+      },
+      {
+        type: "list",
+        items: [
+          "Saying \"no\" without explaining yourself",
+          "Choosing friends who respect you",
+          "Stepping back from social media",
+          "Talking to someone older you trust",
+        ],
+      },
+      {
+        type: "paragraph",
+        text: "It might feel lonely at first, but peace is better than pressure.",
+      },
+      {
+        type: "heading",
+        text: "Gentle Reminder",
+      },
+      {
+        type: "quote",
+        text: "You don't have to lose yourself to belong. The right people will never require you to be someone else.",
+      },
+      {
+        type: "paragraph",
+        text: "You are enough, even when you don't fit in.",
+      },
+      {
+        type: "heading",
+        text: "Big Shoutout to My Friends!",
+      },
+      {
+        type: "paragraph",
+        text: "I want to give a huge shoutout to Shittu Robiu, Fareeah Bada, Ali Aliyah, Asaolu Tomiwa, and all my amazing friends who always have my back. You guys make life fun, keep me motivated, and remind me I'm never alone.",
+      },
+      {
+        type: "paragraph",
+        text: "Thank you for all the laughs, the advice, and the support \u2014 I really appreciate every one of you. Here's to more memories, more fun, and always having each other's backs!",
+      },
+    ],
+  },
 ]
 
 export function getArticleBySlug(slug: string): Article | undefined {
