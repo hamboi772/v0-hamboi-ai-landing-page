@@ -578,6 +578,190 @@ export const articles: Article[] = [
       },
     ],
   },
+  {
+    slug: "laughing-on-the-outside-hurting-on-the-inside-bullying",
+    title: "Laughing on the Outside, Hurting on the Inside: Bullying",
+    description:
+      "Bullying isn't always loud. It can be subtle, repeated, and deeply personal. Learn how it affects you and practical ways to respond with confidence and seek support.",
+    author: {
+      name: "Tairu Rahamotallahi",
+      role: "Student Advocate",
+      school: "Ansar-ud-Deen Academy",
+      image: "/images/authors/tairu-rahamotallahi.jpg",
+      bio: "Tairu Rahamotallahi is a teenager and student committed to promoting kindness, empathy, and courage within the school environment. She is passionate about using her voice to eradicate bullying in schools and among teenagers, believing that every student deserves dignity, respect, and emotional safety.",
+    },
+    category: "Student Voices",
+    readTime: "6 min read",
+    publishedDate: "February 2026",
+    featured: false,
+    content: [
+      {
+        type: "paragraph",
+        text: "\"They're just joking.\"",
+      },
+      {
+        type: "paragraph",
+        text: "But it doesn't feel like a joke.",
+      },
+      {
+        type: "paragraph",
+        text: "It feels sharp. Repeated. Personal.",
+      },
+      {
+        type: "paragraph",
+        text: "You laugh so you don't look sensitive.",
+        text: "But later, you replay it in your mind.",
+      },
+      {
+        type: "heading",
+        text: "Bullying Isn't Always Loud",
+      },
+      {
+        type: "paragraph",
+        text: "Sometimes it's:",
+      },
+      {
+        type: "list",
+        items: [
+          "Sarcastic comments",
+          "Subtle exclusion",
+          "Public embarrassment",
+          "Backhanded compliments",
+        ],
+      },
+      {
+        type: "paragraph",
+        text: "Over time, it chips away at confidence.",
+      },
+      {
+        type: "heading",
+        text: "What Bullying Actually Does",
+      },
+      {
+        type: "paragraph",
+        text: "It activates your stress response. Your body may react to it by:",
+      },
+      {
+        type: "list",
+        items: [
+          "Racing heart",
+          "Tight chest",
+          "Overthinking",
+          "Self-doubt",
+        ],
+      },
+      {
+        type: "paragraph",
+        text: "It's not \"being dramatic.\" It's your nervous system reacting to the threat.",
+      },
+      {
+        type: "heading",
+        text: "The Self-Doubt Spiral",
+      },
+      {
+        type: "paragraph",
+        text: "Over time, you start questioning yourself:",
+      },
+      {
+        type: "list",
+        items: [
+          "\"Am I too sensitive?\"",
+          "\"Should I just ignore them?\"",
+          "\"Is something wrong with me?\"",
+        ],
+      },
+      {
+        type: "paragraph",
+        text: "No. Bullying is wrong, and repeated pain is not harmless. Your nervous system recognizes social threat.",
+      },
+      {
+        type: "heading",
+        text: "Building Confidence Through Response",
+      },
+      {
+        type: "paragraph",
+        text: "Try to speak even if your voice shakes. Be confident, and take a stand. Often times, bullies don't expect a reply.",
+      },
+      {
+        type: "paragraph",
+        text: "If they say: \"You are not smart\"",
+      },
+      {
+        type: "paragraph",
+        text: "You say: \"I am learning and improving.\"",
+      },
+      {
+        type: "paragraph",
+        text: "Confidence rebuilds through repetition.",
+      },
+      {
+        type: "heading",
+        text: "The Bottom Line",
+      },
+      {
+        type: "paragraph",
+        text: "You deserve emotional safety.",
+      },
+      {
+        type: "paragraph",
+        text: "You deserve respect — without conditions.",
+      },
+      {
+        type: "quote",
+        text: "No insult, no laughter, no opinion has the authority to define you unless you hand it that power. Your worth is constant — even when others fail to recognize it.",
+      },
+      {
+        type: "heading",
+        text: "MindCare Reminder",
+      },
+      {
+        type: "paragraph",
+        text: "If you are feeling:",
+      },
+      {
+        type: "list",
+        items: [
+          "Constantly exhausted",
+          "Isolated",
+          "Anxious around others",
+          "Afraid to go to school",
+          "Hopeless or emotionally numb",
+        ],
+      },
+      {
+        type: "paragraph",
+        text: "Please talk to a trusted adult or counselor. Mental health support is not a weakness. It is maintenance for your mind.",
+      },
+      {
+        type: "paragraph",
+        text: "You are not alone in this.",
+      },
+      {
+        type: "paragraph",
+        text: "You are not broken.",
+      },
+      {
+        type: "paragraph",
+        text: "You are navigating growth — and growth is uncomfortable. But you are stronger than you think.",
+      },
+      {
+        type: "quote",
+        text: "Healing is not loud. Growth is not instant. But every small step toward self-awareness is proof that you are choosing yourself. And that is power.",
+      },
+      {
+        type: "heading",
+        text: "A Stand for Change",
+      },
+      {
+        type: "paragraph",
+        text: "I refuse to stay silent in the face of bullying. Every student has the right to learn in a safe and supportive environment. As an advocate for change, I stand firmly against cruelty and choose to promote respect, inclusion, and accountability among students.",
+      },
+      {
+        type: "paragraph",
+        text: "I believe kindness is not weakness — it is courage. Bullying harms more than we see, and I am committed to standing up for those who may feel unheard. Every student deserves dignity, respect, and emotional safety.",
+      },
+    ],
+  },
 ]
 
 export function getArticleBySlug(slug: string): Article | undefined {
