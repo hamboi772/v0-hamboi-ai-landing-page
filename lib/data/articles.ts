@@ -708,7 +708,7 @@ export const articles: Article[] = [
       },
       {
         type: "quote",
-        text: "No insult, no laughter, no opinion has the authority to define you unless you hand it that power. Your worth is constant — even when others fail to recognize it.",
+        text: "No insult, no laughter, no opinion has the authority to define you unless you hand it that power. Your worth is constant, even when others fail to recognize it.",
       },
       {
         type: "heading",
