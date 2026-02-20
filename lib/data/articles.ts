@@ -762,6 +762,81 @@ export const articles: Article[] = [
       },
     ],
   },
+  {
+    slug: "trauma-understanding-the-invisible-wound",
+    title: "Trauma: Understanding the Invisible Wound",
+    description:
+      "Trauma is an invisible wound with real impact. Learn what trauma is, its different types, its effects on the mind and body, and pathways to healing and recovery.",
+    author: {
+      name: "Fathia King",
+      role: "Student Advocate",
+      school: "Ansar-ud-Deen Academy",
+      image: "/images/authors/fathia-king.jpg",
+      bio: "Fathia King is a thoughtful and compassionate student at Ansar-ud-Deen Academy dedicated to raising awareness about mental health and trauma. Through her writing, she aims to help others understand that healing is possible and that seeking support is a sign of strength.",
+    },
+    category: "Student Voices",
+    readTime: "5 min read",
+    publishedDate: "February 2026",
+    featured: false,
+    content: [
+      {
+        type: "paragraph",
+        text: "Trauma is a complex and multifaceted experience that can leave deep emotional scars. Whether it's a single event or a series of experiences, trauma can impact anyone, regardless of age, background, or circumstances.",
+      },
+      {
+        type: "heading",
+        text: "What is Trauma?",
+      },
+      {
+        type: "paragraph",
+        text: "Trauma is a response to a distressing event or situation that overwhelms an individual's ability to cope. This can include physical or emotional abuse, natural disasters, accidents, or witnessing violence.",
+      },
+      {
+        type: "heading",
+        text: "Types of Trauma",
+      },
+      {
+        type: "list",
+        items: [
+          "Acute Trauma: Results from a single incident such as a car accident or assault.",
+          "Chronic Trauma: Ongoing experiences like domestic violence or bullying.",
+          "Complex Trauma: Exposure to multiple traumatic events, often involving interpersonal harm.",
+        ],
+      },
+      {
+        type: "heading",
+        text: "Effects of Trauma",
+      },
+      {
+        type: "paragraph",
+        text: "Trauma affects us in multiple ways:",
+      },
+      {
+        type: "list",
+        items: [
+          "Emotional effects",
+          "Physical effects",
+          "Behavioral effects",
+        ],
+      },
+      {
+        type: "heading",
+        text: "Healing from Trauma",
+      },
+      {
+        type: "list",
+        items: [
+          "Seek Professional Help: Therapy, counseling, or support groups can provide a safe place to process emotions.",
+          "Self-Care: Engage in activities that promote relaxation and stress reduction, like exercise or meditation.",
+          "Support Network: Surround yourself with caring individuals who understand and support your journey.",
+        ],
+      },
+      {
+        type: "paragraph",
+        text: "Trauma may be invisible, but its impact is real. By acknowledging and addressing trauma, we can begin the journey towards healing and recovery.",
+      },
+    ],
+  },
 ]
 
 export function getArticleBySlug(slug: string): Article | undefined {
