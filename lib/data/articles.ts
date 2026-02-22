@@ -837,6 +837,70 @@ export const articles: Article[] = [
       },
     ],
   },
+  {
+    slug: "your-circle-your-mood-how-friends-determine-emotions",
+    title: "Your Circle, Your Mood: How Friends Determine One's Emotions",
+    description:
+      "Discover how your social circle shapes your emotional well-being. Learn about the mood signs in friendships and practical steps to protect your emotional health.",
+    author: {
+      name: "Olapade Aisha",
+      role: "Assistant Head Girl",
+      school: "Ansar-ud-Deen Academy",
+      image: "/images/authors/olapade-aisha.jpg",
+      bio: "Olapade Aisha is the Assistant Head Girl at Ansar-ud-Deen Academy, committed to fostering positive relationships and emotional well-being among her peers. Through her leadership and insightful writing, she advocates for healthy friendships and self-love.",
+    },
+    category: "Student Voices",
+    readTime: "5 min read",
+    publishedDate: "February 2026",
+    featured: false,
+    content: [
+      {
+        type: "paragraph",
+        text: "A circle is a group, it can be composed of friends or associates. It helps one grow, and can sometimes retard one's growth. Determining one's emotions through friends is easy as it is very recognizable.",
+      },
+      {
+        type: "heading",
+        text: "How Friends Determine One's Growth",
+      },
+      {
+        type: "paragraph",
+        text: "Friends are very important aspects of one's entire well-being. They boost one's morale and make one happy.",
+      },
+      {
+        type: "heading",
+        text: "Mood Signs",
+      },
+      {
+        type: "paragraph",
+        text: "1) Happiness: One's happiness can be determined through one's circle. When one is with the right friends, one's mood equally brightens. The right circle always helps one grow and develop.",
+      },
+      {
+        type: "paragraph",
+        text: "2) Sadness: Hypocrisy and bad friends go together. Friends who ignore, who backbite and insult one another develop unhealthy members. Members who don't speak the truth and hide their feelings create a toxic environment.",
+      },
+      {
+        type: "paragraph",
+        text: "3) Withdrawal: This is the most common emotion exhibited due to a bad friendship circle. Friends that cannot speak the truth with one another end up causing untold harm to their fellow friends. This leads to withdrawal from the society and circle.",
+      },
+      {
+        type: "heading",
+        text: "What To Do To Prevent Withdrawal",
+      },
+      {
+        type: "list",
+        items: [
+          "Be Yourself",
+          "Speak Up When One Is Hurt",
+          "Remember, Your Happiness Matters",
+          "Love Yourself",
+        ],
+      },
+      {
+        type: "paragraph",
+        text: "One's emotion is one's greatest asset. Learn to treat it with care.",
+      },
+    ],
+  },
 ]
 
 export function getArticleBySlug(slug: string): Article | undefined {
