@@ -1,7 +1,10 @@
-import { Heart, Award, ArrowLeft, Calendar, Clock, Globe, Share2 } from "lucide-react"
+"use client"
+
+import { Heart, Award, ArrowLeft, Calendar, Clock, Globe, Share2, Check } from "lucide-react"
 import Link from "next/link"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
+import { useState } from "react"
 
 export const metadata = {
   title: "The Bronze Medal We Won from Our Bedrooms | Hamboi Mindcare",
@@ -9,6 +12,19 @@ export const metadata = {
 }
 
 export default function ArticlePage() {
+  const [copied, setCopied] = useState(false)
+
+  const handleShare = async () => {
+    try {
+      const url = `${typeof window !== "undefined" ? window.location.origin : ""}/about/article`
+      await navigator.clipboard.writeText(url)
+      setCopied(true)
+      setTimeout(() => setCopied(false), 2000)
+    } catch (error) {
+      console.error("Failed to copy:", error)
+    }
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-teal-50 via-background to-background">
       {/* Header */}
@@ -258,10 +274,23 @@ export default function ArticlePage() {
                 <div className="flex items-center justify-between flex-wrap gap-4">
                   <p className="text-gray-600 text-sm">Found this inspiring? Share it with others.</p>
                   <div className="flex gap-2">
-                    <Button variant="outline" size="sm" className="border-gray-200 bg-transparent">
-                      <Share2 className="w-4 h-4 mr-2" />
-                      Share
-                    </Button>
+                    <button
+                      type="button"
+                      className="inline-flex items-center justify-center gap-2 px-4 py-2 bg-white border border-teal-500 text-gray-900 rounded-lg hover:bg-teal-50 active:bg-teal-100 transition-colors cursor-pointer pointer-events-auto"
+                      onClick={handleShare}
+                    >
+                      {copied ? (
+                        <>
+                          <Check className="w-4 h-4 text-green-600" />
+                          <span>Link Copied!</span>
+                        </>
+                      ) : (
+                        <>
+                          <Share2 className="w-4 h-4" />
+                          <span>Share</span>
+                        </>
+                      )}
+                    </button>
                   </div>
                 </div>
               </div>
