@@ -45,23 +45,22 @@ export function ArticleShareButton({ title, description }: { title: string; desc
   }
 
   return (
-    <Button
-      variant="outline"
-      size="sm"
-      className="border-hamboi-purple text-hamboi-dark hover:bg-hamboi-purple/5 cursor-pointer"
+    <button
+      type="button"
+      className="inline-flex items-center justify-center gap-2 px-4 py-2 bg-white border border-hamboi-purple text-hamboi-dark rounded-lg hover:bg-hamboi-purple/5 active:bg-hamboi-purple/10 transition-colors cursor-pointer pointer-events-auto"
       onClick={handleShare}
     >
       {copied ? (
         <>
-          <Check className="w-4 h-4 mr-2 text-green-600" />
-          Link Copied!
+          <Check className="w-4 h-4 text-green-600" />
+          <span>Link Copied!</span>
         </>
       ) : (
         <>
-          <Share2 className="w-4 h-4 mr-2" />
-          Share
+          <Share2 className="w-4 h-4" />
+          <span>Share</span>
         </>
       )}
-    </Button>
+    </button>
   )
 }
