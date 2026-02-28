@@ -4,11 +4,20 @@ import { useState } from "react"
 import { Share2, Check, Copy, Link2 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
-export function ArticleShareButton({ title, description }: { title: string; description: string }) {
+export function ArticleShareButton({ 
+  title, 
+  description,
+  articleUrl 
+}: { 
+  title?: string
+  description?: string
+  articleUrl?: string
+}) {
   const [copied, setCopied] = useState(false)
 
   const handleShare = async () => {
-    const url = window.location.href
+    const baseUrl = typeof window !== "undefined" ? window.location.origin : ""
+    const url = articleUrl ? `${baseUrl}${articleUrl}` : window.location.href
 
     // Use native share API on mobile if available
     if (navigator.share) {
