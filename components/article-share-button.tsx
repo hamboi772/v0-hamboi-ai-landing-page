@@ -48,7 +48,7 @@ export function ArticleShareButton({ title, description }: { title: string; desc
     <Button
       variant="outline"
       size="sm"
-      className="border-hamboi-purple/20 bg-transparent text-hamboi-dark"
+      className="border-hamboi-purple text-hamboi-dark hover:bg-hamboi-purple/5 cursor-pointer"
       onClick={handleShare}
     >
       {copied ? (
