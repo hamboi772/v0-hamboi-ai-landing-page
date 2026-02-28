@@ -4,11 +4,20 @@ import { useState } from "react"
 import { Share2, Check, Copy, Link2 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
-export function ArticleShareButton({ title, description }: { title: string; description: string }) {
+export function ArticleShareButton({ 
+  title, 
+  description,
+  articleUrl 
+}: { 
+  title?: string
+  description?: string
+  articleUrl?: string
+}) {
   const [copied, setCopied] = useState(false)
 
   const handleShare = async () => {
-    const url = window.location.href
+    const baseUrl = typeof window !== "undefined" ? window.location.origin : ""
+    const url = articleUrl ? `${baseUrl}${articleUrl}` : window.location.href
 
     // Use native share API on mobile if available
     if (navigator.share) {
@@ -45,23 +54,22 @@ export function ArticleShareButton({ title, description }: { title: string; desc
   }
 
   return (
-    <Button
-      variant="outline"
-      size="sm"
-      className="border-hamboi-purple/20 bg-transparent text-hamboi-dark"
+    <button
+      type="button"
+      className="inline-flex items-center justify-center gap-2 px-4 py-2 bg-white border border-hamboi-purple text-hamboi-dark rounded-lg hover:bg-hamboi-purple/5 active:bg-hamboi-purple/10 transition-colors cursor-pointer pointer-events-auto"
       onClick={handleShare}
     >
       {copied ? (
         <>
-          <Check className="w-4 h-4 mr-2 text-green-600" />
-          Link Copied!
+          <Check className="w-4 h-4 text-green-600" />
+          <span>Link Copied!</span>
         </>
       ) : (
         <>
-          <Share2 className="w-4 h-4 mr-2" />
-          Share
+          <Share2 className="w-4 h-4" />
+          <span>Share</span>
         </>
       )}
-    </Button>
+    </button>
   )
 }

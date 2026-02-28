@@ -2,10 +2,15 @@ import { Heart, Award, ArrowLeft, Calendar, Clock, Globe, Share2 } from "lucide-
 import Link from "next/link"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
+import { ArticleShareButton } from "@/components/article-share-button"
 
 export const metadata = {
   title: "The Bronze Medal We Won from Our Bedrooms | Hamboi Mindcare",
   description: "How winning a global robotics award from home led to creating Hamboi MindCare - a mental health platform for Nigerian teens.",
+}
+
+function ShareSection() {
+  return <ArticleShareButton articleUrl="/about/article" />
 }
 
 export default function ArticlePage() {
@@ -257,12 +262,7 @@ export default function ArticlePage() {
               <div className="mt-8 pt-8 border-t border-gray-200">
                 <div className="flex items-center justify-between flex-wrap gap-4">
                   <p className="text-gray-600 text-sm">Found this inspiring? Share it with others.</p>
-                  <div className="flex gap-2">
-                    <Button variant="outline" size="sm" className="border-gray-200 bg-transparent">
-                      <Share2 className="w-4 h-4 mr-2" />
-                      Share
-                    </Button>
-                  </div>
+                  <ShareSection />
                 </div>
               </div>
             </div>
