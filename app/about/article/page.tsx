@@ -1,8 +1,8 @@
-import { Heart, Award, ArrowLeft, Calendar, Clock, Globe, Share2, Check } from "lucide-react"
+import { Heart, Award, ArrowLeft, Calendar, Clock, Globe, Share2 } from "lucide-react"
 import Link from "next/link"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
-import ShareButton from "@/components/article-share-button"
+import { ArticleShareButton } from "@/components/article-share-button"
 
 export const metadata = {
   title: "The Bronze Medal We Won from Our Bedrooms | Hamboi Mindcare",
@@ -10,7 +10,7 @@ export const metadata = {
 }
 
 function ShareSection() {
-  return <ShareButton articleUrl="/about/article" />
+  return <ArticleShareButton articleUrl="/about/article" />
 }
 
 export default function ArticlePage() {
