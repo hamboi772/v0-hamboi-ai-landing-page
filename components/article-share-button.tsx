@@ -56,12 +56,12 @@ export function ArticleShareButton({
   return (
     <button
       type="button"
-      className="inline-flex items-center justify-center gap-2 px-4 py-2 bg-white border border-hamboi-purple text-hamboi-dark rounded-lg hover:bg-hamboi-purple/5 active:bg-hamboi-purple/10 transition-colors cursor-pointer pointer-events-auto"
+      className="inline-flex items-center justify-center gap-2 px-4 py-2 bg-hamboi-dark-card border-2 border-hamboi-purple text-hamboi-purple rounded-lg hover:bg-hamboi-purple/20 active:bg-hamboi-purple/30 transition-colors cursor-pointer pointer-events-auto font-bold"
       onClick={handleShare}
     >
       {copied ? (
         <>
-          <Check className="w-4 h-4 text-green-600" />
+          <Check className="w-4 h-4 text-hamboi-green" />
           <span>Link Copied!</span>
         </>
       ) : (

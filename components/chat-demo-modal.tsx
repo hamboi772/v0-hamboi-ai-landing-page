@@ -127,22 +127,22 @@ export function ChatDemoModal({ isOpen, onClose }: ChatDemoModalProps) {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
       {/* Backdrop */}
-      <div className="absolute inset-0 bg-gradient-to-br from-hamboi-purple via-hamboi-purple/95 to-hamboi-blue" />
+      <div className="absolute inset-0 bg-gradient-to-br from-hamboi-dark-bg via-[#1a1a3e] to-hamboi-dark-bg" />
 
       {/* Modal */}
-      <div className="relative z-10 w-full max-w-3xl h-[95vh] bg-white/95 backdrop-blur-lg rounded-3xl shadow-2xl grid grid-rows-[auto_1fr_auto] overflow-hidden">
+      <div className="relative z-10 w-full max-w-3xl h-[95vh] bg-hamboi-dark-card border-2 border-hamboi-purple/40 backdrop-blur-lg rounded-3xl shadow-2xl shadow-hamboi-purple/30 grid grid-rows-[auto_1fr_auto] overflow-hidden">
         {/* Header - No longer sticky, just part of grid */}
-        <div className="px-6 py-4 bg-white backdrop-blur-lg border-b border-hamboi-purple/10 rounded-t-3xl flex-shrink-0">
+        <div className="px-6 py-4 bg-[#0f0a1f] backdrop-blur-lg border-b border-hamboi-purple/40 rounded-t-3xl flex-shrink-0">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-hamboi-purple to-hamboi-blue flex items-center justify-center">
+              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-hamboi-purple to-hamboi-green flex items-center justify-center">
                 <MessageSquare className="h-5 w-5 text-white" />
               </div>
-              <h2 className="text-lg font-bold text-hamboi-dark">Chat with Hamboi</h2>
+              <h2 className="text-lg font-bold text-white">Chat with Hamboi</h2>
             </div>
             <button
               onClick={onClose}
-              className="p-2 rounded-full hover:bg-hamboi-purple/10 text-hamboi-dark/60 hover:text-hamboi-dark transition-colors"
+              className="p-2 rounded-full hover:bg-hamboi-purple/20 text-hamboi-green hover:text-hamboi-green transition-colors"
               aria-label="Close chat"
             >
               <X className="h-6 w-6" />
@@ -151,14 +151,14 @@ export function ChatDemoModal({ isOpen, onClose }: ChatDemoModalProps) {
         </div>
 
         {/* Conversation Area - Uses flex-1 equivalent in grid */}
-        <div className="overflow-y-auto px-6 py-4 space-y-4">
+        <div className="overflow-y-auto px-6 py-4 space-y-4 bg-[#0f0a1f]">
           {conversation.length === 0 && !displayingMessage && (
             <div className="text-center py-12">
-              <div className="w-16 h-16 rounded-full bg-gradient-to-br from-hamboi-purple/20 to-hamboi-blue/20 flex items-center justify-center mx-auto mb-4">
-                <MessageSquare className="h-8 w-8 text-hamboi-purple" />
+              <div className="w-16 h-16 rounded-full bg-gradient-to-br from-hamboi-purple/30 to-hamboi-green/30 flex items-center justify-center mx-auto mb-4">
+                <MessageSquare className="h-8 w-8 text-hamboi-green" />
               </div>
-              <h3 className="text-lg font-semibold text-hamboi-dark mb-2">Start a conversation</h3>
-              <p className="text-hamboi-dark/60 max-w-md mx-auto">
+              <h3 className="text-lg font-semibold text-white mb-2">Start a conversation</h3>
+              <p className="text-hamboi-text-muted max-w-md mx-auto">
                 Share what's on your mind. Whether you're stressed, anxious, or just need someone to talk to, I'm here
                 for you.
               </p>
@@ -177,11 +177,11 @@ export function ChatDemoModal({ isOpen, onClose }: ChatDemoModalProps) {
               {/* AI response */}
               {(msg.ai || (idx === conversation.length - 1 && displayingMessage)) && (
                 <div className="flex justify-start">
-                  <div className="relative bg-gradient-to-br from-white to-hamboi-light rounded-2xl rounded-tl-sm px-5 py-3 max-w-[80%] shadow-lg border-2 border-transparent bg-clip-padding before:absolute before:inset-0 before:-z-10 before:m-[-2px] before:rounded-2xl before:bg-gradient-to-br before:from-hamboi-purple/40 before:via-hamboi-blue/40 before:to-hamboi-green/40">
-                    <p className="text-sm font-medium bg-gradient-to-r from-hamboi-purple to-hamboi-blue bg-clip-text text-transparent mb-1">
+                  <div className="relative bg-gradient-to-br from-hamboi-purple/20 to-hamboi-green/20 rounded-2xl rounded-tl-sm px-5 py-3 max-w-[80%] shadow-lg border-2 border-hamboi-purple/40">
+                    <p className="text-sm font-bold text-hamboi-green mb-1">
                       Hamboi
                     </p>
-                    <p className="text-sm leading-relaxed text-hamboi-dark">
+                    <p className="text-sm leading-relaxed text-white">
                       {idx === conversation.length - 1 && displayingMessage
                         ? displayingMessage.text
                         : msg.ai || (isProcessing && <Loader2 className="h-4 w-4 animate-spin text-hamboi-purple" />)}
@@ -196,19 +196,18 @@ export function ChatDemoModal({ isOpen, onClose }: ChatDemoModalProps) {
         </div>
 
         {/* Bottom section with error, notices, and input - Fixed at bottom */}
-        <div className="flex flex-col flex-shrink-0">
+        <div className="flex flex-col flex-shrink-0 bg-[#0f0a1f]">
           {/* Error Message */}
           {error && (
-            <div className="mx-6 mb-3 p-2 bg-red-50 border border-red-200 rounded-lg">
-              <p className="text-xs text-red-600">{error}</p>
+            <div className="mx-6 mb-3 p-2 bg-red-950/40 border border-red-700/40 rounded-lg">
+              <p className="text-xs text-red-400">{error}</p>
             </div>
           )}
 
           {/* Privacy Notice */}
-          <div className="mx-6 mb-3 p-2 bg-amber-50/80 border border-amber-200 rounded-lg">
-            <p className="text-xs text-amber-900 text-center leading-snug">
-              <span className="font-semibold">Demo Preview:</span> AI-generated responses. Not a substitute for
-              professional care. Crisis? Call a helpline.
+          <div className="mx-6 mb-3 p-2 bg-amber-950/40 border border-amber-700/40 rounded-lg">
+            <p className="text-xs text-amber-300 text-center leading-snug">
+              <span className="font-semibold">Demo Preview:</span> AI-generated responses. Not a substitute for professional care. Crisis? Call a helpline.
             </p>
           </div>
 

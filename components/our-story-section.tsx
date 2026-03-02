@@ -5,23 +5,23 @@ import { Button } from "@/components/ui/button"
 
 export function OurStorySection() {
   return (
-    <section className="py-20 bg-gradient-to-b from-teal-50 to-background">
+    <section className="py-20 bg-gradient-to-b from-hamboi-dark-bg via-[#1a1a3e] to-hamboi-dark-bg">
       <div className="container mx-auto px-4">
         <div className="max-w-4xl mx-auto">
           {/* Section Header */}
-          <div className="text-center mb-12">
-            <span className="inline-flex items-center gap-2 text-teal-600 font-medium mb-4">
+          <div className="text-center mb-16">
+            <span className="inline-flex items-center gap-2 text-hamboi-green font-bold mb-6">
               <Award className="w-5 h-5" />
               Our Story
             </span>
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4 text-balance">
+            <h2 className="text-5xl md:text-6xl font-black text-white mb-6 text-balance leading-tight">
               Built From Real Experiences
             </h2>
-            <p className="text-muted-foreground text-lg">The story behind Hamboi MindCare</p>
+            <p className="text-hamboi-text-muted text-lg">The story behind Hamboi MindCare</p>
           </div>
 
           {/* Story Card */}
-          <div className="bg-white rounded-3xl shadow-xl overflow-hidden">
+          <div className="bg-hamboi-dark-card border-2 border-hamboi-purple/40 rounded-3xl shadow-xl shadow-hamboi-purple/20 overflow-hidden">
             {/* Founder Image Section */}
             <div className="bg-gradient-to-r from-teal-500 to-cyan-600 p-8 md:p-12 text-white">
               <div className="flex flex-col md:flex-row items-center gap-8">
@@ -62,19 +62,19 @@ export function OurStorySection() {
             {/* Story Content */}
             <div className="p-8 md:p-12">
               <div className="prose prose-lg max-w-none">
-                <p className="text-foreground text-lg leading-relaxed mb-6">
+                <p className="text-white text-lg leading-relaxed mb-6 font-medium">
                   {'"'}My name is Abiodun Abdul Hameed. I{`'`}m a 15-year-old student from Nigeria, and Hamboi MindCare 
                   didn{`'`}t start in a boardroom or a tech lab. It started from real experiences — things my family 
                   and I went through, and feelings I didn{`'`}t always know how to talk about.{'"'}
                 </p>
 
-                <p className="text-muted-foreground leading-relaxed mb-6">
+                <p className="text-hamboi-text-muted leading-relaxed mb-6">
                   Growing up, I saw how mental health struggles can quietly affect families and young people. I also 
                   felt the pressure that many teenagers feel — school stress, expectations, and moments where it feels 
                   like you have to be strong all the time.
                 </p>
 
-                <p className="text-muted-foreground leading-relaxed mb-6">
+                <p className="text-hamboi-text-muted leading-relaxed mb-6">
                   In Nigeria and many parts of the world, mental health is not something teenagers talk about openly. 
                   There is often silence, misunderstanding, or fear of being judged. Sometimes, you just need a safe 
                   place to breathe and feel understood.

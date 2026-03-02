@@ -75,9 +75,9 @@ export function DailyCheckIn() {
   if (!showCheckIn) return null
 
   return (
-    <div className="fixed bottom-4 left-4 right-4 md:left-auto md:right-4 md:w-96 bg-white rounded-2xl shadow-2xl p-6 z-50 animate-in slide-in-from-bottom duration-300">
-      <h3 className="text-lg font-bold text-hamboi-dark mb-2">How are you feeling today?</h3>
-      <p className="text-sm text-hamboi-dark/70 mb-4">Take a moment to check in with yourself</p>
+    <div className="fixed bottom-4 left-4 right-4 md:left-auto md:right-4 md:w-96 bg-hamboi-dark-card border-2 border-hamboi-purple/40 rounded-2xl shadow-2xl shadow-hamboi-purple/20 p-6 z-50 animate-in slide-in-from-bottom duration-300">
+      <h3 className="text-lg font-bold text-white mb-2">How are you feeling today?</h3>
+      <p className="text-sm text-hamboi-text-muted mb-4">Take a moment to check in with yourself</p>
 
       <div className="flex justify-between gap-2 mb-4">
         {moods.map((mood) => {

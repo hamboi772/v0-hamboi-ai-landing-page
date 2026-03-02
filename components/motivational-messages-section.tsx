@@ -86,34 +86,34 @@ export function MotivationalMessagesSection() {
   const currentMessage = motivationalMessages[currentIndex]
 
   return (
-    <section className="py-20 px-4 bg-gradient-to-br from-purple-50 via-blue-50 to-green-50">
+    <section className="py-20 px-4 bg-gradient-to-b from-hamboi-dark-bg via-[#1a1a3e] to-hamboi-dark-bg">
       <div className="max-w-4xl mx-auto">
-        <div className="text-center mb-12">
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-purple-100 text-purple-700 rounded-full text-sm font-medium mb-4">
+        <div className="text-center mb-16">
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-hamboi-purple/20 border border-hamboi-purple/50 text-hamboi-green rounded-full text-sm font-bold mb-6">
             <Sparkles className="w-4 h-4" />
             Daily Motivation
           </div>
-          <h2 className="text-3xl md:text-4xl font-bold text-balance">You've Got This</h2>
+          <h2 className="text-5xl md:text-6xl font-black text-white text-balance leading-tight">You've Got This</h2>
         </div>
 
         <div className="relative">
           {/* Main quote card */}
           <div
-            className={`bg-white rounded-3xl p-8 md:p-12 shadow-lg transition-all duration-500 ${
+            className={`bg-gradient-to-br from-hamboi-dark-card to-[#2a2640] rounded-3xl p-8 md:p-12 shadow-xl border border-hamboi-purple/40 transition-all duration-500 ${
               isVisible ? "opacity-100 scale-100" : "opacity-0 scale-95"
             }`}
           >
             <div className="flex flex-col items-center text-center gap-6">
-              <div className="text-6xl text-purple-200">"</div>
+              <div className="text-6xl text-hamboi-purple/30">"</div>
 
-              <p className="text-xl md:text-2xl font-medium text-gray-800 leading-relaxed text-balance">
+              <p className="text-xl md:text-2xl font-bold text-white leading-relaxed text-balance">
                 {currentMessage.message}
               </p>
 
-              <div className="flex items-center gap-2 text-purple-600 font-medium">
-                <div className="w-8 h-0.5 bg-purple-300" />
+              <div className="flex items-center gap-2 text-hamboi-green font-bold">
+                <div className="w-8 h-0.5 bg-hamboi-green/40" />
                 <span>{currentMessage.author}</span>
-                <div className="w-8 h-0.5 bg-purple-300" />
+                <div className="w-8 h-0.5 bg-hamboi-green/40" />
               </div>
             </div>
           </div>
@@ -131,7 +131,7 @@ export function MotivationalMessagesSection() {
                   }, 300)
                 }}
                 className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                  index === currentIndex ? "bg-purple-600 w-8" : "bg-purple-200 hover:bg-purple-300"
+                  index === currentIndex ? "bg-hamboi-green w-8" : "bg-hamboi-purple/40 hover:bg-hamboi-purple/60"
                 }`}
                 aria-label={`Go to message ${index + 1}`}
               />
@@ -141,19 +141,19 @@ export function MotivationalMessagesSection() {
 
         {/* Sub-messages grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-12">
-          <div className="bg-white/80 backdrop-blur rounded-2xl p-6 text-center">
-            <div className="text-3xl font-bold text-purple-600 mb-2">100%</div>
-            <p className="text-sm text-gray-600">You've survived every bad day so far</p>
+          <div className="bg-hamboi-dark-card rounded-2xl p-6 text-center border border-hamboi-purple/40 hover:border-hamboi-purple/70 transition-all">
+            <div className="text-3xl font-black text-hamboi-green mb-2">100%</div>
+            <p className="text-sm text-hamboi-text-muted font-medium">You've survived every bad day so far</p>
           </div>
 
-          <div className="bg-white/80 backdrop-blur rounded-2xl p-6 text-center">
-            <div className="text-3xl font-bold text-blue-600 mb-2">24/7</div>
-            <p className="text-sm text-gray-600">Support is always available</p>
+          <div className="bg-hamboi-dark-card rounded-2xl p-6 text-center border border-hamboi-purple/40 hover:border-hamboi-purple/70 transition-all">
+            <div className="text-3xl font-black text-hamboi-cyan mb-2">24/7</div>
+            <p className="text-sm text-hamboi-text-muted font-medium">Support is always available</p>
           </div>
 
-          <div className="bg-white/80 backdrop-blur rounded-2xl p-6 text-center">
-            <div className="text-3xl font-bold text-green-600 mb-2">You</div>
-            <p className="text-sm text-gray-600">Are worthy of love and care</p>
+          <div className="bg-hamboi-dark-card rounded-2xl p-6 text-center border border-hamboi-purple/40 hover:border-hamboi-purple/70 transition-all">
+            <div className="text-3xl font-black text-hamboi-pink mb-2">You</div>
+            <p className="text-sm text-hamboi-text-muted font-medium">Are worthy of love and care</p>
           </div>
         </div>
       </div>

@@ -35,16 +35,13 @@ const faqs = [
 
 export function FAQSection() {
   return (
-    <section id="faq" className="py-20 lg:py-28 bg-white">
+    <section id="faq" className="py-20 lg:py-28 bg-gradient-to-b from-hamboi-dark-bg via-[#1a1a3e] to-hamboi-dark-bg">
       <div className="container mx-auto px-4 max-w-3xl">
-        <div className="text-center space-y-4 mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-hamboi-dark">
-            Frequently Asked{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-hamboi-purple to-hamboi-blue">
-              Questions
-            </span>
+        <div className="text-center space-y-6 mb-16">
+          <h2 className="text-5xl md:text-6xl font-black text-white leading-tight">
+            Frequently Asked Questions
           </h2>
-          <p className="text-lg text-hamboi-dark/70">Got questions? We've got answers.</p>
+          <p className="text-lg md:text-xl text-hamboi-text-muted">Got questions? We've got answers.</p>
         </div>
 
         <Accordion type="single" collapsible className="space-y-4">
@@ -52,12 +49,12 @@ export function FAQSection() {
             <AccordionItem
               key={index}
               value={`item-${index}`}
-              className="border border-hamboi-purple/10 rounded-xl px-6 data-[state=open]:border-hamboi-purple/30 data-[state=open]:shadow-md transition-all"
+              className="border border-hamboi-purple/40 rounded-2xl px-6 bg-hamboi-dark-card data-[state=open]:border-hamboi-purple/70 data-[state=open]:bg-[#1E1B2E] data-[state=open]:shadow-xl data-[state=open]:shadow-hamboi-purple/20 transition-all"
             >
-              <AccordionTrigger className="text-left text-hamboi-dark font-semibold hover:text-hamboi-purple hover:no-underline py-5">
+              <AccordionTrigger className="text-left text-white font-bold hover:text-hamboi-green hover:no-underline py-5 text-lg">
                 {faq.question}
               </AccordionTrigger>
-              <AccordionContent className="text-hamboi-dark/70 pb-5 leading-relaxed">{faq.answer}</AccordionContent>
+              <AccordionContent className="text-hamboi-text-muted pb-5 leading-relaxed">{faq.answer}</AccordionContent>
             </AccordionItem>
           ))}
         </Accordion>
