@@ -32,28 +32,28 @@ export function WelcomeBackModal() {
   if (!isOpen) return null
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 animate-in fade-in duration-300">
-      <div className="relative bg-white rounded-3xl p-8 max-w-md w-full shadow-2xl animate-in zoom-in duration-300">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 animate-in fade-in duration-300">
+      <div className="relative bg-hamboi-dark-card border-2 border-hamboi-purple/40 rounded-3xl p-8 max-w-md w-full shadow-2xl shadow-hamboi-purple/30 animate-in zoom-in duration-300">
         <button
           onClick={() => setIsOpen(false)}
-          className="absolute top-4 right-4 p-2 rounded-full hover:bg-gray-100 transition-colors"
+          className="absolute top-4 right-4 p-2 rounded-full hover:bg-hamboi-purple/20 transition-colors text-hamboi-green"
           aria-label="Close"
         >
           <X className="h-5 w-5" />
         </button>
 
-        <div className="text-center space-y-4">
-          <div className="w-16 h-16 rounded-full bg-gradient-to-br from-hamboi-purple to-hamboi-blue flex items-center justify-center mx-auto">
+        <div className="text-center space-y-6">
+          <div className="w-16 h-16 rounded-full bg-gradient-to-br from-hamboi-purple to-hamboi-green flex items-center justify-center mx-auto">
             <Sparkles className="h-8 w-8 text-white" />
           </div>
 
-          <h2 className="text-2xl font-bold text-hamboi-dark">Welcome back, {username}!</h2>
+          <h2 className="text-2xl font-bold text-white">Welcome back, {username}!</h2>
 
-          <p className="text-hamboi-dark/70">We're glad to see you again. How are you feeling today?</p>
+          <p className="text-hamboi-text-muted">We're glad to see you again. How are you feeling today?</p>
 
           <Button
             onClick={() => setIsOpen(false)}
-            className="w-full bg-gradient-to-r from-hamboi-purple to-hamboi-blue text-white"
+            className="w-full bg-gradient-to-r from-hamboi-purple to-hamboi-green text-white font-bold"
           >
             Continue
           </Button>

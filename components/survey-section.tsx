@@ -191,72 +191,70 @@ export function SurveySection() {
   const progress = ((currentQuestion + 1) / surveyQuestions.length) * 100
 
   return (
-    <section className="py-20 px-4 bg-gradient-to-b from-purple-50/50 to-background">
+    <section className="py-20 px-4 bg-gradient-to-b from-hamboi-dark-bg via-[#1a1a3e] to-hamboi-dark-bg">
       <div className="max-w-3xl mx-auto">
-        <div className="text-center mb-12">
-          <div className="inline-flex items-center gap-2 bg-blue-100 text-blue-700 px-4 py-2 rounded-full text-sm font-medium mb-4">
+        <div className="text-center mb-16">
+          <div className="inline-flex items-center gap-2 bg-hamboi-purple/20 border border-hamboi-purple/50 text-hamboi-green px-4 py-2 rounded-full text-sm font-bold mb-6">
             <ClipboardList className="w-4 h-4" />
             Mental Wellness Check
           </div>
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">How Are You Really Feeling?</h2>
-          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            Take this quick, anonymous wellness check to understand your mental health better. Your answers are private
-            and not stored.
+          <h2 className="text-5xl md:text-6xl font-black text-white mb-6 leading-tight">How Are You Really Feeling?</h2>
+          <p className="text-hamboi-text-muted text-lg max-w-2xl mx-auto leading-relaxed">
+            Take this quick, anonymous wellness check to understand your mental health better. Your answers are private and not stored.
           </p>
         </div>
 
-        <Card className="shadow-xl border-0 overflow-hidden">
+        <Card className="shadow-xl border-2 border-hamboi-purple/40 bg-hamboi-dark-card overflow-hidden">
           {!started ? (
             <CardContent className="p-8 text-center">
-              <div className="w-20 h-20 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                <ClipboardList className="w-10 h-10 text-purple-600" />
+              <div className="w-20 h-20 bg-gradient-to-br from-hamboi-purple/30 to-hamboi-green/30 rounded-full flex items-center justify-center mx-auto mb-6">
+                <ClipboardList className="w-10 h-10 text-hamboi-green" />
               </div>
-              <h3 className="text-xl font-bold text-foreground mb-3">Quick Mental Health Check-In</h3>
-              <p className="text-muted-foreground mb-6">
-                Answer 7 simple questions to get personalized insights and tips. Takes about 2 minutes. Your responses
-                are completely private.
+              <h3 className="text-xl font-bold text-white mb-3">Quick Mental Health Check-In</h3>
+              <p className="text-hamboi-text-muted mb-8 leading-relaxed">
+                Answer 7 simple questions to get personalized insights and tips. Takes about 2 minutes. Your responses are completely private.
               </p>
-              <Button onClick={() => setStarted(true)} size="lg" className="bg-purple-600 hover:bg-purple-700">
+              <Button onClick={() => setStarted(true)} size="lg" className="bg-hamboi-green hover:bg-emerald-500 text-hamboi-dark-bg font-bold">
                 Start Check-In
                 <ChevronRight className="w-4 h-4 ml-2" />
               </Button>
-              <p className="text-xs text-muted-foreground mt-4">
+              <p className="text-xs text-hamboi-text-muted mt-6">
                 Note: This is not a diagnostic tool. If you are in crisis, please call 988 or text HOME to 741741.
               </p>
             </CardContent>
           ) : showResult ? (
             <div>
-              <div className={`p-6 ${result.color}`}>
+              <div className="bg-gradient-to-r from-hamboi-purple/30 to-hamboi-green/30 p-6 border-b border-hamboi-purple/40">
                 <div className="flex items-center gap-4">
-                  <div className="p-3 bg-white/50 rounded-full">{result.icon}</div>
+                  <div className="p-3 bg-hamboi-dark-card rounded-full text-hamboi-green">{result.icon}</div>
                   <div>
-                    <h3 className="text-xl font-bold">{result.title}</h3>
-                    <p className="text-sm opacity-90">
+                    <h3 className="text-xl font-bold text-white">{result.title}</h3>
+                    <p className="text-sm text-hamboi-text-muted font-medium">
                       Score: {totalScore} / {surveyQuestions.length * 3}
                     </p>
                   </div>
                 </div>
               </div>
               <CardContent className="p-6">
-                <p className="text-muted-foreground mb-6">{result.description}</p>
-                <div className="bg-gray-50 rounded-lg p-4 mb-6">
-                  <h4 className="font-semibold text-foreground mb-3">Recommended Next Steps:</h4>
+                <p className="text-hamboi-text-muted mb-6 leading-relaxed">{result.description}</p>
+                <div className="bg-hamboi-dark-bg rounded-lg p-4 mb-6 border border-hamboi-purple/30">
+                  <h4 className="font-bold text-white mb-3">Recommended Next Steps:</h4>
                   <ul className="space-y-2">
                     {result.tips.map((tip, index) => (
-                      <li key={index} className="flex items-start gap-2 text-sm text-muted-foreground">
-                        <span className="text-purple-600 mt-1">•</span>
+                      <li key={index} className="flex items-start gap-2 text-sm text-hamboi-text-muted">
+                        <span className="text-hamboi-green mt-1">•</span>
                         {tip}
                       </li>
                     ))}
                   </ul>
                 </div>
                 <div className="flex flex-col sm:flex-row gap-3">
-                  <Button onClick={resetSurvey} variant="outline" className="flex-1 bg-transparent">
+                  <Button onClick={resetSurvey} variant="outline" className="flex-1 bg-transparent border-hamboi-purple/40 text-hamboi-purple hover:bg-hamboi-purple/10 font-bold">
                     <RefreshCw className="w-4 h-4 mr-2" />
                     Take Again
                   </Button>
                   <Button
-                    className="flex-1 bg-purple-600 hover:bg-purple-700"
+                    className="flex-1 bg-hamboi-green hover:bg-emerald-500 text-hamboi-dark-bg font-bold"
                     onClick={() => {
                       const heroSection = document.getElementById("hero")
                       heroSection?.scrollIntoView({ behavior: "smooth" })
@@ -270,17 +268,17 @@ export function SurveySection() {
             </div>
           ) : (
             <div>
-              <CardHeader className="border-b bg-gray-50/50">
-                <div className="flex items-center justify-between mb-2">
-                  <span className="text-sm text-muted-foreground">
+              <CardHeader className="border-b border-hamboi-purple/30 bg-hamboi-dark-bg">
+                <div className="flex items-center justify-between mb-4">
+                  <span className="text-sm text-hamboi-text-muted font-medium">
                     Question {currentQuestion + 1} of {surveyQuestions.length}
                   </span>
-                  <span className="text-sm font-medium text-purple-600">{Math.round(progress)}% complete</span>
+                  <span className="text-sm font-bold text-hamboi-green">{Math.round(progress)}% complete</span>
                 </div>
-                <Progress value={progress} className="h-2" />
+                <Progress value={progress} className="h-2 bg-hamboi-dark-card" />
               </CardHeader>
               <CardContent className="p-6">
-                <CardTitle className="text-lg mb-6 text-foreground">
+                <CardTitle className="text-lg mb-6 text-white font-bold">
                   {surveyQuestions[currentQuestion].question}
                 </CardTitle>
                 <div className="space-y-3">

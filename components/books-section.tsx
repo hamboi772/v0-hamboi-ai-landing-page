@@ -183,19 +183,18 @@ export function BooksSection() {
   const visibleBooks = books.slice(currentIndex, currentIndex + booksPerPage)
 
   return (
-    <section className="py-20 px-4 bg-gradient-to-b from-background to-purple-50/50">
+    <section className="py-20 px-4 bg-gradient-to-b from-hamboi-dark-bg via-[#1a1a3e] to-hamboi-dark-bg">
       <div className="max-w-6xl mx-auto">
-        <div className="text-center mb-12">
-          <div className="inline-flex items-center gap-2 bg-purple-100 text-purple-700 px-4 py-2 rounded-full text-sm font-medium mb-4">
+        <div className="text-center mb-16">
+          <div className="inline-flex items-center gap-2 bg-hamboi-purple/20 border border-hamboi-purple/50 text-hamboi-green px-4 py-2 rounded-full text-sm font-bold mb-6">
             <Book className="w-4 h-4" />
             Recommended Reading
           </div>
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+          <h2 className="text-5xl md:text-6xl font-black text-white mb-6 leading-tight">
             Mental Health Books That Changed Lives
           </h2>
-          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            Curated collection of transformative books by world-renowned psychologists, therapists, and mental health
-            experts. Each one chosen for its real impact.
+          <p className="text-hamboi-text-muted text-lg max-w-2xl mx-auto leading-relaxed">
+            Curated collection of transformative books by world-renowned psychologists, therapists, and mental health experts. Each one chosen for its real impact.
           </p>
         </div>
 
@@ -206,7 +205,7 @@ export function BooksSection() {
               variant="outline"
               size="icon"
               onClick={prevSlide}
-              className="rounded-full shadow-lg bg-background hover:bg-purple-50"
+              className="rounded-full shadow-lg bg-hamboi-dark-card border-hamboi-purple/40 text-hamboi-green hover:bg-hamboi-purple/20"
             >
               <ChevronLeft className="w-5 h-5" />
             </Button>
@@ -216,7 +215,7 @@ export function BooksSection() {
               variant="outline"
               size="icon"
               onClick={nextSlide}
-              className="rounded-full shadow-lg bg-background hover:bg-purple-50"
+              className="rounded-full shadow-lg bg-hamboi-dark-card border-hamboi-purple/40 text-hamboi-green hover:bg-hamboi-purple/20"
             >
               <ChevronRight className="w-5 h-5" />
             </Button>
@@ -227,19 +226,19 @@ export function BooksSection() {
             {visibleBooks.map((book, index) => (
               <Card
                 key={book.title}
-                className="group overflow-hidden border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
+                className="group overflow-hidden border-2 border-hamboi-purple/40 shadow-lg hover:shadow-2xl hover:shadow-hamboi-purple/30 transition-all duration-300 hover:-translate-y-2 hover:border-hamboi-purple/70 bg-hamboi-dark-card"
               >
                 <div className={`h-3 bg-gradient-to-r ${book.color}`} />
                 <CardContent className="p-6">
-                  <Badge variant="secondary" className="mb-3 text-xs">
+                  <Badge variant="secondary" className="mb-3 text-xs bg-hamboi-purple/20 text-hamboi-green border border-hamboi-purple/50">
                     {book.category}
                   </Badge>
-                  <h3 className="font-bold text-lg text-foreground mb-1 group-hover:text-purple-600 transition-colors">
+                  <h3 className="font-bold text-lg text-white mb-1 group-hover:text-hamboi-green transition-colors">
                     {book.title}
                   </h3>
-                  <p className="text-sm text-purple-600 font-medium mb-1">by {book.author}</p>
-                  <p className="text-xs text-muted-foreground mb-3">{book.authorInfo}</p>
-                  <p className="text-sm text-muted-foreground mb-4 line-clamp-3">{book.description}</p>
+                  <p className="text-sm text-hamboi-green font-bold mb-1">by {book.author}</p>
+                  <p className="text-xs text-hamboi-text-muted mb-3">{book.authorInfo}</p>
+                  <p className="text-sm text-hamboi-text-muted mb-4 line-clamp-3">{book.description}</p>
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-1">
                       <Star className="w-4 h-4 fill-amber-400 text-amber-400" />

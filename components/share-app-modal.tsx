@@ -57,24 +57,24 @@ export function ShareAppModal() {
       </Button>
 
       {isOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 animate-in fade-in duration-300">
-          <div className="relative bg-white rounded-3xl p-6 max-w-md w-full shadow-2xl animate-in slide-in-from-bottom duration-300">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 animate-in fade-in duration-300">
+          <div className="relative bg-hamboi-dark-card border-2 border-hamboi-purple/40 rounded-3xl p-6 max-w-md w-full shadow-2xl shadow-hamboi-purple/30 animate-in slide-in-from-bottom duration-300">
             <button
               onClick={() => setIsOpen(false)}
-              className="absolute top-4 right-4 p-2 rounded-full hover:bg-gray-100 transition-colors"
+              className="absolute top-4 right-4 p-2 rounded-full hover:bg-hamboi-purple/20 transition-colors text-hamboi-green"
               aria-label="Close"
             >
               <X className="h-5 w-5" />
             </button>
 
-            <h2 className="text-xl font-bold text-hamboi-dark mb-2">Share Hamboi MindCare</h2>
-            <p className="text-sm text-hamboi-dark/70 mb-6">Help your friends find mental health support</p>
+            <h2 className="text-xl font-bold text-white mb-2">Share Hamboi MindCare</h2>
+            <p className="text-sm text-hamboi-text-muted mb-6">Help your friends find mental health support</p>
 
             <div className="space-y-3">
               {navigator.share && (
                 <Button
                   onClick={handleNativeShare}
-                  className="w-full bg-gradient-to-r from-hamboi-purple to-hamboi-blue text-white"
+                  className="w-full bg-gradient-to-r from-hamboi-purple to-hamboi-green text-white font-bold"
                 >
                   Share via...
                 </Button>
@@ -83,7 +83,7 @@ export function ShareAppModal() {
               <Button
                 onClick={handleWhatsAppShare}
                 variant="outline"
-                className="w-full border-2 border-green-500 text-green-600 hover:bg-green-50 bg-transparent"
+                className="w-full border-2 border-hamboi-green text-hamboi-green hover:bg-hamboi-green/10 bg-transparent font-bold"
               >
                 Share on WhatsApp
               </Button>
@@ -91,12 +91,12 @@ export function ShareAppModal() {
               <Button
                 onClick={handleTwitterShare}
                 variant="outline"
-                className="w-full border-2 border-blue-400 text-blue-500 hover:bg-blue-50 bg-transparent"
+                className="w-full border-2 border-hamboi-cyan text-hamboi-cyan hover:bg-hamboi-cyan/10 bg-transparent font-bold"
               >
                 Share on Twitter/X
               </Button>
 
-              <Button onClick={handleCopyLink} variant="outline" className="w-full bg-transparent">
+              <Button onClick={handleCopyLink} variant="outline" className="w-full bg-transparent border-2 border-hamboi-purple/40 text-hamboi-purple hover:bg-hamboi-purple/10 font-bold">
                 {copied ? (
                   <>
                     <Check className="h-4 w-4 mr-2" />
