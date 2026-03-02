@@ -11,25 +11,25 @@ export const metadata = {
 }
 
 export default function ArticlesPage() {
-  const founderArticle = articles.find((a) => a.featured)
-  const studentArticles = articles.filter((a) => !a.featured)
+  const founderArticle = articles.find((a) => a.featured && a.content.length > 0)
+  const studentArticles = articles.filter((a) => !a.featured && a.content.length > 0)
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-hamboi-light via-background to-background">
+    <div className="min-h-screen bg-gradient-to-b from-hamboi-dark-bg via-[#1a1a3e] to-hamboi-dark-bg">
       {/* Header */}
-      <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-hamboi-purple/10">
+      <header className="sticky top-0 z-50 bg-gradient-to-br from-hamboi-dark-bg/95 to-[#1a1a2e]/95 backdrop-blur-lg border-b border-hamboi-purple/30">
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
-            <Link href="/" className="flex items-center gap-2">
-              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-hamboi-purple to-hamboi-blue flex items-center justify-center">
+            <Link href="/" className="flex items-center gap-2 hover:opacity-80 transition">
+              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-hamboi-green to-hamboi-cyan flex items-center justify-center">
                 <Heart className="h-5 w-5 text-white" />
               </div>
-              <span className="text-xl font-bold text-hamboi-dark">Hamboi Mindcare</span>
+              <span className="text-xl font-bold bg-gradient-to-r from-hamboi-green to-hamboi-cyan bg-clip-text text-transparent">Hamboi</span>
             </Link>
             <Link href="/">
-              <Button variant="outline" className="border-hamboi-purple/20 bg-transparent text-hamboi-dark">
+              <Button className="border-2 border-hamboi-purple bg-transparent text-hamboi-purple hover:bg-hamboi-purple/20 font-bold">
                 <ArrowLeft className="h-4 w-4 mr-2" />
-                Back to Home
+                Back Home
               </Button>
             </Link>
           </div>
@@ -37,63 +37,65 @@ export default function ArticlesPage() {
       </header>
 
       {/* Hero Section */}
-      <section className="py-16 md:py-24">
+      <section className="py-20 md:py-32">
         <div className="container mx-auto px-4 text-center">
-          <div className="flex justify-center mb-6">
-            <span className="inline-flex items-center gap-2 bg-hamboi-purple/10 text-hamboi-purple px-4 py-2 rounded-full text-sm font-medium">
+          <div className="flex justify-center mb-8">
+            <span className="inline-flex items-center gap-2 bg-hamboi-purple/20 border border-hamboi-purple/50 text-hamboi-green px-4 py-2 rounded-full text-sm font-bold">
               <BookOpen className="w-4 h-4" />
               Student Voices
             </span>
           </div>
-          <h1 className="text-4xl md:text-6xl font-bold text-hamboi-dark mb-6 leading-tight text-balance">
-            Articles by Students, for Students
+          <h1 className="text-5xl md:text-7xl font-black text-white mb-8 leading-tight text-balance">
+            Stories by Students
           </h1>
-          <p className="text-lg md:text-xl text-hamboi-dark/60 max-w-2xl mx-auto leading-relaxed">
-            Real stories, real experiences, and real advice from young people who understand what you are going through.
+          <p className="text-lg md:text-xl text-hamboi-text-muted max-w-2xl mx-auto leading-relaxed">
+            Real experiences, real advice from people who actually get it. No fluff, just real talk about what matters.
           </p>
         </div>
       </section>
 
       {/* Featured Article */}
       {founderArticle && (
-        <section className="pb-12">
+        <section className="pb-16">
           <div className="container mx-auto px-4">
             <div className="max-w-4xl mx-auto">
-              <h2 className="text-sm font-semibold text-hamboi-dark/40 uppercase tracking-wider mb-6">
-                Featured Story
+              <h2 className="text-sm font-bold text-hamboi-green uppercase tracking-wider mb-8">
+                Featured Story ✨
               </h2>
               <Link href="/about/article">
-                <div className="group bg-gradient-to-r from-teal-500 to-cyan-600 rounded-3xl p-8 md:p-12 text-white cursor-pointer smooth-hover">
-                  <div className="flex flex-wrap gap-2 mb-4">
-                    <span className="inline-flex items-center gap-1.5 bg-white/20 px-3 py-1 rounded-full text-sm font-medium">
-                      <Sparkles className="w-3.5 h-3.5" />
-                      {founderArticle.category}
-                    </span>
-                    <span className="inline-flex items-center gap-1.5 bg-white/20 px-3 py-1 rounded-full text-sm font-medium">
-                      <Clock className="w-3.5 h-3.5" />
-                      {founderArticle.readTime}
-                    </span>
-                  </div>
-                  <h3 className="text-2xl md:text-4xl font-bold mb-4 group-hover:underline decoration-2 underline-offset-4 text-balance">
-                    {founderArticle.title}
-                  </h3>
-                  <p className="text-white/80 text-lg mb-6 max-w-2xl leading-relaxed">{founderArticle.description}</p>
-                  <div className="flex items-center justify-between flex-wrap gap-4">
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center">
-                        <User className="w-5 h-5" />
-                      </div>
-                      <div>
-                        <p className="font-semibold">{founderArticle.author.name}</p>
-                        <p className="text-sm text-white/70">
-                          {founderArticle.author.school} | {founderArticle.author.role}
-                        </p>
-                      </div>
+                <div className="group relative bg-gradient-to-br from-hamboi-purple/80 to-hamboi-pink/80 rounded-3xl p-8 md:p-12 text-white cursor-pointer overflow-hidden hover:shadow-2xl hover:shadow-hamboi-purple/40 transition-all duration-300 hover:scale-105">
+                  <div className="relative z-10">
+                    <div className="flex flex-wrap gap-2 mb-6">
+                      <span className="inline-flex items-center gap-1.5 border border-hamboi-purple/50 bg-white/10 px-3 py-1.5 rounded-full text-sm font-bold">
+                        <Sparkles className="w-3.5 h-3.5" />
+                        {founderArticle.category}
+                      </span>
+                      <span className="inline-flex items-center gap-1.5 border border-white/30 bg-white/10 px-3 py-1.5 rounded-full text-sm font-bold">
+                        <Clock className="w-3.5 h-3.5" />
+                        {founderArticle.readTime}
+                      </span>
                     </div>
-                    <span className="inline-flex items-center gap-2 font-medium">
-                      Read Story
-                      <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                    </span>
+                    <h3 className="text-3xl md:text-4xl font-black mb-6 leading-tight text-balance">
+                      {founderArticle.title}
+                    </h3>
+                    <p className="text-white/90 text-lg mb-8 max-w-2xl leading-relaxed">{founderArticle.description}</p>
+                    <div className="flex items-center justify-between flex-wrap gap-4 pt-4 border-t border-white/20">
+                      <div className="flex items-center gap-3">
+                        <div className="w-12 h-12 rounded-full bg-white/20 flex items-center justify-center flex-shrink-0">
+                          <User className="w-6 h-6" />
+                        </div>
+                        <div>
+                          <p className="font-bold text-white">{founderArticle.author.name}</p>
+                          <p className="text-sm text-white/80">
+                            {founderArticle.author.school} • {founderArticle.author.role}
+                          </p>
+                        </div>
+                      </div>
+                      <Button className="bg-white text-hamboi-purple hover:bg-gray-100 font-bold gap-2">
+                        Read Story
+                        <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                      </Button>
+                    </div>
                   </div>
                 </div>
               </Link>
@@ -103,38 +105,45 @@ export default function ArticlesPage() {
       )}
 
       {/* Student Articles */}
-      <section className="pb-20">
+      <section className="pb-24">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
-            <h2 className="text-sm font-semibold text-hamboi-dark/40 uppercase tracking-wider mb-6">
-              Student Articles
+            <h2 className="text-sm font-bold text-hamboi-green uppercase tracking-wider mb-8">
+              Articles From The Community
             </h2>
             <div className="grid gap-6">
               {studentArticles.map((article) => (
                 <Link key={article.slug} href={`/articles/${article.slug}`}>
-                  <div className="group bg-white rounded-2xl border border-hamboi-purple/10 p-6 md:p-8 cursor-pointer smooth-hover hover:shadow-lg hover:border-hamboi-purple/20 transition-all">
-                    <div className="flex flex-wrap gap-2 mb-4">
-                      <span className="inline-flex items-center gap-1.5 bg-hamboi-purple/10 text-hamboi-purple px-3 py-1 rounded-full text-xs font-medium">
+                  <div className="group relative bg-gradient-to-br from-[#1E1B2E] to-[#2a2640] rounded-2xl border border-hamboi-purple/40 p-6 md:p-8 cursor-pointer hover:border-hamboi-purple/70 transition-all duration-300 hover:shadow-xl hover:shadow-hamboi-purple/20 hover:scale-105">
+                    {/* Category and metadata badges */}
+                    <div className="flex flex-wrap gap-2 mb-5">
+                      <span className="inline-flex items-center gap-1.5 border border-hamboi-purple/60 bg-hamboi-purple/15 text-hamboi-green px-3 py-1.5 rounded-full text-xs font-bold">
                         <BookOpen className="w-3 h-3" />
                         {article.category}
                       </span>
-                      <span className="inline-flex items-center gap-1.5 bg-hamboi-calm/10 text-hamboi-calm px-3 py-1 rounded-full text-xs font-medium">
+                      <span className="inline-flex items-center gap-1.5 border border-hamboi-cyan/40 bg-hamboi-cyan/10 text-hamboi-cyan px-3 py-1.5 rounded-full text-xs font-bold">
                         <Clock className="w-3 h-3" />
                         {article.readTime}
                       </span>
-                      <span className="inline-flex items-center gap-1.5 text-hamboi-dark/40 px-3 py-1 rounded-full text-xs">
+                      <span className="inline-flex items-center gap-1.5 text-hamboi-text-muted px-3 py-1.5 rounded-full text-xs font-medium">
                         <Calendar className="w-3 h-3" />
                         {article.publishedDate}
                       </span>
                     </div>
-                    <h3 className="text-xl md:text-2xl font-bold text-hamboi-dark mb-3 group-hover:text-hamboi-purple transition-colors text-balance">
+                    
+                    {/* Title */}
+                    <h3 className="text-xl md:text-2xl font-black text-white mb-3 group-hover:text-hamboi-green transition-colors text-balance leading-tight">
                       {article.title}
                     </h3>
-                    <p className="text-hamboi-dark/60 leading-relaxed mb-6">{article.description}</p>
-                    <div className="flex items-center justify-between flex-wrap gap-4">
+                    
+                    {/* Description */}
+                    <p className="text-hamboi-text-muted leading-relaxed mb-6">{article.description}</p>
+                    
+                    {/* Author and CTA */}
+                    <div className="flex items-center justify-between flex-wrap gap-4 pt-6 border-t border-hamboi-purple/30">
                       <div className="flex items-center gap-3">
                         {article.author.image ? (
-                          <div className="w-10 h-10 rounded-full overflow-hidden ring-2 ring-hamboi-purple/10 flex-shrink-0">
+                          <div className="w-10 h-10 rounded-full overflow-hidden ring-2 ring-hamboi-purple/60 flex-shrink-0">
                             <Image
                               src={article.author.image || "/placeholder.svg"}
                               alt={article.author.name}
@@ -144,38 +153,38 @@ export default function ArticlesPage() {
                             />
                           </div>
                         ) : (
-                          <div className="w-10 h-10 rounded-full bg-hamboi-purple/10 flex items-center justify-center flex-shrink-0">
+                          <div className="w-10 h-10 rounded-full bg-hamboi-purple/30 flex items-center justify-center flex-shrink-0">
                             <User className="w-5 h-5 text-hamboi-purple" />
                           </div>
                         )}
                         <div>
-                          <p className="font-semibold text-hamboi-dark text-sm">{article.author.name}</p>
-                          <p className="text-xs text-hamboi-dark/50">
-                            {article.author.role}, {article.author.school}
+                          <p className="font-bold text-white text-sm">{article.author.name}</p>
+                          <p className="text-xs text-hamboi-text-muted">
+                            {article.author.role} • {article.author.school}
                           </p>
                         </div>
                       </div>
-                      <span className="inline-flex items-center gap-2 text-hamboi-purple font-medium text-sm">
+                      <Button className="bg-hamboi-purple hover:bg-violet-600 text-white font-bold text-sm gap-2 rounded-xl h-auto py-2.5 px-4">
                         Read Article
                         <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                      </span>
+                      </Button>
                     </div>
                   </div>
                 </Link>
               ))}
             </div>
 
-            {/* Empty state / CTA */}
-            <div className="mt-12 bg-hamboi-purple/5 rounded-2xl p-8 md:p-12 text-center border border-dashed border-hamboi-purple/20">
-              <BookOpen className="w-10 h-10 text-hamboi-purple/40 mx-auto mb-4" />
-              <h3 className="text-xl font-bold text-hamboi-dark mb-2">Want to share your story?</h3>
-              <p className="text-hamboi-dark/60 max-w-md mx-auto mb-6">
-                We believe every student has a story worth sharing. If you have written an article on mental health,
-                resilience, or personal growth, we would love to feature it here.
+            {/* Share Your Story CTA */}
+            <div className="mt-16 bg-gradient-to-r from-hamboi-purple/20 to-hamboi-pink/20 rounded-3xl p-8 md:p-12 text-center border border-hamboi-purple/50">
+              <BookOpen className="w-12 h-12 text-hamboi-green mx-auto mb-4" />
+              <h3 className="text-2xl md:text-3xl font-black text-white mb-3">Want to Share Your Story?</h3>
+              <p className="text-hamboi-text-muted max-w-xl mx-auto mb-8 text-lg">
+                Got a story? We're here for it. Real articles from real students. No judgment, just genuine voices making a difference.
               </p>
               <a href="mailto:hamboimindcare.help@gmail.com?subject=Article Submission for Hamboi Mindcare">
-                <Button className="bg-hamboi-purple hover:bg-hamboi-purple/90 text-white">
+                <Button className="bg-hamboi-green hover:bg-emerald-500 text-hamboi-dark-bg font-bold text-base gap-2 rounded-2xl h-auto py-3 px-8">
                   Submit Your Article
+                  <ArrowRight className="w-5 h-5" />
                 </Button>
               </a>
             </div>
@@ -184,11 +193,11 @@ export default function ArticlesPage() {
       </section>
 
       {/* Footer */}
-      <footer className="bg-hamboi-dark text-white py-8">
+      <footer className="bg-gradient-to-b from-hamboi-dark-bg to-[#0a0a15] text-white py-12 border-t border-hamboi-purple/30">
         <div className="container mx-auto px-4 text-center">
-          <p className="text-white/60">
+          <p className="text-hamboi-text-muted">
             © {new Date().getFullYear()} Hamboi Mindcare. Built with{" "}
-            <Heart className="h-4 w-4 inline text-red-400" /> for teens everywhere.
+            <Heart className="h-4 w-4 inline text-hamboi-green" /> for teens everywhere.
           </p>
         </div>
       </footer>

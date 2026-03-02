@@ -53,129 +53,126 @@ export function HeroSection() {
 
   return (
     <>
-      <section className="relative overflow-hidden bg-gradient-to-br from-hamboi-light via-white to-hamboi-blue/10 py-20 lg:py-32">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(167,139,250,0.15),transparent_50%)]" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_80%,rgba(96,165,250,0.15),transparent_50%)]" />
+      <section className="relative overflow-hidden bg-gradient-to-br from-hamboi-dark-bg via-[#1a1a3e] to-[#0f1a2e] py-24 lg:py-40 min-h-screen flex items-center">
+        {/* Animated gradient blobs */}
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br from-hamboi-purple/20 to-transparent rounded-full blur-3xl animate-float" />
+          <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-gradient-to-tr from-hamboi-green/15 to-transparent rounded-full blur-3xl animate-float-slow" />
+          <div className="absolute top-1/2 left-1/2 w-96 h-96 bg-gradient-to-br from-hamboi-cyan/10 to-transparent rounded-full blur-3xl" />
+        </div>
 
         <div className="container mx-auto px-4 relative z-10">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
+          <div className="grid lg:grid-cols-2 gap-16 items-center">
             <div className="space-y-8">
-              <div className="inline-flex items-center gap-2 px-4 py-2 bg-hamboi-purple/10 rounded-full text-hamboi-purple text-sm font-medium">
-                <Sparkles className="h-4 w-4" />
-                <span>Your feelings are valid</span>
+              <div className="inline-flex items-center gap-2 px-4 py-2 bg-hamboi-purple/20 rounded-full text-hamboi-green text-sm font-bold border border-hamboi-purple/40">
+                <Sparkles className="h-4 w-4 animate-pulse" />
+                <span>Your feelings matter 💜</span>
               </div>
 
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-hamboi-dark leading-tight text-balance">
-                Your Mental Health{" "}
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-hamboi-purple to-hamboi-blue">
-                  Matters
-                </span>
-              </h1>
-
-              <div className="bg-white/60 backdrop-blur-sm rounded-2xl p-6 border border-hamboi-purple/20 shadow-sm">
-                <p className="text-sm font-semibold text-hamboi-purple uppercase tracking-wider mb-2">HAMBOI</p>
-                <p className="text-base md:text-lg font-medium text-hamboi-dark leading-relaxed">
-                  <span className="text-hamboi-purple">H</span>ope <span className="text-hamboi-purple">A</span>nd{" "}
-                  <span className="text-hamboi-purple">M</span>ind <span className="text-hamboi-purple">B</span>alance:{" "}
-                  <span className="text-hamboi-purple">O</span>utreach <span className="text-hamboi-purple">I</span>
-                  nitiative
-                </p>
+              <div className="space-y-4">
+                <h1 className="text-6xl md:text-7xl lg:text-8xl font-black text-white leading-[1.1] text-balance animate-fade-in-up">
+                  Real Talk About
+                </h1>
+                <h2 className="text-6xl md:text-7xl lg:text-8xl font-black bg-gradient-to-r from-hamboi-green via-hamboi-cyan to-hamboi-purple bg-clip-text text-transparent animate-fade-in-up" style={{ animationDelay: "0.1s" }}>
+                  Mental Health
+                </h2>
               </div>
 
-              <p className="text-lg md:text-xl text-hamboi-dark/70 max-w-lg text-pretty">
-                Talk to Hamboi Mindcare anytime you need support. Try it now — just press the button and talk! You're
-                not alone.
+              <p className="text-lg md:text-xl text-hamboi-text-muted max-w-xl text-pretty leading-relaxed">
+                No judgment here 💚 Just vibes, real support, and someone who actually gets it. Talk whenever, wherever — your AI friend is always down to listen.
               </p>
 
-              <div className="flex flex-col gap-6">
+              <div className="flex flex-col gap-8">
                 <div className="flex flex-wrap gap-4">
                   <Button
                     size="lg"
                     onClick={() => setIsChatDemoOpen(true)}
-                    className="bg-gradient-to-r from-hamboi-purple to-hamboi-blue hover:opacity-90 text-white text-lg px-8 py-6 rounded-full shadow-lg shadow-hamboi-purple/25 transition-all hover:shadow-xl hover:shadow-hamboi-purple/30"
+                    className="bg-hamboi-green hover:bg-emerald-500 text-hamboi-dark-bg font-bold text-lg px-10 py-7 rounded-2xl shadow-lg shadow-hamboi-green/40 transition-all hover:shadow-xl hover:shadow-hamboi-green/60 hover:scale-105 active:scale-95 animate-pulse-glow"
                   >
-                    <MessageSquare className="h-5 w-5 mr-2" />
+                    <MessageSquare className="h-6 w-6 mr-3" />
                     Try Chat Demo
                   </Button>
                   <Link href="/features">
                     <Button
                       size="lg"
-                      variant="outline"
-                      className="border-2 border-hamboi-purple text-hamboi-purple hover:bg-hamboi-purple/10 text-lg px-8 py-6 rounded-full bg-transparent"
+                      className="border-2 border-hamboi-purple bg-transparent text-hamboi-purple hover:bg-hamboi-purple/20 font-bold text-lg px-10 py-7 rounded-2xl transition-all hover:scale-105 active:scale-95"
                     >
-                      <LayoutDashboard className="h-5 w-5 mr-2" />
-                      My Dashboard
+                      <LayoutDashboard className="h-6 w-6 mr-3" />
+                      Explore Features
                     </Button>
                   </Link>
                 </div>
 
-                <div className="space-y-3">
-                  <p className="text-sm text-hamboi-dark/60 font-medium">Install the app on your phone:</p>
+                <div className="space-y-4">
+                  <div className="flex items-center gap-2">
+                    <Smartphone className="h-5 w-5 text-hamboi-green" />
+                    <p className="text-sm text-hamboi-text-muted font-semibold">Get it on your phone:</p>
+                  </div>
                   {isInstallable && (
                     <Button
                       size="lg"
                       onClick={handleInstallClick}
-                      className="bg-gradient-to-r from-green-500 to-teal-500 hover:opacity-90 text-white px-6 py-5 rounded-full shadow-lg"
+                      className="bg-gradient-to-r from-hamboi-purple to-hamboi-pink hover:from-hamboi-purple/90 hover:to-hamboi-pink/90 text-white font-bold px-8 py-6 rounded-2xl shadow-lg shadow-hamboi-purple/30 transition-all hover:scale-105"
                     >
-                      <Download className="h-5 w-5 mr-2" />
-                      Install Hamboi Mindcare
+                      <Download className="h-5 w-5 mr-3" />
+                      Install App
                     </Button>
                   )}
-                  <AppStoreBadges />
+                  <AppStoreBadges size="large" />
                 </div>
               </div>
 
-              <div className="flex items-center gap-4 pt-4">
-                <div className="flex -space-x-2">
+              <div className="flex items-center gap-4 pt-8">
+                <div className="flex -space-x-3">
                   {[1, 2, 3, 4].map((i) => (
                     <div
                       key={i}
-                      className="w-10 h-10 rounded-full bg-gradient-to-br from-hamboi-purple/30 to-hamboi-blue/30 border-2 border-white flex items-center justify-center text-xs font-medium text-hamboi-dark"
+                      className="w-12 h-12 rounded-full bg-gradient-to-br from-hamboi-green to-hamboi-cyan border-2 border-hamboi-dark-card flex items-center justify-center text-sm font-bold text-white"
                     >
                       {["A", "J", "M", "S"][i - 1]}
                     </div>
                   ))}
                 </div>
-                <p className="text-sm text-hamboi-dark/70">
-                  <span className="font-semibold text-hamboi-dark">Join our growing community</span> of teens finding
-                  support with Hamboi
+                <p className="text-sm text-hamboi-text-muted">
+                  <span className="font-bold text-hamboi-green">1,000+ teens</span> getting real support with Hamboi
                 </p>
               </div>
             </div>
 
             <div className="relative hidden lg:block">
               <div className="relative w-full aspect-square max-w-lg mx-auto">
-                <div className="absolute inset-0 bg-gradient-to-br from-hamboi-purple/20 to-hamboi-blue/20 rounded-3xl blur-3xl" />
-                <div className="relative bg-white rounded-3xl shadow-2xl p-8 border border-hamboi-purple/10">
+                <div className="absolute inset-0 bg-gradient-to-br from-hamboi-purple/30 to-hamboi-cyan/20 rounded-3xl blur-3xl animate-pulse-soft" />
+                <div className="relative bg-gradient-to-br from-hamboi-dark-card to-[#232342] rounded-3xl shadow-2xl p-8 border border-hamboi-purple/30 overflow-hidden animate-fade-in-up">
+                  <div className="absolute inset-0 bg-gradient-to-t from-hamboi-purple/10 to-transparent" />
                   <img
                     src="/diverse-happy-teenagers-supporting-each-other-ment.jpg"
                     alt="Diverse group of teenagers supporting each other"
-                    className="w-full h-full object-contain rounded-2xl"
+                    className="w-full h-full object-contain rounded-2xl relative z-10"
                   />
                 </div>
 
-                <div className="absolute -bottom-6 -left-6 bg-white rounded-2xl shadow-xl p-4 border border-hamboi-purple/10">
+                <div className="absolute -bottom-8 -left-8 bg-gradient-to-br from-hamboi-dark-card to-[#1a1a2e] rounded-2xl shadow-xl p-5 border border-hamboi-green/50 backdrop-blur-sm animate-bounce-subtle" style={{ animationDelay: "0.2s" }}>
                   <div className="flex items-center gap-3">
-                    <div className="w-12 h-12 rounded-full bg-hamboi-green/20 flex items-center justify-center">
-                      <svg className="w-6 h-6 text-hamboi-green" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                    <div className="w-12 h-12 rounded-full bg-hamboi-green/30 flex items-center justify-center">
+                      <svg className="w-6 h-6 text-hamboi-green" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z" />
                       </svg>
                     </div>
                     <div>
-                      <p className="font-semibold text-hamboi-dark">100% Private</p>
-                      <p className="text-sm text-hamboi-dark/60">Your safe space</p>
+                      <p className="font-bold text-white text-sm">Private & Safe</p>
+                      <p className="text-xs text-hamboi-text-muted">Just between us</p>
                     </div>
                   </div>
                 </div>
 
-                <div className="absolute -top-4 -right-4 bg-white rounded-2xl shadow-xl p-4 border border-hamboi-purple/10">
+                <div className="absolute -top-6 -right-6 bg-gradient-to-br from-hamboi-dark-card to-[#1a1a2e] rounded-2xl shadow-xl p-5 border border-hamboi-purple/50 backdrop-blur-sm animate-bounce-subtle">
                   <div className="flex items-center gap-3">
-                    <div className="w-12 h-12 rounded-full bg-hamboi-purple/20 flex items-center justify-center">
+                    <div className="w-12 h-12 rounded-full bg-hamboi-purple/30 flex items-center justify-center">
                       <MessageSquare className="w-6 h-6 text-hamboi-purple" />
                     </div>
                     <div>
-                      <p className="font-semibold text-hamboi-dark">24/7 Support</p>
-                      <p className="text-sm text-hamboi-dark/60">Always here</p>
+                      <p className="font-bold text-white text-sm">Always Here</p>
+                      <p className="text-xs text-hamboi-text-muted">24/7 support</p>
                     </div>
                   </div>
                 </div>
@@ -189,42 +186,42 @@ export function HeroSection() {
 
       {/* iOS Install Instructions Modal */}
       {showIOSInstructions && (
-        <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4" onClick={() => setShowIOSInstructions(false)}>
-          <div className="bg-white rounded-2xl p-6 max-w-sm w-full" onClick={(e) => e.stopPropagation()}>
-            <div className="flex items-center justify-between mb-4">
-              <h3 className="text-lg font-bold text-hamboi-dark">Install on iPhone/iPad</h3>
-              <button onClick={() => setShowIOSInstructions(false)} className="p-1">
-                <X className="h-5 w-5" />
+        <div className="fixed inset-0 bg-black/70 z-50 flex items-center justify-center p-4 backdrop-blur-sm" onClick={() => setShowIOSInstructions(false)}>
+          <div className="bg-gradient-to-br from-hamboi-dark-card to-[#232342] rounded-3xl p-8 max-w-sm w-full border border-hamboi-purple/30" onClick={(e) => e.stopPropagation()}>
+            <div className="flex items-center justify-between mb-6">
+              <h3 className="text-2xl font-bold text-white">iPhone/iPad Install 📱</h3>
+              <button onClick={() => setShowIOSInstructions(false)} className="p-1 hover:bg-hamboi-purple/20 rounded-lg transition">
+                <X className="h-6 w-6 text-hamboi-text-muted" />
               </button>
             </div>
             <div className="space-y-4">
-              <div className="flex items-start gap-3">
-                <div className="w-8 h-8 rounded-full bg-hamboi-purple/10 flex items-center justify-center flex-shrink-0">
-                  <span className="text-hamboi-purple font-bold">1</span>
+              <div className="flex items-start gap-4">
+                <div className="w-10 h-10 rounded-full bg-hamboi-green/30 flex items-center justify-center flex-shrink-0 font-bold text-hamboi-green">
+                  1
                 </div>
-                <p className="text-hamboi-dark/70">Tap the <strong>Share</strong> button at the bottom of Safari (the square with an arrow pointing up)</p>
+                <p className="text-hamboi-text-muted pt-1">Tap <strong>Share</strong> at the bottom (the box with arrow)</p>
               </div>
-              <div className="flex items-start gap-3">
-                <div className="w-8 h-8 rounded-full bg-hamboi-purple/10 flex items-center justify-center flex-shrink-0">
-                  <span className="text-hamboi-purple font-bold">2</span>
+              <div className="flex items-start gap-4">
+                <div className="w-10 h-10 rounded-full bg-hamboi-purple/30 flex items-center justify-center flex-shrink-0 font-bold text-hamboi-purple">
+                  2
                 </div>
-                <p className="text-hamboi-dark/70">Scroll down and tap <strong>"Add to Home Screen"</strong></p>
+                <p className="text-hamboi-text-muted pt-1">Tap <strong>"Add to Home Screen"</strong></p>
               </div>
-              <div className="flex items-start gap-3">
-                <div className="w-8 h-8 rounded-full bg-hamboi-purple/10 flex items-center justify-center flex-shrink-0">
-                  <span className="text-hamboi-purple font-bold">3</span>
+              <div className="flex items-start gap-4">
+                <div className="w-10 h-10 rounded-full bg-hamboi-cyan/30 flex items-center justify-center flex-shrink-0 font-bold text-hamboi-cyan">
+                  3
                 </div>
-                <p className="text-hamboi-dark/70">Tap <strong>"Add"</strong> in the top right corner</p>
+                <p className="text-hamboi-text-muted pt-1">Tap <strong>"Add"</strong> in the corner</p>
               </div>
             </div>
-            <div className="mt-6 p-4 bg-hamboi-light rounded-xl">
+            <div className="mt-8 p-4 bg-hamboi-purple/20 rounded-2xl border border-hamboi-purple/40">
               <div className="flex items-center gap-3">
-                <Smartphone className="h-6 w-6 text-hamboi-purple" />
-                <p className="text-sm text-hamboi-dark/70">Hamboi Mindcare will appear on your home screen like a regular app!</p>
+                <Smartphone className="h-6 w-6 text-hamboi-green flex-shrink-0" />
+                <p className="text-sm text-hamboi-text">Done! It's on your home screen like a real app ✨</p>
               </div>
             </div>
-            <Button onClick={() => setShowIOSInstructions(false)} className="w-full mt-4 bg-hamboi-purple hover:bg-hamboi-purple/90">
-              Got it!
+            <Button onClick={() => setShowIOSInstructions(false)} className="w-full mt-6 bg-hamboi-green hover:bg-emerald-500 text-hamboi-dark-bg font-bold text-lg py-6 rounded-2xl transition-all hover:scale-105">
+              Got it, thanks!
             </Button>
           </div>
         </div>

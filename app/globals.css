@@ -1,92 +1,94 @@
 @import "tailwindcss";
 @import "tw-animate-css";
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap");
 
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  /* Updated to softer, more calming color palette for mental health app */
-  --background: oklch(0.98 0.01 120);
-  --foreground: oklch(0.25 0.02 260);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.25 0.02 260);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.25 0.02 260);
-  --primary: oklch(0.62 0.15 270);
-  --primary-foreground: oklch(0.98 0 0);
-  --secondary: oklch(0.94 0.02 120);
-  --secondary-foreground: oklch(0.25 0.02 260);
-  --muted: oklch(0.96 0.01 120);
-  --muted-foreground: oklch(0.52 0.02 260);
-  --accent: oklch(0.68 0.12 210);
-  --accent-foreground: oklch(0.98 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --destructive-foreground: oklch(0.98 0 0);
-  --border: oklch(0.92 0.01 120);
-  --input: oklch(0.92 0.01 120);
-  --ring: oklch(0.62 0.15 270);
-  --chart-1: oklch(0.646 0.222 41.116);
-  --chart-2: oklch(0.6 0.118 184.704);
-  --chart-3: oklch(0.398 0.07 227.392);
-  --chart-4: oklch(0.828 0.189 84.429);
-  --chart-5: oklch(0.769 0.188 70.08);
-  --radius: 1rem;
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
+  /* Gen Z Dark Mode Color Palette - Bold & Vibrant */
+  --background: #0F0F1E;
+  --foreground: #FFFFFF;
+  --card: #1A1A2E;
+  --card-foreground: #FFFFFF;
+  --popover: #1A1A2E;
+  --popover-foreground: #FFFFFF;
+  --primary: #22C55E;
+  --primary-foreground: #0F0F1E;
+  --secondary: #7C3AED;
+  --secondary-foreground: #FFFFFF;
+  --muted: #3A3A4E;
+  --muted-foreground: #A0A0B0;
+  --accent: #EC4899;
+  --accent-foreground: #FFFFFF;
+  --destructive: #EF4444;
+  --destructive-foreground: #FFFFFF;
+  --border: #2A2A3E;
+  --input: #2A2A3E;
+  --ring: #7C3AED;
+  --chart-1: #22C55E;
+  --chart-2: #7C3AED;
+  --chart-3: #06B6D4;
+  --chart-4: #EC4899;
+  --chart-5: #F59E0B;
+  --radius: 1.5rem;
+  --sidebar: #1A1A2E;
+  --sidebar-foreground: #FFFFFF;
+  --sidebar-primary: #22C55E;
+  --sidebar-primary-foreground: #0F0F1E;
+  --sidebar-accent: #7C3AED;
+  --sidebar-accent-foreground: #FFFFFF;
+  --sidebar-border: #2A2A3E;
+  --sidebar-ring: #7C3AED;
 
-  /* New soothing color palette for Hamboi */
-  --hamboi-purple: oklch(0.62 0.15 270);
-  --hamboi-blue: oklch(0.68 0.12 210);
-  --hamboi-green: oklch(0.72 0.12 150);
-  --hamboi-pink: oklch(0.75 0.15 350);
-  --hamboi-calm: oklch(0.7 0.1 200);
-  --hamboi-light: oklch(0.97 0.01 120);
-  --hamboi-dark: oklch(0.28 0.02 260);
-  --hamboi-warm: oklch(0.82 0.08 80);
+  /* Gen Z Brand Colors */
+  --hamboi-purple: #7C3AED;
+  --hamboi-green: #22C55E;
+  --hamboi-cyan: #06B6D4;
+  --hamboi-pink: #EC4899;
+  --hamboi-dark-bg: #0F0F1E;
+  --hamboi-dark-card: #1A1A2E;
+  --hamboi-text: #FFFFFF;
+  --hamboi-text-muted: #A0A0B0;
 }
 
 .dark {
-  --background: oklch(0.145 0.02 260);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.18 0.02 260);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.18 0.02 260);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.7 0.18 270);
-  --primary-foreground: oklch(0.98 0 0);
-  --secondary: oklch(0.35 0.05 210);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.3 0.03 260);
-  --muted-foreground: oklch(0.75 0.05 260);
-  --accent: oklch(0.65 0.15 210);
-  --accent-foreground: oklch(0.98 0 0);
-  --destructive: oklch(0.55 0.22 27);
-  --destructive-foreground: oklch(0.98 0 0);
-  --border: oklch(0.3 0.03 260);
-  --input: oklch(0.3 0.03 260);
-  --ring: oklch(0.7 0.18 270);
-  --chart-1: oklch(0.65 0.24 270);
-  --chart-2: oklch(0.7 0.18 180);
-  --chart-3: oklch(0.75 0.19 70);
-  --chart-4: oklch(0.68 0.26 310);
-  --chart-5: oklch(0.7 0.24 25);
-  --sidebar: oklch(0.205 0.02 260);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.65 0.24 270);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.3 0.03 260);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(0.3 0.03 260);
-  --sidebar-ring: oklch(0.7 0.18 270);
+  /* Already using dark mode by default in :root */
+  --background: #0F0F1E;
+  --foreground: #FFFFFF;
+  --card: #1A1A2E;
+  --card-foreground: #FFFFFF;
+  --popover: #1A1A2E;
+  --popover-foreground: #FFFFFF;
+  --primary: #22C55E;
+  --primary-foreground: #0F0F1E;
+  --secondary: #7C3AED;
+  --secondary-foreground: #FFFFFF;
+  --muted: #3A3A4E;
+  --muted-foreground: #A0A0B0;
+  --accent: #EC4899;
+  --accent-foreground: #FFFFFF;
+  --destructive: #EF4444;
+  --destructive-foreground: #FFFFFF;
+  --border: #2A2A3E;
+  --input: #2A2A3E;
+  --ring: #7C3AED;
+  --chart-1: #22C55E;
+  --chart-2: #7C3AED;
+  --chart-3: #06B6D4;
+  --chart-4: #EC4899;
+  --chart-5: #F59E0B;
+  --sidebar: #1A1A2E;
+  --sidebar-foreground: #FFFFFF;
+  --sidebar-primary: #22C55E;
+  --sidebar-primary-foreground: #0F0F1E;
+  --sidebar-accent: #7C3AED;
+  --sidebar-accent-foreground: #FFFFFF;
+  --sidebar-border: #2A2A3E;
+  --sidebar-ring: #7C3AED;
 }
 
 @theme inline {
-  --font-sans: "Geist", "Geist Fallback";
+  --font-sans: "Poppins", "Poppins Fallback", sans-serif;
   --font-mono: "Geist Mono", "Geist Mono Fallback";
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -125,15 +127,15 @@
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
 
-  /* Register new Hamboi brand colors */
+  /* Gen Z Brand Colors */
   --color-hamboi-purple: var(--hamboi-purple);
-  --color-hamboi-blue: var(--hamboi-blue);
   --color-hamboi-green: var(--hamboi-green);
+  --color-hamboi-cyan: var(--hamboi-cyan);
   --color-hamboi-pink: var(--hamboi-pink);
-  --color-hamboi-calm: var(--hamboi-calm);
-  --color-hamboi-light: var(--hamboi-light);
-  --color-hamboi-dark: var(--hamboi-dark);
-  --color-hamboi-warm: var(--hamboi-warm);
+  --color-hamboi-dark-bg: var(--hamboi-dark-bg);
+  --color-hamboi-dark-card: var(--hamboi-dark-card);
+  --color-hamboi-text: var(--hamboi-text);
+  --color-hamboi-text-muted: var(--hamboi-text-muted);
 }
 
 @layer base {
@@ -171,7 +173,7 @@ html {
   animation: gradient-shift 3s ease infinite;
 }
 
-/* Adding smooth animations for mental health app */
+/* Gen Z Modern Animations */
 @keyframes float {
   0%,
   100% {
@@ -182,14 +184,45 @@ html {
   }
 }
 
+@keyframes float-slow {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
+}
+
 @keyframes fade-in-up {
   from {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(30px);
   }
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes pulse-glow {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.9;
+    transform: scale(1.05);
   }
 }
 
@@ -203,16 +236,56 @@ html {
   }
 }
 
+@keyframes bounce-subtle {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes glow-border {
+  0%,
+  100% {
+    box-shadow: 0 0 20px rgba(124, 58, 237, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(124, 58, 237, 0.5);
+  }
+}
+
 .animate-float {
   animation: float 6s ease-in-out infinite;
 }
 
+.animate-float-slow {
+  animation: float-slow 8s ease-in-out infinite;
+}
+
 .animate-fade-in-up {
-  animation: fade-in-up 0.6s ease-out;
+  animation: fade-in-up 0.8s ease-out;
+}
+
+.animate-fade-in {
+  animation: fade-in 0.8s ease-out;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
 }
 
 .animate-pulse-soft {
   animation: pulse-soft 3s ease-in-out infinite;
+}
+
+.animate-bounce-subtle {
+  animation: bounce-subtle 2s ease-in-out infinite;
+}
+
+.animate-glow-border {
+  animation: glow-border 3s ease-in-out infinite;
 }
 
 /* Smooth transitions for interactive elements */
