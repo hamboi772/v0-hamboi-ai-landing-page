@@ -33,14 +33,14 @@ const footerLinks = {
 
 export function Footer() {
   return (
-    <footer className="bg-hamboi-dark text-white">
+    <footer className="bg-gradient-to-b from-hamboi-dark-bg to-[#0a0a15] text-white">
       {/* Crisis Resources Banner */}
-      <div className="bg-hamboi-calm/20 py-6">
+      <div className="bg-gradient-to-r from-hamboi-purple/20 to-hamboi-pink/20 border-y border-hamboi-purple/30 py-8">
         <div className="container mx-auto px-4">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <div className="flex items-center gap-2">
-              <Phone className="h-5 w-5 text-hamboi-calm" />
-              <span className="font-medium">Need immediate help?</span>
+              <Phone className="h-5 w-5 text-hamboi-green font-bold" />
+              <span className="font-bold text-lg">In crisis? We're here 🆘</span>
             </div>
             <div className="flex flex-wrap justify-center gap-4 md:gap-8">
               {crisisResources.map((resource) => (
@@ -69,9 +69,8 @@ export function Footer() {
               </div>
               <span className="text-xl font-bold">Hamboi Mindcare</span>
             </Link>
-            <p className="text-white/60 max-w-sm">
-              Your mental health companion. Providing 24/7 support for teens navigating life's challenges. You're not
-              alone.
+            <p className="text-hamboi-text-muted max-w-sm leading-relaxed">
+              Real support for real teens 💚 Always here when you need to talk. No judgment, just vibes and solid advice.
             </p>
             <div className="flex gap-4">
               <a

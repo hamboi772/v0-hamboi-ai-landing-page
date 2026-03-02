@@ -61,26 +61,26 @@ export function Header() {
   ]
 
   return (
-    <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-hamboi-purple/10">
+    <header className="sticky top-0 z-50 bg-gradient-to-br from-hamboi-dark-bg/95 to-[#1a1a2e]/95 backdrop-blur-lg border-b border-hamboi-purple/30">
       <div className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
           <Link
             href="/"
-            className="flex items-center gap-2"
+            className="flex items-center gap-2 hover:opacity-80 transition"
             title="HAMBOI - Hope And Mind Balance: Outreach Initiative"
           >
-            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-hamboi-purple to-hamboi-blue flex items-center justify-center">
-              <Heart className="h-5 w-5 text-white" />
+            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-hamboi-green to-hamboi-cyan flex items-center justify-center">
+              <Heart className="h-5 w-5 text-white font-bold" />
             </div>
-            <span className="text-xl font-bold text-hamboi-dark">Hamboi Mindcare</span>
+            <span className="text-xl font-bold bg-gradient-to-r from-hamboi-green to-hamboi-cyan bg-clip-text text-transparent">Hamboi</span>
           </Link>
 
           <nav className="hidden md:flex items-center gap-8">
             {navLinks.map((link) => (
               <a
-                key={link.label}
+                key={link.href}
                 href={link.href}
-                className="text-hamboi-dark/70 hover:text-hamboi-purple transition-colors font-medium"
+                className="text-hamboi-text-muted hover:text-hamboi-green font-semibold transition-colors"
               >
                 {link.label}
               </a>
