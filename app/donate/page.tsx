@@ -68,22 +68,22 @@ export default function DonatePage() {
   }
 
   return (
-    <main className="min-h-screen bg-gradient-to-br from-hamboi-light via-white to-hamboi-warm/20">
+    <main className="min-h-screen bg-gradient-to-br from-[#0f0a1e] via-[#1a1a3e] to-[#0f0a1e]">
       <Header />
 
       <div className="container mx-auto px-4 py-20 max-w-5xl">
         {/* Hero Section */}
         <div className="text-center mb-16 animate-fade-in-up">
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-hamboi-purple/10 rounded-full text-hamboi-purple text-sm font-medium mb-6">
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-hamboi-purple/30 rounded-full text-hamboi-green text-sm font-bold mb-6 border border-hamboi-purple/50">
             <Heart className="h-4 w-4 fill-current" />
             <span>Support Our Mission</span>
           </div>
           <h1 className="text-4xl md:text-6xl font-bold mb-6">
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-hamboi-purple via-hamboi-pink to-hamboi-blue">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-hamboi-green via-hamboi-purple to-hamboi-green">
               Help Keep Hamboi Free
             </span>
           </h1>
-          <p className="text-hamboi-dark/70 text-lg md:text-xl max-w-3xl mx-auto leading-relaxed">
+          <p className="text-white/80 text-lg md:text-xl max-w-3xl mx-auto leading-relaxed">
             Your donation helps us provide free mental health support to Nigerian teens. Every contribution makes a
             difference in a young person's life.
           </p>
@@ -91,18 +91,18 @@ export default function DonatePage() {
 
         <div className="grid md:grid-cols-2 gap-8 mb-12">
           {/* Online Payment */}
-          <Card className="border-hamboi-purple/20 shadow-lg hover:shadow-xl transition-shadow">
+          <Card className="border-2 border-hamboi-purple/40 shadow-lg hover:shadow-xl transition-shadow bg-hamboi-dark-card">
             <CardHeader>
               <div className="w-12 h-12 rounded-full bg-gradient-to-br from-hamboi-purple to-hamboi-blue flex items-center justify-center mb-4">
                 <CreditCard className="h-6 w-6 text-white" />
               </div>
-              <CardTitle className="text-2xl">Pay Online</CardTitle>
-              <CardDescription>Quick and secure payment with Paystack</CardDescription>
+              <CardTitle className="text-2xl text-white">Pay Online</CardTitle>
+              <CardDescription className="text-hamboi-text-muted">Quick and secure payment with Paystack</CardDescription>
             </CardHeader>
             <CardContent>
               <form onSubmit={handlePaystackPayment} className="space-y-6">
                 <div className="space-y-2">
-                  <Label htmlFor="amount">Donation Amount (₦)</Label>
+                  <Label htmlFor="amount" className="text-white">Donation Amount (₦)</Label>
                   <Input
                     id="amount"
                     type="number"
@@ -111,13 +111,13 @@ export default function DonatePage() {
                     onChange={(e) => setAmount(e.target.value)}
                     min="100"
                     required
-                    className="text-lg h-12"
+                    className="text-lg h-12 bg-white border-2 border-hamboi-purple/20 text-[#1a1a2e] placeholder:text-[#888888] focus:border-hamboi-purple"
                   />
-                  <p className="text-sm text-hamboi-dark/60">Minimum: ₦100</p>
+                  <p className="text-sm text-hamboi-text-muted">Minimum: ₦100</p>
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="name">Your Name</Label>
+                  <Label htmlFor="name" className="text-white">Your Name</Label>
                   <Input
                     id="name"
                     type="text"
@@ -125,12 +125,12 @@ export default function DonatePage() {
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     required
-                    className="h-12"
+                    className="h-12 bg-white border-2 border-hamboi-purple/20 text-[#1a1a2e] placeholder:text-[#888888] focus:border-hamboi-purple"
                   />
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="email">Email Address</Label>
+                  <Label htmlFor="email" className="text-white">Email Address</Label>
                   <Input
                     id="email"
                     type="email"
@@ -138,7 +138,7 @@ export default function DonatePage() {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required
-                    className="h-12"
+                    className="h-12 bg-white border-2 border-hamboi-purple/20 text-[#1a1a2e] placeholder:text-[#888888] focus:border-hamboi-purple"
                   />
                 </div>
 
@@ -160,7 +160,7 @@ export default function DonatePage() {
                   )}
                 </Button>
 
-                <p className="text-xs text-center text-hamboi-dark/60">
+                <p className="text-xs text-center text-hamboi-text-muted">
                   Secured by Paystack. Your payment information is encrypted.
                 </p>
               </form>
@@ -168,34 +168,34 @@ export default function DonatePage() {
           </Card>
 
           {/* Bank Transfer */}
-          <Card className="border-hamboi-green/20 shadow-lg hover:shadow-xl transition-shadow">
+          <Card className="border-2 border-hamboi-green/40 shadow-lg hover:shadow-xl transition-shadow bg-hamboi-dark-card">
             <CardHeader>
-              <div className="w-12 h-12 rounded-full bg-gradient-to-br from-hamboi-green to-hamboi-warm flex items-center justify-center mb-4">
+              <div className="w-12 h-12 rounded-full bg-gradient-to-br from-hamboi-green to-hamboi-cyan flex items-center justify-center mb-4">
                 <Building2 className="h-6 w-6 text-white" />
               </div>
-              <CardTitle className="text-2xl">Bank Transfer</CardTitle>
-              <CardDescription>Transfer directly to our bank account</CardDescription>
+              <CardTitle className="text-2xl text-white">Bank Transfer</CardTitle>
+              <CardDescription className="text-hamboi-text-muted">Transfer directly to our bank account</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
-              <div className="p-4 bg-hamboi-light rounded-xl border border-hamboi-purple/10">
-                <p className="text-sm text-hamboi-dark/60 font-semibold mb-1">Bank</p>
-                <p className="font-bold text-lg text-hamboi-dark">OPay</p>
+              <div className="p-4 bg-[#2a2640] rounded-xl border border-hamboi-purple/40">
+                <p className="text-sm text-hamboi-text-muted font-semibold mb-1">Bank</p>
+                <p className="font-bold text-lg text-white">OPay</p>
               </div>
 
-              <div className="p-4 bg-hamboi-light rounded-xl border border-hamboi-purple/10">
-                <p className="text-sm text-hamboi-dark/60 font-semibold mb-1">Account Name</p>
-                <p className="font-bold text-lg text-hamboi-dark">Sekinat Arinola Abiodun</p>
+              <div className="p-4 bg-[#2a2640] rounded-xl border border-hamboi-purple/40">
+                <p className="text-sm text-hamboi-text-muted font-semibold mb-1">Account Name</p>
+                <p className="font-bold text-lg text-white">Sekinat Arinola Abiodun</p>
               </div>
 
-              <div className="p-4 bg-hamboi-light rounded-xl border border-hamboi-purple/10">
-                <p className="text-sm text-hamboi-dark/60 font-semibold mb-1">Account Number</p>
-                <p className="font-bold text-2xl text-hamboi-dark font-mono">8169533452</p>
+              <div className="p-4 bg-[#2a2640] rounded-xl border border-hamboi-purple/40">
+                <p className="text-sm text-hamboi-text-muted font-semibold mb-1">Account Number</p>
+                <p className="font-bold text-2xl text-white font-mono">8169533452</p>
               </div>
 
-              <div className="p-4 bg-hamboi-warm/10 rounded-xl border border-hamboi-warm/20">
-                <p className="text-sm text-hamboi-dark/80">
+              <div className="p-4 bg-hamboi-purple/20 rounded-xl border border-hamboi-purple/40">
+                <p className="text-sm text-white">
                   After transfer, please send us an email at{" "}
-                  <a href="mailto:support@hamboimindcare.site" className="text-hamboi-purple font-semibold">
+                  <a href="mailto:support@hamboimindcare.site" className="text-hamboi-green font-bold">
                     support@hamboimindcare.site
                   </a>{" "}
                   with your name and amount for acknowledgment.
@@ -206,29 +206,29 @@ export default function DonatePage() {
         </div>
 
         {/* Impact Section */}
-        <div className="bg-white/80 backdrop-blur-sm rounded-3xl p-8 md:p-12 shadow-xl border border-hamboi-purple/20">
-          <h2 className="text-3xl font-bold text-center mb-8 text-hamboi-dark">Your Impact</h2>
+        <div className="bg-[#0f0a1e] backdrop-blur-sm rounded-3xl p-8 md:p-12 shadow-xl border border-hamboi-purple/40">
+          <h2 className="text-3xl font-bold text-center mb-8 text-white">Your Impact</h2>
           <div className="grid md:grid-cols-3 gap-8">
             <div className="text-center">
-              <div className="w-16 h-16 rounded-full bg-hamboi-purple/10 flex items-center justify-center mx-auto mb-4">
-                <Heart className="h-8 w-8 text-hamboi-purple" />
+              <div className="w-16 h-16 rounded-full bg-hamboi-purple/30 flex items-center justify-center mx-auto mb-4">
+                <Heart className="h-8 w-8 text-hamboi-green" />
               </div>
-              <h3 className="font-bold text-xl mb-2">₦500</h3>
-              <p className="text-hamboi-dark/70">Provides 1 week of AI support for a teen in need</p>
+              <h3 className="font-bold text-xl mb-2 text-white">₦500</h3>
+              <p className="text-hamboi-text-muted">Provides 1 week of AI support for a teen in need</p>
             </div>
             <div className="text-center">
-              <div className="w-16 h-16 rounded-full bg-hamboi-pink/10 flex items-center justify-center mx-auto mb-4">
-                <Heart className="h-8 w-8 text-hamboi-pink" />
+              <div className="w-16 h-16 rounded-full bg-hamboi-pink/30 flex items-center justify-center mx-auto mb-4">
+                <Heart className="h-8 w-8 text-hamboi-green" />
               </div>
-              <h3 className="font-bold text-xl mb-2">₦2,000</h3>
-              <p className="text-hamboi-dark/70">Covers server costs for 10 users per month</p>
+              <h3 className="font-bold text-xl mb-2 text-white">₦2,000</h3>
+              <p className="text-hamboi-text-muted">Covers server costs for 10 users per month</p>
             </div>
             <div className="text-center">
-              <div className="w-16 h-16 rounded-full bg-hamboi-blue/10 flex items-center justify-center mx-auto mb-4">
-                <Heart className="h-8 w-8 text-hamboi-blue" />
+              <div className="w-16 h-16 rounded-full bg-hamboi-blue/30 flex items-center justify-center mx-auto mb-4">
+                <Heart className="h-8 w-8 text-hamboi-green" />
               </div>
-              <h3 className="font-bold text-xl mb-2">₦10,000+</h3>
-              <p className="text-hamboi-dark/70">Helps us add new features and reach more teens</p>
+              <h3 className="font-bold text-xl mb-2 text-white">₦10,000+</h3>
+              <p className="text-hamboi-text-muted">Helps us add new features and reach more teens</p>
             </div>
           </div>
         </div>

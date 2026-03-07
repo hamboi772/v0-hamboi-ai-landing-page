@@ -219,7 +219,7 @@ export function ChatDemoModal({ isOpen, onClose }: ChatDemoModalProps) {
                 value={textInput}
                 onChange={(e) => setTextInput(e.target.value)}
                 placeholder="Type your message here..."
-                className="w-full bg-white border-2 border-hamboi-purple/20 focus:border-hamboi-purple rounded-2xl px-5 py-3 pr-14 text-hamboi-dark placeholder:text-hamboi-dark/40 focus:outline-none resize-none transition-colors"
+                className="w-full bg-white border-2 border-hamboi-purple/20 focus:border-hamboi-purple rounded-2xl px-5 py-3 pr-14 text-[#1a1a2e] placeholder:text-[#888888] focus:outline-none resize-none transition-colors"
                 rows={2}
                 disabled={isProcessing}
                 onKeyDown={(e) => {
