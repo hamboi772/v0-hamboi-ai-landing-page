@@ -134,7 +134,7 @@ export function HeroSection() {
                   ))}
                 </div>
                 <p className="text-sm text-hamboi-text-muted">
-                  <span className="font-bold text-hamboi-green">1,000+ teens</span> getting real support with Hamboi
+                  <span className="font-bold text-hamboi-green">Growing community of teens</span> getting real support with Hamboi
                 </p>
               </div>
             </div>
