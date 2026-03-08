@@ -518,11 +518,10 @@ export async function POST(request: NextRequest) {
       const rotation = getAPIKeyRotation()
       const currentKey = rotation.getNextKey()
       const rotatedGenAI = new GoogleGenerativeAI(currentKey)
-      model = rotatedGenAI.getGenerativeModel({ model: "gemini-flash-latest" })
-      console.log("[v0] Using API key rotation, remaining requests:", rotation.getStatus().totalRemaining)
+      model = rotatedGenAI.getGenerativeModel({ model: "gemini-1.5-flash" })
     } catch {
       // Fallback to default single key if rotation not initialized
-      model = genAI.getGenerativeModel({ model: "gemini-flash-latest" })
+      model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" })
     }
 
     try {
