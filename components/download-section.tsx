@@ -46,7 +46,7 @@ export function DownloadSection() {
   return (
     <section className="py-20 lg:py-28 bg-gradient-to-br from-hamboi-purple via-hamboi-purple/90 to-hamboi-blue text-white">
       <div className="container mx-auto px-4">
-        <div className="max-w-3xl mx-auto text-center space-y-8">
+        <div className="max-w-3xl mx-auto text-center space-y-8 reveal">
           <h2 className="text-3xl md:text-5xl font-bold text-balance">Join the Waitlist</h2>
           <p className="text-xl text-white/80">
             Be among the first to know when Hamboi Mindcare launches. We're building something special for teens who
@@ -74,7 +74,7 @@ export function DownloadSection() {
                 <Button
                   type="submit"
                   disabled={isSubmitting}
-                  className="bg-white text-hamboi-purple hover:bg-white/90 rounded-full px-6 h-12 min-w-[140px]"
+                  className="bg-white text-hamboi-purple hover:bg-white/90 rounded-full px-6 h-12 min-w-[140px] cta-glow"
                 >
                   {isSubmitting ? (
                     <Loader2 className="h-4 w-4 animate-spin" />

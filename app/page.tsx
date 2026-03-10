@@ -19,10 +19,12 @@ import { WelcomeBackModal } from "@/components/welcome-back-modal"
 import { ShareAppModal } from "@/components/share-app-modal"
 import { DailyCheckIn } from "@/components/daily-check-in"
 import { ReferralTracker } from "@/components/referral-tracker"
+import { ScrollRevealProvider } from "@/components/scroll-reveal-provider"
 
 export default function HomePage() {
   return (
     <main className="min-h-screen bg-background">
+      <ScrollRevealProvider />
       <CrisisBanner />
       <Header />
       <HeroSection />
