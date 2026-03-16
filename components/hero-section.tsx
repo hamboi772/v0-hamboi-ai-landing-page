@@ -1,11 +1,13 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef, useCallback } from "react"
 import { Button } from "@/components/ui/button"
 import { MessageSquare, Sparkles, LayoutDashboard, Download, Smartphone, X } from "lucide-react"
 import { ChatDemoModal } from "@/components/chat-demo-modal"
 import { AppStoreBadges } from "@/components/app-store-badges"
+import { ParticleCanvas } from "@/components/particle-canvas"
 import Link from "next/link"
+import Image from "next/image"
 
 export function HeroSection() {
   const [isChatDemoOpen, setIsChatDemoOpen] = useState(false)
@@ -13,6 +15,9 @@ export function HeroSection() {
   const [isInstallable, setIsInstallable] = useState(false)
   const [isIOS, setIsIOS] = useState(false)
   const [showIOSInstructions, setShowIOSInstructions] = useState(false)
+  const [parallaxY, setParallaxY] = useState(0)
+  const heroRef = useRef<HTMLElement>(null)
+  const rafRef = useRef<number>(0)
 
   useEffect(() => {
     const isIOSDevice = /iPad|iPhone|iPod/.test(navigator.userAgent) && !(window as any).MSStream
@@ -35,6 +40,26 @@ export function HeroSection() {
     return () => window.removeEventListener("beforeinstallprompt", handler)
   }, [])
 
+  // Lightweight parallax — only runs when hero is in view
+  useEffect(() => {
+    let ticking = false
+    const onScroll = () => {
+      if (!ticking) {
+        rafRef.current = requestAnimationFrame(() => {
+          const scrollY = window.scrollY
+          setParallaxY(scrollY * 0.25)
+          ticking = false
+        })
+        ticking = true
+      }
+    }
+    window.addEventListener("scroll", onScroll, { passive: true })
+    return () => {
+      window.removeEventListener("scroll", onScroll)
+      cancelAnimationFrame(rafRef.current)
+    }
+  }, [])
+
   const handleInstallClick = async () => {
     if (isIOS) {
       setShowIOSInstructions(true)
@@ -53,19 +78,44 @@ export function HeroSection() {
 
   return (
     <>
-      <section className="relative overflow-hidden bg-gradient-to-br from-hamboi-dark-bg via-[#1a1a3e] to-[#0f1a2e] py-24 lg:py-40 min-h-screen flex items-center">
-        {/* Animated gradient blobs */}
+      <section
+        ref={heroRef}
+        className="relative overflow-hidden bg-gradient-to-br from-hamboi-dark-bg via-[#1a1a3e] to-[#0f1a2e] py-24 lg:py-40 min-h-screen flex items-center"
+      >
+        {/* Floating particle canvas */}
         <div className="absolute inset-0 overflow-hidden">
+          <ParticleCanvas />
+        </div>
+
+        {/* Animated gradient blobs — parallax layer */}
+        <div
+          className="absolute inset-0 overflow-hidden parallax-layer pointer-events-none"
+          style={{ transform: `translateY(${parallaxY}px)` }}
+        >
           <div className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br from-hamboi-purple/20 to-transparent rounded-full blur-3xl animate-float" />
           <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-gradient-to-tr from-hamboi-green/15 to-transparent rounded-full blur-3xl animate-float-slow" />
-          <div className="absolute top-1/2 left-1/2 w-96 h-96 bg-gradient-to-br from-hamboi-cyan/10 to-transparent rounded-full blur-3xl" />
+          <div className="absolute top-1/2 left-1/3 w-96 h-96 bg-gradient-to-br from-hamboi-cyan/10 to-transparent rounded-full blur-3xl" />
         </div>
 
         <div className="container mx-auto px-4 relative z-10">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             <div className="space-y-8">
-              <div className="inline-flex items-center gap-2 px-4 py-2 bg-hamboi-purple/20 rounded-full text-hamboi-green text-sm font-bold border border-hamboi-purple/40">
-                <Sparkles className="h-4 w-4 animate-pulse" />
+              <div className="inline-flex items-center gap-2 px-4 py-2 bg-hamboi-purple/20 rounded-full text-hamboi-green text-sm font-bold border border-hamboi-purple/40 animate-fade-in">
+                {/* Rotating brain logo */}
+                <span
+                  className="animate-brain inline-flex items-center justify-center w-6 h-6"
+                  aria-hidden="true"
+                  style={{ display: "inline-block" }}
+                >
+                  <Image
+                    src="/icon-512.png"
+                    alt=""
+                    width={24}
+                    height={24}
+                    className="rounded-full"
+                    priority
+                  />
+                </span>
                 <span>Your feelings matter 💜</span>
               </div>
 
@@ -87,7 +137,7 @@ export function HeroSection() {
                   <Button
                     size="lg"
                     onClick={() => setIsChatDemoOpen(true)}
-                    className="bg-hamboi-green hover:bg-emerald-500 text-hamboi-dark-bg font-bold text-lg px-10 py-7 rounded-2xl shadow-lg shadow-hamboi-green/40 transition-all hover:shadow-xl hover:shadow-hamboi-green/60 hover:scale-105 active:scale-95 animate-pulse-glow"
+                    className="bg-hamboi-green hover:bg-emerald-500 text-hamboi-dark-bg font-bold text-lg px-10 py-7 rounded-2xl transition-all hover:scale-105 active:scale-95 cta-glow"
                   >
                     <MessageSquare className="h-6 w-6 mr-3" />
                     Try Chat Demo

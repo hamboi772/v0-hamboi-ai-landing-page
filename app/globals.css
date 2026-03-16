@@ -294,3 +294,109 @@ html {
 .smooth-hover:hover {
   transform: translateY(-4px);
 }
+
+/* ── 3D & Advanced Effects ── */
+
+/* Brain logo: rotate + float */
+@keyframes brain-float {
+  0%, 100% { transform: translateY(0px) rotateY(0deg); }
+  25%       { transform: translateY(-10px) rotateY(90deg); }
+  50%       { transform: translateY(-16px) rotateY(180deg); }
+  75%       { transform: translateY(-8px) rotateY(270deg); }
+}
+
+.animate-brain {
+  animation: brain-float 8s ease-in-out infinite;
+  transform-style: preserve-3d;
+}
+
+/* CTA button pulse glow */
+@keyframes cta-pulse {
+  0%, 100% {
+    box-shadow:
+      0 0 8px rgba(34, 197, 94, 0.5),
+      0 0 20px rgba(34, 197, 94, 0.25),
+      0 4px 20px rgba(34, 197, 94, 0.3);
+  }
+  50% {
+    box-shadow:
+      0 0 16px rgba(34, 197, 94, 0.8),
+      0 0 40px rgba(34, 197, 94, 0.5),
+      0 4px 30px rgba(34, 197, 94, 0.5);
+  }
+}
+
+.cta-glow {
+  animation: cta-pulse 2.4s ease-in-out infinite;
+}
+
+/* Fade-in on scroll via Intersection Observer */
+.reveal {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 0.7s cubic-bezier(0.4, 0, 0.2, 1),
+              transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: opacity, transform;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Staggered child delays */
+.reveal-stagger > *:nth-child(1) { transition-delay: 0.05s; }
+.reveal-stagger > *:nth-child(2) { transition-delay: 0.15s; }
+.reveal-stagger > *:nth-child(3) { transition-delay: 0.25s; }
+.reveal-stagger > *:nth-child(4) { transition-delay: 0.35s; }
+.reveal-stagger > *:nth-child(5) { transition-delay: 0.45s; }
+.reveal-stagger > *:nth-child(6) { transition-delay: 0.55s; }
+
+/* Particle canvas */
+#particle-canvas {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Feature card 3D tilt */
+.card-3d {
+  transform-style: preserve-3d;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  will-change: transform;
+}
+
+/* Parallax hero layer */
+.parallax-layer {
+  will-change: transform;
+  transition: transform 0.05s linear;
+}
+
+/* Particle dot */
+@keyframes particle-drift {
+  0%   { transform: translateY(0) translateX(0) scale(1); opacity: 0.6; }
+  50%  { transform: translateY(-60px) translateX(20px) scale(1.2); opacity: 1; }
+  100% { transform: translateY(-120px) translateX(-10px) scale(0.8); opacity: 0; }
+}
+
+.particle {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  animation: particle-drift linear infinite;
+}
+
+/* Section reveal with slide-in from sides */
+@keyframes slide-in-left {
+  from { opacity: 0; transform: translateX(-40px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes slide-in-right {
+  from { opacity: 0; transform: translateX(40px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+.animate-slide-left  { animation: slide-in-left  0.7s cubic-bezier(0.4, 0, 0.2, 1) both; }
+.animate-slide-right { animation: slide-in-right 0.7s cubic-bezier(0.4, 0, 0.2, 1) both; }

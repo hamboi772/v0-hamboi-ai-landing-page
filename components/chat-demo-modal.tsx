@@ -16,12 +16,18 @@ interface ConversationMessage {
   timestamp: Date
 }
 
+// Stable session id per browser tab — generated once on mount
+function generateSessionId() {
+  return `session_${Date.now()}_${Math.random().toString(36).slice(2, 9)}`
+}
+
 export function ChatDemoModal({ isOpen, onClose }: ChatDemoModalProps) {
   const [isProcessing, setIsProcessing] = useState(false)
   const [textInput, setTextInput] = useState("")
   const [conversation, setConversation] = useState<ConversationMessage[]>([])
   const [error, setError] = useState("")
   const [displayingMessage, setDisplayingMessage] = useState<{ text: string; index: number } | null>(null)
+  const sessionIdRef = useRef<string>(generateSessionId())
 
   const textInputRef = useRef<HTMLTextAreaElement>(null)
   const conversationEndRef = useRef<HTMLDivElement>(null)
@@ -74,7 +80,7 @@ export function ChatDemoModal({ isOpen, onClose }: ChatDemoModalProps) {
       const res = await fetch("/api/voice-chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message: userMessage }),
+        body: JSON.stringify({ message: userMessage, sessionId: sessionIdRef.current }),
       })
 
       const data = await res.json()

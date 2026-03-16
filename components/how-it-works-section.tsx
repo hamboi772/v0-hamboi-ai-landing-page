@@ -31,7 +31,7 @@ export function HowItWorksSection() {
   return (
     <section id="how-it-works" className="py-20 lg:py-28 bg-gradient-to-b from-hamboi-dark-bg via-[#1a1a3e] to-hamboi-dark-bg">
       <div className="container mx-auto px-4">
-        <div className="text-center space-y-6 mb-20">
+        <div className="text-center space-y-6 mb-20 reveal">
           <h2 className="text-5xl md:text-6xl font-black text-white leading-tight">
             How It Works
           </h2>
@@ -40,9 +40,9 @@ export function HowItWorksSection() {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 reveal-stagger">
           {steps.map((step, index) => (
-            <div key={step.step} className="relative">
+            <div key={step.step} className="relative reveal">
               {/* Connector Line */}
               {index < steps.length - 1 && (
                 <div className="hidden lg:block absolute top-14 left-[60%] w-[80%] h-0.5 bg-gradient-to-r from-hamboi-purple/40 to-hamboi-green/40" />
