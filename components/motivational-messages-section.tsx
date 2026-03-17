@@ -6,55 +6,55 @@ import { Sparkles } from "lucide-react"
 const motivationalMessages = [
   {
     message: "You're stronger than you think, and braver than you believe.",
-    author: "Anonymous",
+    author: "Arowolo Hamzat",
   },
   {
     message: "It's okay to not be okay. Healing isn't linear, and that's perfectly normal.",
-    author: "Anonymous",
+    author: "Alebiosu Hassan",
   },
   {
     message: "Your mental health is a priority, not an inconvenience.",
-    author: "Anonymous",
+    author: "Shittu Robiu",
   },
   {
     message: "Small steps forward are still progress. Be proud of how far you've come.",
-    author: "Anonymous",
+    author: "Edu Maruf",
   },
   {
     message: "You don't have to be positive all the time. It's okay to feel your feelings.",
-    author: "Anonymous",
+    author: "Bada Fareeah",
   },
   {
     message: "Asking for help is a sign of strength, not weakness.",
-    author: "Anonymous",
+    author: "Martins Zayd",
   },
   {
     message: "You are not your thoughts. You are the observer of your thoughts.",
-    author: "Anonymous",
+    author: "Arikawe Aleeyah",
   },
   {
     message: "Be gentle with yourself. You're doing the best you can.",
-    author: "Anonymous",
+    author: "Asaolu Tomiwa",
   },
   {
     message: "Your story isn't over yet. Tomorrow is a new chapter.",
-    author: "Anonymous",
+    author: "Alli Aaliyah",
   },
   {
     message: "You matter. Your feelings matter. You are worthy of love and support.",
-    author: "Anonymous",
+    author: "Yusuf Bareerah",
   },
   {
     message: "The darkest nights produce the brightest stars. Keep going.",
-    author: "Anonymous",
+    author: "Adekeye Fareedah",
   },
   {
     message: "You've survived 100% of your bad days. You're undefeated.",
-    author: "Anonymous",
+    author: "Falana Muyinudeen",
   },
   {
     message: "Progress, not perfection. Every small win counts.",
-    author: "Anonymous",
+    author: "Abiodun AbdulHameed",
   },
   {
     message: "It takes courage to grow up and become who you really are.",
