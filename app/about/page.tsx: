@@ -1,0 +1,32 @@
+
+export default function AboutUs() {
+  return (
+    <main className="max-w-3xl mx-auto px-6 py-12 text-white">
+      <h1 className="text-3xl font-bold mb-2">About Us</h1>
+      <p className="text-sm text-gray-400 mb-8">Hamboi Mindcare — Built for African Teens</p>
+
+      <section className="mb-10">
+        <h2 className="text-xl font-semibold mb-3">What is Hamboi Mindcare?</h2>
+        <p className="text-gray-300">Hamboi Mindcare is a free AI-powered mental health support platform designed specifically for African teenagers. Available 24/7, it provides a safe, private, and judgment-free space where teens can talk, reflect, and access mental health resources — anytime they need it.</p>
+      </section>
+
+      <section className="mb-10">
+        <h2 className="text-xl font-semibold mb-3">Our Mission</h2>
+        <p className="text-gray-300">To make mental health support accessible to every African teenager — regardless of location, income, or background. We believe no teen should suffer in silence.</p>
+      </section>
+
+      <section className="mb-10">
+        <h2 className="text-xl font-semibold mb-3">Our Vision</h2>
+        <p className="text-gray-300">A future where every young person in Africa has access to the mental health tools they need to thrive — built by Africans, for Africans.</p>
+      </section>
+
+      <section className="mb-10">
+        <h2 className="text-xl font-semibold mb-3">The Founder</h2>
+        <p className="text-gray-300 mb-2"><span className="text-white font-medium">Abiodun Abdul Hameed</span> — Teen Mental Health Advocate & Youth Innovator</p>
+        <p className="text-gray-300">Abiodun built Hamboi Mindcare at 15 years old from personal experience. As a member of Team Nigeria at the FIRST Global Challenge 2025, he was honored with the Dr. Mae Jemison Award for International Unity. He created Hamboi Mindcare to ensure no African teenager has to face mental health struggles alone.</p>
+      </section>
+
+      <p className="text-sm text-gray-500 mt-12">© 2026 Hamboi Mindcare. All rights reserved.</p>
+    </main>
+  )
+}
