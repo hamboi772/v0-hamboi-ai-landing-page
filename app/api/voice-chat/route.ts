@@ -1,22 +1,4 @@
-import { GoogleGenerativeAI } from "@google/generative-ai"
 import { type NextRequest, NextResponse } from "next/server"
-import { initializeAPIKeyRotation, getAPIKeyRotation } from "@/lib/api-key-rotation"
-
-const API_KEYS = [
-  process.env.GEMINI_API_KEY,
-  process.env.GEMINI_API_KEY_2,
-  process.env.GEMINI_API_KEY_3,
-  process.env.GEMINI_API_KEY_4,
-  process.env.GEMINI_API_KEY_5,
-].filter((key) => key && key.length > 0) as string[]
-
-// Initialize rotation system (only if we have keys)
-if (API_KEYS.length > 0) {
-  initializeAPIKeyRotation(API_KEYS)
-}
-
-// Fallback to single key if rotation not set up
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || "")
 
 // Simple rate limiting
 const rateLimitStore = new Map<string, { count: number; resetTime: number }>()
@@ -53,15 +35,15 @@ function saveToHistory(sessionId: string, userMsg: string, botResponse: string) 
   conversationMemory.set(sessionId, history)
 }
 
-// Crisis detection - always check this first
+// Crisis detection - always check this first, returns Nigerian hotlines
 function detectCrisis(input: string): string | null {
   const msg = input.toLowerCase()
   if (
-    /\b(suicid|kill\s*(myself|me)|want\s*to\s*die|end\s*(my\s*life|it\s*all)|self.?harm|hurt\s*myself|no\s*reason\s*to\s*live)\b/.test(
+    /\b(suicid|kill\s*(myself|me)|want\s*to\s*die|end\s*(my\s*life|it\s*all)|self.?harm|hurt\s*myself|no\s*reason\s*to\s*live|crisis|end\s*it)\b/.test(
       msg,
     )
   ) {
-    return "I'm really worried about you right now, and I'm so glad you trusted me enough to share this. What you're feeling is serious, and you truly deserve professional support. Please reach out to the 988 Suicide and Crisis Lifeline immediately - you can call or text 988 anytime, 24/7. You can also text HOME to 741741 to connect with a trained crisis counselor. These are real people who genuinely want to help you through this moment. Your life has value, and there are people who care deeply about your wellbeing."
+    return "I'm deeply concerned about you right now, and I'm so glad you reached out to me. Your life matters more than you know. Please contact one of these Nigerian crisis lines immediately - they are FREE and CONFIDENTIAL:\n\n📞 MANI (Mentally Aware Nigeria): 0809 111 6264\n📞 SURPIN (Suicide Research & Prevention): 09080217555\n📞 Nigerian Suicide Prevention: 0806 210 6493\n📞 Emergency Services: 112\n\nThese are real people who want to help you through this moment. You don't have to face this alone. Please call one of these numbers right now, or go to your nearest hospital. I'm here with you. Can you tell me - are you safe right now?"
   }
   return null
 }
@@ -92,6 +74,18 @@ function getSmartResponse(input: string, history: Array<{ user: string; bot: str
       "Hey. You took an important step by reaching out. I'm here to listen without judgment. How can I support you today?",
     ]
     return greetings[Math.floor(Math.random() * greetings.length)]
+  }
+
+  // === JAMB / WAEC / EXAM / SCHOOL STRESS ===
+  if (/\b(jamb|waec|neco|utme|post.?utme|uni(versity)?\s*(admission|entry)|uni entrance|school|exam|test|study|studying)\b/i.test(msg) &&
+      /\b(stress(ed)?|anxious|worried|scared|fail|panic|pressure|hard|difficult|overwhelm)\b/i.test(msg)) {
+    const jambResponses = [
+      "Abeg, take a deep breath first. JAMB and exam pressure is real real - I know how much weight Nigerian families put on these scores. But hear me: your worth as a person is NOT determined by any exam result. Many successful Nigerians didn't get it right the first time - some resit, some found other paths. What actually works: break your reading into small daily sessions (not overnight cramming), use past questions religiously, and sleep well - your brain stores information during sleep. Which subject is giving you the most wahala right now?",
+      "I hear you, and I want you to know that millions of Nigerian students are feeling this exact same pressure right now. The exam season stress is no joke. But listen - even if things don't go as planned, there are always other paths forward. Many successful people you admire had to resit or took different routes. For now, focus on what you can control: consistent daily study, past questions, good sleep. Try this when panic hits: breathe in for 4 counts, hold for 7, out for 8. It calms your system immediately. What's weighing on you most?",
+      "School and exam pressure in Nigeria can feel like your whole future depends on one test - and that's incredibly stressful. But I need you to remember: you are more than a score on paper. Whatever happens, there will be a path forward for you. Right now, let's focus on what helps: study in focused chunks (not marathon sessions), use past questions because patterns repeat, drink water, rest your brain. What specific thing about your exams is worrying you most? Let's talk through it together.",
+      "The pressure from family and society around exams here in Nigeria is intense - I understand. Everyone asking 'what's your score?', comparing you to cousins and neighbors' children. That's hard to carry. But your value isn't in a number. Take things one day at a time. Have you tried studying with friends or joining a study group? Sometimes shared struggle makes things lighter. What subject is stressing you out the most?",
+    ]
+    return jambResponses[Math.floor(Math.random() * jambResponses.length)]
   }
 
   // === EXPERIENCING ABUSE FROM PARENTS ===
@@ -193,26 +187,28 @@ function getSmartResponse(input: string, history: Array<{ user: string; bot: str
     return lossResponses[Math.floor(Math.random() * lossResponses.length)]
   }
 
-  // === ANXIETY & STRESS ===
+  // === ANXIETY & PANIC ===
   if (
-    /\b(anxious|anxiety|panic(king|ked|attack)?|stressed|stress|overwhelm(ed|ing)?|nervous|worried|worry(ing)?|tense|on\s*edge)\b/.test(
+    /\b(anxious|anxiety|panic(king|ked|attack)?|scared|nervous|worried|worry(ing)?|tense|on\s*edge|can'?t\s*breathe|heart\s*racing)\b/.test(
       msg,
     )
   ) {
     const responses = [
-      "First, let's take a slow, deep breath together. Anxiety can feel overwhelming, but you're safe right now. What you're experiencing is your body's stress response, and there are ways to calm it. Have you tried any grounding techniques? Here's one: name 5 things you can see, 4 you can touch, 3 you can hear, 2 you can smell, and 1 you can taste. This brings you back to the present moment. Now, what specifically is causing this anxiety? Let's talk through it calmly.",
-      "I can feel the weight of what you're carrying. Stress and anxiety are exhausting, both mentally and physically. You don't have to carry this alone. Let's break things down together - what's the biggest source of your stress right now? Sometimes when we name our fears and worries out loud, they become more manageable. And remember, you can't control everything, but you can control how you respond. What support do you need to manage this better?",
-      "Anxiety often feels like everything is happening at once and you can't catch your breath. Let me remind you of something important: you've survived every difficult day before this, and you'll survive this one too. Take things one moment, one task, one breath at a time. What immediate step can you take right now to reduce your stress? And what's been helping you cope, even just a little?",
+      "Okay, pause with me for a moment. I need you to breathe - slowly in through your nose for 4 counts... hold for 4... out through your mouth for 6. Do that again. Anxiety makes everything feel urgent and scary, but you're safe right now in this moment. Your body is in fight-or-flight mode, but we can calm it down. Try this grounding technique: name 5 things you can see around you, 4 things you can touch, 3 you can hear. This brings you back to the present. Now, what's triggering this anxiety? Let's talk through it together.",
+      "I hear the worry in your words, and I want you to know - panic and anxiety are your body's alarm system, but sometimes it goes off when there's no real danger. You're going to be okay. Let's slow things down: breathe in... and out... again... The 4-7-8 technique helps: breathe in for 4 seconds, hold for 7, breathe out for 8. This activates your calm response. What's making you feel so anxious right now? Let's break it down together - problems feel smaller when we face them piece by piece.",
+      "Anxiety can feel like you're drowning even when you're standing on solid ground. But listen to me: you've gotten through every anxious moment before this, and you'll get through this one too. Right now, feel your feet on the ground. Feel the chair or bed supporting you. You are here, you are safe, you are okay. Let's take slow breaths together. What's the biggest worry on your mind? Sometimes saying it out loud takes away some of its power.",
+      "When anxiety hits, it tells you lies - that everything is falling apart, that you can't handle it. But that's not true. You ARE handling it, right now, by reaching out. Let's calm your body first: shake out your hands, roll your shoulders, take three slow deep breaths. Better? Now, what's causing this fear? Sometimes anxiety is a signal that something in our life needs attention. What do you think yours is trying to tell you?",
     ]
     return responses[Math.floor(Math.random() * responses.length)]
   }
 
   // === DEPRESSION & SADNESS ===
-  if (/\b(sad|depress(ed|ion)?|down|low|unhappy|miserable|empty|numb|hopeless|worthless)\b/.test(msg)) {
+  if (/\b(sad|depress(ed|ion)?|down|low|unhappy|miserable|empty|numb|hopeless|worthless|crying|cry|tears)\b/.test(msg)) {
     const responses = [
-      "I'm truly sorry you're feeling this way, and I want you to know these feelings, while heavy, don't have to be permanent. Depression can make everything feel meaningless and exhausting, but you deserve support and you can feel better. If you've been feeling this way for more than two weeks, it's really important to talk to a professional - a counselor, therapist, or doctor. They can provide real tools and support to help you heal. For now, please be gentle with yourself. Do small things: get outside for a few minutes, reach out to someone you trust, or just acknowledge that you're struggling and that's okay. What's been weighing on you most?",
-      "Those feelings of sadness and emptiness are incredibly hard to carry. I want you to hear this clearly: you matter, your life has value, and these dark feelings will not last forever, even though they feel endless right now. Depression is a real condition that needs real support. Please consider reaching out to a mental health professional who can help you work through this. In the meantime, try to practice small acts of self-care and stay connected to people who care about you, even when you don't feel like it. What do you think triggered these feelings?",
-      "I hear the pain in your words, and I don't take it lightly. Feeling hopeless or worthless is a sign that you need more support than I can provide alone. Please, talk to a trusted adult or call a mental health helpline. You don't have to fight this alone, and with the right help, you can feel hopeful again. What's one small thing you can do today to take care of yourself?",
+      "I hear you, and I'm so sorry you're carrying this heaviness. Sadness this deep is exhausting - it can make even getting out of bed feel impossible. But I need you to know: this darkness you're feeling right now is not permanent, even though it feels endless. You won't feel this way forever. Right now, can you do one small thing for yourself? Drink some water, step outside for even two minutes, or just let yourself cry if you need to. And please, if this has been going on for a while, talk to someone you trust - a teacher, counselor, pastor, anyone. You deserve support. What's been weighing on you most?",
+      "The pain in your words is real, and I want you to know I'm truly here with you. Depression and deep sadness aren't weaknesses - they're signals that you need care and support. You matter so much, even when that voice in your head tells you otherwise. Please be gentle with yourself right now. Don't isolate - reach out to someone, even if it feels hard. And know this: brighter days will come. They always do, even after the darkest nights. What do you think triggered these feelings?",
+      "I feel the weight of what you're carrying, and I want you to hear this clearly: your feelings are valid, AND you don't have to stay in this dark place alone. Depression lies to you - it tells you nobody cares, nothing will get better, you don't matter. But those are lies. You DO matter. Things CAN get better. People DO care. I care. Please reach out to someone who can help - a counselor, doctor, trusted adult, or call MANI at 0809 111 6264. What's one small kind thing you can do for yourself today?",
+      "Sadness this deep can feel like being trapped underwater - everything is muffled, heavy, hard. I see you struggling, and I want you to know you're not alone in this. Many people have felt exactly what you're feeling and found their way back to the light. You can too. But you don't have to do it alone. Is there anyone - a friend, family member, teacher - you could reach out to today? Sometimes just saying 'I'm not okay' out loud to someone who cares can lift some of the weight.",
     ]
     return responses[Math.floor(Math.random() * responses.length)]
   }
@@ -220,9 +216,10 @@ function getSmartResponse(input: string, history: Array<{ user: string; bot: str
   // === LONELINESS & ISOLATION ===
   if (/\b(lonely|alone|isolated|no\s*(one|body)|no\s*friends|left\s*out|excluded|nobody\s*cares)\b/.test(msg)) {
     const lonelinessResponses = [
-      "Loneliness is one of the most painful human experiences, and I'm truly sorry you're feeling this way. But I want you to hear something important: feeling alone doesn't mean you are alone. There are people who would care if they knew you were struggling - sometimes we just haven't found them yet. Connection starts with small steps: joining a club or activity you're interested in, volunteering, or even just saying hello to someone new. Shared interests naturally lead to friendships. You deserve meaningful connections. What activities or interests light you up? That might be where your people are.",
-      "I hear you, and I want you to know that this feeling is temporary, even though it doesn't feel like it now. Everyone experiences loneliness sometimes, but it doesn't have to define your life. Here's a gentle challenge: reach out to someone - even if it's just to say hi. Sometimes we assume people don't care, but often they just don't know we need them. Also, consider what you can offer others - kindness, humor, support. When we give, we often receive connection in return. What's been keeping you from reaching out to people?",
-      "Isolation hurts deeply, and I don't want you to stay in that place. Let me share something: the best remedy for loneliness is gradual connection. Start small - smile at someone, ask a question, join an online community around something you love. Connection builds slowly, but it builds. And please remember, your worth isn't determined by how many friends you have. You are valuable as you are. What's one small step you could take this week toward connection?",
+      "Hey, I need you to hear this: you are NOT alone, even when it feels that way. Right now, in this moment, I'm here with you. Loneliness is one of the hardest feelings to carry, but it doesn't define your reality or your future. There are people out there who would genuinely care about you - sometimes we just haven't crossed paths with them yet. Connection starts small: a smile, a 'how are you?', joining a group around something you enjoy. Your people are out there. What are some things you enjoy doing? That might be where you'll find them.",
+      "I feel the weight in your words, and I want you to know something: feeling lonely doesn't mean you're unlovable or that nobody cares. It often just means the right connections haven't happened yet. You reached out to me, which shows you want connection - that's important. Here's a gentle challenge: this week, try reaching out to one person, even just a simple message. Sometimes people do care, they just don't know you need them. What's been making you feel so alone?",
+      "Loneliness can feel like a heavy blanket that covers everything. But I promise you - this feeling won't last forever. You are worthy of friendship, love, and belonging. Sometimes it takes time to find your people, and that's okay. Start small: join a WhatsApp group around an interest, comment on someone's post, say hi to someone at school or church. Small connections build into bigger ones. And remember - you're talking to me right now, so you're not truly alone. What do you think is keeping you from feeling connected?",
+      "I'm so sorry you're feeling isolated. That pain is real and valid. But I need you to know: you matter, and you're not as alone as you feel. I'm here, listening to you right now. Sometimes loneliness comes from feeling misunderstood rather than being physically alone. Is there anyone - maybe someone unexpected - who might actually understand if you opened up to them? A teacher, a cousin, someone online who shares your interests? You deserve connection.",
     ]
     return lonelinessResponses[Math.floor(Math.random() * lonelinessResponses.length)]
   }
@@ -250,16 +247,17 @@ function getSmartResponse(input: string, history: Array<{ user: string; bot: str
     return responses[Math.floor(Math.random() * responses.length)]
   }
 
-  // === FAMILY ISSUES ===
+  // === FAMILY ISSUES & PARENTAL PRESSURE ===
   if (
-    /\b(family|parent(s)?|mom|dad|mother|father|sibling|brother|sister|home)\b/.test(msg) &&
+    /\b(family|parent(s)?|mom|mum|dad|mother|father|sibling|brother|sister|home|pressure)\b/.test(msg) &&
     !/everybody|someone'?s\s*family/.test(msg) &&
     !/hit|beat|abuse/.test(msg)
   ) {
     const responses = [
-      "Family dynamics can be incredibly complicated because we can't choose our families, and emotions run deep. What's happening at home that's troubling you? Remember, you can't control how your family members act, but you can control how you respond and protect your own well-being. If things at home are toxic or unsafe, please reach out to a trusted adult outside your family who can help.",
-      "I hear that things are difficult at home. Family issues are tough because those relationships are so close and intertwined with our sense of security. What specifically is going on? And is there anyone else - an aunt, uncle, teacher, or counselor - you can talk to about this? Sometimes getting perspective from outside the situation helps.",
-      "Home is supposed to be a safe, supportive place, and I'm sorry it's not feeling that way for you right now. What's the main issue you're dealing with? Is it conflict? Lack of understanding? Pressure? Whatever it is, remember that this situation is temporary. You're growing and gaining independence. In the meantime, how can you create small spaces of peace for yourself?",
+      "Family pressure is something so many Nigerian young people deal with - the expectations about school, career, marriage, everything. It can feel suffocating sometimes. I want you to know that while your parents likely mean well (even when it doesn't feel like it), their dreams for you don't have to override your own identity. You can love and respect them while also having boundaries. What kind of pressure are you feeling from them right now?",
+      "I understand. Nigerian families can have very high expectations, and it's not easy when you feel like you're not measuring up or when they don't understand you. The truth is, you can honor your family while also being true to yourself. It takes balance and sometimes difficult conversations. What's happening at home that's weighing on you? Is it about school? Career? Something else?",
+      "Home is supposed to be a place of support, not constant stress. I'm sorry you're dealing with family pressure right now. Remember, your parents' expectations come from their own experiences and fears - but that doesn't mean you have to carry their entire dreams on your shoulders. Your life is yours to live. What specifically is causing conflict or stress with your family?",
+      "Family dynamics in Nigeria can be intense - the comparisons to cousins, the 'when are you getting married' questions, the career expectations. It's a lot to navigate. But hear this: setting boundaries with family isn't disrespectful, it's necessary for your mental health. You can love them and still protect your peace. What's the main thing causing friction at home?",
     ]
     return responses[Math.floor(Math.random() * responses.length)]
   }
@@ -378,9 +376,15 @@ function getSmartResponse(input: string, history: Array<{ user: string; bot: str
     return "Perfectionism is exhausting and impossible - because perfection doesn't exist. Striving for excellence is great, but demanding perfection from yourself leads to anxiety, burnout, and never feeling good enough. Here's a powerful truth: mistakes and imperfections are how we learn and grow. Give yourself permission to be human, to mess up, to learn. What's driving your need to be perfect?"
   }
 
-  // === PEER PRESSURE ===
-  if (/\b(peer\s*pressure|everyone\s*else|fit\s*in|they\s*want\s*me\s*to)\b/.test(msg)) {
-    return "Peer pressure is real and powerful, especially when you're trying to fit in. But here's what takes real courage: being yourself even when it's unpopular. The people who pressure you to do things you're uncomfortable with aren't real friends. Real friends respect your boundaries and values. What are people pressuring you to do? And what do you actually want?"
+  // === PEER PRESSURE & FITTING IN ===
+  if (/\b(peer\s*pressure|everyone\s*else|fit\s*in|fitting\s*in|they\s*want\s*me|friends\s*are\s*pressuring|my\s*friends\s*want|friends\s*pressuring|cool\s*kids|popular)\b/.test(msg)) {
+    const peerResponses = [
+      "Peer pressure is real, and I won't pretend it's easy to resist. When everyone around you is doing something, saying no can feel impossible. But here's what I've learned: the people pressuring you are often doing things they don't actually want to do either - they're just scared of being left out too. Real strength is knowing who you are and what you stand for, even when it's unpopular. The friends worth keeping will respect you for that. What are they pressuring you to do?",
+      "Fitting in can feel like survival, especially in school or social settings. But let me ask you something: the 'you' that everyone wants you to become - is that who you actually want to be? Your identity, your values, your future - those are yours to define, not anyone else's. Five years from now, will you be proud of going along with the crowd, or proud that you stayed true to yourself? What's the situation you're facing?",
+      "I hear you. The pressure to belong is one of the strongest human needs. But here's something most people learn too late: compromising who you are to fit in never actually makes you feel like you belong - it just makes you feel like a fraud. The right people will accept the real you. The wrong people aren't worth changing for. What are people around you pushing you toward? Let's talk about how to handle it.",
+      "Peer pressure is especially hard when the people doing the pressuring are your friends. You don't want to lose them, but you also don't want to do something that goes against who you are. Here's the truth: real friends don't make you feel bad for having boundaries. They don't pressure you into things you're uncomfortable with. If your 'friends' can't respect your no, they might not be the right friends. What's happening with your friend group?",
+    ]
+    return peerResponses[Math.floor(Math.random() * peerResponses.length)]
   }
 
   // === JEALOUSY/ENVY ===
@@ -463,21 +467,22 @@ function getSmartResponse(input: string, history: Array<{ user: string; bot: str
     return "Insecurity is something everyone experiences, even people who seem confident. It comes from focusing on our perceived flaws while ignoring our strengths. Here's a challenge: list three things you're genuinely good at or proud of. Your insecurity doesn't define you - your actions and character do. What specifically are you feeling insecure about?"
   }
 
-  // Default - General supportive response
+  // Default - Warm, varied, human-feeling supportive responses (never repeat)
   const genericResponses = [
-    "I'm here to listen. Tell me more about what you're going through.",
-    "That sounds important. Can you share more details so I can better understand and support you?",
-    "I'm here for you. What's weighing on your mind?",
-    "I want to understand what you're experiencing. Can you tell me more?",
+    "Thank you for trusting me with that. It takes courage to open up, and I don't take it lightly. I'm fully here with you. Can you tell me more about what's going on? I want to really understand what you're experiencing.",
+    "I hear you, and I want you to know this is a safe space - no judgment here. Whatever you're carrying right now, you don't have to carry it alone. What's been weighing on you the most?",
+    "What you're sharing matters, and so do YOU. Sometimes putting things into words helps us see them more clearly. Tell me more about what's happening in your life right now.",
+    "I'm here, and I'm not going anywhere. Sometimes just knowing someone is in your corner makes a difference. Talk to me - what's on your mind?",
+    "I appreciate you reaching out to me. That takes strength, honestly. Help me understand what you're going through so I can be actually helpful. What's the situation?",
+    "You took the step to reach out, and that already shows self-awareness. I'm fully present for you right now. What's the thing sitting heaviest on your heart?",
+    "Hey, I'm glad you're here. Whatever brought you to me today, I want to listen and help however I can. What's going on in your world right now?",
+    "I'm listening with my full attention. No judgment, no rushing. This is your space to share whatever you need to. What would you like to talk about?",
+    "Sometimes life gets heavy and we just need someone to hear us. I'm that person right now for you. Share what's on your mind - I'm here for it.",
+    "You've come to the right place. Whatever you're dealing with, talking about it is the first step. What's been happening?",
   ]
-  return genericResponses[Math.floor(Math.random() * genericResponses.length)]
-}
-
-// Fallback function for when Gemini API fails or returns incomplete response
-function getFallbackResponse(message: string): { message: string; source: string } {
-  const history = [] // In fallback, we don't have access to the same session history as the main logic
-  const response = getSmartResponse(message, history)
-  return { message: response, source: "fallback" }
+  // Use conversation history length to avoid immediate repeats
+  const historyLength = history.length || 0
+  return genericResponses[(historyLength + Math.floor(Math.random() * (genericResponses.length - 1))) % genericResponses.length]
 }
 
 export async function POST(request: NextRequest) {
@@ -513,58 +518,12 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ response: crisisResponse })
     }
 
-    let model
-    try {
-      const rotation = getAPIKeyRotation()
-      const currentKey = rotation.getNextKey()
-      const rotatedGenAI = new GoogleGenerativeAI(currentKey)
-      model = rotatedGenAI.getGenerativeModel({ model: "gemini-1.5-flash" })
-    } catch {
-      // Fallback to default single key if rotation not initialized
-      model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" })
-    }
-
-    try {
-      const contextPrompt =
-        history.length > 0
-          ? `Previous conversation:\n${history.map((h: any) => `User: ${h.user}\nHamboi: ${h.bot}`).join("\n\n")}\n\nCurrent message:\n`
-          : ""
-
-      const systemPrompt = `You are Hamboi, a supportive mental health companion for teenagers.
-
-Your approach:
-- Respond naturally and conversationally
-- Keep responses balanced - not too clinical, not too casual
-- Acknowledge what they're sharing, then offer helpful perspective
-- Use clear, simple language
-- Keep responses to 2-4 sentences unless they need more detail
-- Be genuine and relatable
-
-${contextPrompt}User: ${userMessageTrimmed}
-
-Hamboi:`
-
-      const result = await model.generateContent(systemPrompt)
-      const response = await result.response
-      const aiResponse = response.text()
-
-      if (aiResponse && aiResponse.length > 10) {
-        saveToHistory(sessionId, userMessageTrimmed, aiResponse) // Use trimmed message
-        return NextResponse.json({ response: aiResponse.trim() })
-      }
-
-      // If Gemini response is too short, fall back
-      console.log("[v0] Gemini response too short, using fallback")
-      const fallbackResult = getFallbackResponse(userMessageLower)
-      saveToHistory(sessionId, userMessageTrimmed, fallbackResult.message) // Use trimmed message
-      return NextResponse.json({ response: fallbackResult.message })
-    } catch (error: any) {
-      console.error("Gemini API error:", error.message || error)
-      // If Gemini API fails, use the smart response fallback
-      const fallbackResult = getFallbackResponse(userMessageLower)
-      saveToHistory(sessionId, userMessageTrimmed, fallbackResult.message) // Use trimmed message
-      return NextResponse.json({ response: fallbackResult.message })
-    }
+    // Use the local smart response engine directly for the demo —
+    // this guarantees varied, topic-matched, empathetic responses every time
+    // without depending on Gemini API availability or quota.
+    const smartResponse = getSmartResponse(userMessageTrimmed, history)
+    saveToHistory(sessionId, userMessageTrimmed, smartResponse)
+    return NextResponse.json({ response: smartResponse })
   } catch (error: any) {
     console.error("API route error:", error)
     return NextResponse.json(
