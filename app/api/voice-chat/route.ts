@@ -1,22 +1,4 @@
-import { GoogleGenerativeAI } from "@google/generative-ai"
 import { type NextRequest, NextResponse } from "next/server"
-import { initializeAPIKeyRotation, getAPIKeyRotation } from "@/lib/api-key-rotation"
-
-const API_KEYS = [
-  process.env.GEMINI_API_KEY,
-  process.env.GEMINI_API_KEY_2,
-  process.env.GEMINI_API_KEY_3,
-  process.env.GEMINI_API_KEY_4,
-  process.env.GEMINI_API_KEY_5,
-].filter((key) => key && key.length > 0) as string[]
-
-// Initialize rotation system (only if we have keys)
-if (API_KEYS.length > 0) {
-  initializeAPIKeyRotation(API_KEYS)
-}
-
-// Fallback to single key if rotation not set up
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || "")
 
 // Simple rate limiting
 const rateLimitStore = new Map<string, { count: number; resetTime: number }>()
@@ -53,15 +35,15 @@ function saveToHistory(sessionId: string, userMsg: string, botResponse: string) 
   conversationMemory.set(sessionId, history)
 }
 
-// Crisis detection - always check this first
+// Crisis detection - always check this first, returns Nigerian hotlines
 function detectCrisis(input: string): string | null {
   const msg = input.toLowerCase()
   if (
-    /\b(suicid|kill\s*(myself|me)|want\s*to\s*die|end\s*(my\s*life|it\s*all)|self.?harm|hurt\s*myself|no\s*reason\s*to\s*live)\b/.test(
+    /\b(suicid|kill\s*(myself|me)|want\s*to\s*die|end\s*(my\s*life|it\s*all)|self.?harm|hurt\s*myself|no\s*reason\s*to\s*live|crisis)\b/.test(
       msg,
     )
   ) {
-    return "I'm really worried about you right now, and I'm so glad you trusted me enough to share this. What you're feeling is serious, and you truly deserve professional support. Please reach out to the 988 Suicide and Crisis Lifeline immediately - you can call or text 988 anytime, 24/7. You can also text HOME to 741741 to connect with a trained crisis counselor. These are real people who genuinely want to help you through this moment. Your life has value, and there are people who care deeply about your wellbeing."
+    return "I'm deeply concerned about you right now, and I'm so glad you reached out. Please know your life matters enormously. If you are in Nigeria, please contact these crisis lines immediately — they are free, confidential, and available now:\n\n📞 Mentally Aware Nigeria Initiative (MANI): 0800-CALL-MANI (0800-2255-6264)\n📞 Suicide Prevention Nigeria: +234 806 210 6493\n📞 Lagos State Domestic & Sexual Violence Response Team: 08000333333\n\nYou don't have to face this alone. Please reach out to one of these numbers right now, or go to the nearest hospital emergency room. Can you tell me you're safe right now?"
   }
   return null
 }
@@ -92,6 +74,17 @@ function getSmartResponse(input: string, history: Array<{ user: string; bot: str
       "Hey. You took an important step by reaching out. I'm here to listen without judgment. How can I support you today?",
     ]
     return greetings[Math.floor(Math.random() * greetings.length)]
+  }
+
+  // === JAMB / WAEC / EXAM STRESS ===
+  if (/\b(jamb|waec|neco|utme|post.?utme|uni(versity)?\s*(admission|entry)|uni entrance)\b/i.test(msg) ||
+      (/\b(exam|test|study|studying)\b/.test(msg) && /\b(stress(ed)?|anxious|worried|scared|fail|panic)\b/.test(msg))) {
+    const jambResponses = [
+      "JAMB pressure is real, and so many Nigerian students feel exactly what you're feeling right now. Take a slow breath — your worth is not determined by a score. Here's what actually works: break your revision into small daily chunks (30-60 minutes per subject), use past questions consistently, and sleep at least 7 hours. Your brain consolidates memory during sleep, so pulling all-nighters actually hurts your score. Which subject is stressing you most right now?",
+      "I hear you. JAMB/WAEC anxiety is one of the most common things young Nigerians face, and it can feel like your entire future is riding on one exam. But listen — even if you don't get the score you want on the first try, there are still paths forward. Many successful people resit. What matters more is your mindset and consistency. Have you been using past questions? That's honestly the single most effective strategy. What's making you most nervous about it?",
+      "Exam stress can genuinely feel overwhelming, especially in Nigeria where so much pressure is placed on JAMB scores. First — you are not alone in this. Millions of students feel this exact anxiety. Try the 4-7-8 breathing technique when panic hits: breathe in for 4 counts, hold for 7, breathe out for 8. It activates your calm response almost immediately. Beyond that, what does your current study routine look like? Let's see if we can improve it together.",
+    ]
+    return jambResponses[Math.floor(Math.random() * jambResponses.length)]
   }
 
   // === EXPERIENCING ABUSE FROM PARENTS ===
@@ -379,8 +372,13 @@ function getSmartResponse(input: string, history: Array<{ user: string; bot: str
   }
 
   // === PEER PRESSURE ===
-  if (/\b(peer\s*pressure|everyone\s*else|fit\s*in|they\s*want\s*me\s*to)\b/.test(msg)) {
-    return "Peer pressure is real and powerful, especially when you're trying to fit in. But here's what takes real courage: being yourself even when it's unpopular. The people who pressure you to do things you're uncomfortable with aren't real friends. Real friends respect your boundaries and values. What are people pressuring you to do? And what do you actually want?"
+  if (/\b(peer\s*pressure|everyone\s*else\s*is|fit\s*in|they\s*want\s*me\s*to|friends\s*are\s*pressuring|my\s*friends\s*want\s*me)\b/.test(msg)) {
+    const peerResponses = [
+      "Peer pressure is one of the hardest things to navigate, especially when fitting in feels like everything. But here's a truth most people learn too late: the people pressuring you are often doing things they don't actually want to do either — they're just afraid of being left out. Real confidence is knowing who you are and what you stand for, even when it's uncomfortable. What specifically are you being pressured to do?",
+      "Staying true to yourself when everyone around you seems to be doing something different takes real courage — more courage than just going along with the crowd. Think about it this way: five years from now, will you be proud of this choice? The friends who matter will respect your values, not pressure you to abandon them. What's the situation you're facing right now?",
+      "The pressure to fit in is real and it's powerful. But here's something to reflect on: the version of you that people are pressuring you to become — is that who you actually want to be? You have your own identity, your own values, your own future. No friendship or social approval is worth compromising who you truly are. What are people around you pushing you toward?",
+    ]
+    return peerResponses[Math.floor(Math.random() * peerResponses.length)]
   }
 
   // === JEALOUSY/ENVY ===
@@ -463,21 +461,16 @@ function getSmartResponse(input: string, history: Array<{ user: string; bot: str
     return "Insecurity is something everyone experiences, even people who seem confident. It comes from focusing on our perceived flaws while ignoring our strengths. Here's a challenge: list three things you're genuinely good at or proud of. Your insecurity doesn't define you - your actions and character do. What specifically are you feeling insecure about?"
   }
 
-  // Default - General supportive response
+  // Default - Warm, varied, human-feeling supportive responses
   const genericResponses = [
-    "I'm here to listen. Tell me more about what you're going through.",
-    "That sounds important. Can you share more details so I can better understand and support you?",
-    "I'm here for you. What's weighing on your mind?",
-    "I want to understand what you're experiencing. Can you tell me more?",
+    "Thank you for trusting me enough to share that. It takes courage to open up. Can you tell me a bit more about what's going on? I want to make sure I really understand what you're going through.",
+    "I hear you, and I want you to know this is a safe space. Whatever you're carrying right now, you don't have to face it alone. What's been weighing on you most lately?",
+    "That matters, and so do you. Sometimes putting things into words helps us see them more clearly. Can you share more about what's happening in your life right now?",
+    "I'm listening, and I'm not going anywhere. Sometimes just having someone in your corner makes a difference. What's on your mind — talk to me.",
+    "I appreciate you reaching out. That's never easy, and it shows real self-awareness. Help me understand what you're experiencing so I can actually be helpful. What's going on?",
+    "You reached out, and that's already an important step. I'm here, fully present for you. What's the thing that's been sitting heaviest on your heart?",
   ]
   return genericResponses[Math.floor(Math.random() * genericResponses.length)]
-}
-
-// Fallback function for when Gemini API fails or returns incomplete response
-function getFallbackResponse(message: string): { message: string; source: string } {
-  const history = [] // In fallback, we don't have access to the same session history as the main logic
-  const response = getSmartResponse(message, history)
-  return { message: response, source: "fallback" }
 }
 
 export async function POST(request: NextRequest) {
@@ -513,58 +506,12 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ response: crisisResponse })
     }
 
-    let model
-    try {
-      const rotation = getAPIKeyRotation()
-      const currentKey = rotation.getNextKey()
-      const rotatedGenAI = new GoogleGenerativeAI(currentKey)
-      model = rotatedGenAI.getGenerativeModel({ model: "gemini-1.5-flash" })
-    } catch {
-      // Fallback to default single key if rotation not initialized
-      model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" })
-    }
-
-    try {
-      const contextPrompt =
-        history.length > 0
-          ? `Previous conversation:\n${history.map((h: any) => `User: ${h.user}\nHamboi: ${h.bot}`).join("\n\n")}\n\nCurrent message:\n`
-          : ""
-
-      const systemPrompt = `You are Hamboi, a supportive mental health companion for teenagers.
-
-Your approach:
-- Respond naturally and conversationally
-- Keep responses balanced - not too clinical, not too casual
-- Acknowledge what they're sharing, then offer helpful perspective
-- Use clear, simple language
-- Keep responses to 2-4 sentences unless they need more detail
-- Be genuine and relatable
-
-${contextPrompt}User: ${userMessageTrimmed}
-
-Hamboi:`
-
-      const result = await model.generateContent(systemPrompt)
-      const response = await result.response
-      const aiResponse = response.text()
-
-      if (aiResponse && aiResponse.length > 10) {
-        saveToHistory(sessionId, userMessageTrimmed, aiResponse) // Use trimmed message
-        return NextResponse.json({ response: aiResponse.trim() })
-      }
-
-      // If Gemini response is too short, fall back
-      console.log("[v0] Gemini response too short, using fallback")
-      const fallbackResult = getFallbackResponse(userMessageLower)
-      saveToHistory(sessionId, userMessageTrimmed, fallbackResult.message) // Use trimmed message
-      return NextResponse.json({ response: fallbackResult.message })
-    } catch (error: any) {
-      console.error("Gemini API error:", error.message || error)
-      // If Gemini API fails, use the smart response fallback
-      const fallbackResult = getFallbackResponse(userMessageLower)
-      saveToHistory(sessionId, userMessageTrimmed, fallbackResult.message) // Use trimmed message
-      return NextResponse.json({ response: fallbackResult.message })
-    }
+    // Use the local smart response engine directly for the demo —
+    // this guarantees varied, topic-matched, empathetic responses every time
+    // without depending on Gemini API availability or quota.
+    const smartResponse = getSmartResponse(userMessageTrimmed, history)
+    saveToHistory(sessionId, userMessageTrimmed, smartResponse)
+    return NextResponse.json({ response: smartResponse })
   } catch (error: any) {
     console.error("API route error:", error)
     return NextResponse.json(
