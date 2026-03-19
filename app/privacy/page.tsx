@@ -128,7 +128,7 @@ export default function PrivacyPage() {
               <p className="mt-4">
                 To exercise these rights, contact us at{" "}
                 <a href="mailto:privacy@hamboi.ai" className="text-hamboi-purple hover:underline">
-                  privacy@hamboi.ai
+                  hamboimindcare.help@gmail.com
                 </a>
               </p>
             </section>
