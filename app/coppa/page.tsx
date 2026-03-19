@@ -23,7 +23,7 @@ export default function COPPACompliance() {
         <li>Review any information collected from their child</li>
         <li>Request deletion of their child's data</li>
         <li>Refuse further collection of their child's information</li>
-        <li>Contact us at abiodunhamboihameed@gmail.com for any concerns</li>
+        <li>Contact us at hamboimindcare.help@gmail.com for any concerns</li>
       </ul>
 
       <h2 className="text-xl font-semibold mb-2">4.4 Crisis Safety Exception</h2>
