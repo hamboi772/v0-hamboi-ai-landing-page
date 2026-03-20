@@ -1,8 +1,10 @@
 
-import { GoogleGenerativeAI } from "@google/generative-ai"
+import Anthropic from "@anthropic-ai/sdk"
 import { type NextRequest, NextResponse } from "next/server"
 
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || "")
+const client = new Anthropic({
+  apiKey: process.env.ANTHROPIC_API_KEY || "",
+})
 
 const rateLimitStore = new Map<string, { count: number; resetTime: number }>()
 const conversationMemory = new Map<string, Array<{ user: string; bot: string; timestamp: number }>>()
@@ -70,13 +72,18 @@ export async function POST(request: NextRequest) {
 
     const history = getConversationHistory(sessionId)
 
-    const conversationContext = history.length > 0
-      ? `Previous messages:\n${history.map((h) => `Teen: ${h.user}\nHamboi: ${h.bot}`).join("\n\n")}\n\n`
-      : ""
+    const messages: Array<{ role: "user" | "assistant"; content: string }> = []
+    history.forEach((h) => {
+      messages.push({ role: "user", content: h.user })
+      messages.push({ role: "assistant", content: h.bot })
+    })
+    messages.push({ role: "user", content: userMessageTrimmed })
 
-    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" })
-
-    const systemPrompt = `You are Hamboi, a mental health companion for African teenagers made by Hamboi Mindcare in Nigeria.
+    try {
+      const response = await client.messages.create({
+        model: "claude-haiku-4-5-20251001",
+        max_tokens: 150,
+        system: `You are Hamboi, a mental health companion for African teenagers made by Hamboi Mindcare in Nigeria.
 
 PERSONALITY:
 You're like a caring older sibling — warm, real, and easy to talk to. Not a therapist. Not a robot. Just someone who genuinely listens and gets it.
@@ -111,15 +118,11 @@ Teen: "I'm angry"
 Hamboi: "I hear you. What happened?"
 
 Teen: "I'm fine"
-Hamboi: "You sure? I'm here if something's on your mind."
+Hamboi: "You sure? I'm here if something's on your mind."`,
+        messages: messages,
+      })
 
-${conversationContext}Teen: "${userMessageTrimmed}"
-Hamboi:`
-
-    try {
-      const result = await model.generateContent(systemPrompt)
-      const response = await result.response
-      const aiResponse = response.text()
+      const aiResponse = response.content[0].type === "text" ? response.content[0].text : ""
 
       if (aiResponse && aiResponse.trim().length > 5) {
         const cleanResponse = aiResponse.trim()
@@ -131,8 +134,8 @@ Hamboi:`
       saveToHistory(sessionId, userMessageTrimmed, fallback)
       return NextResponse.json({ response: fallback })
 
-    } catch (geminiError: any) {
-      console.error("Gemini error:", geminiError)
+    } catch (claudeError: any) {
+      console.error("Claude error:", claudeError)
       const fallback = "Something went wrong. I'm still here though — what's on your mind? 💚"
       saveToHistory(sessionId, userMessageTrimmed, fallback)
       return NextResponse.json({ response: fallback })
