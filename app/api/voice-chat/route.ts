@@ -77,7 +77,7 @@ function getSmartResponse(input: string, history: Array<{ user: string; bot: str
     history.some((h) => h.user.toLowerCase().includes(topic) || h.bot.toLowerCase().includes(topic))
 
   // Very short messages - encourage elaboration
-  if (words.length <= 2 && !/(yes|no|yeah|nah|ok|okay|hi|hey|hello|bye|thanks|good|bad|idk)/i.test(msg)) {
+if (words.length <= 2 && !/(yes|no|yeah|nah|ok|okay|hi|hey|hello|bye|thanks|good|bad|idk|sad|hurt|scared|angry|lonely|lost|broken|tired|empty|numb|anxious|depressed|pain|crying|cry|stressed|worried|afraid|helpless)/i.test(msg)) {
     if (isFollowUp) {
       return "I'm listening. Can you share a bit more about what you're experiencing?"
     }
