@@ -74,7 +74,7 @@ export async function POST(request: NextRequest) {
       ? `Previous messages:\n${history.map((h) => `Teen: ${h.user}\nHamboi: ${h.bot}`).join("\n\n")}\n\n`
       : ""
 
-    const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" })
+    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" })
 
     const systemPrompt = `You are Hamboi, a mental health companion for African teenagers made by Hamboi Mindcare in Nigeria.
 
