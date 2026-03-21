@@ -1,4 +1,4 @@
-
+// Hamboi Mindcare
 import { GoogleGenAI } from "@google/genai"
 import { type NextRequest, NextResponse } from "next/server"
 
