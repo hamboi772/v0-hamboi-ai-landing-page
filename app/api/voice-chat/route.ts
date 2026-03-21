@@ -1,4 +1,10 @@
+import { Anthropic } from "@anthropic-ai/sdk"
 import { type NextRequest, NextResponse } from "next/server"
+
+// Initialize Anthropic client
+const client = new Anthropic({
+  apiKey: process.env.ANTHROPIC_API_KEY,
+})
 
 // Simple rate limiting
 const rateLimitStore = new Map<string, { count: number; resetTime: number }>()
@@ -514,16 +520,73 @@ export async function POST(request: NextRequest) {
 
     const crisisResponse = detectCrisis(userMessageLower)
     if (crisisResponse) {
-      saveToHistory(sessionId, userMessageTrimmed, crisisResponse) // Use trimmed message
+      saveToHistory(sessionId, userMessageTrimmed, crisisResponse)
       return NextResponse.json({ response: crisisResponse })
     }
 
-    // Use the local smart response engine directly for the demo —
-    // this guarantees varied, topic-matched, empathetic responses every time
-    // without depending on Gemini API availability or quota.
-    const smartResponse = getSmartResponse(userMessageTrimmed, history)
-    saveToHistory(sessionId, userMessageTrimmed, smartResponse)
-    return NextResponse.json({ response: smartResponse })
+    // Build conversation history for Claude
+    const messages = history.map((h) => ({
+      role: "user" as const,
+      content: h.user,
+    })).flatMap((msg, idx) => [
+      msg,
+      {
+        role: "assistant" as const,
+        content: history[idx].bot,
+      },
+    ]).slice(0, -1) // Remove the last assistant message as it will be added with the current user message
+
+    messages.push({
+      role: "user" as const,
+      content: userMessageTrimmed,
+    })
+
+    // System prompt for Claude
+    const systemPrompt = `You are Hamboi, a supportive mental health companion for Nigerian teenagers. Your role is to listen deeply, offer empathy, and provide practical guidance on mental health challenges.
+
+KEY PRINCIPLES:
+- Be warm, human, and caring - never robotic
+- Use Nigerian context and vernacular where relevant (e.g., "abeg", "wahala")
+- Keep responses concise (2-4 sentences usually, longer only if needed)
+- Acknowledge feelings first, then offer perspective or practical help
+- Never minimize struggles or problems
+- Always encourage professional help for serious mental health concerns
+- Show genuine care and concern
+
+RESPONSE STYLES:
+- For exam/school stress: Acknowledge family pressure, suggest practical study tips, remind them of their worth beyond grades
+- For anxiety/panic: Teach breathing techniques (4-7-8), grounding exercises, validate the emotion
+- For depression/sadness: Express deep empathy, gently suggest reaching out, remind them they're not alone
+- For peer pressure: Affirm their right to boundaries, remind them of their value
+- For crisis/suicide ideation: Immediately provide Nigerian crisis hotlines (MANI 0809 111 6264, SURPIN 09080217555, Nigerian Suicide Prevention 0806 210 6493, Emergency 112)
+- For loneliness: Emphasize they're not alone, encourage small connection steps
+- For family pressure: Validate the pressure while affirming their right to their own identity and boundaries
+
+TONE: Compassionate, understanding, sometimes using light humor, but always taking their struggles seriously.`
+
+    try {
+      const response = await client.messages.create({
+        model: "claude-haiku-4-5-20251001",
+        max_tokens: 1024,
+        system: systemPrompt,
+        messages: messages,
+      })
+
+      const assistantMessage = response.content[0]
+      if (assistantMessage.type !== "text") {
+        throw new Error("Unexpected response type from Claude")
+      }
+
+      const claudeResponse = assistantMessage.text
+      saveToHistory(sessionId, userMessageTrimmed, claudeResponse)
+      return NextResponse.json({ response: claudeResponse })
+    } catch (claudeError: any) {
+      console.error("Claude API error:", claudeError.message)
+      // Fallback to local smart response if Claude fails
+      const fallbackResponse = getSmartResponse(userMessageTrimmed, history)
+      saveToHistory(sessionId, userMessageTrimmed, fallbackResponse)
+      return NextResponse.json({ response: fallbackResponse })
+    }
   } catch (error: any) {
     console.error("API route error:", error)
     return NextResponse.json(

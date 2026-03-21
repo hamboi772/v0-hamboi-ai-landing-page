@@ -9,6 +9,7 @@
     "start": "next start"
   },
   "dependencies": {
+    "@anthropic-ai/sdk": "0.80.0",
     "@expo/dom-webview": "latest",
     "@expo/metro-runtime": "latest",
     "@expo/vector-icons": "15.0.3",
