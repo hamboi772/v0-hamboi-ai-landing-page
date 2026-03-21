@@ -117,7 +117,7 @@ ${conversationContext}Teen: "${userMessageTrimmed}"
 Hamboi:`
 
     try {
-      const result = await model.generateContent(systemPrompt)
+      const result = await model.generateContent({contents:[{role:"user",parts:[{text:systemPrompt}]}]})
       const response = await result.response
       const aiResponse = response.text()
 
