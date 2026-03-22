@@ -1,4 +1,3 @@
-
 "use client"
 import { useState } from "react"
 
@@ -56,7 +55,7 @@ export default function ContactPage() {
           <p className="text-gray-400 mb-4">For partnerships, press, volunteering, or general questions:</p>
           <a
             href="mailto:abiodunhamboihameed@gmail.com"
-         className="inline-block bg-green-500 hover:bg-green-400 text-white font-bold px-8 py-3 rounded-full transition-all hover:scale-105"
+            className="inline-block bg-green-500 hover:bg-green-400 text-white font-bold px-4 md:px-8 py-3 rounded-full transition-all hover:scale-105 max-w-full break-words text-sm md:text-base"
           >
             abiodunhamboihameed@gmail.com
           </a>
