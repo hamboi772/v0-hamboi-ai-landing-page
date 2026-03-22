@@ -1,4 +1,4 @@
-
+// Hamboi Mindcare 
 import { Anthropic } from "@anthropic-ai/sdk"
 import { type NextRequest, NextResponse } from "next/server"
 
