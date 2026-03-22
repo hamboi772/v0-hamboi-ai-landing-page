@@ -1,10 +1,7 @@
-// Hamboi Mindcare 
-import { Anthropic } from "@anthropic-ai/sdk"
+// Hamboi Mindcare
 import { type NextRequest, NextResponse } from "next/server"
 
-const client = new Anthropic({
-  apiKey: process.env.ANTHROPIC_API_KEY,
-})
+const GEMINI_API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=AIzaSyDSMgKXYSEwa-BWQt64_tTL7X3eYodMsIg`
 
 const rateLimitStore = new Map<string, { count: number; resetTime: number }>()
 const conversationMemory = new Map<string, Array<{ user: string; bot: string; timestamp: number }>>()
@@ -341,74 +338,57 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "Too many requests" }, { status: 429 })
     }
 
+    // Crisis detection always runs first — no API needed
     const crisisResponse = detectCrisis(userMessageLower)
     if (crisisResponse) {
       saveToHistory(sessionId, userMessageTrimmed, crisisResponse)
       return NextResponse.json({ response: crisisResponse })
     }
 
-    const messages = history.map((h) => ({
-      role: "user" as const,
-      content: h.user,
-    })).flatMap((msg, idx) => [
-      msg,
-      { role: "assistant" as const, content: history[idx].bot },
+    // Build Gemini conversation history
+    // Gemini uses "user" and "model" roles (not "assistant")
+    const geminiContents = history.flatMap((h) => [
+      { role: "user", parts: [{ text: h.user }] },
+      { role: "model", parts: [{ text: h.bot }] },
     ])
-
-    messages.push({ role: "user" as const, content: userMessageTrimmed })
-
-    const systemPrompt = `You are Hamboi, a caring older sibling to Nigerian teenagers. Real, warm, and actually helpful.
-
-ABSOLUTE RULES:
-- MAXIMUM 2 SENTENCES. NEVER MORE.
-- Always acknowledge the feeling FIRST
-- Ask ONLY ONE question at the end
-- Never give advice unless asked
-- Never say "I understand" or "That must be hard"
-- Sound like a real teenager who cares, not a therapist
-- No clinical language - use natural Nigerian slang when it fits
-
-STYLE:
-- Use "abeg", "wahala", "no cap", "deadass" - real language
-- Be direct and authentic
-- Show you genuinely care by listening, not lecturing
-- For crisis: IMMEDIATELY provide hotlines (MANI 0809 111 6264, SURPIN 09080217555, Emergency 112)
-
-NIGERIAN SCHOOL CONTEXT:
-- SS1, SS2, SS3 = Senior Secondary School (ages 15-18), SS3 is final year with WAEC/NECO pressure
-- JSS1-JSS3 = Junior Secondary School
-- JAMB/UTME = university entrance exam (huge stress)
-- WAEC/NECO = final secondary school exams
-- "Uni" = university admission
-
-EXAMPLE GOOD RESPONSES:
-- "That exam pressure is mad. What subject is giving you the most problem?"
-- "SS3 is no joke with WAEC coming - that pressure is real. What's stressing you most?"
-- "Losing friends hits different. Have you thought about why the friendship ended?"
-- "I hear you on the family stuff. What's the hardest part right now?"
-
-REMEMBER: Two sentences. Acknowledge first. One question. Real voice.`
+    geminiContents.push({ role: "user", parts: [{ text: userMessageTrimmed }] })
 
     try {
-      const response = await client.messages.create({
-        model: "claude-haiku-4-5-20251001",
-        max_tokens: 1024,
-        system: systemPrompt,
-        messages: messages,
+      const response = await fetch(GEMINI_API_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          system_instruction: {
+            parts: [{ text: systemPrompt }],
+          },
+          contents: geminiContents,
+          generationConfig: {
+            maxOutputTokens: 200,
+            temperature: 0.8,
+          },
+        }),
       })
 
-      const assistantMessage = response.content[0]
-      if (assistantMessage.type !== "text") throw new Error("Unexpected response type from Claude")
+      if (!response.ok) {
+        const errorData = await response.json()
+        throw new Error(`Gemini API error: ${errorData?.error?.message || response.statusText}`)
+      }
 
-      const claudeResponse = assistantMessage.text
-      saveToHistory(sessionId, userMessageTrimmed, claudeResponse)
-      return NextResponse.json({ response: claudeResponse })
-    } catch (claudeError: any) {
-      console.error("Claude API error:", claudeError.message)
+      const data = await response.json()
+      const geminiResponse = data?.candidates?.[0]?.content?.parts?.[0]?.text
+
+      if (!geminiResponse) throw new Error("No response from Gemini")
+
+      saveToHistory(sessionId, userMessageTrimmed, geminiResponse)
+      return NextResponse.json({ response: geminiResponse })
+
+    } catch (geminiError: any) {
+      console.error("Gemini API error:", geminiError.message)
       const fallbackResponse = getSmartResponse(userMessageTrimmed, history)
       saveToHistory(sessionId, userMessageTrimmed, fallbackResponse)
       return NextResponse.json({ response: fallbackResponse })
     }
+
   } catch (error: any) {
     console.error("API route error:", error)
     return NextResponse.json(
