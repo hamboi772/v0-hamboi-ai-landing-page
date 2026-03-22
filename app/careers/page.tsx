@@ -148,7 +148,7 @@ export default function CareersPage() {
           <p className="text-gray-400 text-sm mb-6">We read every single message personally.</p>
           <a
             href="mailto:abiodunhamboihameed@gmail.com"
-            className="inline-block bg-green-500 hover:bg-green-400 text-white font-bold px-8 py-3 rounded-full transition-all hover:scale-105 mb-4"
+            className="inline-block bg-green-500 hover:bg-green-400 text-white font-bold px-4 md:px-8 py-3 rounded-full transition-all hover:scale-105 mb-4 max-w-full break-words text-sm md:text-base"
           >
             📧 abiodunhamboihameed@gmail.com
           </a>
