@@ -1,7 +1,7 @@
 // Hamboi Mindcare
 import { type NextRequest, NextResponse } from "next/server"
 
-const GEMINI_API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=AIzaSyBhQKy6jlODlGef9ZBLO9xi2VLovQRK_qQ`
+const GEMINI_API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${process.env.GEMINI_API_KEY}`
 
 const rateLimitStore = new Map<string, { count: number; resetTime: number }>()
 const conversationMemory = new Map<string, Array<{ user: string; bot: string; timestamp: number }>>()
