@@ -56,7 +56,7 @@ export default function ContactPage() {
           <p className="text-gray-400 mb-4">For partnerships, press, volunteering, or general questions:</p>
           <a
             href="mailto:abiodunhamboihameed@gmail.com"
-            className=""block w-full bg-green-500 hover:bg-green-hover:bg-green-400 text-white font-bold px-4 py-3 rounded-full transition-all hover:scale-105 text-sm text-center truncate"
+         className="inline-block bg-green-500 hover:bg-green-400 text-white font-bold px-8 py-3 rounded-full transition-all hover:scale-105"
           >
             abiodunhamboihameed@gmail.com
           </a>
