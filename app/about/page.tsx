@@ -1,3 +1,4 @@
+
 "use client"
 import { useState, useEffect, useRef } from "react"
 
@@ -252,7 +253,7 @@ export default function AboutPage() {
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <a
-              href="/chat"
+              href="/"
               className="bg-green-500 hover:bg-green-400 text-white font-bold px-8 py-3 rounded-full transition-all hover:scale-105"
             >
               Try Chat Demo
