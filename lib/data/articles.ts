@@ -901,6 +901,89 @@ export const articles: Article[] = [
       },
     ],
   },
+  {
+    slug: "the-importance-of-mental-health-for-teenagers",
+    title: "The Importance of Mental Health for Teenagers",
+    description:
+      "Mental health is just as important as physical health. Discover why teenage mental health matters and how to develop healthy coping strategies.",
+    author: {
+      name: "Shittu Robiu",
+      role: "Head Boy",
+      school: "Ansar-ud-Deen Academy",
+      image: "/images/authors/shittu-robiu.jpg",
+      bio: "Shittu Robiu is the Head Boy of Ansar-ud-Deen Academy, where he leads with wisdom and compassion. Passionate about youth mental health and wellbeing, Shittu writes to inspire his peers to prioritize their mental health and seek support when needed.",
+    },
+    category: "Student Voices",
+    readTime: "7 min read",
+    publishedDate: "March 2026",
+    featured: false,
+    content: [
+      {
+        type: "paragraph",
+        text: "Mental health is just as important as physical health, yet it is often overlooked, especially among teenagers. Young people today face many challenges — academic pressure, social expectations, personal changes, and uncertainty about the future. These pressures can lead to stress, anxiety, low self-esteem, and even depression if not addressed in healthy ways.",
+      },
+      {
+        type: "heading",
+        text: "Why Mental Health Matters",
+      },
+      {
+        type: "paragraph",
+        text: "Mental health affects how we think, feel, and behave; it influences learning, relationships, decision-making, and overall well-being. Poor mental health can make everyday tasks feel overwhelming, while good mental health helps teens cope with challenges, build resilience, and reach their full potential.",
+      },
+      {
+        type: "heading",
+        text: "Building Healthy Coping Strategies",
+      },
+      {
+        type: "paragraph",
+        text: "Caring for mental health means understanding your emotions, managing stress, and seeking support when needed. Simple habits like talking to a trusted friend, getting enough rest, staying physically active, and practicing mindfulness can make a huge difference.",
+      },
+      {
+        type: "paragraph",
+        text: "Developing healthy coping strategies, such as journaling, meditation, or creative outlets like art and music, can also help teenagers process emotions and reduce anxiety.",
+      },
+      {
+        type: "heading",
+        text: "The Power of Support Systems",
+      },
+      {
+        type: "paragraph",
+        text: "Support systems are essential, both in real life and online. Many teens find comfort in spaces where they can express themselves without judgment, learn about emotional health, and feel understood.",
+      },
+      {
+        type: "paragraph",
+        text: "Hamboi Mindcare — Hope And Mind Balance Outreach Initiative — is one such platform that provides 24/7 emotional support through an AI-powered companion, mood-tracking tools, and personalized coping strategies to help teens understand and manage their emotions.",
+      },
+      {
+        type: "paragraph",
+        text: "The platform also offers crisis resources and access to professional guidance when needed, while featuring community-generated articles and real stories from teens, helping young people feel less alone and more empowered to take care of their mental well-being.",
+      },
+      {
+        type: "heading",
+        text: "Education and Awareness",
+      },
+      {
+        type: "paragraph",
+        text: "Education about mental health empowers teens to recognize signs of emotional distress in themselves and others, encouraging early intervention and healthier choices.",
+      },
+      {
+        type: "quote",
+        text: "Mental health is the foundation for a balanced and fulfilling life.",
+      },
+      {
+        type: "heading",
+        text: "Moving Forward",
+      },
+      {
+        type: "paragraph",
+        text: "By learning to recognize emotions, manage stress, and seek guidance, teenagers can develop the resilience and confidence needed to thrive. With supportive communities, education, and platforms like Hamboi Mindcare, young people have access to tools and guidance that help them face challenges, maintain emotional balance, and grow into healthier, more self-aware individuals.",
+      },
+      {
+        type: "paragraph",
+        text: "Remember, seeking help is not a sign of weakness — it is a sign of strength and self-awareness. Your mental health matters, and you deserve support.",
+      },
+    ],
+  },
 ]
 
 export function getArticleBySlug(slug: string): Article | undefined {
