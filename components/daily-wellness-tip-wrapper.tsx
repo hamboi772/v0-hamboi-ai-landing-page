@@ -3,6 +3,6 @@
 import dynamic from "next/dynamic"
 
 export const DailyWellnessTipWrapper = dynamic(
-  () => import("@/components/daily-wellness-tip").then((mod) => ({ default: mod.DailyWellnessTip })),
+  () => import("@/components/did-you-know-card").then((mod) => ({ default: mod.DidYouKnowCard })),
   { ssr: false },
 )
