@@ -147,18 +147,18 @@ export function DidYouKnowCard() {
           onClick={goToNext}
         >
           {/* Header */}
-          <div className="flex items-center justify-between mb-4">
-            <div className="flex items-center gap-3 flex-1">
+          <div className="flex items-center justify-between gap-4 mb-4">
+            <div className="flex items-center gap-3 flex-1 min-w-0">
               <div className="w-10 h-10 bg-purple-600/30 rounded-xl flex items-center justify-center text-xl flex-shrink-0">
                 💡
               </div>
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 min-w-0">
                 <p className="text-white font-bold text-sm">Did You Know?</p>
-                <p className="text-gray-500 text-xs">—</p>
-                <p className="text-gray-500 text-xs">Mental Health Facts</p>
+                <p className="text-gray-500 text-xs hidden sm:inline">—</p>
+                <p className="text-gray-500 text-xs hidden sm:inline">Mental Health Facts</p>
               </div>
             </div>
-            <div className="flex items-center gap-0.5">
+            <div className="hidden md:flex items-center gap-0.5 flex-shrink-0">
               {facts.map((_, i) => (
                 <div
                   key={i}
