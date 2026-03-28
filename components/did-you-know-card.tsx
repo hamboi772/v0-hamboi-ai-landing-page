@@ -148,21 +148,22 @@ export function DidYouKnowCard() {
         >
           {/* Header */}
           <div className="flex items-center justify-between mb-4">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-purple-600/30 rounded-xl flex items-center justify-center text-xl">
+            <div className="flex items-center gap-3 flex-1">
+              <div className="w-10 h-10 bg-purple-600/30 rounded-xl flex items-center justify-center text-xl flex-shrink-0">
                 💡
               </div>
-              <div>
+              <div className="flex items-center gap-2">
                 <p className="text-white font-bold text-sm">Did You Know?</p>
+                <p className="text-gray-500 text-xs">—</p>
                 <p className="text-gray-500 text-xs">Mental Health Facts</p>
               </div>
             </div>
-            <div className="flex items-center gap-1">
+            <div className="flex items-center gap-0.5">
               {facts.map((_, i) => (
                 <div
                   key={i}
                   className={`h-1 rounded-full transition-all duration-300 ${
-                    i === currentIndex ? "w-4 bg-purple-400" : "w-1 bg-white/20"
+                    i === currentIndex ? "w-3 bg-purple-400" : "w-1 bg-white/20"
                   }`}
                 />
               ))}
