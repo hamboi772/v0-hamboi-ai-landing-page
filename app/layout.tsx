@@ -1,3 +1,4 @@
+
 import type React from "react"
 import type { Metadata, Viewport } from "next"
 import { Geist, Geist_Mono } from "next/font/google"
@@ -13,13 +14,13 @@ export const metadata: Metadata = {
   description:
     "Talk to Hamboi Mindcare anytime you need support. 24/7 mental health companion designed specifically for teenagers. Private, safe, and always here for you.",
   keywords: ["mental health", "teens", "anxiety", "stress", "AI companion", "teen support", "emotional wellness"],
-  authors: [{ name: "Hamboi Mindcare Team" }],
+  authors: [{ name: "Abdulhameed Abolarinwa Abiodun" }],
   manifest: "/manifest.json",
   openGraph: {
     title: "Hamboi Mindcare - Your Mental Health Matters",
     description: "Talk to Hamboi Mindcare anytime you need support. Private, safe, and always here for you.",
     type: "website",
-    url: "https://hamboi.ai",
+    url: "https://hamboimindcare.site",
   },
   twitter: {
     card: "summary_large_image",
@@ -31,7 +32,6 @@ export const metadata: Metadata = {
     statusBarStyle: "default",
     title: "Hamboi Mindcare",
   },
-    generator: 'v0.app'
 }
 
 export const viewport: Viewport = {
@@ -40,6 +40,24 @@ export const viewport: Viewport = {
   initialScale: 1,
   maximumScale: 5,
   userScalable: true,
+}
+
+const personSchema = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Abdulhameed Abolarinwa Abiodun",
+  "alternateName": "Hamboi",
+  "jobTitle": "Founder",
+  "description": "Nigerian teenage founder of Hamboi MindCare, a free AI-powered mental health platform for African teenagers.",
+  "url": "https://hamboimindcare.site",
+  "sameAs": [
+    "https://www.linkedin.com/in/abiodun-hamboi-hameed"
+  ],
+  "worksFor": {
+    "@type": "Organization",
+    "name": "Hamboi MindCare",
+    "url": "https://hamboimindcare.site"
+  }
 }
 
 export default function RootLayout({
@@ -58,6 +76,10 @@ export default function RootLayout({
         <link rel="icon" href="/favicon.ico" />
         <link rel="apple-touch-icon" href="/icon-centered-192.png" />
         <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }}
+        />
       </head>
       <body className="font-sans antialiased">
         <ResizeObserverFix />
