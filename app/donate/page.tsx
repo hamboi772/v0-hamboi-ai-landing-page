@@ -195,8 +195,8 @@ export default function DonatePage() {
               <div className="p-4 bg-hamboi-purple/20 rounded-xl border border-hamboi-purple/40">
                 <p className="text-sm text-white">
                   After transfer, please send us an email at{" "}
-                  <a href="mailto:support@hamboimindcare.site" className="text-hamboi-green font-bold">
-                    support@hamboimindcare.site
+                  <a href="mailto:hamboimindcare.support@gmail.com" className="text-hamboi-green font-bold">
+                    hamboimindcare.support@gmail.com
                   </a>{" "}
                   with your name and amount for acknowledgment.
                 </p>
