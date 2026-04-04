@@ -14,11 +14,15 @@ export function CrisisBanner() {
         <div className="flex items-center gap-2">
           <Phone className="h-4 w-4" />
           <span>
-            <strong>Need immediate help?</strong> Call or text{" "}
-            <a href="tel:988" className="underline font-bold">
-              988
-            </a>{" "}
-            (Suicide & Crisis Lifeline)
+            Nigeria:{" "}
+  <a href="tel:08091116264" className="underline font-bold">
+    0809 111 6264
+  </a>{" "}
+  | International:{" "}
+  <a href="tel:988" className="underline font-bold">
+    988
+  </a>{" "}
+  (Suicide & Crisis Lifeline)
           </span>
         </div>
         <button
