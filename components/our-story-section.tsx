@@ -1,3 +1,4 @@
+
 import { Award, Globe, Heart, Sparkles, Users, ArrowRight } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
@@ -128,6 +129,16 @@ export function OurStorySection() {
                     You don{`'`}t need to leave your country to change the world
                   </p>
                 </div>
+              </div>
+
+              {/* Certificate of Recognition */}
+              <div className="mt-8 pt-8 border-t">
+                <p className="text-sm font-semibold text-muted-foreground uppercase tracking-wider mb-4 text-center">Certificate of Recognition</p>
+                <img
+                  src="https://i.ibb.co/FqD3XWRv/fgc-certificate.jpg"
+                  alt="FIRST Global Certificate of Recognition - Abdul Hameed Abiodun"
+                  className="w-full rounded-xl shadow-lg"
+                />
               </div>
             </div>
           </div>
