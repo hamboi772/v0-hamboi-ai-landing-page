@@ -86,33 +86,34 @@ export async function POST(request: NextRequest) {
       { role: "user", content: userMessageTrimmed },
     ]
 
-    const response = await fetch("https://api.anthropic.com/v1/messages", {
+    const response = await fetch("https://api.groq.com/openai/v1/chat/completions", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "x-api-key": process.env.ANTHROPIC_API_KEY || "",
-        "anthropic-version": "2023-06-01",
+        "Authorization": `Bearer ${process.env.GROQ_API_KEY}`,
       },
       body: JSON.stringify({
-        model: "claude-haiku-4-5-20251001",
+        model: "llama-3.3-70b-versatile",
         max_tokens: 150,
-        system: systemPrompt,
-        messages,
+        messages: [
+          { role: "system", content: systemPrompt },
+          ...messages,
+        ],
       }),
     })
 
     if (!response.ok) {
       const errorData = await response.json()
-      throw new Error(`Claude API error: ${errorData?.error?.message || response.statusText}`)
+      throw new Error(`Groq API error: ${errorData?.error?.message || response.statusText}`)
     }
 
     const data = await response.json()
-    const claudeResponse = data?.content?.[0]?.text
+    const groqResponse = data?.choices?.[0]?.message?.content
 
-    if (!claudeResponse) throw new Error("No response from Claude")
+    if (!groqResponse) throw new Error("No response from Groq")
 
-    saveToHistory(sessionId, userMessageTrimmed, claudeResponse)
-    return NextResponse.json({ response: claudeResponse })
+    saveToHistory(sessionId, userMessageTrimmed, groqResponse)
+    return NextResponse.json({ response: groqResponse })
 
   } catch (error: any) {
     console.error("API route error:", error.message)
