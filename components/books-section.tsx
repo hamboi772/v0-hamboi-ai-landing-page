@@ -113,8 +113,6 @@ const books = [
     hasContent: true,
   },
   {
-    
-  {
     id: "the-body-keeps-the-score",
     title: "The Body Keeps the Score",
     author: "Bessel van der Kolk",
