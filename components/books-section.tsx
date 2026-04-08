@@ -112,19 +112,7 @@ const books = [
     color: "from-violet-500 to-purple-500",
     hasContent: true,
   },
-  {
-    id: "the-body-keeps-the-score",
-    title: "The Body Keeps the Score",
-    author: "Bessel van der Kolk",
-    authorInfo: "World-renowned trauma expert and psychiatrist",
-    description:
-      "Groundbreaking research on how trauma reshapes the body and brain, and offers new paths to recovery and healing.",
-    category: "Trauma & Healing",
-    rating: 4.8,
-    link: "https://www.amazon.com/Body-Keeps-Score-Healing-Trauma/dp/0143127748",
-    color: "from-red-500 to-pink-500",
-    hasContent: false,
-  },
+  
   {
     id: "mindfulness-for-beginners",
     title: "Mindfulness for Beginners",
