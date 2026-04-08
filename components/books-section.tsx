@@ -113,18 +113,7 @@ const books = [
     hasContent: true,
   },
   {
-    id: "maybe-you-should-talk-to-someone",
-    title: "Maybe You Should Talk to Someone",
-    author: "Lori Gottlieb",
-    authorInfo: "Psychotherapist and New York Times bestselling author",
-    description:
-      "A hilarious, thought-provoking, and surprising journey through therapy - both as a patient and a therapist. Shows how we all have room to grow.",
-    category: "Self-Discovery",
-    rating: 4.9,
-    link: "https://www.amazon.com/Maybe-You-Should-Talk-Someone/dp/1328662055",
-    color: "from-emerald-500 to-teal-500",
-    hasContent: false,
-  },
+    
   {
     id: "the-body-keeps-the-score",
     title: "The Body Keeps the Score",
