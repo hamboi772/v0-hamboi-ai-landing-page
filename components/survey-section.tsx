@@ -1,3 +1,4 @@
+
 "use client"
 
 import type React from "react"
@@ -153,8 +154,9 @@ const getResult = (score: number): Result => {
       color: "text-red-600 bg-red-100",
       tips: [
         "Please talk to a trusted adult, counselor, or therapist",
+        "Nigeria: Call MANI on 0809 111 6264 (free, 24/7)",
         "If you're in crisis, text HOME to 741741 (Crisis Text Line)",
-        "Call 988 for the Suicide & Crisis Lifeline (available 24/7)",
+        "International: Call 988 for the Suicide & Crisis Lifeline (24/7)",
         "Remember: What you're feeling is temporary, and help is available",
         "You are not alone, and reaching out takes courage",
       ],
@@ -219,7 +221,7 @@ export function SurveySection() {
                 <ChevronRight className="w-4 h-4 ml-2" />
               </Button>
               <p className="text-xs text-hamboi-text-muted mt-6">
-                Note: This is not a diagnostic tool. If you are in crisis, please call 988 or text HOME to 741741.
+                Note: This is not a diagnostic tool. If you are in crisis, please call MANI Nigeria on 0809 111 6264 or text HOME to 741741.
               </p>
             </CardContent>
           ) : showResult ? (
@@ -301,8 +303,7 @@ export function SurveySection() {
 
         <p className="text-center text-xs text-muted-foreground mt-6">
           This wellness check is for informational purposes only and is not a substitute for professional medical
-          advice, diagnosis, or treatment. If you are experiencing a mental health emergency, please call 988
-          immediately.
+          advice, diagnosis, or treatment. If you are experiencing a mental health emergency, please call MANI Nigeria on 0809 111 6264 or 988 (international) immediately.
         </p>
       </div>
     </section>
