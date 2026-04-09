@@ -19,7 +19,7 @@ const footerLinks = {
     { name: "About Us", href: "/about" },
     { name: "Our Founders", href: "/about/founders" },
     { name: "Founder's Story", href: "/about/article" },
-    { name: "Careers", href: "/careers" },
+    { name: "volunteer", href: "/careers" },
     { name: "Student Articles", href: "/articles" },
     { name: "Contact", href: "/contact" },
     { name: "Donate", href: "/donate" },
