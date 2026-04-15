@@ -1,4 +1,3 @@
-
 // Hamboi Mindcare - Multi-Provider Fallback
 import { type NextRequest, NextResponse } from "next/server"
 
@@ -35,11 +34,13 @@ const providers = [
 function checkRateLimit(ip: string): boolean {
   const now = Date.now()
   const record = rateLimitStore.get(ip)
+
   if (!record || now > record.resetTime) {
     rateLimitStore.set(ip, { count: 1, resetTime: now + 60000 })
     return true
   }
-  if (record.count >= 5) return false
+
+  if (record.count >= 20) return false
   record.count++
   return true
 }
@@ -60,9 +61,16 @@ function saveToHistory(sessionId: string, userMsg: string, botResponse: string) 
 function detectCrisis(input: string): string | null {
   const msg = input.toLowerCase()
   if (
-    /\b(suicid|kill\s*(myself|me)|want\s*to\s*die|end\s*(my\s*life|it\s*all)|self.?harm|hurt\s*myself|no\s*reason\s*to\s*live|end\s*it)\b/.test(msg)
+    /\b(suicid|kills*(myself|me)|wants*tos*die|ends*(mys*life|its*all)|self.?harm|hurts*myself|nos*reasons*tos*live|ends*it)\b/.test(msg)
   ) {
-    return "I'm really glad you reached out right now — your life matters more than you know. Please contact one of these Nigerian crisis lines immediately, they are free and confidential:\n\n📞 MANI (Mentally Aware Nigeria): 0809 111 6264\n📞 SURPIN: 09080217555\n📞 Nigerian Suicide Prevention: 0806 210 6493\n📞 Emergency: 112\n\nReal people are there who want to help you through this moment. You're not alone in this — are you safe right now?"
+    return "I'm really glad you reached out right now — your life matters more than you know. Please contact one of these Nigerian crisis lines immediately, they are free and confidential:
+
+📞 MANI (Mentally Aware Nigeria): 0809 111 6264
+📞 SURPIN: 09080217555
+📞 Nigerian Suicide Prevention: 0806 210 6493
+📞 Emergency: 112
+
+Real people are there who want to help you through this moment. You're not alone in this — are you safe right now?"
   }
   return null
 }
@@ -152,7 +160,7 @@ export async function POST(request: NextRequest) {
     }
 
     const userMessageTrimmed = userMessage.trim()
-    const ip = request.headers.get("x-forwarded-for") || "unknown"
+    const ip = (request.headers.get("x-forwarded-for") || "unknown").split(",")[0].trim()
 
     if (!checkRateLimit(ip)) {
       return NextResponse.json({ error: "Too many requests" }, { status: 429 })
