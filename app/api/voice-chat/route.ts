@@ -1,9 +1,36 @@
 
-// Hamboi Mindcare
+// Hamboi Mindcare - Multi-Provider Fallback
 import { type NextRequest, NextResponse } from "next/server"
 
 const rateLimitStore = new Map<string, { count: number; resetTime: number }>()
 const conversationMemory = new Map<string, Array<{ user: string; bot: string; timestamp: number }>>()
+
+const providers = [
+  {
+    name: "Groq",
+    url: "https://api.groq.com/openai/v1/chat/completions",
+    key: process.env.GROQ_API_KEY,
+    model: "llama-3.3-70b-versatile"
+  },
+  {
+    name: "Cerebras",
+    url: "https://api.cerebras.ai/v1/chat/completions",
+    key: process.env.CEREBRAS_API_KEY,
+    model: "llama3.3-70b"
+  },
+  {
+    name: "SambaNova",
+    url: "https://api.sambanova.ai/v1/chat/completions",
+    key: process.env.SAMBANOVA_API_KEY,
+    model: "Meta-Llama-3.3-70B-Instruct"
+  },
+  {
+    name: "OpenRouter",
+    url: "https://openrouter.ai/api/v1/chat/completions",
+    key: process.env.OPENROUTER_API_KEY,
+    model: "meta-llama/llama-3.3-70b-instruct:free"
+  }
+]
 
 function checkRateLimit(ip: string): boolean {
   const now = Date.now()
@@ -12,7 +39,7 @@ function checkRateLimit(ip: string): boolean {
     rateLimitStore.set(ip, { count: 1, resetTime: now + 60000 })
     return true
   }
-  if (record.count >= 20) return false
+  if (record.count >= 5) return false
   record.count++
   return true
 }
@@ -54,12 +81,62 @@ RESPONSE RULES — FOLLOW STRICTLY:
 9. Do NOT pepper the user with questions. If you just asked a question, wait for their answer before asking another.
 10. For crisis situations: immediately provide hotlines (MANI: 0809 111 6264, SURPIN: 09080217555, Emergency: 112).`
 
+async function callAI(messages: any[]): Promise<{ response: string; provider: string }> {
+  for (const provider of providers) {
+    if (!provider.key) continue
+
+    try {
+      const res = await fetch(provider.url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${provider.key}`,
+          ...(provider.name === "OpenRouter" && {
+            "HTTP-Referer": "https://hamboimindcare.site",
+            "X-Title": "Hamboi Mindcare"
+          })
+        },
+        body: JSON.stringify({
+          model: provider.model,
+          max_tokens: 150,
+          temperature: 0.7,
+          messages: [
+            { role: "system", content: systemPrompt },
+            ...messages
+          ]
+        })
+      })
+
+      if (!res.ok) {
+        console.warn(`${provider.name} failed with status: ${res.status}`)
+        continue
+      }
+
+      const data = await res.json()
+      const response = data?.choices?.[0]?.message?.content
+
+      if (!response) {
+        console.warn(`${provider.name} returned empty response`)
+        continue
+      }
+
+      console.log(`Served by: ${provider.name}`)
+      return { response, provider: provider.name }
+
+    } catch (err) {
+      console.warn(`${provider.name} error:`, err)
+      continue
+    }
+  }
+
+  throw new Error("All providers failed")
+}
+
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json()
     const userMessage = body.message
     const sessionId = body.sessionId || "default"
-    const history = getConversationHistory(sessionId)
 
     if (!userMessage || typeof userMessage !== "string" || userMessage.trim() === "") {
       return NextResponse.json(
@@ -68,57 +145,41 @@ export async function POST(request: NextRequest) {
       )
     }
 
+    if (userMessage.trim().length > 500) {
+      return NextResponse.json({
+        response: "Abeg keep am short, I dey listen! 😊"
+      })
+    }
+
     const userMessageTrimmed = userMessage.trim()
     const ip = request.headers.get("x-forwarded-for") || "unknown"
+
     if (!checkRateLimit(ip)) {
       return NextResponse.json({ error: "Too many requests" }, { status: 429 })
     }
 
-    const crisisResponse = detectCrisis(userMessageTrimmed.toLowerCase())
+    const crisisResponse = detectCrisis(userMessageTrimmed)
     if (crisisResponse) {
       saveToHistory(sessionId, userMessageTrimmed, crisisResponse)
       return NextResponse.json({ response: crisisResponse })
     }
 
+    const history = getConversationHistory(sessionId)
     const messages = [
       ...history.flatMap((h) => [
         { role: "user", content: h.user },
-        { role: "assistant", content: h.bot },
+        { role: "assistant", content: h.bot }
       ]),
-      { role: "user", content: userMessageTrimmed },
+      { role: "user", content: userMessageTrimmed }
     ]
 
-    const response = await fetch("https://api.groq.com/openai/v1/chat/completions", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${process.env.GROQ_API_KEY}`,
-      },
-      body: JSON.stringify({
-        model: "llama-3.3-70b-versatile",
-        max_tokens: 150,
-        messages: [
-          { role: "system", content: systemPrompt },
-          ...messages,
-        ],
-      }),
-    })
+    const { response, provider } = await callAI(messages)
 
-    if (!response.ok) {
-      const errorData = await response.json()
-      throw new Error(`Groq API error: ${errorData?.error?.message || response.statusText}`)
-    }
-
-    const data = await response.json()
-    const groqResponse = data?.choices?.[0]?.message?.content
-
-    if (!groqResponse) throw new Error("No response from Groq")
-
-    saveToHistory(sessionId, userMessageTrimmed, groqResponse)
-    return NextResponse.json({ response: groqResponse })
+    saveToHistory(sessionId, userMessageTrimmed, response)
+    return NextResponse.json({ response, _provider: provider })
 
   } catch (error: any) {
-    console.error("API route error:", error.message)
+    console.error("All providers failed:", error.message)
     return NextResponse.json({
       response: "E get small issue on my end right now. Abeg try again — I dey here for you."
     })
