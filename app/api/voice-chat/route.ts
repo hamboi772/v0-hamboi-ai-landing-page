@@ -9,26 +9,26 @@ const providers = [
     name: "Groq",
     url: "https://api.groq.com/openai/v1/chat/completions",
     key: process.env.GROQ_API_KEY,
-    model: "llama-3.3-70b-versatile"
+    model: "llama-3.3-70b-versatile",
   },
   {
     name: "Cerebras",
     url: "https://api.cerebras.ai/v1/chat/completions",
     key: process.env.CEREBRAS_API_KEY,
-    model: "llama3.3-70b"
+    model: "llama3.3-70b",
   },
   {
     name: "SambaNova",
     url: "https://api.sambanova.ai/v1/chat/completions",
     key: process.env.SAMBANOVA_API_KEY,
-    model: "Meta-Llama-3.3-70B-Instruct"
+    model: "Meta-Llama-3.3-70B-Instruct",
   },
   {
     name: "OpenRouter",
     url: "https://openrouter.ai/api/v1/chat/completions",
     key: process.env.OPENROUTER_API_KEY,
-    model: "meta-llama/llama-3.3-70b-instruct:free"
-  }
+    model: "meta-llama/llama-3.3-70b-instruct:free",
+  },
 ]
 
 function checkRateLimit(ip: string): boolean {
@@ -41,7 +41,7 @@ function checkRateLimit(ip: string): boolean {
   }
 
   if (record.count >= 20) return false
-  record.count++
+  record.count += 1
   return true
 }
 
@@ -61,16 +61,18 @@ function saveToHistory(sessionId: string, userMsg: string, botResponse: string) 
 function detectCrisis(input: string): string | null {
   const msg = input.toLowerCase()
   if (
-    /\b(suicid|kills*(myself|me)|wants*tos*die|ends*(mys*life|its*all)|self.?harm|hurts*myself|nos*reasons*tos*live|ends*it)\b/.test(msg)
+    /\b(suicid|kills*(myself|me)|wants*tos*die|ends*(mys*life|its*all)|self.?harm|hurts*myself|nos*reasons*tos*live|ends*it)\b/.test(
+      msg
+    )
   ) {
-    return "I'm really glad you reached out right now — your life matters more than you know. Please contact one of these Nigerian crisis lines immediately, they are free and confidential:
+    return `I'm really glad you reached out right now — your life matters more than you know. Please contact one of these Nigerian crisis lines immediately, they are free and confidential:
 
 📞 MANI (Mentally Aware Nigeria): 0809 111 6264
 📞 SURPIN: 09080217555
 📞 Nigerian Suicide Prevention: 0806 210 6493
 📞 Emergency: 112
 
-Real people are there who want to help you through this moment. You're not alone in this — are you safe right now?"
+Real people are there who want to help you through this moment. You're not alone in this — are you safe right now?`
   }
   return null
 }
@@ -98,41 +100,30 @@ async function callAI(messages: any[]): Promise<{ response: string; provider: st
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "Authorization": `Bearer ${provider.key}`,
-          ...(provider.name === "OpenRouter" && {
-            "HTTP-Referer": "https://hamboimindcare.site",
-            "X-Title": "Hamboi Mindcare"
-          })
+          Authorization: `Bearer ${provider.key}`,
+          ...(provider.name === "OpenRouter"
+            ? {
+                "HTTP-Referer": "https://hamboimindcare.site",
+                "X-Title": "Hamboi Mindcare",
+              }
+            : {}),
         },
         body: JSON.stringify({
           model: provider.model,
           max_tokens: 150,
           temperature: 0.7,
-          messages: [
-            { role: "system", content: systemPrompt },
-            ...messages
-          ]
-        })
+          messages: [{ role: "system", content: systemPrompt }, ...messages],
+        }),
       })
 
-      if (!res.ok) {
-        console.warn(`${provider.name} failed with status: ${res.status}`)
-        continue
-      }
+      if (!res.ok) continue
 
       const data = await res.json()
-      const response = data?.choices?.[0]?.message?.content
+      const response = data?.choices?.[0]?.message?.content?.trim()
 
-      if (!response) {
-        console.warn(`${provider.name} returned empty response`)
-        continue
-      }
-
-      console.log(`Served by: ${provider.name}`)
+      if (!response) continue
       return { response, provider: provider.name }
-
-    } catch (err) {
-      console.warn(`${provider.name} error:`, err)
+    } catch {
       continue
     }
   }
@@ -146,7 +137,7 @@ export async function POST(request: NextRequest) {
     const userMessage = body.message
     const sessionId = body.sessionId || "default"
 
-    if (!userMessage || typeof userMessage !== "string" || userMessage.trim() === "") {
+    if (!userMessage || typeof userMessage !== "string" || !userMessage.trim()) {
       return NextResponse.json(
         { error: "Message is required", response: "I no receive your message. Abeg try again?" },
         { status: 400 }
@@ -154,9 +145,7 @@ export async function POST(request: NextRequest) {
     }
 
     if (userMessage.trim().length > 500) {
-      return NextResponse.json({
-        response: "Abeg keep am short, I dey listen! 😊"
-      })
+      return NextResponse.json({ response: "Abeg keep am short, I dey listen! 😊" })
     }
 
     const userMessageTrimmed = userMessage.trim()
@@ -176,20 +165,19 @@ export async function POST(request: NextRequest) {
     const messages = [
       ...history.flatMap((h) => [
         { role: "user", content: h.user },
-        { role: "assistant", content: h.bot }
+        { role: "assistant", content: h.bot },
       ]),
-      { role: "user", content: userMessageTrimmed }
+      { role: "user", content: userMessageTrimmed },
     ]
 
     const { response, provider } = await callAI(messages)
 
     saveToHistory(sessionId, userMessageTrimmed, response)
     return NextResponse.json({ response, _provider: provider })
-
   } catch (error: any) {
     console.error("All providers failed:", error.message)
     return NextResponse.json({
-      response: "E get small issue on my end right now. Abeg try again — I dey here for you."
+      response: "E get small issue on my end right now. Abeg try again — I dey here for you.",
     })
   }
 }
