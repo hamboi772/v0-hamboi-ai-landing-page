@@ -4,6 +4,12 @@ import type React from "react"
 import { useState, useRef, useEffect } from "react"
 import { X, Loader2, Send, MessageSquare } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { createClient } from "@supabase/supabase-js"
+
+const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+)
 
 interface ChatDemoModalProps {
   isOpen: boolean
@@ -16,7 +22,6 @@ interface ConversationMessage {
   timestamp: Date
 }
 
-// Stable session id per browser tab — generated once on mount
 function generateSessionId() {
   return `session_${Date.now()}_${Math.random().toString(36).slice(2, 9)}`
 }
@@ -27,12 +32,66 @@ export function ChatDemoModal({ isOpen, onClose }: ChatDemoModalProps) {
   const [conversation, setConversation] = useState<ConversationMessage[]>([])
   const [error, setError] = useState("")
   const [displayingMessage, setDisplayingMessage] = useState<{ text: string; index: number } | null>(null)
+  const [userId, setUserId] = useState<string | null>(null)
   const sessionIdRef = useRef<string>(generateSessionId())
 
   const textInputRef = useRef<HTMLTextAreaElement>(null)
   const conversationEndRef = useRef<HTMLDivElement>(null)
 
-  // Auto-scroll to bottom of conversation
+  // Get current logged-in user
+  useEffect(() => {
+    supabase.auth.getUser().then(({ data }) => {
+      if (data?.user) setUserId(data.user.id)
+    })
+  }, [])
+
+  // Load previous conversation when modal opens
+  useEffect(() => {
+    if (isOpen && userId) {
+      loadLastSession()
+    }
+  }, [isOpen, userId])
+
+  // Load last session messages from Supabase
+  async function loadLastSession() {
+    const { data: sessions } = await supabase
+      .from("chat_messages")
+      .select("session_id")
+      .eq("user_id", userId)
+      .order("created_at", { ascending: false })
+      .limit(1)
+
+    if (!sessions || sessions.length === 0) return
+
+    const lastSessionId = sessions[0].session_id
+    sessionIdRef.current = lastSessionId
+
+    const { data: messages } = await supabase
+      .from("chat_messages")
+      .select("role, content, created_at")
+      .eq("user_id", userId)
+      .eq("session_id", lastSessionId)
+      .order("created_at", { ascending: true })
+
+    if (!messages || messages.length === 0) return
+
+    // Pair up user + assistant messages into conversation format
+    const paired: ConversationMessage[] = []
+    for (let i = 0; i < messages.length; i += 2) {
+      const userMsg = messages[i]
+      const aiMsg = messages[i + 1]
+      if (userMsg && aiMsg) {
+        paired.push({
+          user: userMsg.content,
+          ai: aiMsg.content,
+          timestamp: new Date(userMsg.created_at),
+        })
+      }
+    }
+    setConversation(paired)
+  }
+
+  // Auto-scroll to bottom
   useEffect(() => {
     conversationEndRef.current?.scrollIntoView({ behavior: "smooth" })
   }, [conversation, displayingMessage])
@@ -44,7 +103,7 @@ export function ChatDemoModal({ isOpen, onClose }: ChatDemoModalProps) {
     }
   }, [isOpen])
 
-  // Typewriter effect for AI responses
+  // Typewriter effect
   const displayResponseWithTypewriter = (text: string, callback: () => void) => {
     let index = 0
     setDisplayingMessage({ text: "", index: 0 })
@@ -61,7 +120,6 @@ export function ChatDemoModal({ isOpen, onClose }: ChatDemoModalProps) {
     }, 25)
   }
 
-  // Handle text submit
   const handleTextSubmit = async (e?: React.FormEvent) => {
     e?.preventDefault()
     const userMessage = textInput.trim()
@@ -71,7 +129,6 @@ export function ChatDemoModal({ isOpen, onClose }: ChatDemoModalProps) {
     setError("")
     setTextInput("")
 
-    // Add user message to conversation immediately
     const timestamp = new Date()
     const tempConversation = [...conversation, { user: userMessage, ai: "", timestamp }]
     setConversation(tempConversation)
@@ -80,23 +137,27 @@ export function ChatDemoModal({ isOpen, onClose }: ChatDemoModalProps) {
       const res = await fetch("/api/voice-chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message: userMessage, sessionId: sessionIdRef.current }),
+        body: JSON.stringify({
+          message: userMessage,
+          sessionId: sessionIdRef.current,
+          userId: userId, // ← this is the key addition
+        }),
       })
 
       const data = await res.json()
 
       if (data.error) {
         setError(
-          data.error === "quota-exceeded" ? "You have reached your message limit. Please try again later." : data.error,
+          data.error === "quota-exceeded"
+            ? "You have reached your message limit. Please try again later."
+            : data.error,
         )
         setIsProcessing(false)
         return
       }
 
       if (data.response) {
-        // Display with typewriter effect
         displayResponseWithTypewriter(data.response, () => {
-          // Update conversation with full response
           setConversation((prev) => {
             const updated = [...prev]
             updated[updated.length - 1] = {
@@ -118,10 +179,9 @@ export function ChatDemoModal({ isOpen, onClose }: ChatDemoModalProps) {
     }
   }
 
-  // Reset on close
+  // Reset on close — but keep session so history reloads next time
   useEffect(() => {
     if (!isOpen) {
-      setConversation([])
       setTextInput("")
       setError("")
       setDisplayingMessage(null)
@@ -137,14 +197,19 @@ export function ChatDemoModal({ isOpen, onClose }: ChatDemoModalProps) {
 
       {/* Modal */}
       <div className="relative z-10 w-full max-w-3xl h-[95vh] bg-hamboi-dark-card border-2 border-hamboi-purple/40 backdrop-blur-lg rounded-3xl shadow-2xl shadow-hamboi-purple/30 grid grid-rows-[auto_1fr_auto] overflow-hidden">
-        {/* Header - No longer sticky, just part of grid */}
+        {/* Header */}
         <div className="px-6 py-4 bg-[#0f0a1f] backdrop-blur-lg border-b border-hamboi-purple/40 rounded-t-3xl flex-shrink-0">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-full bg-gradient-to-br from-hamboi-purple to-hamboi-green flex items-center justify-center">
                 <MessageSquare className="h-5 w-5 text-white" />
               </div>
-              <h2 className="text-lg font-bold text-white">Chat with Hamboi</h2>
+              <div>
+                <h2 className="text-lg font-bold text-white">Chat with Hamboi</h2>
+                {userId && (
+                  <p className="text-xs text-hamboi-green">● Conversation saved</p>
+                )}
+              </div>
             </div>
             <button
               onClick={onClose}
@@ -156,7 +221,7 @@ export function ChatDemoModal({ isOpen, onClose }: ChatDemoModalProps) {
           </div>
         </div>
 
-        {/* Conversation Area - Uses flex-1 equivalent in grid */}
+        {/* Conversation Area */}
         <div className="overflow-y-auto px-6 py-4 space-y-4 bg-[#0f0a1f]">
           {conversation.length === 0 && !displayingMessage && (
             <div className="text-center py-12">
@@ -184,9 +249,7 @@ export function ChatDemoModal({ isOpen, onClose }: ChatDemoModalProps) {
               {(msg.ai || (idx === conversation.length - 1 && displayingMessage)) && (
                 <div className="flex justify-start">
                   <div className="relative bg-gradient-to-br from-hamboi-purple/20 to-hamboi-green/20 rounded-2xl rounded-tl-sm px-5 py-3 max-w-[80%] shadow-lg border-2 border-hamboi-purple/40">
-                    <p className="text-sm font-bold text-hamboi-green mb-1">
-                      Hamboi
-                    </p>
+                    <p className="text-sm font-bold text-hamboi-green mb-1">Hamboi</p>
                     <p className="text-sm leading-relaxed text-white">
                       {idx === conversation.length - 1 && displayingMessage
                         ? displayingMessage.text
@@ -201,23 +264,21 @@ export function ChatDemoModal({ isOpen, onClose }: ChatDemoModalProps) {
           <div ref={conversationEndRef} />
         </div>
 
-        {/* Bottom section with error, notices, and input - Fixed at bottom */}
+        {/* Bottom section */}
         <div className="flex flex-col flex-shrink-0 bg-[#0f0a1f]">
-          {/* Error Message */}
           {error && (
             <div className="mx-6 mb-3 p-2 bg-red-950/40 border border-red-700/40 rounded-lg">
               <p className="text-xs text-red-400">{error}</p>
             </div>
           )}
 
-          {/* Privacy Notice */}
           <div className="mx-6 mb-3 p-2 bg-amber-950/40 border border-amber-700/40 rounded-lg">
             <p className="text-xs text-amber-300 text-center leading-snug">
-              <span className="font-semibold">Demo Preview:</span> AI-generated responses. Not a substitute for professional care. Crisis? Call a helpline.
+              <span className="font-semibold">Demo Preview:</span> AI-generated responses. Not a substitute for
+              professional care. Crisis? Call a helpline.
             </p>
           </div>
 
-          {/* Input Area */}
           <div className="px-6 pb-4">
             <form onSubmit={handleTextSubmit} className="relative">
               <textarea
