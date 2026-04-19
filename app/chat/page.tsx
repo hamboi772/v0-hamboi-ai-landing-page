@@ -39,6 +39,7 @@ export default function ChatPage() {
   const [displayingMessage, setDisplayingMessage] = useState<{ text: string } | null>(null)
   const [sidebarOpen, setSidebarOpen] = useState(true)
   const [isLoadingPage, setIsLoadingPage] = useState(true)
+  const [isLoadingSessions, setIsLoadingSessions] = useState(true)
 
   const textInputRef = useRef<HTMLTextAreaElement>(null)
   const conversationEndRef = useRef<HTMLDivElement>(null)
@@ -66,22 +67,30 @@ export default function ChatPage() {
   // Load user's sessions
   const loadSessions = async (userId: string) => {
     try {
+      setIsLoadingSessions(true)
+      console.log("[v0] Loading sessions for user:", userId)
       const res = await fetch(`/api/chat/sessions?user_id=${userId}`)
       const data = await res.json()
+      console.log("[v0] Sessions response:", data)
 
       if (data.data && data.data.length > 0) {
+        console.log("[v0] Found", data.data.length, "sessions")
         setSessions(data.data)
         // Load most recent session
         setCurrentSessionId(data.data[0].session_id)
         await loadMessages(data.data[0].session_id, userId)
       } else {
         // No sessions yet, create a new one
+        console.log("[v0] No sessions found, starting fresh")
         const newSessionId = generateSessionId()
         setCurrentSessionId(newSessionId)
         setMessages([])
+        setSessions([])
       }
     } catch (err) {
       console.error("Error loading sessions:", err)
+    } finally {
+      setIsLoadingSessions(false)
     }
   }
 
@@ -239,6 +248,10 @@ export default function ChatPage() {
     if (user) {
       await loadMessages(sessionId, user.id)
     }
+    // Close sidebar on mobile when session is selected
+    if (window.innerWidth < 768) {
+      setSidebarOpen(false)
+    }
   }
 
   // Delete a session
@@ -262,9 +275,17 @@ export default function ChatPage() {
 
   return (
     <div className="flex h-screen bg-[#0F0A1E] text-white overflow-hidden">
-      {/* Sidebar */}
+      {/* Mobile sidebar backdrop */}
+      {sidebarOpen && (
+        <div
+          className="fixed inset-0 z-40 bg-black/50 md:hidden"
+          onClick={() => setSidebarOpen(false)}
+        />
+      )}
+
+      {/* Sidebar - Desktop always visible, mobile as overlay */}
       <div
-        className={`${
+        className={`fixed md:relative z-50 md:z-0 h-screen ${
           sidebarOpen ? "w-64" : "w-0"
         } bg-[#1a1035] border-r border-purple-500/30 transition-all duration-300 overflow-hidden flex flex-col`}
       >
@@ -281,6 +302,14 @@ export default function ChatPage() {
 
         {/* Sessions List */}
         <div className="flex-1 overflow-y-auto space-y-2 p-4">
+          {isLoadingSessions && (
+            <div className="flex items-center justify-center py-8">
+              <Loader2 className="h-4 w-4 animate-spin text-purple-400" />
+            </div>
+          )}
+          {!isLoadingSessions && sessions.length === 0 && (
+            <p className="text-center text-gray-400 text-sm py-4">No conversations yet. Start a new chat!</p>
+          )}
           {sessions.map((session) => (
             <button
               key={session.session_id}
@@ -309,10 +338,11 @@ export default function ChatPage() {
       {/* Main Chat Area */}
       <div className="flex-1 flex flex-col">
         {/* Header */}
-        <div className="px-6 py-4 bg-[#0f0a1f] border-b border-purple-500/30 flex items-center justify-between flex-shrink-0">
+        <div className="px-4 md:px-6 py-4 bg-[#0f0a1f] border-b border-purple-500/30 flex items-center justify-between flex-shrink-0">
           <button
             onClick={() => setSidebarOpen(!sidebarOpen)}
-            className="p-2 rounded-lg hover:bg-purple-500/20 transition-colors md:hidden"
+            className="p-2 rounded-lg hover:bg-purple-500/20 transition-colors"
+            title={sidebarOpen ? "Close sidebar" : "Open sidebar"}
           >
             <Menu className="h-6 w-6" />
           </button>
