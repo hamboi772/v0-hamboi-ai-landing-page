@@ -1,8 +1,13 @@
-// Hamboi Mindcare - Multi-Provider Fallback
+// Hamboi Mindcare - Multi-Provider Fallback + Supabase Persistence
 import { type NextRequest, NextResponse } from "next/server"
+import { createClient } from "@supabase/supabase-js"
+
+// Supabase client - only created if env vars exist
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
+const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+const supabase = supabaseUrl && supabaseKey ? createClient(supabaseUrl, supabaseKey) : null
 
 const rateLimitStore = new Map<string, { count: number; resetTime: number }>()
-const conversationMemory = new Map<string, Array<{ user: string; bot: string; timestamp: number }>>()
 
 const providers = [
   {
@@ -45,17 +50,48 @@ function checkRateLimit(ip: string): boolean {
   return true
 }
 
-function getConversationHistory(sessionId: string) {
-  const now = Date.now()
-  const history = conversationMemory.get(sessionId) || []
-  return history.filter((item) => now - item.timestamp < 1800000)
+// Load conversation history from Supabase
+async function getConversationHistory(sessionId: string, userId?: string) {
+  // If Supabase is available and we have a userId, load from DB
+  if (supabase && userId) {
+    const { data } = await supabase
+      .from("chat_messages")
+      .select("role, content")
+      .eq("user_id", userId)
+      .eq("session_id", sessionId)
+      .order("created_at", { ascending: true })
+      .limit(12) // last 6 exchanges
+
+    if (data && data.length > 0) {
+      return data.map((m) => ({ role: m.role, content: m.content }))
+    }
+  }
+  return []
 }
 
-function saveToHistory(sessionId: string, userMsg: string, botResponse: string) {
-  const history = getConversationHistory(sessionId)
-  history.push({ user: userMsg, bot: botResponse, timestamp: Date.now() })
-  if (history.length > 6) history.shift()
-  conversationMemory.set(sessionId, history)
+// Save messages to Supabase
+async function saveMessages(
+  sessionId: string,
+  userId: string,
+  userMsg: string,
+  botResponse: string
+) {
+  if (!supabase) return
+
+  await supabase.from("chat_messages").insert([
+    {
+      user_id: userId,
+      session_id: sessionId,
+      role: "user",
+      content: userMsg,
+    },
+    {
+      user_id: userId,
+      session_id: sessionId,
+      role: "assistant",
+      content: botResponse,
+    },
+  ])
 }
 
 function detectCrisis(input: string): string | null {
@@ -136,6 +172,7 @@ export async function POST(request: NextRequest) {
     const body = await request.json()
     const userMessage = body.message
     const sessionId = body.sessionId || "default"
+    const userId = body.userId || null // pass from frontend when user is logged in
 
     if (!userMessage || typeof userMessage !== "string" || !userMessage.trim()) {
       return NextResponse.json(
@@ -157,22 +194,25 @@ export async function POST(request: NextRequest) {
 
     const crisisResponse = detectCrisis(userMessageTrimmed)
     if (crisisResponse) {
-      saveToHistory(sessionId, userMessageTrimmed, crisisResponse)
+      if (userId) await saveMessages(sessionId, userId, userMessageTrimmed, crisisResponse)
       return NextResponse.json({ response: crisisResponse })
     }
 
-    const history = getConversationHistory(sessionId)
+    // Load history from Supabase if user is logged in, otherwise empty
+    const history = userId ? await getConversationHistory(sessionId, userId) : []
+
     const messages = [
-      ...history.flatMap((h) => [
-        { role: "user", content: h.user },
-        { role: "assistant", content: h.bot },
-      ]),
+      ...history,
       { role: "user", content: userMessageTrimmed },
     ]
 
     const { response, provider } = await callAI(messages)
 
-    saveToHistory(sessionId, userMessageTrimmed, response)
+    // Save to Supabase if user is logged in
+    if (userId) {
+      await saveMessages(sessionId, userId, userMessageTrimmed, response)
+    }
+
     return NextResponse.json({ response, _provider: provider })
   } catch (error: any) {
     console.error("All providers failed:", error.message)
