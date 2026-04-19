@@ -52,7 +52,7 @@ export default function ChatPage() {
       } = await supabase.auth.getUser()
 
       if (!user) {
-        router.push("/")
+        router.push("/auth")
         return
       }
 
