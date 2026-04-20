@@ -4,6 +4,12 @@ import type React from "react"
 import { useState, useRef, useEffect } from "react"
 import { X, Loader2, Send, MessageSquare } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { createClient } from "@supabase/supabase-js"
+
+const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL || "",
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || "",
+)
 
 interface ChatDemoModalProps {
   isOpen: boolean
@@ -27,15 +33,71 @@ export function ChatDemoModal({ isOpen, onClose }: ChatDemoModalProps) {
   const [conversation, setConversation] = useState<ConversationMessage[]>([])
   const [error, setError] = useState("")
   const [displayingMessage, setDisplayingMessage] = useState<{ text: string; index: number } | null>(null)
+  const [userId, setUserId] = useState<string | null>(null)
   const sessionIdRef = useRef<string>(generateSessionId())
 
   const textInputRef = useRef<HTMLTextAreaElement>(null)
   const conversationEndRef = useRef<HTMLDivElement>(null)
 
+  // Get user on mount
+  useEffect(() => {
+    const getUser = async () => {
+      const { data } = await supabase.auth.getUser()
+      if (data.user) {
+        setUserId(data.user.id)
+      }
+    }
+    getUser()
+  }, [])
+
   // Auto-scroll to bottom of conversation
   useEffect(() => {
     conversationEndRef.current?.scrollIntoView({ behavior: "smooth" })
   }, [conversation, displayingMessage])
+
+  // Load last session when modal opens and user is logged in
+  useEffect(() => {
+    const loadLastSession = async () => {
+      if (isOpen && userId) {
+        try {
+          const { data } = await supabase
+            .from("chat_messages")
+            .select("*")
+            .eq("user_id", userId)
+            .order("created_at", { ascending: true })
+            .limit(100)
+
+          if (data && data.length > 0) {
+            // Group messages by conversation (alternating user/assistant)
+            const messages: ConversationMessage[] = []
+            let currentUserMessage = ""
+            let currentAiMessage = ""
+
+            for (const msg of data) {
+              if (msg.role === "user") {
+                currentUserMessage = msg.content
+              } else if (msg.role === "assistant" && currentUserMessage) {
+                currentAiMessage = msg.content
+                messages.push({
+                  user: currentUserMessage,
+                  ai: currentAiMessage,
+                  timestamp: new Date(msg.created_at),
+                })
+                currentUserMessage = ""
+                currentAiMessage = ""
+              }
+            }
+
+            setConversation(messages)
+          }
+        } catch (err) {
+          console.error("Error loading last session:", err)
+        }
+      }
+    }
+
+    loadLastSession()
+  }, [isOpen, userId])
 
   // Focus input when modal opens
   useEffect(() => {
@@ -80,7 +142,11 @@ export function ChatDemoModal({ isOpen, onClose }: ChatDemoModalProps) {
       const res = await fetch("/api/voice-chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message: userMessage, sessionId: sessionIdRef.current }),
+        body: JSON.stringify({
+          message: userMessage,
+          sessionId: sessionIdRef.current,
+          userId: userId || undefined,
+        }),
       })
 
       const data = await res.json()
