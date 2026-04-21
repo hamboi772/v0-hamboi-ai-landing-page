@@ -2,19 +2,25 @@
 
 import { useEffect, useState } from "react"
 import { Heart, Smile, Meh, Frown, AlertCircle, TrendingUp } from "lucide-react"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
 import { Textarea } from "@/components/ui/textarea"
 import { toast } from "sonner"
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts"
 
 const moods = [
-  { icon: Heart, label: "Great", color: "text-green-500", bgColor: "bg-green-500", value: 5 },
-  { icon: Smile, label: "Good", color: "text-blue-500", bgColor: "bg-blue-500", value: 4 },
-  { icon: Meh, label: "Okay", color: "text-yellow-500", bgColor: "bg-yellow-500", value: 3 },
-  { icon: Frown, label: "Not Good", color: "text-orange-500", bgColor: "bg-orange-500", value: 2 },
-  { icon: AlertCircle, label: "Bad", color: "text-red-500", bgColor: "bg-red-500", value: 1 },
+  { icon: "🤩", label: "Amazing", value: 5, color: "#22c55e", bg: "rgba(34,197,94,0.1)", border: "rgba(34,197,94,0.3)" },
+  { icon: "😊", label: "Good", value: 4, color: "#a855f7", bg: "rgba(168,85,247,0.1)", border: "rgba(168,85,247,0.3)" },
+  { icon: "😐", label: "Okay", value: 3, color: "#f5c842", bg: "rgba(245,200,66,0.1)", border: "rgba(245,200,66,0.3)" },
+  { icon: "😔", label: "Low", value: 2, color: "#f97316", bg: "rgba(249,115,22,0.1)", border: "rgba(249,115,22,0.3)" },
+  { icon: "😭", label: "Awful", value: 1, color: "#ef4444", bg: "rgba(239,68,68,0.1)", border: "rgba(239,68,68,0.3)" },
 ]
+
+const moodMessages: Record<number, string> = {
+  5: "You're glowing today 💜 That energy is real.",
+  4: "Good is enough. More than enough actually.",
+  3: "Okay days are still days you showed up.",
+  2: "Feeling low is valid. You logged it — that took something.",
+  1: "It's really hard right now. You're not alone in this.",
+}
 
 interface MoodEntry {
   id: string
@@ -28,8 +34,9 @@ export function MoodTrackerDashboard() {
   const [note, setNote] = useState("")
   const [loading, setLoading] = useState(false)
   const [moodHistory, setMoodHistory] = useState<MoodEntry[]>([])
+  const [justSaved, setJustSaved] = useState(false)
+
   const [userId] = useState(() => {
-    // Get or create user ID (simple anonymous ID)
     if (typeof window !== "undefined") {
       let id = localStorage.getItem("hamboi_user_id")
       if (!id) {
@@ -49,169 +56,264 @@ export function MoodTrackerDashboard() {
     try {
       const response = await fetch(`/api/moods?user_id=${userId}&days=30`)
       const data = await response.json()
-      if (data.success) {
-        setMoodHistory(data.moods)
-      }
+      if (data.success) setMoodHistory(data.moods)
     } catch (error) {
       console.error("[v0] Failed to fetch mood history:", error)
     }
   }
 
   const handleSaveMood = async () => {
-    if (!selectedMood) {
-      toast.error("Please select a mood")
-      return
-    }
-
-    console.log("[v0] Starting mood save, user_id:", userId, "mood:", selectedMood)
-
+    if (!selectedMood) { toast.error("Pick a mood first 😊"); return }
     setLoading(true)
     try {
       const response = await fetch("/api/moods", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          user_id: userId,
-          mood_value: selectedMood,
-          note: note.trim() || null,
-        }),
+        body: JSON.stringify({ user_id: userId, mood_value: selectedMood, note: note.trim() || null }),
       })
-
-      console.log("[v0] Mood API response status:", response.status)
       const data = await response.json()
-      console.log("[v0] Mood API response data:", data)
-
       if (data.success) {
-        toast.success("Mood saved successfully!")
-        setSelectedMood(null)
+        toast.success("Mood saved! +20 XP 💜")
+        setJustSaved(true)
+        setTimeout(() => setJustSaved(false), 3000)
         setNote("")
         fetchMoodHistory()
       } else {
-        console.error("[v0] Mood save failed:", data.error)
-        toast.error(data.error || "Failed to save mood")
+        toast.error(data.error || "Couldn't save mood")
       }
     } catch (error) {
-      console.error("[v0] Save mood error:", error)
-      toast.error("Failed to save mood. Check console for details.")
+      toast.error("Something went wrong. Try again.")
     } finally {
       setLoading(false)
     }
   }
 
-  // Prepare chart data
-  const chartData = moodHistory.map((entry) => ({
+  const chartData = moodHistory.slice().reverse().map((entry) => ({
     date: new Date(entry.created_at).toLocaleDateString("en-US", { month: "short", day: "numeric" }),
     mood: entry.mood_value,
   }))
 
-  const averageMood =
-    moodHistory.length > 0
-      ? (moodHistory.reduce((sum, m) => sum + m.mood_value, 0) / moodHistory.length).toFixed(1)
-      : "0"
+  const averageMood = moodHistory.length > 0
+    ? (moodHistory.reduce((sum, m) => sum + m.mood_value, 0) / moodHistory.length).toFixed(1)
+    : null
+
+  const getMoodInfo = (value: number) => moods.find((m) => m.value === value)
 
   return (
-    <div className="space-y-6">
-      {/* Log Today's Mood */}
-      <Card>
-        <CardHeader>
-          <CardTitle>How are you feeling today?</CardTitle>
-          <CardDescription>Track your mood to understand patterns over time</CardDescription>
-        </CardHeader>
-        <CardContent className="space-y-4">
-          <div className="grid grid-cols-3 sm:grid-cols-5 gap-2 sm:gap-3">
-            {moods.map((mood) => {
-              const Icon = mood.icon
+    <div style={{ fontFamily: "'Cabinet Grotesk', 'Nunito', sans-serif", color: "#f0e8ff" }}>
+
+      {/* Log Mood Card */}
+      <div style={styles.card}>
+        <div style={styles.cardHeader}>
+          <div style={styles.cardTitle}>How are you feeling right now?</div>
+          <div style={styles.cardSub}>No judgment. Just honest.</div>
+        </div>
+
+        {/* Mood buttons */}
+        <div style={styles.moodGrid}>
+          {moods.map((mood) => (
+            <button
+              key={mood.value}
+              onClick={() => setSelectedMood(mood.value)}
+              style={{
+                ...styles.moodBtn,
+                borderColor: selectedMood === mood.value ? mood.border : "rgba(255,255,255,0.06)",
+                background: selectedMood === mood.value ? mood.bg : "rgba(255,255,255,0.03)",
+                transform: selectedMood === mood.value ? "scale(1.08)" : "scale(1)",
+              }}
+            >
+              <span style={{ fontSize: 28, display: "block", marginBottom: 6 }}>{mood.icon}</span>
+              <span style={{ fontSize: 11, fontWeight: 700, color: selectedMood === mood.value ? mood.color : "#7c6fa0" }}>
+                {mood.label}
+              </span>
+            </button>
+          ))}
+        </div>
+
+        {/* Human message after selection */}
+        {selectedMood && !justSaved && (
+          <div style={styles.moodMessage}>
+            {moodMessages[selectedMood]}
+          </div>
+        )}
+
+        {/* Saved confirmation */}
+        {justSaved && (
+          <div style={{ ...styles.moodMessage, color: "#22c55e", borderColor: "rgba(34,197,94,0.2)", background: "rgba(34,197,94,0.07)" }}>
+            Logged 💜 You showed up for yourself today.
+          </div>
+        )}
+
+        {/* Note */}
+        <div style={{ marginTop: 16 }}>
+          <label style={styles.label}>Add a note (optional)</label>
+          <textarea
+            placeholder="What's going on? What's on your mind?"
+            value={note}
+            onChange={(e) => setNote(e.target.value)}
+            rows={3}
+            style={styles.textarea}
+          />
+        </div>
+
+        <button
+          onClick={handleSaveMood}
+          disabled={!selectedMood || loading}
+          style={{
+            ...styles.saveBtn,
+            opacity: !selectedMood || loading ? 0.4 : 1,
+            cursor: !selectedMood || loading ? "not-allowed" : "pointer",
+          }}
+        >
+          {loading ? "Saving..." : "Save mood → +20 XP"}
+        </button>
+      </div>
+
+      {/* Chart */}
+      {moodHistory.length > 1 && (
+        <div style={styles.card}>
+          <div style={styles.cardHeader}>
+            <div style={styles.cardTitle}>Your mood over time</div>
+            {averageMood && (
+              <div style={styles.cardSub}>
+                Average: <strong style={{ color: "#c084fc" }}>{averageMood}/5</strong> across {moodHistory.length} logs
+              </div>
+            )}
+          </div>
+          <div style={{ height: 200, marginTop: 8 }}>
+            <ResponsiveContainer width="100%" height="100%">
+              <LineChart data={chartData}>
+                <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" />
+                <XAxis dataKey="date" tick={{ fill: "#7c6fa0", fontSize: 10 }} axisLine={false} tickLine={false} />
+                <YAxis domain={[1, 5]} ticks={[1, 2, 3, 4, 5]} tick={{ fill: "#7c6fa0", fontSize: 10 }} axisLine={false} tickLine={false} />
+                <Tooltip
+                  contentStyle={{ background: "#1a1235", border: "1px solid rgba(124,58,237,0.3)", borderRadius: 12, color: "#f0e8ff", fontSize: 13 }}
+                  formatter={(val: any) => {
+                    const m = moods.find(m => m.value === val)
+                    return [m ? `${m.icon} ${m.label}` : val, "Mood"]
+                  }}
+                />
+                <Line type="monotone" dataKey="mood" stroke="#7C3AED" strokeWidth={2.5} dot={{ r: 4, fill: "#a855f7", strokeWidth: 0 }} activeDot={{ r: 6, fill: "#c084fc" }} />
+              </LineChart>
+            </ResponsiveContainer>
+          </div>
+        </div>
+      )}
+
+      {/* Recent entries */}
+      {moodHistory.length > 0 && (
+        <div style={styles.card}>
+          <div style={styles.cardHeader}>
+            <div style={styles.cardTitle}>Recent logs</div>
+          </div>
+          <div style={{ display: "flex", flexDirection: "column", gap: 10, marginTop: 4 }}>
+            {moodHistory.slice(0, 7).map((entry) => {
+              const m = getMoodInfo(entry.mood_value)
               return (
-                <button
-                  key={mood.value}
-                  onClick={() => setSelectedMood(mood.value)}
-                  className={`flex flex-col items-center gap-1.5 sm:gap-2 p-3 sm:p-4 rounded-xl border-2 transition-all hover:scale-105 ${
-                    selectedMood === mood.value ? `border-gray-400 bg-gray-50` : "border-gray-200 hover:border-gray-300"
-                  }`}
-                >
-                  <Icon className={`h-6 w-6 sm:h-8 sm:w-8 ${mood.color}`} />
-                  <span className="text-xs sm:text-sm font-medium text-center leading-tight">{mood.label}</span>
-                </button>
+                <div key={entry.id} style={styles.entryRow}>
+                  <span style={{ fontSize: 26 }}>{m?.icon || "😐"}</span>
+                  <div style={{ flex: 1 }}>
+                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                      <span style={{ fontSize: 14, fontWeight: 700, color: m?.color || "#f0e8ff" }}>{m?.label}</span>
+                      <span style={{ fontSize: 11, color: "#7c6fa0" }}>
+                        {new Date(entry.created_at).toLocaleDateString("en-US", { month: "short", day: "numeric" })}
+                      </span>
+                    </div>
+                    {entry.note && <p style={{ fontSize: 12, color: "#7c6fa0", marginTop: 3, lineHeight: 1.5 }}>{entry.note}</p>}
+                  </div>
+                </div>
               )
             })}
           </div>
-          {/* </CHANGE> */}
+        </div>
+      )}
 
-          <div className="space-y-2">
-            <label className="text-sm font-medium">Add a note (optional)</label>
-            <Textarea
-              placeholder="What's on your mind?"
-              value={note}
-              onChange={(e) => setNote(e.target.value)}
-              className="resize-none"
-              rows={3}
-            />
-          </div>
-
-          <Button onClick={handleSaveMood} disabled={!selectedMood || loading} className="w-full">
-            {loading ? "Saving..." : "Save Mood"}
-          </Button>
-        </CardContent>
-      </Card>
-
-      {/* Mood History Chart */}
-      {moodHistory.length > 0 && (
-        <>
-          <Card>
-            <CardHeader>
-              <CardTitle>Your Mood Trends</CardTitle>
-              <CardDescription>Last 30 days of mood tracking</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="h-64">
-                <ResponsiveContainer width="100%" height="100%">
-                  <LineChart data={chartData}>
-                    <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="date" />
-                    <YAxis domain={[1, 5]} ticks={[1, 2, 3, 4, 5]} />
-                    <Tooltip />
-                    <Line type="monotone" dataKey="mood" stroke="#A78BFA" strokeWidth={2} dot={{ r: 4 }} />
-                  </LineChart>
-                </ResponsiveContainer>
-              </div>
-
-              <div className="mt-4 flex items-center gap-2 text-sm text-muted-foreground">
-                <TrendingUp className="h-4 w-4" />
-                <span>
-                  Average mood: <strong>{averageMood}/5</strong> over {moodHistory.length} entries
-                </span>
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* Recent Entries */}
-          <Card>
-            <CardHeader>
-              <CardTitle>Recent Entries</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-3">
-              {moodHistory.slice(0, 5).map((entry) => {
-                const mood = moods.find((m) => m.value === entry.mood_value)
-                const Icon = mood?.icon || Meh
-                return (
-                  <div key={entry.id} className="flex items-start gap-3 p-3 rounded-lg border">
-                    <Icon className={`h-5 w-5 mt-0.5 ${mood?.color}`} />
-                    <div className="flex-1">
-                      <div className="flex items-center justify-between">
-                        <span className="font-medium">{mood?.label}</span>
-                        <span className="text-sm text-muted-foreground">
-                          {new Date(entry.created_at).toLocaleDateString()}
-                        </span>
-                      </div>
-                      {entry.note && <p className="text-sm text-muted-foreground mt-1">{entry.note}</p>}
-                    </div>
-                  </div>
-                )
-              })}
-            </CardContent>
-          </Card>
-        </>
+      {/* Empty state */}
+      {moodHistory.length === 0 && (
+        <div style={{ ...styles.card, textAlign: "center", padding: "32px 20px" }}>
+          <div style={{ fontSize: 40, marginBottom: 12 }}>📊</div>
+          <div style={{ fontSize: 15, fontWeight: 700, color: "#f0e8ff", marginBottom: 6 }}>No mood logs yet</div>
+          <div style={{ fontSize: 13, color: "#7c6fa0" }}>Log your first mood above and start understanding yourself better.</div>
+        </div>
       )}
     </div>
   )
+}
+
+const styles: Record<string, React.CSSProperties> = {
+  card: {
+    background: "#150e2b",
+    border: "1px solid #251a45",
+    borderRadius: 20,
+    padding: 20,
+    marginBottom: 14,
+  },
+  cardHeader: { marginBottom: 16 },
+  cardTitle: { fontSize: 16, fontWeight: 800, color: "#f0e8ff", marginBottom: 4 },
+  cardSub: { fontSize: 12, color: "#7c6fa0" },
+  moodGrid: {
+    display: "grid",
+    gridTemplateColumns: "repeat(5, 1fr)",
+    gap: 8,
+    marginBottom: 12,
+  },
+  moodBtn: {
+    background: "rgba(255,255,255,0.03)",
+    border: "2px solid rgba(255,255,255,0.06)",
+    borderRadius: 14,
+    padding: "12px 6px",
+    cursor: "pointer",
+    textAlign: "center",
+    transition: "all 0.2s",
+    color: "#f0e8ff",
+  },
+  moodMessage: {
+    background: "rgba(124,58,237,0.08)",
+    border: "1px solid rgba(124,58,237,0.2)",
+    borderRadius: 12,
+    padding: "12px 14px",
+    fontSize: 13,
+    color: "#c084fc",
+    lineHeight: 1.6,
+    marginBottom: 4,
+    fontStyle: "italic",
+  },
+  label: { fontSize: 12, fontWeight: 700, color: "#7c6fa0", display: "block", marginBottom: 8 },
+  textarea: {
+    width: "100%",
+    background: "rgba(255,255,255,0.04)",
+    border: "1px solid #251a45",
+    borderRadius: 12,
+    padding: "12px 14px",
+    color: "#f0e8ff",
+    fontFamily: "'Cabinet Grotesk', 'Nunito', sans-serif",
+    fontSize: 14,
+    lineHeight: 1.6,
+    resize: "none",
+    outline: "none",
+    boxSizing: "border-box",
+  },
+  saveBtn: {
+    width: "100%",
+    background: "linear-gradient(135deg, #7C3AED, #9333ea)",
+    color: "white",
+    border: "none",
+    borderRadius: 14,
+    padding: 16,
+    fontSize: 15,
+    fontWeight: 800,
+    marginTop: 14,
+    boxShadow: "0 4px 16px rgba(124,58,237,0.35)",
+    transition: "all 0.2s",
+    fontFamily: "'Cabinet Grotesk', 'Nunito', sans-serif",
+  },
+  entryRow: {
+    display: "flex",
+    alignItems: "flex-start",
+    gap: 12,
+    background: "#1a1235",
+    border: "1px solid #251a45",
+    borderRadius: 14,
+    padding: "12px 14px",
+  },
 }
