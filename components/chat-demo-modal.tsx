@@ -6,10 +6,13 @@ import { X, Loader2, Send, MessageSquare } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { createClient } from "@supabase/supabase-js"
 
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL || "",
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || "",
-)
+function getSupabaseClient() {
+  if (typeof window === "undefined") return null
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL
+  const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+  if (!url || !key) return null
+  return createClient(url, key)
+}
 
 interface ChatDemoModalProps {
   isOpen: boolean
@@ -42,6 +45,8 @@ export function ChatDemoModal({ isOpen, onClose }: ChatDemoModalProps) {
   // Get user on mount
   useEffect(() => {
     const getUser = async () => {
+      const supabase = getSupabaseClient()
+      if (!supabase) return
       const { data } = await supabase.auth.getUser()
       if (data.user) {
         setUserId(data.user.id)
@@ -60,6 +65,8 @@ export function ChatDemoModal({ isOpen, onClose }: ChatDemoModalProps) {
     const loadLastSession = async () => {
       if (isOpen && userId) {
         try {
+          const supabase = getSupabaseClient()
+          if (!supabase) return
           const { data } = await supabase
             .from("chat_messages")
             .select("*")
