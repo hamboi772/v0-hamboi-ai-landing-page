@@ -1,10 +1,6 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { Share2, Copy, Users, QrCode, CheckCircle2 } from "lucide-react"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
 import { toast } from "sonner"
 
 interface Referral {
@@ -14,10 +10,16 @@ interface Referral {
   created_at: string
 }
 
+const SHARE_MESSAGES = [
+  "Bro I found this mental health app built by a 15 year old Nigerian student. It actually gets what we go through. Try it:",
+  "If you ever need someone to talk to, this app is free and private. No judgment at all.",
+  "This app called Hamboi has been helping me with stress and anxiety. It's made for Nigerian teens specifically.",
+]
+
 export function ReferralDashboard() {
   const [referral, setReferral] = useState<Referral | null>(null)
   const [loading, setLoading] = useState(false)
-  const [copied, setCopied] = useState(false)
+  const [copied, setCopied] = useState<string | null>(null)
 
   const [userId] = useState(() => {
     if (typeof window !== "undefined") {
@@ -31,193 +33,265 @@ export function ReferralDashboard() {
     return ""
   })
 
-  useEffect(() => {
-    fetchOrCreateReferral()
-  }, [])
+  useEffect(() => { fetchOrCreateReferral() }, [])
 
   const fetchOrCreateReferral = async () => {
-    console.log("[v0] Fetching referral for user:", userId)
-
     setLoading(true)
     try {
-      // Try to fetch existing referral
-      console.log("[v0] Checking for existing referral...")
-      let response = await fetch(`/api/referrals?referrer_id=${userId}`)
-      console.log("[v0] Referral fetch response status:", response.status)
-      let data = await response.json()
-      console.log("[v0] Referral fetch data:", data)
-
+      let res = await fetch(`/api/referrals?referrer_id=${userId}`)
+      let data = await res.json()
       if (!data.referral) {
-        // Create new referral code
-        console.log("[v0] No existing referral, creating new one...")
-        response = await fetch("/api/referrals", {
+        res = await fetch("/api/referrals", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ referrer_id: userId }),
         })
-        console.log("[v0] Referral create response status:", response.status)
-        data = await response.json()
-        console.log("[v0] Referral create data:", data)
+        data = await res.json()
       }
-
-      if (data.success) {
-        console.log("[v0] Referral loaded successfully:", data.referral)
-        setReferral(data.referral)
-      } else {
-        console.error("[v0] Referral load failed:", data.error)
-        toast.error(data.error || "Failed to load referral")
-      }
-    } catch (error) {
-      console.error("[v0] Referral fetch error:", error)
-      toast.error("Failed to load referral data. Check console for details.")
+      if (data.success) setReferral(data.referral)
+      else toast.error("Couldn't load referral info")
+    } catch (err) {
+      toast.error("Something went wrong. Try again.")
     } finally {
       setLoading(false)
     }
   }
 
-  const referralUrl = referral ? `${window.location.origin}?ref=${referral.referral_code}` : ""
+  const referralUrl = referral && typeof window !== "undefined"
+    ? `${window.location.origin}?ref=${referral.referral_code}`
+    : ""
 
-  const copyToClipboard = async (text: string) => {
+  const copyText = async (text: string, key: string) => {
     try {
       await navigator.clipboard.writeText(text)
-      setCopied(true)
-      toast.success("Copied to clipboard!")
-      setTimeout(() => setCopied(false), 2000)
-    } catch (error) {
-      toast.error("Failed to copy")
+      setCopied(key)
+      toast.success("Copied! 💜")
+      setTimeout(() => setCopied(null), 2000)
+    } catch {
+      toast.error("Couldn't copy — try manually")
     }
   }
 
-  const shareReferral = async () => {
-    const shareData = {
-      title: "Hamboi MindCare",
-      text: "Check out Hamboi MindCare - a mental health support app for teens. Join me!",
-      url: referralUrl,
-    }
-
+  const shareLink = async () => {
     if (navigator.share) {
       try {
-        await navigator.share(shareData)
-      } catch (error) {
-        console.log("[v0] Share cancelled")
-      }
+        await navigator.share({
+          title: "Hamboi MindCare",
+          text: "Mental health support built for Nigerian teens. Free, private, real.",
+          url: referralUrl,
+        })
+      } catch {}
     } else {
-      copyToClipboard(referralUrl)
+      copyText(referralUrl, "link")
     }
   }
+
+  const xpEarned = referral ? referral.referred_count * 50 : 0
 
   if (loading) {
     return (
-      <Card>
-        <CardContent className="py-12 text-center">
-          <p className="text-muted-foreground">Loading your referral code...</p>
-        </CardContent>
-      </Card>
+      <div style={{ ...styles.card, textAlign: "center", padding: "40px 20px" }}>
+        <div style={{ fontSize: 32, marginBottom: 12 }}>💜</div>
+        <div style={{ fontSize: 14, color: "#7c6fa0" }}>Loading your referral info...</div>
+      </div>
     )
   }
 
   if (!referral) {
     return (
-      <Card>
-        <CardContent className="py-12 text-center">
-          <p className="text-muted-foreground">Unable to load referral data</p>
-        </CardContent>
-      </Card>
+      <div style={{ ...styles.card, textAlign: "center", padding: "40px 20px" }}>
+        <div style={{ fontSize: 32, marginBottom: 12 }}>😔</div>
+        <div style={{ fontSize: 14, color: "#7c6fa0" }}>Couldn't load referral data. Try refreshing.</div>
+      </div>
     )
   }
 
   return (
-    <div className="space-y-6">
-      {/* Referral Stats */}
-      <div className="grid md:grid-cols-2 gap-4">
-        <Card>
-          <CardHeader className="pb-3">
-            <CardTitle className="text-sm font-medium text-muted-foreground">Your Referral Code</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-3xl font-bold tracking-tight">{referral.referral_code}</p>
-          </CardContent>
-        </Card>
+    <div style={{ fontFamily: "'Cabinet Grotesk', 'Nunito', sans-serif", color: "#f0e8ff" }}>
 
-        <Card>
-          <CardHeader className="pb-3">
-            <CardTitle className="text-sm font-medium text-muted-foreground">People Referred</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="flex items-center gap-2">
-              <Users className="h-5 w-5 text-hamboi-purple" />
-              <p className="text-3xl font-bold tracking-tight">{referral.referred_count}</p>
-            </div>
-          </CardContent>
-        </Card>
+      {/* Hero */}
+      <div style={styles.hero}>
+        <div style={styles.heroEmoji}>💜</div>
+        <h2 style={styles.heroTitle}>Share the love</h2>
+        <p style={styles.heroSub}>
+          Every teen you bring to Hamboi could be someone who finally feels understood.
+          You earn XP. They get support. Everyone wins.
+        </p>
       </div>
 
-      {/* Share Section */}
-      <Card>
-        <CardHeader>
-          <CardTitle>Share Hamboi MindCare</CardTitle>
-          <CardDescription>Help others discover mental health support</CardDescription>
-        </CardHeader>
-        <CardContent className="space-y-4">
-          <div className="space-y-2">
-            <label className="text-sm font-medium">Your referral link</label>
-            <div className="flex gap-2">
-              <Input value={referralUrl} readOnly className="font-mono text-sm" />
-              <Button size="icon" variant="outline" onClick={() => copyToClipboard(referralUrl)}>
-                {copied ? <CheckCircle2 className="h-4 w-4 text-green-500" /> : <Copy className="h-4 w-4" />}
-              </Button>
+      {/* Stats */}
+      <div style={styles.statsRow}>
+        <div style={styles.statCard}>
+          <div style={{ ...styles.statVal, color: "#c084fc" }}>{referral.referred_count}</div>
+          <div style={styles.statLabel}>Friends joined</div>
+        </div>
+        <div style={styles.statCard}>
+          <div style={{ ...styles.statVal, color: "#f5c842" }}>+{xpEarned}</div>
+          <div style={styles.statLabel}>XP earned</div>
+        </div>
+        <div style={styles.statCard}>
+          <div style={{ ...styles.statVal, color: "#22c55e" }}>{referral.referred_count >= 3 ? "✓" : `${referral.referred_count}/3`}</div>
+          <div style={styles.statLabel}>To badge</div>
+        </div>
+      </div>
+
+      {/* Badge progress */}
+      {referral.referred_count < 3 && (
+        <div style={styles.badgeProgress}>
+          <span style={{ fontSize: 20 }}>🌍</span>
+          <div style={{ flex: 1 }}>
+            <div style={{ fontSize: 13, fontWeight: 700, color: "#f0e8ff", marginBottom: 4 }}>
+              World Changer badge — {3 - referral.referred_count} friend{3 - referral.referred_count !== 1 ? "s" : ""} away
+            </div>
+            <div style={styles.progressBar}>
+              <div style={{ ...styles.progressFill, width: `${(referral.referred_count / 3) * 100}%` }} />
             </div>
           </div>
-
-          <div className="flex flex-col sm:flex-row gap-2">
-            <Button onClick={shareReferral} className="flex-1">
-              <Share2 className="h-4 w-4 mr-2" />
-              Share Link
-            </Button>
-            <Button variant="outline" onClick={() => copyToClipboard(referral.referral_code)} className="flex-1">
-              <QrCode className="h-4 w-4 mr-2" />
-              Copy Code
-            </Button>
+        </div>
+      )}
+      {referral.referred_count >= 3 && (
+        <div style={{ ...styles.badgeProgress, borderColor: "rgba(245,200,66,0.3)", background: "rgba(245,200,66,0.05)" }}>
+          <span style={{ fontSize: 24 }}>🌍</span>
+          <div style={{ fontSize: 14, fontWeight: 800, color: "#f5c842" }}>
+            World Changer badge unlocked! You're making an impact.
           </div>
+        </div>
+      )}
 
-          <div className="rounded-lg bg-hamboi-purple/5 p-4 space-y-2">
-            <h4 className="font-semibold text-sm">Why share?</h4>
-            <ul className="text-sm text-muted-foreground space-y-1">
-              <li>• Help friends find mental health support</li>
-              <li>• Reduce stigma around teen mental health</li>
-              <li>• Build a supportive community together</li>
-            </ul>
+      {/* Your code */}
+      <div style={styles.card}>
+        <div style={styles.cardTitle}>Your referral code</div>
+        <div style={styles.codeBox} onClick={() => copyText(referral.referral_code, "code")}>
+          {referral.referral_code}
+          <span style={{ fontSize: 12, color: "#7c6fa0", display: "block", marginTop: 4, fontFamily: "sans-serif", letterSpacing: 0 }}>
+            {copied === "code" ? "✓ Copied!" : "Tap to copy"}
+          </span>
+        </div>
+
+        <div style={styles.shareRow}>
+          <button style={styles.shareBtnPrimary} onClick={shareLink}>
+            📤 Share link
+          </button>
+          <button style={styles.shareBtnSecondary} onClick={() => {
+            window.open(`https://wa.me/?text=Hey! Try Hamboi MindCare — mental health support for Nigerian teens. Built by a 15-year-old from Nigeria 💜 ${referralUrl}`, "_blank")
+          }}>
+            💬 WhatsApp
+          </button>
+          <button style={styles.shareBtnSecondary} onClick={() => {
+            window.open(`https://twitter.com/intent/tweet?text=Mental health support built for Nigerian teens 💜 Check out @HamboiMindcare — use my code ${referral.referral_code} ${referralUrl}`, "_blank")
+          }}>
+            🐦 Twitter
+          </button>
+        </div>
+      </div>
+
+      {/* Message templates */}
+      <div style={styles.cardTitle2}>Message templates</div>
+      <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+        {SHARE_MESSAGES.map((msg, i) => (
+          <div key={i} style={styles.templateCard}>
+            <p style={styles.templateText}>"{msg}"</p>
+            <p style={styles.templateUrl}>{referralUrl}</p>
+            <button
+              style={{ ...styles.copyMsgBtn, ...(copied === `msg-${i}` ? styles.copyMsgBtnDone : {}) }}
+              onClick={() => copyText(`${msg}\n\n${referralUrl}`, `msg-${i}`)}
+            >
+              {copied === `msg-${i}` ? "✓ Copied!" : "Copy message"}
+            </button>
           </div>
-        </CardContent>
-      </Card>
+        ))}
+      </div>
 
-      {/* Share Message Templates */}
-      <Card>
-        <CardHeader>
-          <CardTitle>Share Message Templates</CardTitle>
-          <CardDescription>Copy and customize these messages</CardDescription>
-        </CardHeader>
-        <CardContent className="space-y-3">
-          {[
-            "Hey! I've been using Hamboi MindCare for mental health support. It's really helpful. Check it out:",
-            "Found this awesome mental health app for teens. Completely private and safe. Try it:",
-            "Struggling? Hamboi MindCare has been helping me. Free mental health support 24/7:",
-          ].map((message, idx) => (
-            <div key={idx} className="p-3 rounded-lg border bg-muted/50 space-y-2">
-              <p className="text-sm">{message}</p>
-              <p className="text-xs font-mono text-muted-foreground">{referralUrl}</p>
-              <Button
-                size="sm"
-                variant="ghost"
-                onClick={() => copyToClipboard(`${message}\n\n${referralUrl}`)}
-                className="h-7 text-xs"
-              >
-                Copy Message
-              </Button>
+      {/* How it works */}
+      <div style={styles.cardTitle2}>How it works</div>
+      <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+        {[
+          { n: "1", t: "Share your code or link", d: "Send it to a friend who might need someone to talk to" },
+          { n: "2", t: "They sign up", d: "When they create an account using your code, it counts" },
+          { n: "3", t: "You both grow", d: "You get +50 XP, they get a warm welcome" },
+          { n: "4", t: "Unlock World Changer", d: "Refer 3 friends and earn this exclusive badge 🌍" },
+        ].map((s) => (
+          <div key={s.n} style={styles.stepCard}>
+            <div style={styles.stepNum}>{s.n}</div>
+            <div>
+              <div style={{ fontSize: 14, fontWeight: 700, color: "#f0e8ff", marginBottom: 2 }}>{s.t}</div>
+              <div style={{ fontSize: 12, color: "#7c6fa0" }}>{s.d}</div>
             </div>
-          ))}
-        </CardContent>
-      </Card>
+          </div>
+        ))}
+      </div>
     </div>
   )
+}
+
+const styles: Record<string, React.CSSProperties> = {
+  card: { background: "#150e2b", border: "1px solid #251a45", borderRadius: 20, padding: 20, marginBottom: 14 },
+  cardTitle: { fontSize: 13, fontWeight: 700, color: "#7c6fa0", marginBottom: 12, textTransform: "uppercase", letterSpacing: 1 },
+  cardTitle2: { fontSize: 13, fontWeight: 700, color: "#7c6fa0", margin: "20px 0 12px", textTransform: "uppercase", letterSpacing: 1 },
+  hero: {
+    background: "linear-gradient(135deg, #1e0f3f, #150e2b)",
+    border: "1px solid rgba(124,58,237,0.3)",
+    borderRadius: 22, padding: "24px 20px",
+    textAlign: "center", marginBottom: 14,
+  },
+  heroEmoji: { fontSize: 40, marginBottom: 12 },
+  heroTitle: { fontFamily: "'Clash Display', sans-serif", fontSize: 22, fontWeight: 700, color: "#c084fc", marginBottom: 8 },
+  heroSub: { fontSize: 13, color: "#7c6fa0", lineHeight: 1.7 },
+  statsRow: { display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 10, marginBottom: 12 },
+  statCard: { background: "#150e2b", border: "1px solid #251a45", borderRadius: 16, padding: "16px 10px", textAlign: "center" },
+  statVal: { fontSize: 24, fontWeight: 800 },
+  statLabel: { fontSize: 11, color: "#7c6fa0", marginTop: 4 },
+  badgeProgress: {
+    display: "flex", alignItems: "center", gap: 14,
+    background: "rgba(124,58,237,0.07)", border: "1px solid rgba(124,58,237,0.2)",
+    borderRadius: 16, padding: "14px 16px", marginBottom: 14,
+  },
+  progressBar: { height: 6, background: "rgba(255,255,255,0.06)", borderRadius: 99, overflow: "hidden" },
+  progressFill: { height: "100%", background: "linear-gradient(90deg, #5b21b6, #7C3AED, #a855f7)", borderRadius: 99 },
+  codeBox: {
+    background: "#0F0A1E", border: "1px solid rgba(124,58,237,0.3)",
+    borderRadius: 14, padding: "18px 20px", textAlign: "center",
+    fontFamily: "'Clash Display', sans-serif", fontSize: 26,
+    fontWeight: 700, color: "#c084fc", letterSpacing: 4,
+    cursor: "pointer", marginBottom: 16, transition: "all 0.2s",
+  },
+  shareRow: { display: "flex", gap: 8, flexWrap: "wrap" as const },
+  shareBtnPrimary: {
+    flex: 1, background: "linear-gradient(135deg, #7C3AED, #9333ea)",
+    color: "white", border: "none", borderRadius: 12, padding: "12px 16px",
+    fontSize: 13, fontWeight: 800, cursor: "pointer", minWidth: 100,
+    fontFamily: "'Cabinet Grotesk', 'Nunito', sans-serif",
+  },
+  shareBtnSecondary: {
+    flex: 1, background: "rgba(255,255,255,0.05)", border: "1px solid #251a45",
+    borderRadius: 12, padding: "12px 16px", color: "#f0e8ff",
+    fontSize: 13, fontWeight: 700, cursor: "pointer", minWidth: 100,
+    fontFamily: "'Cabinet Grotesk', 'Nunito', sans-serif",
+  },
+  templateCard: {
+    background: "#150e2b", border: "1px solid #251a45",
+    borderRadius: 16, padding: "16px",
+  },
+  templateText: { fontSize: 13, color: "#c4b5fd", lineHeight: 1.6, marginBottom: 8, fontStyle: "italic" },
+  templateUrl: { fontSize: 11, color: "#7c6fa0", marginBottom: 12, wordBreak: "break-all" as const },
+  copyMsgBtn: {
+    background: "rgba(124,58,237,0.1)", border: "1px solid rgba(124,58,237,0.2)",
+    borderRadius: 10, padding: "8px 14px", color: "#c084fc",
+    fontSize: 12, fontWeight: 700, cursor: "pointer",
+    fontFamily: "'Cabinet Grotesk', 'Nunito', sans-serif",
+  },
+  copyMsgBtnDone: {
+    background: "rgba(34,197,94,0.1)", border: "1px solid rgba(34,197,94,0.2)", color: "#22c55e",
+  },
+  stepCard: {
+    background: "#150e2b", border: "1px solid #251a45",
+    borderRadius: 14, padding: "14px 16px",
+    display: "flex", alignItems: "flex-start", gap: 14,
+  },
+  stepNum: {
+    width: 28, height: 28, borderRadius: "50%",
+    background: "rgba(124,58,237,0.15)", border: "1px solid rgba(124,58,237,0.3)",
+    display: "flex", alignItems: "center", justifyContent: "center",
+    fontSize: 12, fontWeight: 900, color: "#c084fc", flexShrink: 0,
+  },
 }
