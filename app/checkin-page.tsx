@@ -1,15 +1,19 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useRef } from "react"
 import { useRouter } from "next/navigation"
+import { createClient } from "@supabase/supabase-js"
 
+// ✅ FIX 1: Create client ONCE outside component — no more require() inside renders
+let _supabase: ReturnType<typeof createClient> | null = null
 function getSupabaseClient() {
   if (typeof window === "undefined") return null
+  if (_supabase) return _supabase
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL
   const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
   if (!url || !key) return null
-  const { createClient } = require("@supabase/supabase-js")
-  return createClient(url, key)
+  _supabase = createClient(url, key)
+  return _supabase
 }
 
 const QUESTIONS = [
@@ -87,6 +91,7 @@ export default function CheckInPage() {
   const [answers, setAnswers] = useState<{ area: string; val: number }[]>([])
   const [selectedOpt, setSelectedOpt] = useState<number | null>(null)
   const [saving, setSaving] = useState(false)
+  const [saveError, setSaveError] = useState(false)
 
   const handleNext = () => {
     if (selectedOpt === null) return
@@ -97,33 +102,61 @@ export default function CheckInPage() {
       setSelectedOpt(null)
     } else {
       setAnswers(newAnswers)
-      saveResults(newAnswers)
       setStage("result")
+      saveResults(newAnswers) // ✅ FIX: Don't await before showing result — show result immediately, save in background
     }
   }
 
   const saveResults = async (ans: { area: string; val: number }[]) => {
     setSaving(true)
+    setSaveError(false)
     try {
       const supabase = getSupabaseClient()
       if (!supabase) return
+
       const { data: { user } } = await supabase.auth.getUser()
       if (!user) return
+
       const total = ans.reduce((s, a) => s + a.val, 0)
       const max = QUESTIONS.length * 5
       const score = Math.round((total / max) * 100)
-      await supabase.from("mood_logs").insert({
+      const moodLabel = score >= 70 ? "good" : score >= 40 ? "okay" : "low"
+
+      // ✅ FIX 2: Insert mood log
+      const { error: moodError } = await supabase.from("mood_logs").insert({
         user_id: user.id,
-        mood: score >= 70 ? "good" : score >= 40 ? "okay" : "low",
+        mood: moodLabel,
         note: `Wellness check: ${score}/100`,
         xp_earned: 50,
       })
-      await supabase.from("profiles").update({
-        xp: supabase.rpc ? undefined : undefined,
-      }).eq("id", user.id)
+      if (moodError) throw moodError
+
+      // ✅ FIX 3: Properly increment XP using a raw increment — no more undefined
+      const { error: xpError } = await supabase.rpc("increment_xp", {
+        user_id: user.id,
+        amount: 50,
+      })
+      // If the RPC doesn't exist yet, fall back to a manual read-then-write
+      if (xpError) {
+        const { data: profile } = await supabase
+          .from("profiles")
+          .select("xp")
+          .eq("id", user.id)
+          .single()
+        if (profile) {
+          await supabase
+            .from("profiles")
+            .update({ xp: (profile.xp ?? 0) + 50 })
+            .eq("id", user.id)
+        }
+      }
+
+      // ✅ Streak update
       await supabase.rpc("update_streak", { user_id: user.id })
+
     } catch (err) {
       console.error("Error saving check-in:", err)
+      setSaveError(true)
     } finally {
       setSaving(false)
     }
@@ -133,12 +166,14 @@ export default function CheckInPage() {
     ? Math.round((answers.reduce((s, a) => s + a.val, 0) / (QUESTIONS.length * 5)) * 100)
     : 0
 
-  const getResultLabel = () => {
+  const getResultLabel = (): [string, string] => {
     if (score >= 75) return ["You're doing really well 💜", "Keep showing up like this. It's working."]
     if (score >= 50) return ["You're doing okay 🌿", "There's some good here, and some things that could use more care. That's human."]
     if (score >= 30) return ["Things feel heavy right now", "That's okay to admit. You're still here, and that matters."]
     return ["This has been a hard time 💜", "You came here and checked in. That took courage. Please talk to someone you trust."]
   }
+
+  const [resultTitle, resultSub] = getResultLabel()
 
   return (
     <div style={styles.page}>
@@ -161,7 +196,6 @@ export default function CheckInPage() {
         {/* QUIZ */}
         {stage === "quiz" && (
           <div>
-            {/* Progress */}
             <div style={styles.progressRow}>
               {QUESTIONS.map((_, i) => (
                 <div key={i} style={{
@@ -211,10 +245,19 @@ export default function CheckInPage() {
             <div style={{ fontSize: 50, marginBottom: 8 }}>💜</div>
             <div style={styles.scoreNumber}>{score}</div>
             <div style={{ fontSize: 11, color: "#7c6fa0", marginBottom: 12, textTransform: "uppercase", letterSpacing: 2 }}>out of 100</div>
-            <h2 style={{ fontSize: 20, fontWeight: 800, color: "#f0e8ff", marginBottom: 8 }}>{getResultLabel()[0]}</h2>
-            <p style={{ fontSize: 14, color: "#7c6fa0", lineHeight: 1.7, marginBottom: 20 }}>{getResultLabel()[1]}</p>
+            <h2 style={{ fontSize: 20, fontWeight: 800, color: "#f0e8ff", marginBottom: 8 }}>{resultTitle}</h2>
+            <p style={{ fontSize: 14, color: "#7c6fa0", lineHeight: 1.7, marginBottom: 20 }}>{resultSub}</p>
 
-            <div style={styles.xpBadge}>+50 XP earned 🎉</div>
+            {/* ✅ FIX: Show save status clearly */}
+            {saving ? (
+              <div style={{ ...styles.xpBadge, color: "#7c6fa0" }}>Saving your results...</div>
+            ) : saveError ? (
+              <div style={{ ...styles.xpBadge, borderColor: "rgba(239,68,68,0.3)", color: "#f87171" }}>
+                ⚠️ Couldn't save — check your connection
+              </div>
+            ) : (
+              <div style={styles.xpBadge}>+50 XP earned 🎉</div>
+            )}
 
             <div style={styles.areasGrid}>
               {answers.map((a) => (
