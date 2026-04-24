@@ -992,7 +992,7 @@ export const articles: Article[] = [
     author: {
       name: "Nadia Tijani",
       role: "Student",
-      school: "Not Specified",
+      school: "Ansar-ud-Deen Academy",
       image: "/images/authors/nadia-tijani.jpg",
       bio: "Nadia Tijani is a passionate advocate for teenage mental health who writes about the struggles teens face at home and school. Through her personal insights, she helps readers understand the profound impact of emotional support and offers practical solutions for building resilience.",
     },
@@ -1015,39 +1015,50 @@ export const articles: Article[] = [
       },
       {
         type: "paragraph",
-        text: "Busy or absent parents: A lot of parents who are preoccupied with work often sideline or totally neglect the well-being of the children, and this ultimately has a negative impact on such children.",
+        text: "Busy or absent parents: Many parents who are preoccupied with work often sideline or totally neglect the well-being of their children, which ultimately has a negative impact.",
       },
       {
         type: "paragraph",
-        text: "Strict or hard parenting styles where students are only corrected, not encouraged: This breaks the confidence of such children and pushes them only to please their parent or strict guardians.",
+        text: "Strict or hard parenting styles: When students are only corrected and not encouraged, it breaks their confidence and pushes them to please their parents or guardians rather than develop authentically.",
       },
       {
         type: "paragraph",
-        text: "Unapproachable teachers who focus on only brilliant student and often overlook others: This plays a huge role in weakening the confidence of students who are ready to work hard.",
+        text: "Unapproachable teachers: Teachers who focus only on brilliant students and overlook others play a huge role in weakening the confidence of students who are ready to work hard.",
       },
       {
         type: "paragraph",
-        text: "Poor communication between parents/teachers and words: When students are unable to say what they have in mind they become tense and anxious, and end up going through it alone. This has a huge toll on the mental health and even academic performance of such children.",
+        text: "Poor communication: When students are unable to express what they have in mind, they become tense and anxious, and end up going through it alone. This takes a huge toll on their mental health and academic performance.",
       },
       {
         type: "heading",
         text: "Emotional Effects of Lack of Support from Parents",
       },
       {
-        type: "paragraph",
-        text: "Low self-esteem and self-doubt — Anxiety and constant worry — Feeling unloved and lonely — Withdrawal from general activities — Poor performance in tests and general assessment",
+        type: "list",
+        items: [
+          "Low self-esteem and self-doubt",
+          "Anxiety and constant worry",
+          "Feeling unloved and lonely",
+          "Withdrawal from general activities",
+          "Poor performance in tests and assessments",
+        ],
       },
       {
         type: "heading",
-        text: "Effects on the Academic Life",
+        text: "Effects on Academic Life",
       },
       {
-        type: "paragraph",
-        text: "Low motivation to study — Lack of concentration during lessons — Fear of asking questions and participating in activities — Poor performance in tests and general assessments",
+        type: "list",
+        items: [
+          "Low motivation to study",
+          "Lack of concentration during lessons",
+          "Fear of asking questions and participating in activities",
+          "Poor performance in tests and assessments",
+        ],
       },
       {
         type: "quote",
-        text: "Knowing that it's almost impossible for us students to change the manner of support of our parents/guardians, we can help ourselves or other people going through lack of support by:",
+        text: "Knowing that it's almost impossible for us students to change the manner of support from our parents and guardians, we can help ourselves or other people going through lack of support by building our own support systems.",
       },
       {
         type: "heading",
@@ -1059,11 +1070,11 @@ export const articles: Article[] = [
       },
       {
         type: "paragraph",
-        text: "Strengthen yourself confidence by: Celebrating small achievements — Avoiding comparing yourself with others — Reminding yourself of what you're good at",
+        text: "Strengthen your confidence by celebrating small achievements, avoiding comparing yourself with others, and reminding yourself of what you're good at.",
       },
       {
         type: "paragraph",
-        text: "Encourage others: With this, the effect of lack of emotional support from parents/teachers/guardians can be dealt with and managed.",
+        text: "Encourage others: When you support the people around you, the effect of lack of emotional support from parents, teachers, and guardians can be dealt with and managed.",
       },
       {
         type: "paragraph",
