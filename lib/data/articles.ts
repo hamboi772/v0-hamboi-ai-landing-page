@@ -609,7 +609,6 @@ export const articles: Article[] = [
       },
       {
         type: "paragraph",
-        text: "You laugh so you don't look sensitive.",
         text: "But later, you replay it in your mind.",
       },
       {
@@ -993,7 +992,7 @@ export const articles: Article[] = [
       name: "Nadia Tijani",
       role: "Student",
       school: "Ansar-ud-Deen Academy",
-      image: "/images/authors/nadia-tijani.jpg",
+      image: "https://i.ibb.co/ynqGxjgq/1000169449.jpg", // ✅ Updated to imgbb URL
       bio: "Nadia Tijani is a passionate advocate for teenage mental health who writes about the struggles teens face at home and school. Through her personal insights, she helps readers understand the profound impact of emotional support and offers practical solutions for building resilience.",
     },
     category: "Student Voices",
