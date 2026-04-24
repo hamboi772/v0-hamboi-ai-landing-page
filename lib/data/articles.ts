@@ -900,38 +900,186 @@ export const articles: Article[] = [
         text: "One's emotion is one's greatest asset. Learn to treat it with care.",
       },
     ],
-  },{
+  },
+  {
     slug: "the-importance-of-mental-health-for-teenagers",
     title: "The Importance of Mental Health for Teenagers",
-    description: "Mental health is just as important as physical health. Discover why teenage mental health matters and how to develop healthy coping strategies.",
+    description:
+      "Mental health is just as important as physical health. Discover why teenage mental health matters and how to develop healthy coping strategies.",
     author: {
       name: "Shittu Robiu",
       role: "Head Boy",
       school: "Ansar-ud-Deen Academy",
       image: "/images/authors/shittu-robiu.jpg",
-      bio: "Shittu Robiu is the Head Boy of Ansar-ud-Deen Academy, passionate about youth mental health and wellbeing.",
+      bio: "Shittu Robiu is the Head Boy of Ansar-ud-Deen Academy, where he leads with wisdom and compassion. Passionate about youth mental health and wellbeing, Shittu writes to inspire his peers to prioritize their mental health and seek support when needed.",
     },
     category: "Student Voices",
     readTime: "7 min read",
     publishedDate: "March 2026",
     featured: false,
     content: [
-      { type: "paragraph", text: "Mental health is just as important as physical health, yet it is often overlooked, especially among teenagers. Young people today face many challenges — academic pressure, social expectations, personal changes, and uncertainty about the future. These pressures can lead to stress, anxiety, low self-esteem, and even depression if not addressed in healthy ways." },
-      { type: "heading", text: "Why Mental Health Matters" },
-      { type: "paragraph", text: "Mental health affects how we think, feel, and behave; it influences learning, relationships, decision-making, and overall well-being. Poor mental health can make everyday tasks feel overwhelming, while good mental health helps teens cope with challenges, build resilience, and reach their full potential." },
-      { type: "heading", text: "Building Healthy Coping Strategies" },
-      { type: "paragraph", text: "Caring for mental health means understanding your emotions, managing stress, and seeking support when needed. Simple habits like talking to a trusted friend, getting enough rest, staying physically active, and practicing mindfulness can make a huge difference." },
-      { type: "paragraph", text: "Developing healthy coping strategies, such as journaling, meditation, or creative outlets like art and music, can also help teenagers process emotions and reduce anxiety." },
-      { type: "heading", text: "The Power of Support Systems" },
-      { type: "paragraph", text: "Support systems are essential, both in real life and online. Many teens find comfort in spaces where they can express themselves without judgment, learn about emotional health, and feel understood." },
-      { type: "paragraph", text: "Hamboi Mindcare — Hope And Mind Balance Outreach Initiative — is one such platform that provides 24/7 emotional support through an AI-powered companion, mood-tracking tools, and personalized coping strategies to help teens understand and manage their emotions." },
-      { type: "paragraph", text: "The platform also offers crisis resources and access to professional guidance when needed, while featuring community-generated articles and real stories from teens, helping young people feel less alone and more empowered to take care of their mental well-being." },
-      { type: "heading", text: "Education and Awareness" },
-      { type: "paragraph", text: "Education about mental health empowers teens to recognize signs of emotional distress in themselves and others, encouraging early intervention and healthier choices." },
-      { type: "quote", text: "Mental health is the foundation for a balanced and fulfilling life." },
-      { type: "heading", text: "Moving Forward" },
-      { type: "paragraph", text: "By learning to recognize emotions, manage stress, and seek guidance, teenagers can develop the resilience and confidence needed to thrive. With supportive communities, education, and platforms like Hamboi Mindcare, young people have access to tools and guidance that help them face challenges, maintain emotional balance, and grow into healthier, more self-aware individuals." },
-      { type: "paragraph", text: "Remember, seeking help is not a sign of weakness — it is a sign of strength and self-awareness. Your mental health matters, and you deserve support." },
+      {
+        type: "paragraph",
+        text: "Mental health is just as important as physical health, yet it is often overlooked, especially among teenagers. Young people today face many challenges — academic pressure, social expectations, personal changes, and uncertainty about the future. These pressures can lead to stress, anxiety, low self-esteem, and even depression if not addressed in healthy ways.",
+      },
+      {
+        type: "heading",
+        text: "Why Mental Health Matters",
+      },
+      {
+        type: "paragraph",
+        text: "Mental health affects how we think, feel, and behave; it influences learning, relationships, decision-making, and overall well-being. Poor mental health can make everyday tasks feel overwhelming, while good mental health helps teens cope with challenges, build resilience, and reach their full potential.",
+      },
+      {
+        type: "heading",
+        text: "Building Healthy Coping Strategies",
+      },
+      {
+        type: "paragraph",
+        text: "Caring for mental health means understanding your emotions, managing stress, and seeking support when needed. Simple habits like talking to a trusted friend, getting enough rest, staying physically active, and practicing mindfulness can make a huge difference.",
+      },
+      {
+        type: "paragraph",
+        text: "Developing healthy coping strategies, such as journaling, meditation, or creative outlets like art and music, can also help teenagers process emotions and reduce anxiety.",
+      },
+      {
+        type: "heading",
+        text: "The Power of Support Systems",
+      },
+      {
+        type: "paragraph",
+        text: "Support systems are essential, both in real life and online. Many teens find comfort in spaces where they can express themselves without judgment, learn about emotional health, and feel understood.",
+      },
+      {
+        type: "paragraph",
+        text: "Hamboi Mindcare — Hope And Mind Balance Outreach Initiative — is one such platform that provides 24/7 emotional support through an AI-powered companion, mood-tracking tools, and personalized coping strategies to help teens understand and manage their emotions.",
+      },
+      {
+        type: "paragraph",
+        text: "The platform also offers crisis resources and access to professional guidance when needed, while featuring community-generated articles and real stories from teens, helping young people feel less alone and more empowered to take care of their mental well-being.",
+      },
+      {
+        type: "heading",
+        text: "Education and Awareness",
+      },
+      {
+        type: "paragraph",
+        text: "Education about mental health empowers teens to recognize signs of emotional distress in themselves and others, encouraging early intervention and healthier choices.",
+      },
+      {
+        type: "quote",
+        text: "Mental health is the foundation for a balanced and fulfilling life.",
+      },
+      {
+        type: "heading",
+        text: "Moving Forward",
+      },
+      {
+        type: "paragraph",
+        text: "By learning to recognize emotions, manage stress, and seek guidance, teenagers can develop the resilience and confidence needed to thrive. With supportive communities, education, and platforms like Hamboi Mindcare, young people have access to tools and guidance that help them face challenges, maintain emotional balance, and grow into healthier, more self-aware individuals.",
+      },
+      {
+        type: "paragraph",
+        text: "Remember, seeking help is not a sign of weakness — it is a sign of strength and self-awareness. Your mental health matters, and you deserve support.",
+      },
+    ],
+  },
+  {
+    slug: "lack-of-emotional-support-at-home-or-school",
+    title: "Lack of Emotional Support at Home or School",
+    description:
+      "Understanding the impact of missing emotional support and practical strategies for building your own support circle and managing without it.",
+    author: {
+      name: "Nadia Tijani",
+      role: "Student",
+      school: "Ansar-ud-Deen Academy",
+      image: "/images/authors/nadia-tijani.jpg",
+      bio: "Nadia Tijani is a passionate advocate for teenage mental health who writes about the struggles teens face at home and school. Through her personal insights, she helps readers understand the profound impact of emotional support and offers practical solutions for building resilience.",
+    },
+    category: "Student Voices",
+    readTime: "8 min read",
+    publishedDate: "April 2026",
+    featured: false,
+    content: [
+      {
+        type: "heading",
+        text: "What is Emotional Support?",
+      },
+      {
+        type: "paragraph",
+        text: "Emotional support means feeling understood, cared for, and valued by people around you. In schools, support from parents and teachers is crucial for the development of students both mentally and academically.",
+      },
+      {
+        type: "heading",
+        text: "Common Causes of Lack of Emotional Support",
+      },
+      {
+        type: "paragraph",
+        text: "Busy or absent parents: Many parents who are preoccupied with work often sideline or totally neglect the well-being of their children, which ultimately has a negative impact.",
+      },
+      {
+        type: "paragraph",
+        text: "Strict or hard parenting styles: When students are only corrected and not encouraged, it breaks their confidence and pushes them to please their parents or guardians rather than develop authentically.",
+      },
+      {
+        type: "paragraph",
+        text: "Unapproachable teachers: Teachers who focus only on brilliant students and overlook others play a huge role in weakening the confidence of students who are ready to work hard.",
+      },
+      {
+        type: "paragraph",
+        text: "Poor communication: When students are unable to express what they have in mind, they become tense and anxious, and end up going through it alone. This takes a huge toll on their mental health and academic performance.",
+      },
+      {
+        type: "heading",
+        text: "Emotional Effects of Lack of Support from Parents",
+      },
+      {
+        type: "list",
+        items: [
+          "Low self-esteem and self-doubt",
+          "Anxiety and constant worry",
+          "Feeling unloved and lonely",
+          "Withdrawal from general activities",
+          "Poor performance in tests and assessments",
+        ],
+      },
+      {
+        type: "heading",
+        text: "Effects on Academic Life",
+      },
+      {
+        type: "list",
+        items: [
+          "Low motivation to study",
+          "Lack of concentration during lessons",
+          "Fear of asking questions and participating in activities",
+          "Poor performance in tests and assessments",
+        ],
+      },
+      {
+        type: "quote",
+        text: "Knowing that it's almost impossible for us students to change the manner of support from our parents and guardians, we can help ourselves or other people going through lack of support by building our own support systems.",
+      },
+      {
+        type: "heading",
+        text: "How to Build Your Own Support Circle",
+      },
+      {
+        type: "paragraph",
+        text: "Express your feelings: Talk to a trusted person about how you feel and what you're going through.",
+      },
+      {
+        type: "paragraph",
+        text: "Strengthen your confidence by celebrating small achievements, avoiding comparing yourself with others, and reminding yourself of what you're good at.",
+      },
+      {
+        type: "paragraph",
+        text: "Encourage others: When you support the people around you, the effect of lack of emotional support from parents, teachers, and guardians can be dealt with and managed.",
+      },
+      {
+        type: "paragraph",
+        text: "Remember, you are not alone in this struggle. Many teenagers face similar challenges, and reaching out—whether to a trusted friend, a mentor, or a platform like Hamboi Mindcare—can make all the difference. Your mental health and well-being matter, and you deserve to feel supported.",
+      },
     ],
   },
 ]
