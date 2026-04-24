@@ -984,6 +984,93 @@ export const articles: Article[] = [
       },
     ],
   },
+  {
+    slug: "lack-of-emotional-support-at-home-or-school",
+    title: "Lack of Emotional Support at Home or School",
+    description:
+      "Understanding the impact of missing emotional support and practical strategies for building your own support circle and managing without it.",
+    author: {
+      name: "Nadia Tijani",
+      role: "Student",
+      school: "Not Specified",
+      image: "/images/authors/nadia-tijani.jpg",
+      bio: "Nadia Tijani is a passionate advocate for teenage mental health who writes about the struggles teens face at home and school. Through her personal insights, she helps readers understand the profound impact of emotional support and offers practical solutions for building resilience.",
+    },
+    category: "Student Voices",
+    readTime: "8 min read",
+    publishedDate: "April 2026",
+    featured: false,
+    content: [
+      {
+        type: "heading",
+        text: "What is Emotional Support?",
+      },
+      {
+        type: "paragraph",
+        text: "Emotional support means feeling understood, cared for, and valued by people around you. In schools, support from parents and teachers is crucial for the development of students both mentally and academically.",
+      },
+      {
+        type: "heading",
+        text: "Common Causes of Lack of Emotional Support",
+      },
+      {
+        type: "paragraph",
+        text: "Busy or absent parents: A lot of parents who are preoccupied with work often sideline or totally neglect the well-being of the children, and this ultimately has a negative impact on such children.",
+      },
+      {
+        type: "paragraph",
+        text: "Strict or hard parenting styles where students are only corrected, not encouraged: This breaks the confidence of such children and pushes them only to please their parent or strict guardians.",
+      },
+      {
+        type: "paragraph",
+        text: "Unapproachable teachers who focus on only brilliant student and often overlook others: This plays a huge role in weakening the confidence of students who are ready to work hard.",
+      },
+      {
+        type: "paragraph",
+        text: "Poor communication between parents/teachers and words: When students are unable to say what they have in mind they become tense and anxious, and end up going through it alone. This has a huge toll on the mental health and even academic performance of such children.",
+      },
+      {
+        type: "heading",
+        text: "Emotional Effects of Lack of Support from Parents",
+      },
+      {
+        type: "paragraph",
+        text: "Low self-esteem and self-doubt — Anxiety and constant worry — Feeling unloved and lonely — Withdrawal from general activities — Poor performance in tests and general assessment",
+      },
+      {
+        type: "heading",
+        text: "Effects on the Academic Life",
+      },
+      {
+        type: "paragraph",
+        text: "Low motivation to study — Lack of concentration during lessons — Fear of asking questions and participating in activities — Poor performance in tests and general assessments",
+      },
+      {
+        type: "quote",
+        text: "Knowing that it's almost impossible for us students to change the manner of support of our parents/guardians, we can help ourselves or other people going through lack of support by:",
+      },
+      {
+        type: "heading",
+        text: "How to Build Your Own Support Circle",
+      },
+      {
+        type: "paragraph",
+        text: "Express your feelings: Talk to a trusted person about how you feel and what you're going through.",
+      },
+      {
+        type: "paragraph",
+        text: "Strengthen yourself confidence by: Celebrating small achievements — Avoiding comparing yourself with others — Reminding yourself of what you're good at",
+      },
+      {
+        type: "paragraph",
+        text: "Encourage others: With this, the effect of lack of emotional support from parents/teachers/guardians can be dealt with and managed.",
+      },
+      {
+        type: "paragraph",
+        text: "Remember, you are not alone in this struggle. Many teenagers face similar challenges, and reaching out—whether to a trusted friend, a mentor, or a platform like Hamboi Mindcare—can make all the difference. Your mental health and well-being matter, and you deserve to feel supported.",
+      },
+    ],
+  },
 ]
 
 export function getArticleBySlug(slug: string): Article | undefined {
