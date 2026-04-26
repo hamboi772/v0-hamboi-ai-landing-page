@@ -1,392 +1,525 @@
 "use client"
 
-import { useState, useRef } from "react"
+import type React from "react"
+import { useState, useEffect, useRef } from "react"
 import { ChevronRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
-// ─── Data ─────────────────────────────────────────────────────────────────────
-const MOODS = [
-  { e: "😭", label: "Rough", color: "#f87171" },
-  { e: "😔", label: "Low",   color: "#fb923c" },
-  { e: "😐", label: "Meh",   color: "#facc15" },
-  { e: "🙂", label: "Okay",  color: "#4ade80" },
-  { e: "🤩", label: "Great", color: "#a78bfa" },
-]
-
-const LEVELS = [
-  { level: 1, name: "Seed",    icon: "🌱", min: 0,   max: 100  },
-  { level: 2, name: "Sprout",  icon: "🌿", min: 100, max: 250  },
-  { level: 3, name: "Sapling", icon: "🌳", min: 250, max: 500  },
-  { level: 4, name: "Bloom",   icon: "🌸", min: 500, max: 900  },
-  { level: 5, name: "Flame",   icon: "🔥", min: 900, max: 1400 },
-  { level: 6, name: "Storm",   icon: "⚡", min: 1400, max: 2000 },
-  { level: 7, name: "Legend",  icon: "👑", min: 2000, max: 9999 },
-]
-
-const BADGES = [
-  { icon: "💜", name: "First Step",     desc: "Log your first mood",  earned: true  },
-  { icon: "🔥", name: "On Fire",        desc: "3-day streak",         earned: true  },
-  { icon: "🌍", name: "World Changer",  desc: "Refer 3 friends",      earned: false },
-  { icon: "👑", name: "Legend",         desc: "Reach Level 7",        earned: false },
-]
-
-const MISSIONS = [
-  { icon: "😊", title: "Log your mood",       xp: 10,  done: true  },
-  { icon: "🧘", title: "Box breathing",        xp: 20,  done: true  },
-  { icon: "📝", title: "Write one sentence",   xp: 15,  done: false },
-  { icon: "💬", title: "Talk to Hamboi",       xp: 25,  done: false },
-]
-
-function getLevel(xp: number) {
-  return LEVELS.findLast((l) => xp >= l.min) ?? LEVELS[0]
-}
-function getLevelProgress(xp: number) {
-  const lvl = getLevel(xp)
-  return Math.min(((xp - lvl.min) / (lvl.max - lvl.min)) * 100, 100)
+// ─── Types ────────────────────────────────────────────────────────────────────
+interface Message {
+  id: number
+  from: "hamboi" | "user"
+  text: string
+  delay?: number
 }
 
-// ─── XP Float ─────────────────────────────────────────────────────────────────
-function XPFloat({ amount, onDone }: { amount: number; onDone: () => void }) {
-  useState(() => { setTimeout(onDone, 1100) })
+interface Question {
+  id: number
+  message: string
+  replies: { text: string; value: string }[]
+}
+
+interface Persona {
+  id: string
+  name: string
+  emoji: string
+  tagline: string
+  description: string
+  color: string
+  features: string[]
+  message: string
+}
+
+// ─── Questions ────────────────────────────────────────────────────────────────
+const QUESTIONS: Question[] = [
+  {
+    id: 1,
+    message: "Real talk — when something is stressing you out, what do you usually do? 👀",
+    replies: [
+      { text: "Keep it in and act like I'm fine 😶", value: "internalize" },
+      { text: "Distract myself with my phone or music 🎧", value: "distract" },
+      { text: "Talk to someone I trust 💬", value: "social" },
+      { text: "I honestly don't know 🤷", value: "unsure" },
+    ],
+  },
+  {
+    id: 2,
+    message: "How's school or life pressure been lately? Be honest with me 🙏",
+    replies: [
+      { text: "It's a lot. I'm barely keeping up 😮‍💨", value: "overwhelmed" },
+      { text: "Stressful but I'm managing somehow 😤", value: "coping" },
+      { text: "It comes and goes tbh 🌤️", value: "mixed" },
+      { text: "Actually doing okay rn 🙂", value: "okay" },
+    ],
+  },
+  {
+    id: 3,
+    message: "When you're having a bad day, what do you need most? 💭",
+    replies: [
+      { text: "Someone to just listen, no advice 🫂", value: "listened" },
+      { text: "Practical tips to feel better fast ⚡", value: "practical" },
+      { text: "To be left alone until I'm ready 🌙", value: "space" },
+      { text: "Honestly just distraction 📱", value: "distraction" },
+    ],
+  },
+  {
+    id: 4,
+    message: "Last one — do you feel like people around you actually understand what you go through? 🤔",
+    replies: [
+      { text: "Not at all. I feel invisible sometimes 😔", value: "unseen" },
+      { text: "Maybe one or two people get it 🤏", value: "few" },
+      { text: "Sort of, but it's complicated 😶‍🌫️", value: "complicated" },
+      { text: "Yeah I have good people around me 💜", value: "supported" },
+    ],
+  },
+]
+
+// ─── Personas ─────────────────────────────────────────────────────────────────
+const PERSONAS: Record<string, Persona> = {
+  "the-quiet-fighter": {
+    id: "the-quiet-fighter",
+    name: "The Quiet Fighter",
+    emoji: "🌊",
+    tagline: "You carry more than people realise.",
+    color: "#6366f1",
+    description:
+      "You deal with a lot internally — keeping things together on the outside while processing everything alone. You're stronger than you think, but you deserve support too.",
+    features: ["Daily check-ins", "Private journal", "Breathing exercises"],
+    message: "Hamboi was built for people like you. A safe space that doesn't judge — just listens.",
+  },
+  "the-resilient-one": {
+    id: "the-resilient-one",
+    name: "The Resilient One",
+    emoji: "🔥",
+    tagline: "You keep going even when it's hard.",
+    color: "#f97316",
+    description:
+      "Life throws a lot at you but you find a way through it. You're not unaffected — you're just built different. The right tools can help you go from surviving to thriving.",
+    features: ["Streak tracking", "Daily missions", "XP & level system"],
+    message: "Your consistency deserves to be rewarded. Hamboi turns your daily effort into progress you can actually see.",
+  },
+  "the-overthinker": {
+    id: "the-overthinker",
+    name: "The Overthinker",
+    emoji: "🌀",
+    tagline: "Your mind never really switches off.",
+    color: "#a855f7",
+    description:
+      "You feel things deeply and your brain is always running. Sometimes that's a superpower — sometimes it keeps you up at night. You need an outlet, not more advice.",
+    features: ["Talk to Hamboi AI", "Journaling prompts", "Grounding exercises"],
+    message: "Hamboi gives your thoughts somewhere to go — so they don't stay stuck in your head.",
+  },
+  "the-social-soul": {
+    id: "the-social-soul",
+    name: "The Social Soul",
+    emoji: "💬",
+    tagline: "Connection is how you heal.",
+    color: "#22c55e",
+    description:
+      "You process things by talking, sharing, and being around people. When you feel disconnected, everything feels harder. You thrive when you have community.",
+    features: ["Community leaderboard", "Referral challenges", "Shared badges"],
+    message: "Hamboi's community was made for you — grow together with other Nigerian teens who get it.",
+  },
+  "the-grounded-one": {
+    id: "the-grounded-one",
+    name: "The Grounded One",
+    emoji: "🌿",
+    tagline: "You know yourself better than most.",
+    color: "#4ade80",
+    description:
+      "You're in a decent place and you know what keeps you stable. You're not looking for a fix — just tools to stay consistent and keep growing.",
+    features: ["Weekly challenges", "Growth tracking", "Wellness check-ins"],
+    message: "Hamboi helps you build on what's already working — and stay that way.",
+  },
+}
+
+// ─── Persona logic ────────────────────────────────────────────────────────────
+function getPersona(answers: string[]): Persona {
+  const has = (v: string) => answers.includes(v)
+
+  if (has("internalize") && (has("unseen") || has("overwhelmed"))) return PERSONAS["the-quiet-fighter"]
+  if (has("social") || has("supported")) return PERSONAS["the-social-soul"]
+  if (has("distract") && (has("few") || has("unseen"))) return PERSONAS["the-overthinker"]
+  if (has("coping") || has("mixed")) return PERSONAS["the-resilient-one"]
+  if (has("okay") && has("supported")) return PERSONAS["the-grounded-one"]
+
+  // fallback by most common pattern
+  if (answers.filter(a => ["internalize", "unseen", "space"].includes(a)).length >= 2)
+    return PERSONAS["the-quiet-fighter"]
+  if (answers.filter(a => ["practical", "distract", "distraction"].includes(a)).length >= 2)
+    return PERSONAS["the-overthinker"]
+
+  return PERSONAS["the-resilient-one"]
+}
+
+// ─── Typing bubble ────────────────────────────────────────────────────────────
+function TypingBubble() {
   return (
-    <div style={{
-      position: "absolute", top: -8, right: 8,
-      fontSize: 15, fontWeight: 900, color: "#f5c842",
-      animation: "xpFloat 1.1s ease forwards",
-      pointerEvents: "none", zIndex: 10,
-      textShadow: "0 0 12px rgba(245,200,66,0.5)",
-    }}>
-      +{amount} XP ✨
+    <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 12 }}>
+      <div style={avatarStyle}>H</div>
+      <div style={{ background: "#1e1535", borderRadius: "18px 18px 18px 4px", padding: "12px 16px", display: "flex", gap: 5, alignItems: "center" }}>
+        {[0, 1, 2].map(i => (
+          <div key={i} style={{
+            width: 7, height: 7, borderRadius: "50%", background: "#7c6fa0",
+            animation: `bounce 1.2s ease-in-out ${i * 0.2}s infinite`,
+          }} />
+        ))}
+      </div>
     </div>
   )
 }
 
-// ─── Main export ──────────────────────────────────────────────────────────────
+const avatarStyle: React.CSSProperties = {
+  width: 34, height: 34, borderRadius: "50%", flexShrink: 0,
+  background: "linear-gradient(135deg,#7C3AED,#a855f7)",
+  display: "flex", alignItems: "center", justifyContent: "center",
+  fontSize: 13, fontWeight: 900, color: "white",
+}
+
+// ─── Main Component ───────────────────────────────────────────────────────────
 export function SurveySection() {
-  const [xp, setXp]                   = useState(45)
-  const [streak]                       = useState(4)
-  const [selectedMood, setSelectedMood] = useState<number | null>(null)
-  const [moodDone, setMoodDone]         = useState(false)
-  const [missions, setMissions]         = useState(MISSIONS)
-  const [activeTab, setActiveTab]       = useState<"mood" | "missions" | "badges">("mood")
-  const [xpPop, setXpPop]              = useState<number | null>(null)
-  const [breathPhase, setBreathPhase]   = useState<null | "in" | "hold" | "out">(null)
-  const [breathDone, setBreathDone]     = useState(false)
-  const breathRef                       = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const [stage, setStage] = useState<"intro" | "chat" | "result">("intro")
+  const [messages, setMessages] = useState<Message[]>([])
+  const [currentQ, setCurrentQ] = useState(0)
+  const [answers, setAnswers] = useState<string[]>([])
+  const [isTyping, setIsTyping] = useState(false)
+  const [canReply, setCanReply] = useState(false)
+  const [persona, setPersona] = useState<Persona | null>(null)
+  const [resultVisible, setResultVisible] = useState(false)
+  const scrollRef = useRef<HTMLDivElement>(null)
+  const msgId = useRef(0)
 
-  const level    = getLevel(xp)
-  const progress = getLevelProgress(xp)
-  const nextLevel = LEVELS.find((l) => l.level === level.level + 1)
-
-  const addXP = (amount: number) => {
-    setXp((prev) => prev + amount)
-    setXpPop(amount)
+  const addMsg = (msg: Omit<Message, "id">) => {
+    msgId.current += 1
+    setMessages(prev => [...prev, { ...msg, id: msgId.current }])
   }
 
-  const logMood = (i: number) => {
-    if (moodDone) return
-    setSelectedMood(i)
-    setMoodDone(true)
-    addXP(10)
+  useEffect(() => {
+    scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: "smooth" })
+  }, [messages, isTyping])
+
+  const startChat = () => {
+    setStage("chat")
+    setIsTyping(true)
+    setTimeout(() => {
+      setIsTyping(false)
+      addMsg({ from: "hamboi", text: "Hey 👋 I'm Hamboi. I just want to get to know you a little — no wrong answers here." })
+      setTimeout(() => {
+        setIsTyping(true)
+        setTimeout(() => {
+          setIsTyping(false)
+          addMsg({ from: "hamboi", text: QUESTIONS[0].message })
+          setCanReply(true)
+        }, 1400)
+      }, 800)
+    }, 1200)
   }
 
-  const completeMission = (idx: number) => {
-    if (missions[idx].done) return
-    setMissions((prev) => prev.map((m, i) => i === idx ? { ...m, done: true } : m))
-    addXP(missions[idx].xp)
-  }
+  const handleReply = (reply: { text: string; value: string }) => {
+    if (!canReply) return
+    setCanReply(false)
 
-  const startBreath = () => {
-    if (breathRef.current || breathDone) return
-    let count = 0
-    const sequence: ("in" | "hold" | "out")[] = ["in", "hold", "out", "hold"]
-    const durations = [4000, 4000, 4000, 4000]
-    let idx = 0
+    addMsg({ from: "user", text: reply.text })
+    const newAnswers = [...answers, reply.value]
+    setAnswers(newAnswers)
 
-    const step = () => {
-      const phase = sequence[idx % sequence.length]
-      setBreathPhase(phase)
-      if (phase === "in") count++
-      if (count >= 3) {
-        setTimeout(() => { setBreathPhase(null); setBreathDone(true); addXP(20) }, durations[idx % durations.length])
-        return
-      }
-      breathRef.current = setTimeout(() => { idx++; step() }, durations[idx % durations.length])
+    const nextQ = currentQ + 1
+
+    if (nextQ >= QUESTIONS.length) {
+      // Done — show persona
+      setIsTyping(true)
+      setTimeout(() => {
+        setIsTyping(false)
+        addMsg({ from: "hamboi", text: "Okay I think I get you now 💜 Give me a sec..." })
+        setTimeout(() => {
+          const result = getPersona(newAnswers)
+          setPersona(result)
+          setStage("result")
+          setTimeout(() => setResultVisible(true), 300)
+        }, 1600)
+      }, 1200)
+    } else {
+      // Next question
+      setIsTyping(true)
+
+      // Occasional acknowledgement
+      const acks = ["Got it 🙏", "Okay, real 💜", "I hear you.", "Thanks for being honest 🫂", "Noted 💜"]
+      const useAck = Math.random() > 0.4
+
+      setTimeout(() => {
+        if (useAck) {
+          setIsTyping(false)
+          addMsg({ from: "hamboi", text: acks[Math.floor(Math.random() * acks.length)] })
+          setTimeout(() => {
+            setIsTyping(true)
+            setTimeout(() => {
+              setIsTyping(false)
+              addMsg({ from: "hamboi", text: QUESTIONS[nextQ].message })
+              setCurrentQ(nextQ)
+              setCanReply(true)
+            }, 1300)
+          }, 600)
+        } else {
+          setTimeout(() => {
+            setIsTyping(false)
+            addMsg({ from: "hamboi", text: QUESTIONS[nextQ].message })
+            setCurrentQ(nextQ)
+            setCanReply(true)
+          }, 1300)
+        }
+      }, 1000)
     }
-    step()
+  }
+
+  const reset = () => {
+    setStage("intro")
+    setMessages([])
+    setAnswers([])
+    setCurrentQ(0)
+    setIsTyping(false)
+    setCanReply(false)
+    setPersona(null)
+    setResultVisible(false)
+    msgId.current = 0
   }
 
   return (
     <section className="py-20 px-4 bg-gradient-to-b from-hamboi-dark-bg via-[#1a1a3e] to-hamboi-dark-bg">
-      <div className="max-w-3xl mx-auto">
+      <div className="max-w-2xl mx-auto">
 
         {/* ── Header ── */}
         <div className="text-center mb-14">
           <div className="inline-flex items-center gap-2 bg-purple-900/40 border border-purple-500/40 text-purple-300 px-4 py-2 rounded-full text-sm font-bold mb-6">
-            ⚡ Live Preview — Try It Now
+            💬 Find your Hamboi type
           </div>
           <h2 className="text-4xl md:text-5xl font-black text-white mb-5 leading-tight">
-            Mental health that feels<br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400">like a game</span>
+            What kind of person<br />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400">are you really?</span>
           </h2>
           <p className="text-gray-400 text-lg max-w-xl mx-auto">
-            Streaks. XP. Badges. Levels. This is what Hamboi looks like — tap around and see for yourself.
+            4 quick questions. Hamboi chats with you, then shows you your mental health type — and exactly how the app was built for you.
           </p>
         </div>
 
-        {/* ── Game Card ── */}
-        <div style={{
-          background: "#0F0A1E",
-          border: "1px solid rgba(124,58,237,0.35)",
-          borderRadius: 24,
-          overflow: "hidden",
-          boxShadow: "0 0 60px rgba(124,58,237,0.15)",
-          fontFamily: "'Nunito', sans-serif",
-          position: "relative",
-        }}>
-
-          {/* XP float */}
-          {xpPop !== null && (
-            <XPFloat amount={xpPop} onDone={() => setXpPop(null)} />
-          )}
-
-          {/* Top bar */}
-          <div style={{ padding: "16px 20px", borderBottom: "1px solid #1e1535", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-            <div>
-              <div style={{ fontSize: 18, fontWeight: 900, color: "#c084fc" }}>Hamboi 💜</div>
-              <div style={{ fontSize: 11, color: "#6b5e8e" }}>Your mental health game</div>
-            </div>
-            <div style={{ display: "flex", alignItems: "center", gap: 6, background: "rgba(245,200,66,0.08)", border: "1px solid rgba(245,200,66,0.2)", borderRadius: 99, padding: "7px 14px" }}>
-              <span style={{ fontSize: 16 }}>🔥</span>
-              <span style={{ fontSize: 17, fontWeight: 900, color: "#f5c842" }}>{streak}</span>
-              <span style={{ fontSize: 10, color: "#6b5e8e" }}>day streak</span>
-            </div>
+        {/* ── Intro card ── */}
+        {stage === "intro" && (
+          <div style={{
+            background: "#0F0A1E", border: "1px solid rgba(124,58,237,0.35)",
+            borderRadius: 24, padding: "40px 32px", textAlign: "center",
+            boxShadow: "0 0 60px rgba(124,58,237,0.12)",
+          }}>
+            <div style={{ fontSize: 56, marginBottom: 20 }}>💜</div>
+            <h3 style={{ fontSize: 22, fontWeight: 900, color: "#f0e8ff", marginBottom: 10, fontFamily: "'Nunito',sans-serif" }}>
+              Talk to Hamboi
+            </h3>
+            <p style={{ fontSize: 14, color: "#7c6fa0", lineHeight: 1.7, marginBottom: 28, maxWidth: 340, margin: "0 auto 28px" }}>
+              Answer 4 honest questions and find out your mental health persona — plus how Hamboi was designed specifically for someone like you.
+            </p>
+            <button
+              onClick={startChat}
+              style={{
+                background: "linear-gradient(135deg,#7C3AED,#9333ea)",
+                color: "white", border: "none", borderRadius: 14,
+                padding: "14px 32px", fontSize: 15, fontWeight: 800,
+                cursor: "pointer", fontFamily: "'Nunito',sans-serif",
+                boxShadow: "0 4px 20px rgba(124,58,237,0.4)",
+              }}
+            >
+              Start the conversation →
+            </button>
+            <p style={{ fontSize: 11, color: "#4a3f6b", marginTop: 16 }}>
+              Anonymous · Takes about 1 minute · Not a diagnosis
+            </p>
           </div>
+        )}
 
-          {/* Level bar */}
-          <div style={{ margin: "14px 20px", background: "#150e2b", border: "1px solid #1e1535", borderRadius: 16, padding: 16 }}>
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12 }}>
-              <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-                <div style={{ fontSize: 26, background: "rgba(124,58,237,0.15)", borderRadius: 10, padding: "6px 8px", lineHeight: 1 }}>{level.icon}</div>
-                <div>
-                  <div style={{ fontSize: 16, fontWeight: 900, color: "#f0e8ff" }}>{level.name}</div>
-                  <div style={{ fontSize: 11, color: "#6b5e8e" }}>Level {level.level}</div>
+        {/* ── Chat ── */}
+        {stage === "chat" && (
+          <div style={{
+            background: "#0F0A1E", border: "1px solid rgba(124,58,237,0.25)",
+            borderRadius: 24, overflow: "hidden",
+            boxShadow: "0 0 60px rgba(124,58,237,0.1)",
+            fontFamily: "'Nunito',sans-serif",
+          }}>
+            {/* Chat header */}
+            <div style={{ background: "#150e2b", borderBottom: "1px solid #1e1535", padding: "14px 20px", display: "flex", alignItems: "center", gap: 12 }}>
+              <div style={avatarStyle}>H</div>
+              <div>
+                <div style={{ fontSize: 15, fontWeight: 800, color: "#f0e8ff" }}>Hamboi</div>
+                <div style={{ fontSize: 11, color: "#22c55e", display: "flex", alignItems: "center", gap: 4 }}>
+                  <div style={{ width: 6, height: 6, borderRadius: "50%", background: "#22c55e" }} />
+                  Online
                 </div>
               </div>
-              <div style={{ display: "flex", alignItems: "baseline", gap: 4 }}>
-                <span style={{ fontSize: 22, fontWeight: 900, color: "#f5c842", transition: "all 0.4s" }}>{xp}</span>
-                <span style={{ fontSize: 11, color: "#6b5e8e" }}>XP</span>
-              </div>
-            </div>
-            <div style={{ height: 7, background: "rgba(255,255,255,0.06)", borderRadius: 99, overflow: "hidden" }}>
-              <div style={{ height: "100%", background: "linear-gradient(90deg,#5b21b6,#7C3AED,#a855f7)", borderRadius: 99, width: `${progress}%`, transition: "width 0.8s ease" }} />
-            </div>
-            {nextLevel && (
-              <div style={{ fontSize: 10, color: "#6b5e8e", marginTop: 5, textAlign: "right" }}>
-                {nextLevel.min - xp} XP to {nextLevel.name} {nextLevel.icon}
-              </div>
-            )}
-          </div>
-
-          {/* Tabs */}
-          <div style={{ display: "flex", gap: 6, padding: "0 20px 14px" }}>
-            {(["mood", "missions", "badges"] as const).map((tab) => (
-              <button
-                key={tab}
-                onClick={() => setActiveTab(tab)}
-                style={{
-                  flex: 1, padding: "9px 4px", borderRadius: 12, fontSize: 12, fontWeight: 800,
-                  cursor: "pointer", border: "1px solid",
-                  borderColor: activeTab === tab ? "rgba(124,58,237,0.5)" : "#1e1535",
-                  background: activeTab === tab ? "rgba(124,58,237,0.15)" : "rgba(255,255,255,0.03)",
-                  color: activeTab === tab ? "#c084fc" : "#6b5e8e",
-                  fontFamily: "'Nunito',sans-serif", transition: "all 0.2s",
-                }}
-              >
-                {{ mood: "😊 Mood", missions: "⚡ Missions", badges: "🏅 Badges" }[tab]}
-              </button>
-            ))}
-          </div>
-
-          {/* ── MOOD TAB ── */}
-          {activeTab === "mood" && (
-            <div style={{ padding: "0 20px 20px" }}>
-              <div style={{ background: "#150e2b", border: "1px solid #1e1535", borderRadius: 16, padding: 16, marginBottom: 10 }}>
-                <div style={{ fontSize: 13, fontWeight: 800, color: "#f0e8ff", marginBottom: 4 }}>
-                  {moodDone ? "Mood logged ✓" : "How are you feeling right now?"}
-                </div>
-                {!moodDone && <div style={{ fontSize: 11, color: "#6b5e8e", marginBottom: 14 }}>One tap. No quiz. No pressure.</div>}
-                <div style={{ display: "flex", justifyContent: "space-between", gap: 6 }}>
-                  {MOODS.map((m, i) => (
-                    <button
-                      key={i}
-                      onClick={() => logMood(i)}
-                      disabled={moodDone}
-                      style={{
-                        flex: 1, borderRadius: 12, padding: "10px 0",
-                        border: `2px solid ${selectedMood === i ? m.color : "transparent"}`,
-                        background: selectedMood === i ? `${m.color}20` : "rgba(255,255,255,0.04)",
-                        cursor: moodDone ? "default" : "pointer",
-                        opacity: moodDone && selectedMood !== i ? 0.25 : 1,
-                        transform: selectedMood === i ? "scale(1.12)" : "scale(1)",
-                        transition: "all 0.2s",
-                        display: "flex", flexDirection: "column", alignItems: "center", gap: 4,
-                        fontFamily: "'Nunito',sans-serif",
-                      }}
-                    >
-                      <span style={{ fontSize: 26 }}>{m.e}</span>
-                      <span style={{ fontSize: 9, color: selectedMood === i ? m.color : "#6b5e8e", fontWeight: 700 }}>{m.label}</span>
-                    </button>
-                  ))}
-                </div>
-                {moodDone && (
-                  <div style={{ marginTop: 12, textAlign: "center", background: "rgba(124,58,237,0.1)", border: "1px solid rgba(124,58,237,0.2)", borderRadius: 99, padding: "7px 14px", fontSize: 12, fontWeight: 800, color: "#c084fc" }}>
-                    +10 XP earned 🎉
-                  </div>
-                )}
-              </div>
-
-              {/* Breathing mini */}
-              <div style={{ background: "#150e2b", border: "1px solid #1e1535", borderRadius: 16, padding: 16 }}>
-                <div style={{ fontSize: 13, fontWeight: 800, color: "#f0e8ff", marginBottom: 2 }}>Box Breathing 🧘</div>
-                <div style={{ fontSize: 11, color: "#6b5e8e", marginBottom: 14 }}>3 cycles · +20 XP</div>
-                <div style={{ display: "flex", justifyContent: "center", marginBottom: 14 }}>
-                  <div style={{
-                    width: 90, height: 90, borderRadius: "50%",
-                    background: "rgba(124,58,237,0.1)", border: "2px solid rgba(124,58,237,0.3)",
-                    display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center",
-                    transform: breathPhase === "in" ? "scale(1.35)" : breathPhase === "out" ? "scale(0.75)" : "scale(1)",
-                    transition: "transform 4s ease",
-                    boxShadow: breathPhase ? "0 0 30px rgba(124,58,237,0.4)" : "none",
-                  }}>
-                    <span style={{ fontSize: 11, fontWeight: 700, color: "#c084fc", textAlign: "center", padding: "0 8px" }}>
-                      {breathDone ? "✓ Done!" : breathPhase === "in" ? "Breathe in" : breathPhase === "hold" ? "Hold" : breathPhase === "out" ? "Breathe out" : "Tap below"}
-                    </span>
-                  </div>
-                </div>
-                {!breathPhase && !breathDone && (
-                  <button
-                    onClick={startBreath}
-                    style={{ width: "100%", background: "rgba(124,58,237,0.12)", border: "1px solid rgba(124,58,237,0.25)", borderRadius: 10, padding: "10px 0", color: "#c084fc", fontSize: 13, fontWeight: 800, cursor: "pointer", fontFamily: "'Nunito',sans-serif" }}
-                  >
-                    Start breathing
-                  </button>
-                )}
-                {breathDone && (
-                  <div style={{ textAlign: "center", background: "rgba(124,58,237,0.1)", border: "1px solid rgba(124,58,237,0.2)", borderRadius: 99, padding: "7px 14px", fontSize: 12, fontWeight: 800, color: "#c084fc" }}>
-                    +20 XP earned 🎉
-                  </div>
-                )}
+              <div style={{ marginLeft: "auto", fontSize: 12, color: "#4a3f6b" }}>
+                {currentQ + 1}/{QUESTIONS.length}
               </div>
             </div>
-          )}
 
-          {/* ── MISSIONS TAB ── */}
-          {activeTab === "missions" && (
-            <div style={{ padding: "0 20px 20px" }}>
-              <div style={{ background: "#150e2b", border: "1px solid #1e1535", borderRadius: 16, padding: 14, marginBottom: 10 }}>
-                <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 8 }}>
-                  <span style={{ fontSize: 13, fontWeight: 700, color: "#f0e8ff" }}>Today's progress</span>
-                  <span style={{ fontSize: 13, fontWeight: 800, color: "#c084fc" }}>{missions.filter(m => m.done).length}/{missions.length}</span>
-                </div>
-                <div style={{ height: 7, background: "rgba(255,255,255,0.06)", borderRadius: 99, overflow: "hidden" }}>
-                  <div style={{ height: "100%", background: "linear-gradient(90deg,#5b21b6,#7C3AED,#a855f7)", borderRadius: 99, width: `${(missions.filter(m => m.done).length / missions.length) * 100}%`, transition: "width 0.6s ease" }} />
-                </div>
-              </div>
-
-              {missions.map((m, i) => (
+            {/* Messages */}
+            <div
+              ref={scrollRef}
+              style={{ height: 340, overflowY: "auto", padding: "20px 16px", display: "flex", flexDirection: "column" }}
+            >
+              {messages.map((msg) => (
                 <div
-                  key={i}
-                  onClick={() => completeMission(i)}
+                  key={msg.id}
                   style={{
-                    background: m.done ? "rgba(34,197,94,0.04)" : "#150e2b",
-                    border: "1px solid",
-                    borderColor: m.done ? "rgba(34,197,94,0.2)" : "#1e1535",
-                    borderLeft: `3px solid ${m.done ? "#22c55e" : "#7C3AED"}`,
-                    borderRadius: 14, padding: "13px 14px",
-                    display: "flex", alignItems: "center", gap: 12, marginBottom: 8,
-                    cursor: m.done ? "default" : "pointer", transition: "all 0.2s",
+                    display: "flex",
+                    flexDirection: msg.from === "user" ? "row-reverse" : "row",
+                    alignItems: "flex-end", gap: 8, marginBottom: 12,
                   }}
                 >
-                  <div style={{ width: 38, height: 38, borderRadius: 10, background: m.done ? "rgba(34,197,94,0.1)" : "rgba(124,58,237,0.12)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 18, flexShrink: 0 }}>
-                    {m.icon}
-                  </div>
-                  <div style={{ flex: 1 }}>
-                    <div style={{ fontSize: 13, fontWeight: 700, color: m.done ? "#6b7280" : "#f0e8ff" }}>{m.title}</div>
-                  </div>
-                  <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-                    <div style={{ background: "rgba(245,200,66,0.1)", border: "1px solid rgba(245,200,66,0.2)", borderRadius: 99, padding: "2px 9px", fontSize: 10, fontWeight: 800, color: "#f5c842", opacity: m.done ? 0.3 : 1 }}>+{m.xp} XP</div>
-                    {m.done && <span style={{ color: "#22c55e", fontWeight: 900 }}>✓</span>}
+                  {msg.from === "hamboi" && <div style={avatarStyle}>H</div>}
+                  <div style={{
+                    maxWidth: "72%",
+                    background: msg.from === "hamboi" ? "#1e1535" : "linear-gradient(135deg,#7C3AED,#9333ea)",
+                    color: "#f0e8ff",
+                    borderRadius: msg.from === "hamboi" ? "18px 18px 18px 4px" : "18px 18px 4px 18px",
+                    padding: "11px 15px", fontSize: 14, lineHeight: 1.5, fontWeight: 500,
+                  }}>
+                    {msg.text}
                   </div>
                 </div>
               ))}
+              {isTyping && <TypingBubble />}
             </div>
-          )}
 
-          {/* ── BADGES TAB ── */}
-          {activeTab === "badges" && (
-            <div style={{ padding: "0 20px 20px" }}>
-              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}>
-                {BADGES.map((b, i) => (
-                  <div
-                    key={i}
-                    style={{
-                      background: b.earned ? "rgba(124,58,237,0.08)" : "#150e2b",
-                      border: `1px solid ${b.earned ? "rgba(124,58,237,0.35)" : "#1e1535"}`,
-                      borderRadius: 16, padding: "18px 12px",
-                      display: "flex", flexDirection: "column", alignItems: "center",
-                      opacity: b.earned ? 1 : 0.4, transition: "all 0.3s",
-                    }}
-                  >
-                    <div style={{ fontSize: 30, marginBottom: 8 }}>{b.earned ? b.icon : "🔒"}</div>
-                    <div style={{ fontSize: 12, fontWeight: 800, color: b.earned ? "#f0e8ff" : "#6b5e8e", marginBottom: 4, textAlign: "center" }}>{b.name}</div>
-                    <div style={{ fontSize: 10, color: "#6b5e8e", textAlign: "center", lineHeight: 1.4 }}>{b.desc}</div>
-                  </div>
-                ))}
-              </div>
-              <div style={{ marginTop: 12, textAlign: "center", fontSize: 12, color: "#6b5e8e" }}>
-                8 total badges to unlock in the full app 🏅
-              </div>
+            {/* Reply options */}
+            <div style={{ borderTop: "1px solid #1e1535", padding: "14px 16px", display: "flex", flexDirection: "column", gap: 8 }}>
+              {canReply && QUESTIONS[currentQ]?.replies.map((r, i) => (
+                <button
+                  key={i}
+                  onClick={() => handleReply(r)}
+                  style={{
+                    background: "rgba(124,58,237,0.06)", border: "1px solid rgba(124,58,237,0.2)",
+                    borderRadius: 12, padding: "11px 16px", textAlign: "left",
+                    color: "#c4b5fd", fontSize: 13, fontWeight: 700, cursor: "pointer",
+                    fontFamily: "'Nunito',sans-serif", transition: "all 0.15s",
+                  }}
+                  onMouseEnter={e => (e.currentTarget.style.background = "rgba(124,58,237,0.15)")}
+                  onMouseLeave={e => (e.currentTarget.style.background = "rgba(124,58,237,0.06)")}
+                >
+                  {r.text}
+                </button>
+              ))}
+              {!canReply && !isTyping && (
+                <div style={{ textAlign: "center", fontSize: 12, color: "#4a3f6b", padding: "6px 0" }}>Hamboi is thinking...</div>
+              )}
             </div>
-          )}
-
-          {/* Bottom label */}
-          <div style={{ borderTop: "1px solid #1e1535", padding: "12px 20px", textAlign: "center" }}>
-            <div style={{ fontSize: 11, color: "#6b5e8e" }}>This is a live preview — sign up to save your progress 💜</div>
           </div>
-        </div>
+        )}
 
-        {/* ── CTA ── */}
-        <div className="text-center mt-10">
-          <Button
-            size="lg"
-            className="bg-gradient-to-r from-purple-600 to-purple-500 hover:from-purple-500 hover:to-purple-400 text-white font-black text-lg px-10 py-6 rounded-2xl shadow-lg shadow-purple-900/40"
-            onClick={() => {
-              document.getElementById("hero")?.scrollIntoView({ behavior: "smooth" })
-            }}
-          >
-            Start for free — save your progress
-            <ChevronRight className="w-5 h-5 ml-2" />
-          </Button>
-          <p className="text-xs text-gray-500 mt-4">
-            Free forever for Nigerian teens · No card needed · Your data stays private
-          </p>
-        </div>
+        {/* ── Result ── */}
+        {stage === "result" && persona && (
+          <div style={{
+            opacity: resultVisible ? 1 : 0,
+            transform: resultVisible ? "translateY(0)" : "translateY(20px)",
+            transition: "all 0.6s ease",
+            fontFamily: "'Nunito',sans-serif",
+          }}>
+            {/* Persona card */}
+            <div style={{
+              background: "#0F0A1E", border: `1px solid ${persona.color}40`,
+              borderRadius: 24, overflow: "hidden",
+              boxShadow: `0 0 60px ${persona.color}18`,
+            }}>
+              {/* Top banner */}
+              <div style={{
+                background: `linear-gradient(135deg, ${persona.color}22, #150e2b)`,
+                borderBottom: `1px solid ${persona.color}30`,
+                padding: "32px 24px", textAlign: "center",
+              }}>
+                <div style={{ fontSize: 56, marginBottom: 12 }}>{persona.emoji}</div>
+                <div style={{ fontSize: 11, color: "#7c6fa0", textTransform: "uppercase", letterSpacing: 3, marginBottom: 6 }}>
+                  Your Hamboi type
+                </div>
+                <h3 style={{ fontSize: 28, fontWeight: 900, color: "#f0e8ff", marginBottom: 8 }}>{persona.name}</h3>
+                <p style={{ fontSize: 16, color: persona.color, fontWeight: 700 }}>{persona.tagline}</p>
+              </div>
+
+              <div style={{ padding: "24px" }}>
+                {/* Description */}
+                <p style={{ fontSize: 14, color: "#a89cc8", lineHeight: 1.8, marginBottom: 20, textAlign: "center" }}>
+                  {persona.description}
+                </p>
+
+                {/* Hamboi message */}
+                <div style={{
+                  background: "#150e2b", border: "1px solid #1e1535",
+                  borderRadius: 16, padding: "16px", marginBottom: 20,
+                  display: "flex", gap: 12, alignItems: "flex-start",
+                }}>
+                  <div style={avatarStyle}>H</div>
+                  <div>
+                    <div style={{ fontSize: 11, color: "#7c6fa0", marginBottom: 5 }}>Hamboi says</div>
+                    <div style={{ fontSize: 14, color: "#f0e8ff", lineHeight: 1.6, fontStyle: "italic" }}>
+                      "{persona.message}"
+                    </div>
+                  </div>
+                </div>
+
+                {/* Features */}
+                <div style={{ marginBottom: 24 }}>
+                  <div style={{ fontSize: 11, color: "#7c6fa0", textTransform: "uppercase", letterSpacing: 2, marginBottom: 12 }}>
+                    Built for you in Hamboi
+                  </div>
+                  <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+                    {persona.features.map((f, i) => (
+                      <div key={i} style={{
+                        display: "flex", alignItems: "center", gap: 10,
+                        background: `${persona.color}0f`, border: `1px solid ${persona.color}25`,
+                        borderRadius: 12, padding: "10px 14px",
+                      }}>
+                        <div style={{ width: 8, height: 8, borderRadius: "50%", background: persona.color, flexShrink: 0 }} />
+                        <span style={{ fontSize: 13, fontWeight: 700, color: "#f0e8ff" }}>{f}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* CTAs */}
+                <button
+                  style={{
+                    width: "100%", background: "linear-gradient(135deg,#7C3AED,#9333ea)",
+                    color: "white", border: "none", borderRadius: 14, padding: "15px 0",
+                    fontSize: 15, fontWeight: 800, cursor: "pointer",
+                    fontFamily: "'Nunito',sans-serif",
+                    boxShadow: "0 4px 20px rgba(124,58,237,0.35)", marginBottom: 10,
+                  }}
+                  onClick={() => document.getElementById("hero")?.scrollIntoView({ behavior: "smooth" })}
+                >
+                  Try Hamboi free — made for you 💜
+                </button>
+                <button
+                  onClick={reset}
+                  style={{
+                    width: "100%", background: "transparent",
+                    border: "1px solid #1e1535", borderRadius: 14, padding: "12px 0",
+                    fontSize: 13, fontWeight: 700, color: "#7c6fa0", cursor: "pointer",
+                    fontFamily: "'Nunito',sans-serif",
+                  }}
+                >
+                  Retake the quiz
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* Crisis note */}
-        <p className="text-center text-xs text-gray-600 mt-6">
-          If you're in crisis, call MANI Nigeria free on <span className="text-purple-400 font-bold">0809 111 6264</span> (24/7).
+        <p className="text-center text-xs text-gray-600 mt-8">
+          This is not a diagnostic tool. If you're in crisis, call MANI Nigeria free on{" "}
+          <span className="text-purple-400 font-bold">0809 111 6264</span> (24/7).
         </p>
       </div>
 
       <style>{`
-        @keyframes xpFloat {
-          0%   { opacity: 0; transform: translateY(0) scale(0.6); }
-          25%  { opacity: 1; transform: translateY(-16px) scale(1.2); }
-          75%  { opacity: 1; transform: translateY(-32px) scale(1); }
-          100% { opacity: 0; transform: translateY(-48px) scale(0.8); }
+        @keyframes bounce {
+          0%, 60%, 100% { transform: translateY(0); }
+          30% { transform: translateY(-6px); }
         }
-        button:active { transform: scale(0.96) !important; }
+        button:active { opacity: 0.85; transform: scale(0.98); }
       `}</style>
     </section>
   )
