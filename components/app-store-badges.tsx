@@ -12,8 +12,8 @@ export function AppStoreBadges({ className = "", variant = "dark", size = "defau
   return (
     <div className={`flex flex-col sm:flex-row gap-4 ${className}`}>
       <div
-        className="relative transition-transform hover:scale-105 rounded-lg opacity-60 cursor-not-allowed"
-        aria-label="iOS version coming soon"
+        className="relative transition-transform hover:scale-105 rounded-lg"
+        aria-label="Download on App Store"
       >
         <svg
           className={`${badgeHeight} w-auto ${variant === "light" ? "brightness-0 invert" : ""}`}
@@ -36,9 +36,6 @@ export function AppStoreBadges({ className = "", variant = "dark", size = "defau
             App Store
           </text>
         </svg>
-        <div className="absolute inset-0 flex items-center justify-center bg-black/60 rounded-lg">
-          <span className="text-white font-semibold text-xs px-3 py-1 bg-hamboi-purple rounded-full">Coming Soon</span>
-        </div>
       </div>
     </div>
   )
