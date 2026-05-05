@@ -1082,6 +1082,85 @@ export const articles: Article[] = [
       },
     ],
   },
+  {
+    slug: "thriving-not-just-surviving",
+    title: "Thriving Not Just Surviving",
+    description:
+      "Life as a teenager is complex. But thriving means more than just getting through each day—it's about growing, finding your worth, and becoming who you are meant to be.",
+    author: {
+      name: "Ayatullah Owodunni",
+      role: "Student",
+      school: "Ansar-ud-Deen Academy",
+      image: "/images/authors/ayatullah-owodunni.jpg",
+      bio: "Ayatullah Owodunni is a thoughtful student and writer who explores what it truly means to thrive during the teenage years. Her compassionate perspective on growth, self-worth, and resilience reminds readers that their journey is unique and valuable.",
+    },
+    category: "Student Voices",
+    readTime: "7 min read",
+    publishedDate: "May 2026",
+    featured: true,
+    content: [
+      {
+        type: "paragraph",
+        text: "Life as a teenager can feel like a lot. One minute you are expected to act like an adult, the next you are reminded you are still a child. You are trying to figure out school, friendships, family expectations, your future, and somehow still understand yourself. It's not small, it's not easy, and if we are being honest, sometimes it feels like you're just trying to get through the day. That's what surviving looks like.",
+      },
+      {
+        type: "paragraph",
+        text: "But there is more than just surviving—it's called thriving. And it doesn't mean having a perfect life. It means learning how to live, grow, and find your footing even when things aren't perfect.",
+      },
+      {
+        type: "heading",
+        text: "What Does Thriving Actually Mean?",
+      },
+      {
+        type: "paragraph",
+        text: "Thriving isn't about always being happy or having everything figured out. It's about knowing your worth, even on bad days. Taking care of your mind, not just your grades. Growing through challenges instead of breaking under them. And allowing yourself to be human.",
+      },
+      {
+        type: "heading",
+        text: "The Messy Reality",
+      },
+      {
+        type: "paragraph",
+        text: "Good advice is having a plan or focusing on your future, but no one tells you how messy the journey can be. Some days you'll feel motivated, other days you won't even feel like yourself. You might lose friends, doubt your abilities, compare your life to others, and feel like you're falling behind—like you're just not on your own path.",
+      },
+      {
+        type: "paragraph",
+        text: "But here's the truth: everyone's timeline is different. The person you think has it all together is probably struggling with something too. Life is not a race; it's a process of becoming.",
+      },
+      {
+        type: "heading",
+        text: "Stop Comparing and Start Living",
+      },
+      {
+        type: "paragraph",
+        text: "Comparing yourself to others, especially on social media, only takes away your joy. Your journey is unique. Your mental well-being is just as important as your achievements. Taking care of your mind, asking for help, resting, and building small healthy habits can make a big difference.",
+      },
+      {
+        type: "paragraph",
+        text: "You are still becoming, so it's okay to feel unsure, to change, and to start again.",
+      },
+      {
+        type: "heading",
+        text: "Your Worth Isn't Determined by Achievement",
+      },
+      {
+        type: "paragraph",
+        text: "Most importantly, your worth is not defined by grades, looks, or opinions. You matter simply because you exist. With self-kindness, patience, and faith, you can find your strength and peace even in difficult moments.",
+      },
+      {
+        type: "heading",
+        text: "You're Here to Grow, Not Just Survive",
+      },
+      {
+        type: "paragraph",
+        text: "In the end, you're not here just to survive your teenage years; you're here to grow, discover yourself, and become the best version of who you are. Taking time to pray, reflect, or just be still can help you feel grounded. It reminds you that you're not alone and that your life has meaning beyond what you can see right now.",
+      },
+      {
+        type: "quote",
+        text: "One day, you will look back and realize you were growing in every moment you thought you were just trying to survive.",
+      },
+    ],
+  },
 ]
 
 export function getArticleBySlug(slug: string): Article | undefined {
