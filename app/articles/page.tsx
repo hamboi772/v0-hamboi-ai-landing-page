@@ -3,6 +3,7 @@ import Link from "next/link"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { articles } from "@/lib/data/articles"
+import { getAllMarkdownArticles } from "@/lib/markdown-utils"
 
 export const metadata = {
   title: "Student Articles | Hamboi Mindcare",
@@ -11,8 +12,20 @@ export const metadata = {
 }
 
 export default function ArticlesPage() {
+  const markdownArticles = getAllMarkdownArticles()
+
+  // Combine static and markdown articles
+  const allStudentArticles = [
+    ...articles.filter((a) => !a.featured && a.content.length > 0),
+    ...markdownArticles
+  ].sort((a, b) => {
+    // Prefer the 'date' field if available (from markdown), otherwise fallback
+    const dateA = (a as any).date ? new Date((a as any).date).getTime() : 0
+    const dateB = (b as any).date ? new Date((b as any).date).getTime() : 0
+    return dateB - dateA
+  })
+
   const founderArticle = articles.find((a) => a.featured && a.content.length > 0)
-  const studentArticles = articles.filter((a) => !a.featured && a.content.length > 0)
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-hamboi-dark-bg via-[#1a1a3e] to-hamboi-dark-bg">
@@ -112,7 +125,7 @@ export default function ArticlesPage() {
               Articles From The Community
             </h2>
             <div className="grid gap-6">
-              {studentArticles.map((article) => (
+              {allStudentArticles.map((article) => (
                 <Link key={article.slug} href={`/articles/${article.slug}`}>
                   <div className="group relative bg-gradient-to-br from-[#1E1B2E] to-[#2a2640] rounded-2xl border border-hamboi-purple/40 p-6 md:p-8 cursor-pointer hover:border-hamboi-purple/70 transition-all duration-300 hover:shadow-xl hover:shadow-hamboi-purple/20 hover:scale-105">
                     {/* Category and metadata badges */}

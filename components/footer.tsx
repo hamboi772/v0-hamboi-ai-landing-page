@@ -12,6 +12,7 @@ const footerLinks = {
   product: [
     { name: "Features", href: "#features" },
     { name: "How It Works", href: "#how-it-works" },
+    { name: "Resources Hub", href: "/resources" },
     { name: "Download", href: "#download" },
     { name: "Our Story", href: "#our-story" },
   ],

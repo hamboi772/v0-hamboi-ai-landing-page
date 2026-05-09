@@ -2,7 +2,8 @@
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { Phone, Clock, Shield, AlertTriangle } from "lucide-react"
+import { Phone, Clock, Shield, AlertTriangle, ArrowRight } from "lucide-react"
+import Link from "next/link"
 import { nigerianMentalHealthResources } from "@/lib/data/nigerian-mental-health-resources"
 import { useState } from "react"
 
@@ -100,6 +101,15 @@ export function MentalHealthResources() {
               </CardContent>
             </Card>
           ))}
+        </div>
+
+        <div className="mt-12 flex justify-center animate-fade-in-up">
+          <Link href="/resources">
+            <Button className="bg-gradient-to-r from-hamboi-green to-hamboi-cyan text-hamboi-dark-bg font-bold text-lg px-8 py-6 rounded-2xl shadow-xl shadow-hamboi-green/20 hover:scale-105 transition-transform group">
+              View All Resources & Stories
+              <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+            </Button>
+          </Link>
         </div>
 
         <div className="mt-10 p-6 bg-red-50 border-2 border-red-200 rounded-2xl animate-fade-in-up">
