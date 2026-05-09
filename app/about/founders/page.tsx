@@ -2,6 +2,7 @@ import { Heart, Award, Star, Users, Sparkles, Target, ArrowLeft, Linkedin, Twitt
 import Link from "next/link"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
+import { Footer } from "@/components/footer"
 
 const founder = {
   name: "Abiodun Abdulhameed Abolarinwa",
@@ -277,14 +278,7 @@ export default function FoundersPage() {
       </section>
 
       {/* Footer */}
-      <footer className="bg-gray-900 text-white py-8">
-        <div className="container mx-auto px-4 text-center">
-          <p className="text-gray-400">
-            © {new Date().getFullYear()} Hamboi Mindcare. Built with <Heart className="h-4 w-4 inline text-red-400" />{" "}
-            for teens everywhere.
-          </p>
-        </div>
-      </footer>
+      <Footer />
     </div>
   )
 }

@@ -3,6 +3,7 @@ import Link from "next/link"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { ArticleShareButton } from "@/components/article-share-button"
+import { Footer } from "@/components/footer"
 
 export const metadata = {
   title: "The Bronze Medal We Won from Our Bedrooms | Hamboi Mindcare",
@@ -275,13 +276,13 @@ export default function ArticlePage() {
               </p>
               <div className="flex flex-wrap justify-center gap-4">
                 <Link href="/">
-                  <Button className="bg-white text-teal-600 hover:bg-white/90">
-                    <Heart className="h-4 w-4 mr-2" />
+                  <Button className="bg-white text-teal-600 hover:bg-white/90 font-bold px-8 py-6 rounded-2xl h-auto">
+                    <Heart className="h-5 w-5 mr-2" />
                     Try Hamboi Now
                   </Button>
                 </Link>
                 <Link href="/about/founders">
-                  <Button variant="outline" className="border-white text-white hover:bg-white/10 bg-transparent">
+                  <Button className="bg-teal-700 text-white hover:bg-teal-800 font-bold px-8 py-6 rounded-2xl h-auto border-2 border-white/20">
                     Meet the Founder
                   </Button>
                 </Link>
@@ -292,14 +293,7 @@ export default function ArticlePage() {
       </section>
 
       {/* Footer */}
-      <footer className="bg-gray-900 text-white py-8">
-        <div className="container mx-auto px-4 text-center">
-          <p className="text-gray-400">
-            © {new Date().getFullYear()} Hamboi Mindcare. Built with <Heart className="h-4 w-4 inline text-red-400" />{" "}
-            for teens everywhere.
-          </p>
-        </div>
-      </footer>
+      <Footer />
     </div>
   )
 }

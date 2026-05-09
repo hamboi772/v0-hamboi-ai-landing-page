@@ -3,6 +3,8 @@ import Link from "next/link"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { ArticleContent } from "@/components/article-content"
+import { StorySubmissionForm } from "@/components/story-submission-form"
+import { Footer } from "@/components/footer"
 import { getArticleBySlug, getAllArticles } from "@/lib/data/articles"
 import { getMarkdownArticleBySlug, getAllMarkdownArticles } from "@/lib/markdown-utils"
 import { notFound } from "next/navigation"
@@ -155,37 +157,12 @@ export default async function ArticleDetailPage({
           />
 
           {/* CTA Section */}
-          <div className="mt-12 bg-gradient-to-r from-hamboi-purple to-hamboi-green rounded-3xl p-8 md:p-12 text-white text-center max-w-3xl mx-auto">
-            <h3 className="text-2xl md:text-3xl font-black mb-4 text-balance">Want to share your own story?</h3>
-            <p className="text-white/90 mb-6 max-w-xl mx-auto font-medium">
-              Hamboi Mindcare welcomes articles from students everywhere. Your words could help someone who needs to hear them.
-            </p>
-            <div className="flex flex-wrap justify-center gap-4">
-              <Link href="/resources">
-                <Button className="bg-white text-hamboi-dark hover:bg-gray-100 font-bold">
-                  <BookOpen className="h-4 w-4 mr-2" />
-                  Read More Articles
-                </Button>
-              </Link>
-              <a href="mailto:hamboimindcare.help@gmail.com?subject=Article Submission for Hamboi Mindcare">
-                <Button variant="outline" className="border-white text-white hover:bg-white/20 bg-transparent font-bold">
-                  Submit an Article
-                </Button>
-              </a>
-            </div>
-          </div>
+          <StorySubmissionForm />
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="bg-hamboi-dark text-white py-8">
-        <div className="container mx-auto px-4 text-center">
-          <p className="text-white/60">
-            © {new Date().getFullYear()} Hamboi Mindcare. Built with{" "}
-            <Heart className="h-4 w-4 inline text-red-400" /> for teens everywhere.
-          </p>
-        </div>
-      </footer>
+      <Footer />
     </div>
   )
 }

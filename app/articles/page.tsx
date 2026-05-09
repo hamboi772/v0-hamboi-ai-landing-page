@@ -2,6 +2,8 @@ import { Heart, ArrowLeft, ArrowRight, Calendar, Clock, User, BookOpen, Sparkles
 import Link from "next/link"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
+import { StorySubmissionForm } from "@/components/story-submission-form"
+import { Footer } from "@/components/footer"
 import { articles } from "@/lib/data/articles"
 import { getAllMarkdownArticles } from "@/lib/markdown-utils"
 
@@ -188,32 +190,13 @@ export default function ArticlesPage() {
             </div>
 
             {/* Share Your Story CTA */}
-            <div className="mt-16 bg-gradient-to-r from-hamboi-purple/20 to-hamboi-pink/20 rounded-3xl p-8 md:p-12 text-center border border-hamboi-purple/50">
-              <BookOpen className="w-12 h-12 text-hamboi-green mx-auto mb-4" />
-              <h3 className="text-2xl md:text-3xl font-black text-white mb-3">Want to Share Your Story?</h3>
-              <p className="text-hamboi-text-muted max-w-xl mx-auto mb-8 text-lg">
-                Got a story? We're here for it. Real articles from real students. No judgment, just genuine voices making a difference.
-              </p>
-              <a href="mailto:hamboimindcare.help@gmail.com?subject=Article Submission for Hamboi Mindcare">
-                <Button className="bg-hamboi-green hover:bg-emerald-500 text-hamboi-dark-bg font-bold text-base gap-2 rounded-2xl h-auto py-3 px-8">
-                  Submit Your Article
-                  <ArrowRight className="w-5 h-5" />
-                </Button>
-              </a>
-            </div>
+            <StorySubmissionForm />
           </div>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="bg-gradient-to-b from-hamboi-dark-bg to-[#0a0a15] text-white py-12 border-t border-hamboi-purple/30">
-        <div className="container mx-auto px-4 text-center">
-          <p className="text-hamboi-text-muted">
-            © {new Date().getFullYear()} Hamboi Mindcare. Built with{" "}
-            <Heart className="h-4 w-4 inline text-hamboi-green" /> for teens everywhere.
-          </p>
-        </div>
-      </footer>
+      <Footer />
     </div>
   )
 }

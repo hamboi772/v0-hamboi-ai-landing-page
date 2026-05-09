@@ -1,0 +1,21 @@
+
+> my-v0-project@0.1.0 dev
+> next dev
+
+ ⚠ Port 3000 is in use by an unknown process, using available port 3001 instead.
+   ▲ Next.js 16.0.10 (Turbopack)
+   - Local:         http://localhost:3001
+   - Network:       http://192.168.0.2:3001
+
+ ✓ Starting...
+[baseline-browser-mapping] The data in this module is over two months old.  To ensure accurate Baseline data, please update: `npm i baseline-browser-mapping@latest -D`
+ ✓ Ready in 889ms
+ ○ Compiling /articles/[slug] ...
+ GET /articles/dealing-with-failure-turning-setbacks-into-stepping-stones 200 in 6.9s (compile: 5.9s, render: 1037ms)
+ GET /about/article 200 in 1337ms (compile: 824ms, render: 513ms)
+ GET / 200 in 3.0s (compile: 1861ms, render: 1145ms)
+ GET /resources 200 in 1701ms (compile: 1017ms, render: 684ms)
+ GET /articles/dealing-with-failure-turning-setbacks-into-stepping-stones 200 in 346ms (compile: 30ms, render: 316ms)
+ GET / 200 in 363ms (compile: 4ms, render: 359ms)
+ GET /about/article 200 in 326ms (compile: 4ms, render: 322ms)
+ GET /resources 200 in 211ms (compile: 3ms, render: 208ms)

@@ -2,6 +2,8 @@ import { Heart, ArrowLeft, ArrowRight, Calendar, Clock, User, BookOpen, Sparkles
 import Link from "next/link"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
+import { StorySubmissionForm } from "@/components/story-submission-form"
+import { Footer } from "@/components/footer"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { getAllMarkdownArticles } from "@/lib/markdown-utils"
 import { nigerianMentalHealthResources } from "@/lib/data/nigerian-mental-health-resources"
@@ -183,27 +185,13 @@ export default function ResourcesPage() {
               </div>
             )}
 
-            <div className="mt-16 bg-gradient-to-r from-hamboi-purple/20 to-hamboi-pink/20 rounded-3xl p-8 text-center border border-hamboi-purple/50">
-              <h3 className="text-2xl font-black mb-3">Have a story to share?</h3>
-              <p className="text-hamboi-text-muted mb-6">Your voice matters. Submit your article to help others.</p>
-              <a href="mailto:hamboimindcare.help@gmail.com?subject=Article Submission">
-                <Button className="bg-hamboi-green hover:bg-emerald-500 text-hamboi-dark-bg font-bold rounded-2xl py-3 px-8">
-                  Submit Your Article
-                </Button>
-              </a>
-            </div>
+            <StorySubmissionForm />
           </div>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="bg-[#0a0a15] text-white py-12 border-t border-hamboi-purple/30">
-        <div className="container mx-auto px-4 text-center">
-          <p className="text-hamboi-text-muted">
-            © {new Date().getFullYear()} Hamboi Mindcare. Built for teens everywhere.
-          </p>
-        </div>
-      </footer>
+      <Footer />
     </div>
   )
 }
