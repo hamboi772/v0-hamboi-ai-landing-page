@@ -3,6 +3,7 @@ import path from "path"
 import matter from "gray-matter"
 import { remark } from "remark"
 import html from "remark-html"
+import gfm from "remark-gfm"
 import { cache } from "react"
 
 const articlesDirectory = path.join(process.cwd(), "content/articles")
@@ -35,6 +36,7 @@ export const getMarkdownArticleBySlug = cache(async (slug: string): Promise<Mark
     const { data, content } = matter(fileContents)
 
     const processedContent = await remark()
+      .use(gfm)
       .use(html)
       .process(content)
     const contentHtml = processedContent.toString()
