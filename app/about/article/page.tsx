@@ -1,4 +1,4 @@
-import { Heart, Award, ArrowLeft, Calendar, Clock, Globe, Share2 } from "lucide-react"
+import { Heart, Award, ArrowLeft, Calendar, Clock, Globe } from "lucide-react"
 import Link from "next/link"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
@@ -269,23 +269,30 @@ export default function ArticlePage() {
             </div>
 
             {/* CTA Section */}
-            <div className="mt-12 bg-gradient-to-r from-teal-500 to-cyan-600 rounded-3xl p-8 md:p-12 text-white text-center">
-              <h3 className="text-2xl md:text-3xl font-bold mb-4">Ready to Start Your Journey?</h3>
-              <p className="text-white/90 mb-6 max-w-xl mx-auto">
+            <div className="mt-12 bg-gradient-to-br from-hamboi-purple to-hamboi-green rounded-3xl p-10 md:p-16 text-white text-center shadow-2xl shadow-hamboi-purple/20 border border-white/10">
+              <h3 className="text-2xl md:text-3xl font-black mb-6 text-balance opacity-90 uppercase tracking-wider text-white/90">Ready to Start Your Journey?</h3>
+              <p className="text-white/80 mb-10 max-w-2xl mx-auto font-medium text-lg leading-relaxed">
                 Hamboi MindCare is here for you. Chat with our AI companion, track your mood, or explore helpful resources.
               </p>
-              <div className="flex flex-wrap justify-center gap-4">
-                <Link href="/">
-                  <Button className="bg-white text-teal-600 hover:bg-white/90 font-bold px-8 py-6 rounded-2xl h-auto">
-                    <Heart className="h-5 w-5 mr-2" />
-                    Try Hamboi Now
-                  </Button>
-                </Link>
-                <Link href="/about/founders">
-                  <Button className="bg-teal-700 text-white hover:bg-teal-800 font-bold px-8 py-6 rounded-2xl h-auto border-2 border-white/20">
-                    Meet the Founder
-                  </Button>
-                </Link>
+
+              <div className="flex flex-col items-center gap-8">
+                <div className="text-5xl md:text-7xl font-black tracking-tighter text-white drop-shadow-xl">
+                  Try Hamboi Now
+                </div>
+
+                <div className="flex flex-wrap justify-center gap-4 w-full">
+                  <Link href="/" className="w-full max-w-sm">
+                    <Button className="w-full bg-white text-hamboi-purple hover:bg-gray-100 font-black px-8 py-8 rounded-full text-xl shadow-2xl hover:scale-105 transition-all">
+                      <Heart className="h-6 w-6 mr-3 text-hamboi-pink" />
+                      Get Started
+                    </Button>
+                  </Link>
+                  <Link href="/about/founders" className="w-full max-w-sm">
+                    <Button variant="outline" className="w-full border-2 border-white/30 bg-white/10 text-white hover:bg-white/20 font-black px-8 py-8 rounded-full text-xl backdrop-blur-sm hover:scale-105 transition-all">
+                      Meet the Founder
+                    </Button>
+                  </Link>
+                </div>
               </div>
             </div>
           </article>
