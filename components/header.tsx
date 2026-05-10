@@ -107,7 +107,7 @@ export function Header() {
                 Donate
               </Button>
             </Link>
-            <Link href="/dashboard">
+            <Link href="/features">
               <Button
                 variant="outline"
                 className="border-hamboi-purple text-hamboi-purple hover:bg-hamboi-purple/10 bg-transparent"
@@ -144,7 +144,7 @@ export function Header() {
                 Donate
               </Button>
             </Link>
-            <Link href="/dashboard" onClick={() => setIsMobileMenuOpen(false)}>
+            <Link href="/features" onClick={() => setIsMobileMenuOpen(false)}>
               <Button className="w-full bg-hamboi-purple hover:bg-hamboi-purple/90">My Dashboard</Button>
             </Link>
             {isInstallable && (

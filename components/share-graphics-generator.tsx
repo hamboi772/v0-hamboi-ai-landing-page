@@ -1,71 +1,74 @@
 "use client"
 
-import { Heart, Sparkles, Zap, ShieldCheck } from "lucide-react"
-
 export function ShareGraphicsGenerator() {
   return (
-    <div className="container mx-auto px-4 py-24 text-white selection:bg-hamboi-purple/30">
-      <div className="text-center mb-16">
-        <h1 className="text-5xl md:text-7xl font-black mb-4">Share Graphics</h1>
-        <p className="text-hamboi-text-muted font-bold uppercase tracking-widest text-sm">Visuals to spread the word</p>
-      </div>
+    <div className="container mx-auto px-4 py-12">
+      <h1 className="text-3xl font-bold mb-8">Hamboi MindCare - Share Graphics</h1>
 
       {/* Instagram Post */}
-      <div className="mb-24">
-        <h2 className="text-xs font-black text-white/30 uppercase tracking-[0.3em] mb-8 text-center">Instagram Post (1:1)</h2>
-        <div className="max-w-2xl mx-auto aspect-square bg-background border border-white/10 rounded-[4rem] p-16 flex flex-col justify-between relative overflow-hidden shadow-2xl">
-          <div className="absolute top-0 right-0 w-80 h-80 bg-hamboi-purple/20 rounded-full blur-[100px]" />
-          <div className="absolute bottom-0 left-0 w-64 h-64 bg-hamboi-green/10 rounded-full blur-[100px]" />
-
-          <div className="relative z-10">
-            <div className="w-16 h-16 bg-hamboi-purple rounded-2xl flex items-center justify-center mb-10 shadow-xl">
-               <Heart className="w-8 h-8 text-white fill-white" />
-            </div>
-            <h3 className="text-6xl font-black text-white mb-6 leading-tight uppercase tracking-tighter">You're not <br/><span className="text-hamboi-purple">alone.</span></h3>
-            <p className="text-2xl text-hamboi-text-muted font-medium">Free, private mental health support for students.</p>
+      <div className="mb-12">
+        <h2 className="text-xl font-semibold mb-4">Instagram Post (1080x1080)</h2>
+        <div className="w-full max-w-2xl aspect-square bg-gradient-to-br from-purple-600 via-purple-500 to-blue-500 rounded-lg p-12 flex flex-col justify-between text-white">
+          <div>
+            <h3 className="text-5xl font-bold mb-4">You're Not Alone</h3>
+            <p className="text-2xl mb-6">Free mental health support for Nigerian teens</p>
           </div>
-
-          <div className="relative z-10">
-            <div className="glass-morphism border-white/10 rounded-3xl p-8 mb-8">
-               <ul className="space-y-4">
-                  <li className="flex items-center gap-4 text-xl font-bold">
-                     <Zap className="w-6 h-6 text-hamboi-green" /> 24/7 AI Companion
-                  </li>
-                  <li className="flex items-center gap-4 text-xl font-bold">
-                     <ShieldCheck className="w-6 h-6 text-hamboi-purple" /> 100% Anonymous
-                  </li>
-               </ul>
+          <div>
+            <div className="bg-white/20 backdrop-blur-sm rounded-lg p-6 mb-4">
+              <p className="text-lg font-semibold mb-2">Get instant support:</p>
+              <ul className="space-y-2">
+                <li>💬 AI-powered chat support</li>
+                <li>📞 Crisis hotlines</li>
+                <li>📚 Mental health resources</li>
+                <li>💡 Daily wellness tips</li>
+              </ul>
             </div>
-            <div className="flex items-center justify-between">
-               <p className="text-2xl font-black tracking-tighter">hamboimindcare.site</p>
-               <Sparkles className="w-8 h-8 text-hamboi-green" />
-            </div>
+            <p className="text-xl font-bold">hamboi-mindcare.vercel.app</p>
+            <p className="text-sm opacity-80">Install the app from your browser</p>
           </div>
         </div>
       </div>
 
-      {/* WhatsApp / Stories */}
-      <div className="mb-24">
-        <h2 className="text-xs font-black text-white/30 uppercase tracking-[0.3em] mb-8 text-center">Stories / Status (9:16)</h2>
-        <div className="max-w-md mx-auto aspect-[9/16] bg-background border border-white/10 rounded-[3rem] p-10 flex flex-col items-center justify-center text-center relative overflow-hidden shadow-2xl">
-          <div className="absolute inset-0 bg-gradient-to-b from-hamboi-purple/20 via-transparent to-hamboi-green/10" />
-
-          <div className="relative z-10 mb-12">
-            <div className="w-24 h-24 bg-white/5 border border-white/10 rounded-[2.5rem] flex items-center justify-center mb-8 mx-auto shadow-2xl">
-               <Heart className="w-12 h-12 text-hamboi-purple fill-current" />
+      {/* WhatsApp Status */}
+      <div className="mb-12">
+        <h2 className="text-xl font-semibold mb-4">WhatsApp Status (1080x1920)</h2>
+        <div className="w-full max-w-md aspect-[9/16] bg-gradient-to-b from-blue-600 to-purple-600 rounded-lg p-8 flex flex-col justify-center items-center text-white text-center">
+          <div className="mb-8">
+            <div className="w-24 h-24 bg-white rounded-full flex items-center justify-center mb-4 mx-auto">
+              <span className="text-4xl">🧠</span>
             </div>
-            <h3 className="text-5xl font-black text-white mb-4 uppercase tracking-tighter">HAMBOI</h3>
-            <p className="text-hamboi-text-muted font-black tracking-[0.3em] uppercase text-xs">MindCare</p>
+            <h3 className="text-4xl font-bold mb-4">HAMBOI</h3>
+            <p className="text-xl">MindCare</p>
           </div>
-
-          <div className="relative z-10 glass-morphism border-white/10 rounded-[2rem] p-8 mb-12 w-full">
-            <p className="text-2xl font-black text-white mb-2 leading-tight uppercase">Safe Space</p>
-            <p className="text-sm font-medium text-hamboi-text-muted">For students who get it.</p>
+          <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6 mb-6">
+            <p className="text-2xl font-bold mb-2">Mental Health Support</p>
+            <p className="text-lg">For Nigerian Teenagers</p>
           </div>
+          <p className="text-lg">Tap the link to install →</p>
+        </div>
+      </div>
 
-          <div className="relative z-10 mt-auto">
-             <p className="text-sm font-black text-white uppercase tracking-widest mb-4">Scan or visit link</p>
-             <div className="h-1 w-20 bg-hamboi-green mx-auto rounded-full" />
+      {/* Twitter Card */}
+      <div className="mb-12">
+        <h2 className="text-xl font-semibold mb-4">Twitter Card (1200x628)</h2>
+        <div className="w-full max-w-4xl aspect-[1200/628] bg-gradient-to-r from-purple-600 to-blue-600 rounded-lg p-12 flex items-center justify-between text-white">
+          <div className="flex-1">
+            <h3 className="text-5xl font-bold mb-4">Hamboi MindCare</h3>
+            <p className="text-2xl mb-6">Free mental health support for Nigerian teens</p>
+            <div className="flex gap-4">
+              <div className="bg-white/20 backdrop-blur-sm rounded-lg px-4 py-2">
+                <p className="text-sm">AI Chat</p>
+              </div>
+              <div className="bg-white/20 backdrop-blur-sm rounded-lg px-4 py-2">
+                <p className="text-sm">Crisis Support</p>
+              </div>
+              <div className="bg-white/20 backdrop-blur-sm rounded-lg px-4 py-2">
+                <p className="text-sm">Resources</p>
+              </div>
+            </div>
+          </div>
+          <div className="w-48 h-48 bg-white rounded-2xl flex items-center justify-center">
+            <span className="text-8xl">🧠</span>
           </div>
         </div>
       </div>

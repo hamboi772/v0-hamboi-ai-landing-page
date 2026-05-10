@@ -1,8 +1,8 @@
 "use client"
 
 import { useState } from "react"
-import { Share2, Check, Copy } from "lucide-react"
-import { motion, AnimatePresence } from "framer-motion"
+import { Share2, Check, Copy, Link2 } from "lucide-react"
+import { Button } from "@/components/ui/button"
 
 export function ArticleShareButton({ 
   title, 
@@ -19,18 +19,27 @@ export function ArticleShareButton({
     const baseUrl = typeof window !== "undefined" ? window.location.origin : ""
     const url = articleUrl ? `${baseUrl}${articleUrl}` : window.location.href
 
+    // Use native share API on mobile if available
     if (navigator.share) {
       try {
-        await navigator.share({ title, text: description, url })
+        await navigator.share({
+          title,
+          text: description,
+          url,
+        })
         return
-      } catch {}
+      } catch {
+        // User cancelled or error - fall through to clipboard
+      }
     }
 
+    // Fallback: copy link to clipboard
     try {
       await navigator.clipboard.writeText(url)
       setCopied(true)
       setTimeout(() => setCopied(false), 2000)
     } catch {
+      // Final fallback for older browsers
       const textArea = document.createElement("textarea")
       textArea.value = url
       textArea.style.position = "fixed"
@@ -47,22 +56,20 @@ export function ArticleShareButton({
   return (
     <button
       type="button"
-      className="inline-flex items-center justify-center gap-3 px-6 h-12 bg-white/5 border border-white/10 text-white rounded-xl hover:bg-white/10 transition-all font-black uppercase tracking-widest text-[10px]"
+      className="inline-flex items-center justify-center gap-2 px-4 py-2 bg-hamboi-dark-card border-2 border-hamboi-purple text-hamboi-purple rounded-lg hover:bg-hamboi-purple/20 active:bg-hamboi-purple/30 transition-colors cursor-pointer pointer-events-auto font-bold"
       onClick={handleShare}
     >
-      <AnimatePresence mode="wait">
-        {copied ? (
-          <motion.div key="copied" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="flex items-center gap-2">
-            <Check className="w-3.5 h-3.5 text-hamboi-green" />
-            <span>Copied</span>
-          </motion.div>
-        ) : (
-          <motion.div key="share" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="flex items-center gap-2">
-            <Share2 className="w-3.5 h-3.5" />
-            <span>Share Story</span>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {copied ? (
+        <>
+          <Check className="w-4 h-4 text-hamboi-green" />
+          <span>Link Copied!</span>
+        </>
+      ) : (
+        <>
+          <Share2 className="w-4 h-4" />
+          <span>Share</span>
+        </>
+      )}
     </button>
   )
 }

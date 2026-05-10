@@ -1,134 +1,146 @@
 "use client"
 
-import {
-  Brain,
-  Shield,
-  MessageCircle,
-  Zap,
-  Target,
-  Heart,
-  Sparkles,
-  Award,
-  ArrowRight
-} from "lucide-react"
-import { motion } from "framer-motion"
+import { useEffect, useRef } from "react"
+import { MessageCircle, Shield, LineChart, Brain, AlertCircle, Heart } from "lucide-react"
 
 const features = [
   {
-    title: "AI-Powered Empathy",
-    description: "A supportive companion that listens and responds with genuine understanding, 24/7. Built to feel human, not like a chatbot.",
-    icon: Brain,
-    color: "bg-hamboi-purple",
-    className: "md:col-span-2 md:row-span-2",
-    iconColor: "text-hamboi-purple"
+    icon: MessageCircle,
+    title: "Chat 24/7 💬",
+    description: "Someone's always here. 3am existential crisis? We got you.",
+    gradient: "from-hamboi-purple to-hamboi-pink",
+    glowColor: "hamboi-purple",
+    emoji: "💬",
   },
   {
-    title: "Privacy First",
-    description: "Total anonymity and encryption.",
     icon: Shield,
-    color: "bg-hamboi-green",
-    className: "md:col-span-1 md:row-span-1",
-    iconColor: "text-hamboi-green"
+    title: "No Drama Zone 🔒",
+    description: "Talk without the judgment. Your words, your rules, completely private.",
+    gradient: "from-hamboi-green to-hamboi-cyan",
+    glowColor: "hamboi-green",
+    emoji: "🔒",
   },
   {
-    title: "Bronze Standard",
-    description: "FIRST Global Winner.",
-    icon: Award,
-    color: "bg-blue-500",
-    className: "md:col-span-1 md:row-span-1",
-    iconColor: "text-blue-500"
+    icon: LineChart,
+    title: "Know Your Vibes 📊",
+    description: "Track your mood, spot patterns, actually understand yourself better.",
+    gradient: "from-hamboi-cyan to-blue-500",
+    glowColor: "hamboi-cyan",
+    emoji: "📊",
   },
   {
-    title: "Mood Tracking",
-    description: "Visualize your emotional journey over time.",
-    icon: Target,
-    color: "bg-pink-500",
-    className: "md:col-span-1 md:row-span-2",
-    iconColor: "text-pink-500"
+    icon: Brain,
+    title: "Real Strategies 🧠",
+    description: "Actual coping tools that work. Not fluff, real help.",
+    gradient: "from-orange-500 to-hamboi-pink",
+    glowColor: "orange",
+    emoji: "🧠",
   },
   {
-    title: "Daily acts",
-    description: "Small habits, big impact.",
-    icon: Zap,
-    color: "bg-orange-500",
-    className: "md:col-span-1 md:row-span-1",
-    iconColor: "text-orange-500"
+    icon: AlertCircle,
+    title: "When It's Bad 🆘",
+    description: "Crisis hotlines, resources, pro help. You're not alone in this.",
+    gradient: "from-red-500 to-orange-500",
+    glowColor: "red",
+    emoji: "🆘",
   },
   {
-    title: "Crisis Support",
-    description: "Immediate professional help when you need it most. Connect to real resources in one tap.",
     icon: Heart,
-    color: "bg-red-500",
-    className: "md:col-span-1 md:row-span-1",
-    iconColor: "text-red-500"
-  }
+    title: "Made For You 💚",
+    description: "Built BY teens, FOR teens. We actually get your vibe.",
+    gradient: "from-hamboi-green to-emerald-500",
+    glowColor: "hamboi-green",
+    emoji: "💚",
+  },
 ]
+
+function TiltCard({ children, className }: { children: React.ReactNode; className?: string }) {
+  const ref = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const el = ref.current
+    if (!el) return
+
+    function applyTilt(cx: number, cy: number) {
+      const rect = el!.getBoundingClientRect()
+      const dx = (cx - (rect.left + rect.width / 2)) / (rect.width / 2)
+      const dy = (cy - (rect.top + rect.height / 2)) / (rect.height / 2)
+      const MAX = 8
+      el!.style.transform = `perspective(900px) rotateX(${-dy * MAX}deg) rotateY(${dx * MAX}deg) scale3d(1.03,1.03,1.03)`
+    }
+    function reset() {
+      el!.style.transform = "perspective(900px) rotateX(0deg) rotateY(0deg) scale3d(1,1,1)"
+    }
+
+    const mm = (e: MouseEvent) => applyTilt(e.clientX, e.clientY)
+    const ml = () => reset()
+    const tm = (e: TouchEvent) => { if (e.touches[0]) applyTilt(e.touches[0].clientX, e.touches[0].clientY) }
+    const te = () => reset()
+
+    el.addEventListener("mousemove", mm)
+    el.addEventListener("mouseleave", ml)
+    el.addEventListener("touchmove", tm, { passive: true })
+    el.addEventListener("touchend", te)
+    return () => {
+      el.removeEventListener("mousemove", mm)
+      el.removeEventListener("mouseleave", ml)
+      el.removeEventListener("touchmove", tm)
+      el.removeEventListener("touchend", te)
+    }
+  }, [])
+
+  return (
+    <div
+      ref={ref}
+      className={className}
+      style={{ transition: "transform 0.15s ease", willChange: "transform", transformStyle: "preserve-3d" }}
+    >
+      {children}
+    </div>
+  )
+}
 
 export function FeaturesSection() {
   return (
-    <section className="py-24 bg-background relative overflow-hidden" id="features">
+    <section id="features" className="py-24 lg:py-32 bg-gradient-to-b from-hamboi-dark-bg via-[#1a1a3e] to-hamboi-dark-bg">
       <div className="container mx-auto px-4">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-center max-w-3xl mx-auto mb-20"
-        >
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-hamboi-purple/10 rounded-full text-hamboi-purple text-[10px] font-black uppercase tracking-[0.2em] mb-6">
-            <Sparkles className="w-3.5 h-3.5" />
-            Capabilities
-          </div>
-          <h2 className="text-5xl md:text-7xl font-black text-white mb-8 tracking-tighter leading-tight">
-            Built for the way <br/>you <span className="text-hamboi-purple text-glow">actually</span> think.
+        <div className="text-center space-y-6 mb-20 reveal">
+          <h2 className="text-5xl md:text-6xl lg:text-7xl font-black text-white leading-tight">
+            Everything You Need 💚
           </h2>
-          <p className="text-hamboi-text-muted text-xl font-medium max-w-2xl mx-auto">
-            We didn't just build an app; we built a safety net designed specifically for student life.
+          <p className="text-lg md:text-xl text-hamboi-text-muted max-w-3xl mx-auto leading-relaxed">
+            Real tools for real life. We've got mood tracking, 24/7 support, and strategies that actually work.
           </p>
-        </motion.div>
+        </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 auto-rows-[200px]">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 reveal-stagger">
           {features.map((feature, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.05 }}
-              whileHover={{ scale: 1.02 }}
-              className={`
-                relative group rounded-[2.5rem] p-8 overflow-hidden glass-morphism transition-all duration-500
-                ${feature.className}
-              `}
+            <TiltCard
+              key={feature.title}
+              className="group relative h-full reveal"
             >
-              <div className="relative z-10 h-full flex flex-col">
-                <div className="flex justify-between items-start mb-6">
-                  <div className={`w-12 h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-500`}>
-                    <feature.icon className={`w-6 h-6 ${feature.iconColor}`} />
-                  </div>
-                  <ArrowRight className="w-5 h-5 text-white/20 group-hover:text-white group-hover:translate-x-1 transition-all" />
-                </div>
+              {/* Glow background */}
+              <div className={`absolute inset-0 bg-gradient-to-br ${feature.gradient} rounded-2xl blur-xl opacity-20 group-hover:opacity-40 transition-opacity duration-300`} />
 
-                <div className="mt-auto">
-                  <h4 className="text-xl font-black text-white mb-3 uppercase tracking-tight">{feature.title}</h4>
-                  <p className="text-hamboi-text-muted text-sm font-medium leading-relaxed group-hover:text-white/80 transition-colors">
-                    {feature.description}
-                  </p>
+              {/* Card */}
+              <div className={`relative bg-gradient-to-br ${feature.gradient} p-px rounded-2xl group-hover:shadow-2xl transition-shadow duration-300`}>
+                <div className="relative bg-hamboi-dark-card rounded-2xl p-8 h-full flex flex-col space-y-6">
+                  {/* Icon container with gradient bg */}
+                  <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${feature.gradient} flex items-center justify-center group-hover:scale-110 transition-transform duration-300`}>
+                    <feature.icon className="h-8 w-8 text-white" />
+                  </div>
+
+                  {/* Title */}
+                  <h3 className="text-2xl font-bold text-white">{feature.title}</h3>
+
+                  {/* Description */}
+                  <p className="text-hamboi-text-muted leading-relaxed flex-grow">{feature.description}</p>
                 </div>
               </div>
-
-              {/* Animated Background Gradient */}
-              <div className={`absolute -right-10 -bottom-10 w-40 h-40 ${feature.color} opacity-[0.03] rounded-full blur-3xl group-hover:opacity-10 transition-opacity duration-700`} />
-              <div className="absolute inset-0 bg-gradient-to-br from-white/[0.02] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
-            </motion.div>
+            </TiltCard>
           ))}
         </div>
       </div>
-
-      <style jsx>{`
-        .text-glow {
-          text-shadow: 0 0 30px rgba(109, 40, 217, 0.3);
-        }
-      `}</style>
     </section>
   )
 }
