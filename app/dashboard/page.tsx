@@ -1,13 +1,16 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { createClient } from "@supabase/supabase-js"
 import { useRouter } from "next/navigation"
 
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-)
+function getSupabaseClient() {
+  if (typeof window === "undefined") return null
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL
+  const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+  if (!url || !key) return null
+  const { createClient } = require("@supabase/supabase-js")
+  return createClient(url, key)
+}
 
 const LEVELS = [
   { name: "Seedling", emoji: "🌱", minXP: 0, level: "1–2" },
@@ -54,15 +57,17 @@ export default function DashboardPage() {
 
   // Auth check
   useEffect(() => {
-    supabase.auth.getUser().then(({ data }) => {
+    const supabase = getSupabaseClient()
+    if (!supabase) { setLoading(false); return }
+    supabase.auth.getUser().then(({ data }: any) => {
       if (!data?.user) { router.push("/auth"); return }
       setUser(data.user)
-      loadProfile(data.user.id)
-      checkTodayMissions(data.user.id)
+      loadProfile(data.user.id, supabase)
+      checkTodayMissions(data.user.id, supabase)
     })
   }, [])
 
-  async function loadProfile(userId: string) {
+  async function loadProfile(userId: string, supabase: any) {
     const { data } = await supabase
       .from("profiles")
       .select("*")
@@ -80,7 +85,7 @@ export default function DashboardPage() {
     setLoading(false)
   }
 
-  async function checkTodayMissions(userId: string) {
+  async function checkTodayMissions(userId: string, supabase: any) {
     const today = new Date().toISOString().split("T")[0]
     const { data } = await supabase
       .from("mission_logs")
@@ -90,13 +95,14 @@ export default function DashboardPage() {
 
     if (data) {
       const done: any = {}
-      data.forEach((m) => { done[m.mission_key] = true })
+      data.forEach((m: any) => { done[m.mission_key] = true })
       setMissions((prev) => ({ ...prev, ...done }))
     }
   }
 
   async function completeMission(key: string, xpEarned: number, label: string) {
-    if (!user || missions[key as keyof typeof missions]) {
+    const supabase = getSupabaseClient()
+    if (!user || !supabase || missions[key as keyof typeof missions]) {
       showToast("✓ Already completed today")
       return
     }
@@ -118,7 +124,8 @@ export default function DashboardPage() {
   }
 
   async function logMood() {
-    if (!selectedMood || !user) return
+    const supabase = getSupabaseClient()
+    if (!selectedMood || !user || !supabase) return
     setMoodOpen(false)
 
     // Save mood log
@@ -135,7 +142,7 @@ export default function DashboardPage() {
     await completeMission("log_mood", 20, `Mood logged: ${selectedMood}`)
 
     // Reload profile for streak update
-    loadProfile(user.id)
+    loadProfile(user.id, supabase)
     setSelectedMood(null)
   }
 

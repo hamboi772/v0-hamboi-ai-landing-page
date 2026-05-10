@@ -22,11 +22,9 @@ export function ParticleCanvas() {
     const ctx = canvas.getContext("2d")
     if (!ctx) return
 
-    // Colors: purple and green only — matches brand
     const colors = [
-      "rgba(124, 58, 237,",  // hamboi-purple
-      "rgba(34, 197, 94,",   // hamboi-green
-      "rgba(6, 182, 212,",   // hamboi-cyan (accent)
+      "rgba(109, 40, 217,",  // hamboi-purple (#6D28D9)
+      "rgba(16, 185, 129,",   // hamboi-green (#10B981)
     ]
 
     let particles: Particle[] = []
@@ -35,45 +33,47 @@ export function ParticleCanvas() {
     let H = 0
 
     function resize() {
-      W = canvas!.offsetWidth
-      H = canvas!.offsetHeight
-      canvas!.width = W
-      canvas!.height = H
+      if (!canvas) return
+      W = canvas.offsetWidth
+      H = canvas.offsetHeight
+      canvas.width = W
+      canvas.height = H
     }
 
     function spawnParticle(): Particle {
       const color = colors[Math.floor(Math.random() * colors.length)]
       return {
         x: Math.random() * W,
-        y: H + 10,
-        vx: (Math.random() - 0.5) * 0.6,
-        vy: -(0.3 + Math.random() * 0.5),
-        radius: 1.5 + Math.random() * 2.5,
+        y: Math.random() * H,
+        vx: (Math.random() - 0.5) * 0.4,
+        vy: (Math.random() - 0.5) * 0.4,
+        radius: 1 + Math.random() * 2,
         color,
-        alpha: 0.5 + Math.random() * 0.5,
-        decay: 0.003 + Math.random() * 0.003,
+        alpha: 0.1 + Math.random() * 0.2,
+        decay: 0.0005 + Math.random() * 0.001,
       }
     }
 
     function draw() {
-      ctx!.clearRect(0, 0, W, H)
+      if (!ctx) return
+      ctx.clearRect(0, 0, W, H)
 
-      // Spawn ~1 particle per frame (lightweight — max 40 particles)
-      if (particles.length < 40 && Math.random() < 0.4) {
+      if (particles.length < 50) {
         particles.push(spawnParticle())
       }
 
-      particles = particles.filter((p) => p.alpha > 0.02)
-
-      for (const p of particles) {
+      for (let i = 0; i < particles.length; i++) {
+        const p = particles[i]
         p.x += p.vx
         p.y += p.vy
-        p.alpha -= p.decay
 
-        ctx!.beginPath()
-        ctx!.arc(p.x, p.y, p.radius, 0, Math.PI * 2)
-        ctx!.fillStyle = `${p.color}${p.alpha.toFixed(2)})`
-        ctx!.fill()
+        if (p.x < 0 || p.x > W) p.vx *= -1
+        if (p.y < 0 || p.y > H) p.vy *= -1
+
+        ctx.beginPath()
+        ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2)
+        ctx.fillStyle = `${p.color}${p.alpha})`
+        ctx.fill()
       }
 
       raf = requestAnimationFrame(draw)
@@ -96,7 +96,7 @@ export function ParticleCanvas() {
       ref={canvasRef}
       id="particle-canvas"
       aria-hidden="true"
-      style={{ width: "100%", height: "100%" }}
+      style={{ width: "100%", height: "100%", opacity: 0.5 }}
     />
   )
 }

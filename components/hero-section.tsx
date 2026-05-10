@@ -2,12 +2,11 @@
 
 import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
-import { MessageSquare, LayoutDashboard, Sparkles, Download, X, Smartphone } from "lucide-react"
-import { motion } from "framer-motion"
+import { MessageSquare, Sparkles, Download, X, Smartphone, ArrowRight, ShieldCheck, Heart } from "lucide-react"
+import { motion, AnimatePresence } from "framer-motion"
 import Image from "next/image"
 import Link from "next/link"
 import { ChatDemoModal } from "@/components/chat-demo-modal"
-import { AppStoreBadges } from "@/components/app-store-badges"
 
 export function HeroSection() {
   const [isChatDemoOpen, setIsChatDemoOpen] = useState(false)
@@ -55,119 +54,113 @@ export function HeroSection() {
 
   return (
     <>
-      <section className="relative min-h-screen flex items-center pt-20 overflow-hidden">
+      <section className="relative min-h-screen flex items-center pt-32 pb-20 overflow-hidden">
         {/* Organic radial gradients */}
-        <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-hamboi-purple/10 rounded-full blur-[120px] pointer-events-none" />
-        <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-hamboi-green/10 rounded-full blur-[120px] pointer-events-none" />
+        <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-hamboi-purple/10 rounded-full blur-[120px] pointer-events-none" />
+        <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] bg-hamboi-green/10 rounded-full blur-[120px] pointer-events-none" />
 
         <div className="container mx-auto px-4 relative z-10">
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
+          <div className="grid lg:grid-cols-2 gap-20 items-center">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
+              animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, ease: "easeOut" }}
-              className="space-y-8"
+              className="space-y-10"
             >
-              <div className="inline-flex items-center gap-2 px-4 py-2 bg-hamboi-purple/10 rounded-full text-hamboi-purple text-sm font-bold border border-hamboi-purple/20">
-                <Sparkles className="w-4 h-4" />
+              <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/5 border border-white/10 rounded-full text-white/50 text-[10px] font-black uppercase tracking-[0.2em]">
+                <Sparkles className="w-3.5 h-3.5" />
                 Built for the late-night overthinkers.
               </div>
 
-              <h1 className="text-5xl md:text-7xl lg:text-8xl font-black text-white leading-[1.1] tracking-tight">
+              <h1 className="text-5xl md:text-8xl font-black text-white leading-tight tracking-tighter">
                 By students <br />
-                <span className="text-hamboi-green">who get it.</span>
+                <span className="text-hamboi-purple">who get it.</span>
               </h1>
 
-              <p className="text-lg md:text-xl text-hamboi-text-muted max-w-xl leading-relaxed">
-                Hamboi is the support system we wish we had. No clinical vibes, just real talk and tools to help you navigate the chaos of being a teen.
+              <p className="text-xl md:text-2xl text-hamboi-text-muted max-w-xl leading-relaxed font-medium">
+                Hamboi is the safe space we wished we had. No clinical vibes, just real talk and tools to help you navigate student life.
               </p>
 
-              <div className="flex flex-col gap-6 pt-4">
-                <div className="flex flex-wrap gap-4">
-                  <Button
-                    size="lg"
-                    onClick={() => setIsChatDemoOpen(true)}
-                    className="bg-hamboi-green hover:bg-hamboi-green/90 text-hamboi-dark-bg font-bold py-7 px-10 rounded-2xl transition-all hover:scale-105 active:scale-95 shadow-lg shadow-hamboi-green/20"
-                  >
-                    <MessageSquare className="w-5 h-5 mr-2" />
-                    Start Chatting
-                  </Button>
-                  <Link href="/features">
-                    <Button size="lg" variant="outline" className="border-white/10 hover:bg-white/5 text-white font-bold py-7 px-10 rounded-2xl transition-all hover:scale-105 active:scale-95">
-                      <LayoutDashboard className="w-5 h-5 mr-2" />
-                      See How it Works
-                    </Button>
-                  </Link>
-                </div>
+              <div className="flex flex-col sm:flex-row items-center gap-6 pt-4">
+                <Button
+                  size="lg"
+                  onClick={() => setIsChatDemoOpen(true)}
+                  className="bg-hamboi-green hover:bg-hamboi-green/90 text-background font-black h-20 px-12 rounded-[2rem] transition-all hover:scale-105 active:scale-95 shadow-2xl shadow-hamboi-green/20 text-xl w-full sm:w-auto"
+                >
+                  <MessageSquare className="w-6 h-6 mr-3" />
+                  Start Chatting
+                </Button>
 
-                {isInstallable && (
-                  <div className="flex flex-col gap-4">
-                    <div className="flex items-center gap-2 text-hamboi-text-muted text-sm font-medium">
-                      <Smartphone className="w-4 h-4" />
-                      Take Hamboi with you:
-                    </div>
-                    <div className="flex flex-wrap items-center gap-4">
-                      <Button
-                        onClick={handleInstallClick}
-                        className="bg-hamboi-purple/20 hover:bg-hamboi-purple/30 text-white border border-hamboi-purple/30 font-bold px-6 py-4 rounded-xl transition-all"
-                      >
-                        <Download className="w-4 h-4 mr-2" />
-                        Install App
-                      </Button>
-                      <AppStoreBadges size="small" />
-                    </div>
-                  </div>
-                )}
+                <Link href="/dashboard" className="w-full sm:w-auto">
+                  <Button size="lg" variant="outline" className="border-white/10 hover:bg-white/5 text-white font-black h-20 px-12 rounded-[2rem] transition-all hover:scale-105 active:scale-95 backdrop-blur-md text-xl w-full sm:w-auto">
+                    My Dashboard
+                    <ArrowRight className="w-6 h-6 ml-3" />
+                  </Button>
+                </Link>
               </div>
 
-              <div className="flex items-center gap-4 pt-4">
-                <div className="flex -space-x-3">
+              <div className="flex items-center gap-6 pt-6">
+                <div className="flex -space-x-4">
                   {[1, 2, 3, 4].map((i) => (
-                    <div key={i} className="w-10 h-10 rounded-full border-2 border-hamboi-dark-bg bg-hamboi-purple flex items-center justify-center text-[10px] font-bold text-white overflow-hidden relative">
-                       <Image src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${i + 10}`} alt="User" fill />
+                    <div key={i} className="w-12 h-12 rounded-2xl border-4 border-background bg-white/5 flex items-center justify-center overflow-hidden relative shadow-xl transform hover:translate-y-[-4px] transition-transform">
+                       <Image src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${i + 20}`} alt="User" fill className="grayscale hover:grayscale-0 transition-all" />
                     </div>
                   ))}
                 </div>
-                <p className="text-sm text-hamboi-text-muted">
-                  Join <span className="text-white font-bold">2,000+ students</span> prioritizing their peace.
-                </p>
+                <div>
+                   <p className="text-white font-black text-sm uppercase tracking-tight">2,000+ Students</p>
+                   <p className="text-[10px] text-hamboi-text-muted font-bold uppercase tracking-widest">Prioritizing their peace</p>
+                </div>
               </div>
             </motion.div>
 
             <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
+              animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 1, delay: 0.2 }}
               className="relative"
             >
-              <div className="relative z-10 rounded-[2.5rem] overflow-hidden border border-white/10 shadow-2xl">
+              <div className="relative z-10 rounded-[4rem] overflow-hidden border border-white/10 shadow-2xl aspect-[4/5] md:aspect-square">
                 <Image
                   src="/diverse-happy-teenagers-supporting-each-other-ment.jpg"
                   alt="Students supporting each other"
-                  width={800}
-                  height={1000}
-                  className="w-full object-cover"
+                  fill
+                  className="object-cover grayscale hover:grayscale-0 transition-all duration-1000"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-hamboi-dark-bg via-transparent to-transparent opacity-60" />
+                <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent opacity-60" />
               </div>
 
-              {/* Floating Card */}
+              {/* Floating Status Cards */}
               <motion.div
                 animate={{ y: [0, -10, 0] }}
                 transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                className="absolute -bottom-6 -left-6 z-20 bg-hamboi-purple p-6 rounded-2xl shadow-xl border border-white/20 max-w-[240px]"
+                className="absolute -bottom-10 -left-10 z-20 glass-morphism p-8 rounded-[2.5rem] shadow-2xl border border-white/20 max-w-[280px]"
               >
-                <div className="flex items-center gap-3 mb-2">
-                  <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
-                    <Sparkles className="w-4 h-4 text-white" />
+                <div className="flex items-center gap-4 mb-4">
+                  <div className="w-12 h-12 rounded-2xl bg-hamboi-green/20 flex items-center justify-center">
+                    <ShieldCheck className="w-6 h-6 text-hamboi-green" />
                   </div>
-                  <span className="text-white font-bold text-sm">Always Here</span>
+                  <div>
+                    <p className="text-white font-black text-xs uppercase tracking-tight">Privacy First</p>
+                    <p className="text-[9px] text-hamboi-green font-bold uppercase">100% Anonymous</p>
+                  </div>
                 </div>
-                <p className="text-white/80 text-xs leading-relaxed">
+                <p className="text-white/70 text-xs font-medium leading-relaxed italic">
                   "Hamboi helped me through my finals when I felt like no one understood."
                 </p>
+              </motion.div>
+
+              <motion.div
+                animate={{ y: [0, 10, 0] }}
+                transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+                className="absolute -top-10 -right-10 z-20 glass-morphism p-8 rounded-[2.5rem] shadow-2xl border border-white/20"
+              >
+                 <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-xl bg-hamboi-purple/20 flex items-center justify-center">
+                       <Heart className="w-5 h-5 text-hamboi-purple fill-hamboi-purple" />
+                    </div>
+                    <span className="text-white font-black text-xs uppercase tracking-widest">Always Online</span>
+                 </div>
               </motion.div>
             </motion.div>
           </div>
@@ -176,42 +169,47 @@ export function HeroSection() {
 
       <ChatDemoModal isOpen={isChatDemoOpen} onClose={() => setIsChatDemoOpen(false)} />
 
-      {/* iOS Install Instructions Modal */}
-      {showIOSInstructions && (
-        <div className="fixed inset-0 bg-black/70 z-50 flex items-center justify-center p-4 backdrop-blur-sm" onClick={() => setShowIOSInstructions(false)}>
-          <div className="bg-hamboi-dark-card rounded-3xl p-8 max-w-sm w-full border border-hamboi-purple/30" onClick={(e) => e.stopPropagation()}>
-            <div className="flex items-center justify-between mb-6">
-              <h3 className="text-2xl font-bold text-white">iPhone/iPad Install 📱</h3>
-              <button onClick={() => setShowIOSInstructions(false)} className="p-1 hover:bg-hamboi-purple/20 rounded-lg transition">
-                <X className="h-6 w-6 text-hamboi-text-muted" />
-              </button>
-            </div>
-            <div className="space-y-4">
-              <div className="flex items-start gap-4">
-                <div className="w-10 h-10 rounded-full bg-hamboi-green/30 flex items-center justify-center flex-shrink-0 font-bold text-hamboi-green text-sm">
-                  1
-                </div>
-                <p className="text-hamboi-text-muted text-sm pt-1">Tap <strong>Share</strong> at the bottom (the box with arrow)</p>
+      <AnimatePresence>
+        {showIOSInstructions && (
+          <div className="fixed inset-0 bg-black/80 z-[100] flex items-center justify-center p-4 backdrop-blur-md" onClick={() => setShowIOSInstructions(false)}>
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.9 }}
+              className="bg-background border border-white/10 rounded-[3rem] p-10 max-w-sm w-full relative overflow-hidden"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-hamboi-purple to-hamboi-green" />
+
+              <div className="flex items-center justify-between mb-10">
+                <h3 className="text-2xl font-black text-white uppercase tracking-tight">Install App</h3>
+                <button onClick={() => setShowIOSInstructions(false)} className="p-2 text-white/20 hover:text-white transition-all">
+                  <X className="h-6 w-6" />
+                </button>
               </div>
-              <div className="flex items-start gap-4">
-                <div className="w-10 h-10 rounded-full bg-hamboi-purple/30 flex items-center justify-center flex-shrink-0 font-bold text-hamboi-purple text-sm">
-                  2
-                </div>
-                <p className="text-hamboi-text-muted text-sm pt-1">Tap <strong>"Add to Home Screen"</strong></p>
+
+              <div className="space-y-6">
+                {[
+                  { step: 1, text: "Tap the Share button at the bottom of Safari." },
+                  { step: 2, text: "Scroll down and tap 'Add to Home Screen'." },
+                  { step: 3, text: "Tap 'Add' in the top right corner." }
+                ].map((s) => (
+                  <div key={s.step} className="flex items-start gap-5">
+                    <div className="w-10 h-10 rounded-2xl bg-hamboi-purple/20 flex items-center justify-center flex-shrink-0 text-hamboi-purple font-black">
+                      {s.step}
+                    </div>
+                    <p className="text-hamboi-text-muted text-sm font-medium pt-2">{s.text}</p>
+                  </div>
+                ))}
               </div>
-              <div className="flex items-start gap-4">
-                <div className="w-10 h-10 rounded-full bg-hamboi-cyan/30 flex items-center justify-center flex-shrink-0 font-bold text-hamboi-cyan text-sm">
-                  3
-                </div>
-                <p className="text-hamboi-text-muted text-sm pt-1">Tap <strong>"Add"</strong> in the corner</p>
-              </div>
-            </div>
-            <Button onClick={() => setShowIOSInstructions(false)} className="w-full mt-8 bg-hamboi-green hover:bg-emerald-500 text-hamboi-dark-bg font-bold py-6 rounded-2xl transition-all">
-              Got it, thanks!
-            </Button>
+
+              <Button onClick={() => setShowIOSInstructions(false)} className="w-full mt-12 bg-hamboi-purple hover:bg-hamboi-purple/90 text-white font-black h-16 rounded-[1.5rem] shadow-xl">
+                Got it!
+              </Button>
+            </motion.div>
           </div>
-        </div>
-      )}
+        )}
+      </AnimatePresence>
     </>
   )
 }

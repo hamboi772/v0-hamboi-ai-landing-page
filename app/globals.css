@@ -28,9 +28,7 @@
   /* Brand Colors Refined */
   --hamboi-purple: #6D28D9;
   --hamboi-green: #10B981;
-  --hamboi-cyan: #06B6D4;
   --hamboi-dark-bg: #0B0B14;
-  --hamboi-dark-card: #141421;
   --hamboi-text-muted: #94A3B8;
 }
 
@@ -59,9 +57,7 @@
 
   --color-hamboi-purple: var(--hamboi-purple);
   --color-hamboi-green: var(--hamboi-green);
-  --color-hamboi-cyan: var(--hamboi-cyan);
   --color-hamboi-dark-bg: var(--hamboi-dark-bg);
-  --color-hamboi-dark-card: var(--hamboi-dark-card);
   --color-hamboi-text-muted: var(--hamboi-text-muted);
 
   --radius-sm: calc(var(--radius) - 4px);
@@ -83,16 +79,14 @@
   }
 }
 
-/* Animations */
-@keyframes pulse-soft {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.6; }
-}
-
-.animate-pulse-soft {
-  animation: pulse-soft 4s ease-in-out infinite;
-}
-
 .glass-morphism {
   @apply bg-white/5 backdrop-blur-xl border border-white/10;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }

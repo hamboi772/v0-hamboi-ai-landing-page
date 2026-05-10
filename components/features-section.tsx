@@ -32,21 +32,32 @@ const features = [
     description: "Recognized by FIRST Global Challenge for innovation and social impact.",
     icon: Award,
     color: "bg-hamboi-cyan",
-    size: "sm"
+    size: "sm",
+    link: "/about"
   },
   {
     title: "Mood Tracking",
     description: "Visualize your journey and identify patterns in your mental well-being.",
     icon: Target,
     color: "bg-hamboi-pink",
-    size: "sm"
+    size: "sm",
+    link: "/checkin"
+  },
+  {
+    title: "Daily Challenges",
+    description: "Small acts of self-care that add up to big mental shifts.",
+    icon: Zap,
+    color: "bg-hamboi-purple",
+    size: "sm",
+    link: "/challenges"
   },
   {
     title: "Crisis Support",
     description: "Immediate access to professional help when things get too heavy.",
     icon: Heart,
     color: "bg-red-500",
-    size: "lg"
+    size: "lg",
+    link: "/resources"
   }
 ]
 
@@ -77,7 +88,11 @@ export function FeaturesSection() {
               className={`
                 relative group rounded-3xl p-8 overflow-hidden glass-morphism transition-all duration-300
                 ${feature.size === 'lg' ? 'md:col-span-2 md:row-span-2' : 'md:col-span-1'}
+                ${feature.link ? 'cursor-pointer' : ''}
               `}
+              onClick={() => {
+                if (feature.link) window.location.href = feature.link
+              }}
             >
               <div className="relative z-10 h-full flex flex-col justify-between">
                 <div>
