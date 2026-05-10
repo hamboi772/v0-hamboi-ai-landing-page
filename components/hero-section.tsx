@@ -72,13 +72,13 @@ export function HeroSection() {
                 Built for the late-night overthinkers.
               </div>
 
-              <h1 className="text-5xl md:text-8xl font-black text-white leading-tight tracking-tighter">
+              <h1 className="text-6xl md:text-[9rem] font-black text-white leading-[0.8] tracking-[-0.04em]">
                 By students <br />
-                <span className="text-hamboi-purple">who get it.</span>
+                <span className="text-hamboi-purple text-glow-purple">who get it.</span>
               </h1>
 
-              <p className="text-xl md:text-2xl text-hamboi-text-muted max-w-xl leading-relaxed font-medium">
-                Hamboi is the safe space we wished we had. No clinical vibes, just real talk and tools to help you navigate student life.
+              <p className="text-2xl md:text-3xl text-hamboi-text-muted max-w-xl leading-relaxed font-medium">
+                Hamboi is the safe space we wished we had. No clinical vibes, just real talk for the modern student.
               </p>
 
               <div className="flex flex-col sm:flex-row items-center gap-6 pt-4">
@@ -168,6 +168,12 @@ export function HeroSection() {
       </section>
 
       <ChatDemoModal isOpen={isChatDemoOpen} onClose={() => setIsChatDemoOpen(false)} />
+
+      <style jsx>{`
+        .text-glow-purple {
+          text-shadow: 0 0 40px rgba(109, 40, 217, 0.4);
+        }
+      `}</style>
 
       <AnimatePresence>
         {showIOSInstructions && (

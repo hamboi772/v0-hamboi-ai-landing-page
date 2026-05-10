@@ -1,6 +1,6 @@
 "use client"
 
-import { Award, Globe, Sparkles, Users, ArrowRight, Heart } from "lucide-react"
+import { Award, Globe, Sparkles, Users, ArrowRight, Heart, Star } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
@@ -9,104 +9,135 @@ import { motion } from "framer-motion"
 export function OurStorySection() {
   return (
     <section className="relative py-24 lg:py-32 bg-background overflow-hidden" id="our-story">
-      {/* Background decoration */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[60%] h-[60%] bg-hamboi-purple/5 rounded-full blur-[120px] pointer-events-none" />
+      {/* Dynamic Background Elements */}
+      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-hamboi-green/5 rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-hamboi-purple/5 rounded-full blur-[120px] pointer-events-none" />
 
       <div className="container mx-auto px-4 relative z-10">
-        <div className="grid lg:grid-cols-2 gap-20 items-center">
+        <div className="grid lg:grid-cols-2 gap-24 items-center">
           {/* Column 1: Personal Narrative */}
           <motion.div
-            initial={{ opacity: 0, x: -20 }}
+            initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className="space-y-10"
+            transition={{ duration: 0.8 }}
+            className="space-y-12"
           >
             <div>
-              <div className="inline-flex items-center gap-2 px-4 py-2 bg-hamboi-green/10 rounded-full text-hamboi-green text-[10px] font-black uppercase tracking-[0.2em] mb-8 border border-hamboi-green/20">
-                <Award className="w-3.5 h-3.5" />
-                The Journey
+              <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/5 border border-white/10 rounded-full text-hamboi-green text-[10px] font-black uppercase tracking-[0.2em] mb-10">
+                <Star className="w-3.5 h-3.5 fill-hamboi-green" />
+                The Origin Story
               </div>
-              <h2 className="text-4xl md:text-7xl font-black text-white leading-tight tracking-tighter mb-8">
-                From Nigeria <br/>to the <span className="text-hamboi-green">World Stage.</span>
+              <h2 className="text-5xl md:text-8xl font-black text-white leading-[0.9] tracking-tighter mb-10">
+                A mission <br/>born from <span className="text-hamboi-green">necessity.</span>
               </h2>
-              <div className="space-y-6 text-xl text-hamboi-text-muted leading-relaxed font-medium">
-                <p>
-                  "I'm Abiodun Abdul Hameed. At 15, while most kids were just gaming, I was obsessing over how to solve a silence that was hurting my friends."
+              <div className="space-y-8 text-xl text-hamboi-text-muted leading-relaxed font-medium">
+                <p className="border-l-2 border-white/10 pl-8">
+                  "I'm <span className="text-white">Abiodun Abdul Hameed</span>. At 15, I noticed a silence in my classroom that was louder than any conversation. It was the silence of students struggling with things they didn't know how to name."
                 </p>
                 <p>
-                  Growing up in Lagos, I saw how mental health was often ignored. I wanted to build something that felt like a friend, not a clinical tool.
+                  Growing up in Lagos, mental health wasn't something we talked about. I wanted to build the bridge I needed—a space that felt like a friend, not a clinic.
                 </p>
 
-                <div className="bg-white/5 border-l-4 border-hamboi-purple p-8 rounded-r-3xl my-10">
-                   <p className="text-white font-black italic text-2xl leading-tight">
-                    "Hamboi isn't just an app. It's the friend I wish I had when things got loud in my head."
-                  </p>
+                <div className="relative group">
+                   <div className="absolute -inset-4 bg-gradient-to-r from-hamboi-purple/20 to-hamboi-green/20 rounded-[2rem] blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+                   <div className="relative bg-white/5 border border-white/10 p-10 rounded-[2.5rem] overflow-hidden">
+                      <p className="text-white font-black italic text-2xl leading-tight relative z-10">
+                        "We earned a Bronze Medal at the FIRST Global Challenge, but the real prize is every student who feels less alone."
+                      </p>
+                      <Award className="absolute -right-4 -bottom-4 w-32 h-32 text-white/5 rotate-12" />
+                   </div>
                 </div>
-
-                <p>
-                  This journey led me to represent Team Nigeria at the <strong>FIRST Global Challenge</strong>, where we earned a <strong>Bronze Medal</strong> for international unity.
-                </p>
               </div>
             </div>
 
-            <div className="flex flex-wrap gap-4 pt-4">
+            <div className="flex flex-wrap gap-6">
               <Link href="/about/article">
-                <Button className="bg-hamboi-purple hover:bg-hamboi-purple/90 text-white font-black h-16 px-10 rounded-2xl shadow-xl transition-all hover:scale-105">
-                  Read Full Story
-                  <ArrowRight className="w-5 h-5 ml-2" />
+                <Button className="bg-white text-black hover:bg-white/90 font-black h-20 px-12 rounded-[2rem] shadow-2xl transition-all hover:scale-105 active:scale-95 text-lg">
+                  Read the full story
+                  <ArrowRight className="w-6 h-6 ml-3" />
                 </Button>
               </Link>
             </div>
           </motion.div>
 
-          {/* Column 2: Visual */}
+          {/* Column 2: Visual Composition */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
+            initial={{ opacity: 0, scale: 0.9 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
+            transition={{ duration: 1 }}
             className="relative"
           >
-            <div className="relative aspect-[4/5] rounded-[3rem] overflow-hidden border border-white/10 shadow-2xl group">
-              <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent z-10 opacity-60" />
-              <Image
-                src="/images/founder-story.webp"
-                alt="Abiodun Abdul Hameed - Founder"
-                fill
-                className="object-cover grayscale hover:grayscale-0 transition-all duration-1000 group-hover:scale-105"
-              />
+            {/* Main Image Container with Abstract Frame */}
+            <div className="relative z-10">
+               <div className="absolute -inset-1 bg-gradient-to-tr from-hamboi-purple to-hamboi-green rounded-[4rem] blur opacity-20" />
+               <div className="relative aspect-[4/5] rounded-[4rem] overflow-hidden border border-white/10 shadow-2xl group">
+                  <Image
+                    src="/images/founder-story.webp"
+                    alt="Abiodun Abdul Hameed - Founder"
+                    fill
+                    className="object-cover grayscale hover:grayscale-0 transition-all duration-1000 group-hover:scale-110"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent opacity-80" />
 
-              {/* Achievement Card */}
-              <motion.div
-                className="absolute bottom-8 left-8 right-8 z-20 glass-morphism p-8 rounded-[2rem] border border-white/20 shadow-2xl"
-                whileHover={{ y: -5 }}
-              >
-                <div className="flex items-center gap-4 mb-4">
-                  <div className="w-12 h-12 rounded-2xl bg-hamboi-purple flex items-center justify-center shadow-lg">
-                    <Award className="w-6 h-6 text-white" />
+                  {/* Overlay Info */}
+                  <div className="absolute bottom-12 left-12 right-12">
+                     <div className="flex items-center gap-4 mb-6">
+                        <div className="px-4 py-2 bg-hamboi-purple rounded-full text-white text-[10px] font-black uppercase tracking-widest">
+                           Founder @ 15
+                        </div>
+                        <div className="px-4 py-2 bg-white/10 backdrop-blur-md rounded-full text-white text-[10px] font-black uppercase tracking-widest">
+                           Lagos, Nigeria
+                        </div>
+                     </div>
                   </div>
-                  <div>
-                    <h4 className="font-black text-white uppercase tracking-tight">Bronze Medalist</h4>
-                    <p className="text-[10px] text-hamboi-purple font-black uppercase tracking-widest">2025 FIRST Global</p>
-                  </div>
-                </div>
-                <p className="text-sm text-white font-medium leading-relaxed">
-                  Recognized for International Unity and Excellence in Student Innovation.
-                </p>
-              </motion.div>
+               </div>
             </div>
 
-            {/* Decorative bits */}
-            <div className="absolute -top-10 -right-10 w-40 h-40 bg-hamboi-green/10 rounded-full blur-3xl animate-pulse" />
-            <div className="absolute -bottom-10 -left-10 w-40 h-40 bg-hamboi-purple/10 rounded-full blur-3xl animate-pulse" />
+            {/* Floating Achievement Badge */}
+            <motion.div
+              initial={{ x: 20, opacity: 0 }}
+              whileInView={{ x: 0, opacity: 1 }}
+              transition={{ delay: 0.5, duration: 0.8 }}
+              className="absolute -right-8 top-1/4 z-20 glass-morphism p-8 rounded-[2.5rem] border border-white/20 shadow-2xl max-w-[240px]"
+            >
+              <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-orange-400 to-orange-600 flex items-center justify-center shadow-lg mb-4">
+                <Award className="w-8 h-8 text-white" />
+              </div>
+              <h4 className="font-black text-white text-lg uppercase tracking-tight leading-none mb-2">Bronze Medal</h4>
+              <p className="text-[10px] text-hamboi-text-muted font-bold uppercase tracking-widest leading-relaxed">
+                FIRST Global Challenge <br/>Innovation Award
+              </p>
+            </motion.div>
+
+            {/* Decorative Geometric Shapes */}
+            <div className="absolute -top-12 -left-12 w-32 h-32 border-2 border-hamboi-purple/20 rounded-full animate-[spin_10s_linear_infinite]" />
+            <div className="absolute -bottom-8 -right-8 w-24 h-24 border-2 border-hamboi-green/20 rounded-[2rem] rotate-45" />
           </motion.div>
         </div>
 
-        {/* Bottom Bento Stats */}
+        {/* Impact Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-32">
           {[
-            { icon: Users, label: "Student-Led", desc: "Built by teens who understand the modern pressure.", color: "text-hamboi-green" },
-            { icon: Globe, label: "African Built", desc: "From Lagos to the world, breaking cultural silence.", color: "text-blue-400" },
-            { icon: Sparkles, label: "Innovation", desc: "Award-winning tech applied to social impact.", color: "text-hamboi-purple" }
+            {
+              icon: Users,
+              label: "Student-Led",
+              desc: "By students, for students. No clinical disconnected vibes.",
+              gradient: "from-hamboi-purple/10 to-transparent"
+            },
+            {
+              icon: Globe,
+              label: "Global Vision",
+              desc: "From Lagos classrooms to an international stage for change.",
+              gradient: "from-hamboi-green/10 to-transparent"
+            },
+            {
+              icon: Sparkles,
+              label: "Impact First",
+              desc: "Mental health support shouldn't be a luxury. It's a right.",
+              gradient: "from-blue-500/10 to-transparent"
+            }
           ].map((item, i) => (
             <motion.div
               key={i}
@@ -114,13 +145,16 @@ export function OurStorySection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.1 }}
-              className="glass-morphism border-white/10 p-10 rounded-[2.5rem] text-center md:text-left group"
+              className={`relative overflow-hidden glass-morphism border-white/10 p-12 rounded-[3rem] group hover:border-white/20 transition-all duration-500`}
             >
-              <div className="w-14 h-14 bg-white/5 border border-white/10 rounded-2xl flex items-center justify-center mb-8 group-hover:bg-hamboi-purple/20 transition-all">
-                <item.icon className={`w-7 h-7 ${item.color}`} />
+              <div className={`absolute inset-0 bg-gradient-to-br ${item.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-700`} />
+              <div className="relative z-10">
+                <div className="w-16 h-16 bg-white/5 border border-white/10 rounded-2xl flex items-center justify-center mb-8 group-hover:scale-110 transition-transform duration-500">
+                  <item.icon className="w-8 h-8 text-white group-hover:text-hamboi-green" />
+                </div>
+                <h4 className="text-2xl font-black text-white uppercase tracking-tight mb-4">{item.label}</h4>
+                <p className="text-hamboi-text-muted text-base font-medium leading-relaxed">{item.desc}</p>
               </div>
-              <h4 className="text-xl font-black text-white uppercase tracking-tight mb-3">{item.label}</h4>
-              <p className="text-hamboi-text-muted text-sm font-medium leading-relaxed">{item.desc}</p>
             </motion.div>
           ))}
         </div>

@@ -58,10 +58,14 @@ export function HowItWorksSection() {
           {steps.map((step, index) => (
             <motion.div
               key={step.step}
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: index * 0.1 }}
+              transition={{
+                duration: 0.8,
+                delay: index * 0.15,
+                ease: [0.21, 0.47, 0.32, 0.98]
+              }}
               whileHover={{ y: -10 }}
               className="relative group"
             >
