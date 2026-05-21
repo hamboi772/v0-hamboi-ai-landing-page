@@ -3,86 +3,84 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  /* Gen Z Dark Mode Color Palette - Bold & Vibrant */
-  --background: #0F0F1E;
+  /* Cinematic Sanctuary Color Palette */
+  --background: #030206;
   --foreground: #FFFFFF;
-  --card: #1A1A2E;
+  --card: rgba(255, 255, 255, 0.01);
   --card-foreground: #FFFFFF;
-  --popover: #1A1A2E;
+  --popover: rgba(255, 255, 255, 0.01);
   --popover-foreground: #FFFFFF;
-  --primary: #22C55E;
-  --primary-foreground: #0F0F1E;
-  --secondary: #7C3AED;
+  --primary: #FFFFFF;
+  --primary-foreground: #030206;
+  --secondary: rgba(255, 255, 255, 0.08);
   --secondary-foreground: #FFFFFF;
-  --muted: #3A3A4E;
-  --muted-foreground: #A0A0B0;
-  --accent: #EC4899;
-  --accent-foreground: #FFFFFF;
+  --muted: rgba(255, 255, 255, 0.3);
+  --muted-foreground: rgba(255, 255, 255, 0.6);
+  --accent: #DFCC96;
+  --accent-foreground: #030206;
   --destructive: #EF4444;
   --destructive-foreground: #FFFFFF;
-  --border: #2A2A3E;
-  --input: #2A2A3E;
-  --ring: #7C3AED;
-  --chart-1: #22C55E;
-  --chart-2: #7C3AED;
+  --border: rgba(255, 255, 255, 0.08);
+  --input: rgba(255, 255, 255, 0.05);
+  --ring: rgba(255, 255, 255, 0.12);
+  --chart-1: #F59E0B;
+  --chart-2: #DC2626;
   --chart-3: #06B6D4;
-  --chart-4: #EC4899;
-  --chart-5: #F59E0B;
+  --chart-4: #10B981;
+  --chart-5: #8B5CF6;
   --radius: 1.5rem;
-  --sidebar: #1A1A2E;
+  --sidebar: rgba(255, 255, 255, 0.01);
   --sidebar-foreground: #FFFFFF;
-  --sidebar-primary: #22C55E;
-  --sidebar-primary-foreground: #0F0F1E;
-  --sidebar-accent: #7C3AED;
+  --sidebar-primary: #FFFFFF;
+  --sidebar-primary-foreground: #030206;
+  --sidebar-accent: rgba(255, 255, 255, 0.12);
   --sidebar-accent-foreground: #FFFFFF;
-  --sidebar-border: #2A2A3E;
-  --sidebar-ring: #7C3AED;
+  --sidebar-border: rgba(255, 255, 255, 0.08);
+  --sidebar-ring: rgba(255, 255, 255, 0.12);
 
-  /* Gen Z Brand Colors */
-  --hamboi-purple: #7C3AED;
-  --hamboi-green: #22C55E;
-  --hamboi-cyan: #06B6D4;
-  --hamboi-pink: #EC4899;
-  --hamboi-dark-bg: #0F0F1E;
-  --hamboi-dark-card: #1A1A2E;
-  --hamboi-text: #FFFFFF;
-  --hamboi-text-muted: #A0A0B0;
+  /* Sanctuary Accent Colors */
+  --sanctuary-amber: #F59E0B;
+  --sanctuary-gold: #D4AF37;
+  --sanctuary-rose: #DC2626;
+  --sanctuary-emerald: #10B981;
+  --sanctuary-cyan: #06B6D4;
+  --sanctuary-muted-amber: #24211a;
 }
 
 .dark {
-  /* Already using dark mode by default in :root */
-  --background: #0F0F1E;
+  /* Cinematic Sanctuary - Dark Mode */
+  --background: #030206;
   --foreground: #FFFFFF;
-  --card: #1A1A2E;
+  --card: rgba(255, 255, 255, 0.01);
   --card-foreground: #FFFFFF;
-  --popover: #1A1A2E;
+  --popover: rgba(255, 255, 255, 0.01);
   --popover-foreground: #FFFFFF;
-  --primary: #22C55E;
-  --primary-foreground: #0F0F1E;
-  --secondary: #7C3AED;
+  --primary: #FFFFFF;
+  --primary-foreground: #030206;
+  --secondary: rgba(255, 255, 255, 0.08);
   --secondary-foreground: #FFFFFF;
-  --muted: #3A3A4E;
-  --muted-foreground: #A0A0B0;
-  --accent: #EC4899;
-  --accent-foreground: #FFFFFF;
+  --muted: rgba(255, 255, 255, 0.3);
+  --muted-foreground: rgba(255, 255, 255, 0.6);
+  --accent: #DFCC96;
+  --accent-foreground: #030206;
   --destructive: #EF4444;
   --destructive-foreground: #FFFFFF;
-  --border: #2A2A3E;
-  --input: #2A2A3E;
-  --ring: #7C3AED;
-  --chart-1: #22C55E;
-  --chart-2: #7C3AED;
+  --border: rgba(255, 255, 255, 0.08);
+  --input: rgba(255, 255, 255, 0.05);
+  --ring: rgba(255, 255, 255, 0.12);
+  --chart-1: #F59E0B;
+  --chart-2: #DC2626;
   --chart-3: #06B6D4;
-  --chart-4: #EC4899;
-  --chart-5: #F59E0B;
-  --sidebar: #1A1A2E;
+  --chart-4: #10B981;
+  --chart-5: #8B5CF6;
+  --sidebar: rgba(255, 255, 255, 0.01);
   --sidebar-foreground: #FFFFFF;
-  --sidebar-primary: #22C55E;
-  --sidebar-primary-foreground: #0F0F1E;
-  --sidebar-accent: #7C3AED;
+  --sidebar-primary: #FFFFFF;
+  --sidebar-primary-foreground: #030206;
+  --sidebar-accent: rgba(255, 255, 255, 0.12);
   --sidebar-accent-foreground: #FFFFFF;
-  --sidebar-border: #2A2A3E;
-  --sidebar-ring: #7C3AED;
+  --sidebar-border: rgba(255, 255, 255, 0.08);
+  --sidebar-ring: rgba(255, 255, 255, 0.12);
 }
 
 @theme inline {
@@ -125,15 +123,13 @@
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
 
-  /* Gen Z Brand Colors */
-  --color-hamboi-purple: var(--hamboi-purple);
-  --color-hamboi-green: var(--hamboi-green);
-  --color-hamboi-cyan: var(--hamboi-cyan);
-  --color-hamboi-pink: var(--hamboi-pink);
-  --color-hamboi-dark-bg: var(--hamboi-dark-bg);
-  --color-hamboi-dark-card: var(--hamboi-dark-card);
-  --color-hamboi-text: var(--hamboi-text);
-  --color-hamboi-text-muted: var(--hamboi-text-muted);
+  /* Sanctuary Accent Colors */
+  --color-sanctuary-amber: var(--sanctuary-amber);
+  --color-sanctuary-gold: var(--sanctuary-gold);
+  --color-sanctuary-rose: var(--sanctuary-rose);
+  --color-sanctuary-emerald: var(--sanctuary-emerald);
+  --color-sanctuary-cyan: var(--sanctuary-cyan);
+  --color-sanctuary-muted-amber: var(--sanctuary-muted-amber);
 }
 
 @layer base {
@@ -400,3 +396,116 @@ html {
 
 .animate-slide-left  { animation: slide-in-left  0.7s cubic-bezier(0.4, 0, 0.2, 1) both; }
 .animate-slide-right { animation: slide-in-right 0.7s cubic-bezier(0.4, 0, 0.2, 1) both; }
+
+/* ── Cinematic Sanctuary Styling ── */
+
+/* Liquid Glass Effect */
+.liquid-glass {
+  background: rgba(255, 255, 255, 0.01);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.08);
+}
+
+/* Radial gradient background for hero */
+@keyframes gradient-shift-radial {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.sanctuary-hero-bg {
+  position: relative;
+  background: #030206;
+  background-image: 
+    radial-gradient(circle at 20% 50%, rgba(245, 158, 11, 0.15) 0%, transparent 50%),
+    radial-gradient(circle at 80% 50%, rgba(220, 38, 38, 0.12) 0%, transparent 50%),
+    radial-gradient(circle at 50% 100%, rgba(16, 185, 129, 0.08) 0%, transparent 50%),
+    radial-gradient(circle at 50% 0%, rgba(6, 182, 212, 0.1) 0%, transparent 50%);
+  background-size: 200% 200%, 200% 200%, 200% 200%, 200% 200%;
+  background-attachment: fixed;
+  animation: gradient-shift-radial 15s ease infinite;
+}
+
+/* Breathing light leak effect */
+@keyframes breathing-light {
+  0%, 100% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+
+.breathing-light {
+  animation: breathing-light 4s ease-in-out infinite;
+}
+
+/* Subtle blur-in text animation */
+@keyframes blur-in-up {
+  from {
+    filter: blur(12px);
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    filter: blur(0);
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-blur-in {
+  animation: blur-in-up 0.8s ease-out forwards;
+}
+
+/* Word fade-in staggered */
+@keyframes word-fade {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.word-fade {
+  animation: word-fade 0.6s ease-out;
+}
+
+/* Status pill pulsing light */
+@keyframes status-pulse {
+  0%, 100% {
+    background-color: rgba(36, 33, 26, 0.6);
+  }
+  50% {
+    background-color: rgba(36, 33, 26, 0.8);
+  }
+}
+
+.status-pill {
+  animation: status-pulse 3s ease-in-out infinite;
+}
+
+/* Pulsing dot indicator */
+@keyframes dot-pulse {
+  0%, 100% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.dot-pulse {
+  animation: dot-pulse 2s ease-in-out infinite;
+}

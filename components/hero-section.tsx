@@ -1,281 +1,111 @@
 "use client"
 
-import { useState, useEffect, useRef, useCallback } from "react"
+import { useState, useEffect, useRef } from "react"
 import { Button } from "@/components/ui/button"
-import { MessageSquare, Sparkles, LayoutDashboard, Download, Smartphone, X } from "lucide-react"
+import { MessageSquare, ChevronDown, ArrowUpRight } from "lucide-react"
 import { ChatDemoModal } from "@/components/chat-demo-modal"
-import { AppStoreBadges } from "@/components/app-store-badges"
-import { ParticleCanvas } from "@/components/particle-canvas"
 import Link from "next/link"
-import Image from "next/image"
 
 export function HeroSection() {
   const [isChatDemoOpen, setIsChatDemoOpen] = useState(false)
-  const [deferredPrompt, setDeferredPrompt] = useState<any>(null)
-  const [isInstallable, setIsInstallable] = useState(false)
-  const [isIOS, setIsIOS] = useState(false)
-  const [showIOSInstructions, setShowIOSInstructions] = useState(false)
-  const [parallaxY, setParallaxY] = useState(0)
-  const heroRef = useRef<HTMLElement>(null)
-  const rafRef = useRef<number>(0)
-
+  const [wordIndex, setWordIndex] = useState(0)
+  const words = ["You do not have to carry it alone."]
+  
   useEffect(() => {
-    const isIOSDevice = /iPad|iPhone|iPod/.test(navigator.userAgent) && !(window as any).MSStream
-    setIsIOS(isIOSDevice)
-
-    const isStandalone = window.matchMedia('(display-mode: standalone)').matches || 
-                         (window.navigator as any).standalone === true
-    
-    if (!isStandalone) {
-      setIsInstallable(true)
-    }
-
-    const handler = (e: Event) => {
-      e.preventDefault()
-      setDeferredPrompt(e)
-      setIsInstallable(true)
-    }
-
-    window.addEventListener("beforeinstallprompt", handler)
-    return () => window.removeEventListener("beforeinstallprompt", handler)
+    const timer = setTimeout(() => setWordIndex(1), 300)
+    return () => clearTimeout(timer)
   }, [])
-
-  // Lightweight parallax — only runs when hero is in view
-  useEffect(() => {
-    let ticking = false
-    const onScroll = () => {
-      if (!ticking) {
-        rafRef.current = requestAnimationFrame(() => {
-          const scrollY = window.scrollY
-          setParallaxY(scrollY * 0.25)
-          ticking = false
-        })
-        ticking = true
-      }
-    }
-    window.addEventListener("scroll", onScroll, { passive: true })
-    return () => {
-      window.removeEventListener("scroll", onScroll)
-      cancelAnimationFrame(rafRef.current)
-    }
-  }, [])
-
-  const handleInstallClick = async () => {
-    if (isIOS) {
-      setShowIOSInstructions(true)
-      return
-    }
-
-    if (deferredPrompt) {
-      deferredPrompt.prompt()
-      const { outcome } = await deferredPrompt.userChoice
-      if (outcome === "accepted") {
-        setIsInstallable(false)
-      }
-      setDeferredPrompt(null)
-    }
-  }
 
   return (
     <>
-      <section
-        ref={heroRef}
-        className="relative overflow-hidden bg-gradient-to-br from-hamboi-dark-bg via-[#1a1a3e] to-[#0f1a2e] py-24 lg:py-40 min-h-screen flex items-center"
-      >
-        {/* Floating particle canvas */}
-        <div className="absolute inset-0 overflow-hidden">
-          <ParticleCanvas />
+      <section className="sanctuary-hero-bg relative overflow-hidden min-h-screen flex items-center justify-center pt-24 pb-12">
+        {/* Subtle breathing light leaks */}
+        <div className="absolute inset-0 pointer-events-none overflow-hidden">
+          <div className="absolute top-0 left-1/4 w-96 h-96 bg-orange-500/20 rounded-full blur-3xl breathing-light" />
+          <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl breathing-light" style={{ animationDelay: "2s" }} />
         </div>
 
-        {/* Animated gradient blobs — parallax layer */}
-        <div
-          className="absolute inset-0 overflow-hidden parallax-layer pointer-events-none"
-          style={{ transform: `translateY(${parallaxY}px)` }}
-        >
-          <div className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br from-hamboi-purple/20 to-transparent rounded-full blur-3xl animate-float" />
-          <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-gradient-to-tr from-hamboi-green/15 to-transparent rounded-full blur-3xl animate-float-slow" />
-          <div className="absolute top-1/2 left-1/3 w-96 h-96 bg-gradient-to-br from-hamboi-cyan/10 to-transparent rounded-full blur-3xl" />
-        </div>
+        <div className="relative z-10 w-full max-w-2xl mx-auto px-6 flex flex-col items-center text-center space-y-8">
+          {/* Status Indicator Pill */}
+          <div className="liquid-glass status-pill px-4 py-2 rounded-full flex items-center justify-center gap-2 max-w-sm">
+            <div className="w-2 h-2 bg-amber-400 rounded-full dot-pulse" />
+            <span className="text-[10px] tracking-[0.2em] text-amber-100 font-bold uppercase">
+              A Safe Space For Shared Healing
+            </span>
+          </div>
 
-        <div className="container mx-auto px-4 relative z-10">
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
-            <div className="space-y-8">
-              <div className="inline-flex items-center gap-2 px-4 py-2 bg-hamboi-purple/20 rounded-full text-hamboi-green text-sm font-bold border border-hamboi-purple/40 animate-fade-in">
-                {/* Rotating brain logo */}
-                <span
-                  className="animate-brain inline-flex items-center justify-center w-6 h-6"
-                  aria-hidden="true"
-                  style={{ display: "inline-block" }}
-                >
-                  <Image
-                    src="/icon-512.png"
-                    alt=""
-                    width={24}
-                    height={24}
-                    className="rounded-full"
-                    priority
-                  />
-                </span>
-                <span>Your feelings matter 💜</span>
-              </div>
+          {/* Main Headline with Word-by-Word Fade */}
+          <h1 className="text-5xl md:text-7xl lg:text-8xl font-light tracking-tight text-white leading-tight">
+            <span className="block space-y-2">
+              <span className="inline-block animate-blur-in" style={{ animationDelay: "0.1s" }}>
+                You do not
+              </span>
+              <span className="inline-block animate-blur-in ml-3" style={{ animationDelay: "0.2s" }}>
+                have to
+              </span>
+              <br />
+              <span className="inline-block animate-blur-in" style={{ animationDelay: "0.3s" }}>
+                carry it
+              </span>
+              <span className="inline-block animate-blur-in ml-3" style={{ animationDelay: "0.4s" }}>
+                <em className="not-italic font-light italic text-amber-200">alone.</em>
+              </span>
+            </span>
+          </h1>
 
-              <div className="space-y-4">
-                <h1 className="text-6xl md:text-7xl lg:text-8xl font-black text-white leading-[1.1] text-balance animate-fade-in-up">
-                  Real Talk About
-                </h1>
-                <h2 className="text-6xl md:text-7xl lg:text-8xl font-black bg-gradient-to-r from-hamboi-green via-hamboi-cyan to-hamboi-purple bg-clip-text text-transparent animate-fade-in-up" style={{ animationDelay: "0.1s" }}>
-                  Mental Health
-                </h2>
-              </div>
+          {/* Functional Description */}
+          <p className="text-lg md:text-xl text-white/60 max-w-xl leading-relaxed animate-blur-in" style={{ animationDelay: "0.5s" }}>
+            Hamboi Mindcare provides 24/7 AI-driven, private mental health support tailored for teenagers in Nigeria, featuring student articles and localized crisis resources. The platform offers a safe, accessible tool for emotional support but is not a replacement for professional therapy.
+          </p>
 
-              <p className="text-lg md:text-xl text-hamboi-text-muted max-w-xl text-pretty leading-relaxed">
-                No judgment here 💚 Just vibes, real support, and someone who actually gets it. Talk whenever, wherever — your AI friend is always down to listen.
+          {/* CTA Buttons — Symmetrical Layout */}
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-6 animate-blur-in" style={{ animationDelay: "0.6s" }}>
+            <Button
+              onClick={() => setIsChatDemoOpen(true)}
+              className="w-full sm:w-auto px-8 py-3 bg-white text-black font-bold rounded-full hover:bg-white/90 transition-all hover:scale-105 active:scale-95 text-lg"
+            >
+              Talk to Companion
+            </Button>
+            <Button
+              variant="ghost"
+              className="w-full sm:w-auto px-8 py-3 border border-white/20 text-white font-semibold rounded-full hover:bg-white/5 transition-all flex items-center justify-center gap-2"
+            >
+              How Peer Works
+              <ArrowUpRight className="h-4 w-4" />
+            </Button>
+          </div>
+
+          {/* Social Proof Footer */}
+          <div className="flex flex-col items-center gap-4 pt-12 animate-blur-in" style={{ animationDelay: "0.7s" }}>
+            <p className="text-[9px] uppercase tracking-[0.25em] text-white/30 font-semibold">
+              Scroll Down
+            </p>
+            <div className="flex items-center gap-3">
+              <div className="h-px w-8 bg-white/20" />
+              <p className="text-[11px] tracking-[0.15em] text-white/50 font-bold">
+                175+ VERIFIED CUSTOMER INTERACTIONS
               </p>
-
-              <div className="flex flex-col gap-8">
-                <div className="flex flex-wrap gap-4">
-                  <Button
-                    size="lg"
-                    onClick={() => setIsChatDemoOpen(true)}
-                    className="bg-hamboi-green hover:bg-emerald-500 text-hamboi-dark-bg font-bold text-lg px-10 py-7 rounded-2xl transition-all hover:scale-105 active:scale-95 cta-glow"
-                  >
-                    <MessageSquare className="h-6 w-6 mr-3" />
-                    Try Chat Demo
-                  </Button>
-                  <Link href="/features">
-                    <Button
-                      size="lg"
-                      className="border-2 border-hamboi-purple bg-transparent text-hamboi-purple hover:bg-hamboi-purple/20 font-bold text-lg px-10 py-7 rounded-2xl transition-all hover:scale-105 active:scale-95"
-                    >
-                      <LayoutDashboard className="h-6 w-6 mr-3" />
-                      Explore Features
-                    </Button>
-                  </Link>
-                </div>
-
-                <div className="space-y-4">
-                  <div className="flex items-center gap-2">
-                    <Smartphone className="h-5 w-5 text-hamboi-green" />
-                    <p className="text-sm text-hamboi-text-muted font-semibold">Get it on your phone:</p>
-                  </div>
-                  {isInstallable && (
-                    <Button
-                      size="lg"
-                      onClick={handleInstallClick}
-                      className="bg-gradient-to-r from-hamboi-purple to-hamboi-pink hover:from-hamboi-purple/90 hover:to-hamboi-pink/90 text-white font-bold px-8 py-6 rounded-2xl shadow-lg shadow-hamboi-purple/30 transition-all hover:scale-105"
-                    >
-                      <Download className="h-5 w-5 mr-3" />
-                      Install App
-                    </Button>
-                  )}
-                  <AppStoreBadges size="large" />
-                </div>
-              </div>
-
-              <div className="flex items-center gap-4 pt-8">
-                <div className="flex -space-x-3">
-                  {[1, 2, 3, 4].map((i) => (
-                    <div
-                      key={i}
-                      className="w-12 h-12 rounded-full bg-gradient-to-br from-hamboi-green to-hamboi-cyan border-2 border-hamboi-dark-card flex items-center justify-center text-sm font-bold text-white"
-                    >
-                      {["A", "J", "M", "S"][i - 1]}
-                    </div>
-                  ))}
-                </div>
-                <p className="text-sm text-hamboi-text-muted">
-                  <span className="font-bold text-hamboi-green">Growing community of teens</span> getting real support with Hamboi
-                </p>
-              </div>
+              <div className="h-px w-8 bg-white/20" />
             </div>
-
-            <div className="relative hidden lg:block">
-              <div className="relative w-full aspect-square max-w-lg mx-auto">
-                <div className="absolute inset-0 bg-gradient-to-br from-hamboi-purple/30 to-hamboi-cyan/20 rounded-3xl blur-3xl animate-pulse-soft" />
-                <div className="relative bg-gradient-to-br from-hamboi-dark-card to-[#232342] rounded-3xl shadow-2xl p-8 border border-hamboi-purple/30 overflow-hidden animate-fade-in-up">
-                  <div className="absolute inset-0 bg-gradient-to-t from-hamboi-purple/10 to-transparent" />
-                  <img
-                    src="/diverse-happy-teenagers-supporting-each-other-ment.jpg"
-                    alt="Diverse group of teenagers supporting each other"
-                    className="w-full h-full object-contain rounded-2xl relative z-10"
-                  />
-                </div>
-
-                <div className="absolute -bottom-8 -left-8 bg-gradient-to-br from-hamboi-dark-card to-[#1a1a2e] rounded-2xl shadow-xl p-5 border border-hamboi-green/50 backdrop-blur-sm animate-bounce-subtle" style={{ animationDelay: "0.2s" }}>
-                  <div className="flex items-center gap-3">
-                    <div className="w-12 h-12 rounded-full bg-hamboi-green/30 flex items-center justify-center">
-                      <svg className="w-6 h-6 text-hamboi-green" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z" />
-                      </svg>
-                    </div>
-                    <div>
-                      <p className="font-bold text-white text-sm">Private & Safe</p>
-                      <p className="text-xs text-hamboi-text-muted">Just between us</p>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="absolute -top-6 -right-6 bg-gradient-to-br from-hamboi-dark-card to-[#1a1a2e] rounded-2xl shadow-xl p-5 border border-hamboi-purple/50 backdrop-blur-sm animate-bounce-subtle">
-                  <div className="flex items-center gap-3">
-                    <div className="w-12 h-12 rounded-full bg-hamboi-purple/30 flex items-center justify-center">
-                      <MessageSquare className="w-6 h-6 text-hamboi-purple" />
-                    </div>
-                    <div>
-                      <p className="font-bold text-white text-sm">Always Here</p>
-                      <p className="text-xs text-hamboi-text-muted">24/7 support</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
+            {/* Avatar Bubble */}
+            <div className="flex -space-x-2 mt-2">
+              {[1, 2, 3].map((i) => (
+                <div
+                  key={i}
+                  className="w-8 h-8 rounded-full bg-gradient-to-br from-amber-400 to-rose-400 border border-white/20"
+                />
+              ))}
             </div>
+          </div>
+
+          {/* Chevron Down for scroll hint */}
+          <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce-subtle">
+            <ChevronDown className="h-6 w-6 text-white/40" />
           </div>
         </div>
       </section>
 
       <ChatDemoModal isOpen={isChatDemoOpen} onClose={() => setIsChatDemoOpen(false)} />
-
-      {/* iOS Install Instructions Modal */}
-      {showIOSInstructions && (
-        <div className="fixed inset-0 bg-black/70 z-50 flex items-center justify-center p-4 backdrop-blur-sm" onClick={() => setShowIOSInstructions(false)}>
-          <div className="bg-gradient-to-br from-hamboi-dark-card to-[#232342] rounded-3xl p-8 max-w-sm w-full border border-hamboi-purple/30" onClick={(e) => e.stopPropagation()}>
-            <div className="flex items-center justify-between mb-6">
-              <h3 className="text-2xl font-bold text-white">iPhone/iPad Install 📱</h3>
-              <button onClick={() => setShowIOSInstructions(false)} className="p-1 hover:bg-hamboi-purple/20 rounded-lg transition">
-                <X className="h-6 w-6 text-hamboi-text-muted" />
-              </button>
-            </div>
-            <div className="space-y-4">
-              <div className="flex items-start gap-4">
-                <div className="w-10 h-10 rounded-full bg-hamboi-green/30 flex items-center justify-center flex-shrink-0 font-bold text-hamboi-green">
-                  1
-                </div>
-                <p className="text-hamboi-text-muted pt-1">Tap <strong>Share</strong> at the bottom (the box with arrow)</p>
-              </div>
-              <div className="flex items-start gap-4">
-                <div className="w-10 h-10 rounded-full bg-hamboi-purple/30 flex items-center justify-center flex-shrink-0 font-bold text-hamboi-purple">
-                  2
-                </div>
-                <p className="text-hamboi-text-muted pt-1">Tap <strong>"Add to Home Screen"</strong></p>
-              </div>
-              <div className="flex items-start gap-4">
-                <div className="w-10 h-10 rounded-full bg-hamboi-cyan/30 flex items-center justify-center flex-shrink-0 font-bold text-hamboi-cyan">
-                  3
-                </div>
-                <p className="text-hamboi-text-muted pt-1">Tap <strong>"Add"</strong> in the corner</p>
-              </div>
-            </div>
-            <div className="mt-8 p-4 bg-hamboi-purple/20 rounded-2xl border border-hamboi-purple/40">
-              <div className="flex items-center gap-3">
-                <Smartphone className="h-6 w-6 text-hamboi-green flex-shrink-0" />
-                <p className="text-sm text-hamboi-text">Done! It's on your home screen like a real app ✨</p>
-              </div>
-            </div>
-            <Button onClick={() => setShowIOSInstructions(false)} className="w-full mt-6 bg-hamboi-green hover:bg-emerald-500 text-hamboi-dark-bg font-bold text-lg py-6 rounded-2xl transition-all hover:scale-105">
-              Got it, thanks!
-            </Button>
-          </div>
-        </div>
-      )}
     </>
   )
 }

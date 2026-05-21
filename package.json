@@ -11,6 +11,7 @@
   "dependencies": {
     "@anthropic-ai/sdk": "0.80.0",
     "@expo/dom-webview": "latest",
+    "@expo/log-box": "latest",
     "@expo/metro-runtime": "latest",
     "@expo/vector-icons": "15.0.3",
     "@google/generative-ai": "0.24.1",
@@ -67,6 +68,7 @@
     "react-hook-form": "^7.60.0",
     "react-native": "0.84.0",
     "react-native-linear-gradient": "2.8.3",
+    "react-native-web": "latest",
     "react-native-webview": "latest",
     "react-paystack": "^5.0.0",
     "react-resizable-panels": "^2.1.7",
