@@ -1087,11 +1087,11 @@ export const articles: Article[] = [
     description:
       "Life as a teenager feels like a constant tug-of-war between being a child and an adult. Learn why your worth isn't defined by the race, but by the process of becoming.",
     author: {
-      name: "Ayatullah Owodunni",
+      name: "Ayatullah Oladunni",
       role: "Student",
       school: "Ansar-ud-Deen Academy",
       image: "/images/authors/ayatullah-owodunni.jpg",
-      bio: "Ayatullah Owodunni is a student at Ansar-ud-Deen Academy who believes in the power of self-kindness and patience. She writes to remind her peers that growth often happens in the moments we feel we are only just getting by.",
+      bio: "Ayatullah Oladunni is a student at Ansar-ud-Deen Academy who believes in the power of self-kindness and patience. She writes to remind her peers that growth often happens in the moments we feel we are only just getting by.",
     },
     category: "Student Voices",
     readTime: "5 min read",
