@@ -272,7 +272,7 @@ export default function CheckInPage() {
             </div>
 
             <div style={{ display: "flex", gap: 10, marginTop: 20 }}>
-              <button style={{ ...styles.primaryBtn, flex: 1 }} onClick={() => router.push("/dashboard")}>
+              <button style={{ ...styles.primaryBtn, flex: 1 }} onClick={() => router.push("/features")}>
                 Go to dashboard
               </button>
               <button

@@ -90,7 +90,7 @@ export default function ChallengesPage() {
             <h1 style={styles.pageTitle}>Challenges ⚡</h1>
             <p style={styles.pageSub}>{today}</p>
           </div>
-          <button onClick={() => router.push("/dashboard")} style={styles.backBtn}>← Back</button>
+          <button onClick={() => router.push("/features")} style={styles.backBtn}>← Back</button>
         </div>
 
         {/* Weekly challenge card */}
