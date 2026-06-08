@@ -6,6 +6,7 @@ import { MessageSquare, Sparkles, LayoutDashboard, Download, Smartphone, X } fro
 import { ChatDemoModal } from "@/components/chat-demo-modal"
 import { AppStoreBadges } from "@/components/app-store-badges"
 import { ParticleCanvas } from "@/components/particle-canvas"
+import { TypewriterHeadline } from "@/components/typewriter-headline"
 import Link from "next/link"
 import Image from "next/image"
 
@@ -119,14 +120,7 @@ export function HeroSection() {
                 <span>Your feelings matter 💜</span>
               </div>
 
-              <div className="space-y-4">
-                <h1 className="text-6xl md:text-7xl lg:text-8xl font-black text-white leading-[1.1] text-balance animate-fade-in-up">
-                  Real Talk About
-                </h1>
-                <h2 className="text-6xl md:text-7xl lg:text-8xl font-black bg-gradient-to-r from-hamboi-green via-hamboi-cyan to-hamboi-purple bg-clip-text text-transparent animate-fade-in-up" style={{ animationDelay: "0.1s" }}>
-                  Mental Health
-                </h2>
-              </div>
+              <TypewriterHeadline />
 
               <p className="text-lg md:text-xl text-hamboi-text-muted max-w-xl text-pretty leading-relaxed">
                 No judgment here 💚 Just vibes, real support, and someone who actually gets it. Talk whenever, wherever — your AI friend is always down to listen.
