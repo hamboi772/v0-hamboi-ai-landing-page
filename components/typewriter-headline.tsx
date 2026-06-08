@@ -46,10 +46,10 @@ export function TypewriterHeadline() {
 
   return (
     <div className="space-y-4">
-      <h1 className="text-6xl md:text-7xl lg:text-8xl font-black text-white leading-[1.1] text-balance animate-fade-in-up">
+      <h1 className="text-6xl md:text-7xl lg:text-8xl font-serif font-bold text-foreground leading-[1.1] text-balance animate-fade-in-up">
         You don&apos;t have to face
       </h1>
-      <h2 className="text-6xl md:text-7xl lg:text-8xl font-black leading-[1.1] text-balance min-h-[1.1em]" style={{
+      <h2 className="text-6xl md:text-7xl lg:text-8xl font-serif font-bold leading-[1.1] text-balance min-h-[1.1em]" style={{
         background: "linear-gradient(135deg, #0FFFD4, #8B5CF6, #F43F5E)",
         WebkitBackgroundClip: "text",
         WebkitTextFillColor: "transparent",
