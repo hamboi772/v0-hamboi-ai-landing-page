@@ -1,6 +1,7 @@
 import Link from "next/link"
 import Image from "next/image"
 import { ArrowLeft } from "lucide-react"
+import { FounderCardButton } from "@/components/founder-card-button"
 
 const founders = [
   {
@@ -116,23 +117,7 @@ export default function FoundersPage() {
 
                 {/* Read Story Link */}
                 {idx === 0 && (
-                  <Link href="/about/article">
-                    <button
-                      className="text-sm font-medium px-4 py-2 border rounded-none transition-all"
-                      style={{
-                        borderColor: "#0CF2C8",
-                        color: "#0CF2C8",
-                      }}
-                      onMouseEnter={(e) => {
-                        e.currentTarget.style.backgroundColor = "rgba(12, 242, 200, 0.08)";
-                      }}
-                      onMouseLeave={(e) => {
-                        e.currentTarget.style.backgroundColor = "transparent";
-                      }}
-                    >
-                      Read full story
-                    </button>
-                  </Link>
+                  <FounderCardButton href="/about/article" text="Read full story" />
                 )}
               </div>
             </div>
