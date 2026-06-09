@@ -284,7 +284,7 @@ export function SurveySection() {
   }
 
   return (
-    <section className="py-20 px-4 bg-gradient-to-b from-hamboi-dark-bg via-[#1a1a3e] to-hamboi-dark-bg">
+    <section className="py-20 px-4 bg-background border-t border-border">
       <div className="max-w-2xl mx-auto">
 
         {/* ── Header ── */}
