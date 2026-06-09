@@ -1,17 +1,15 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { Heart, Smile, Meh, Frown, AlertCircle, TrendingUp } from "lucide-react"
-import { Textarea } from "@/components/ui/textarea"
 import { toast } from "sonner"
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts"
 
 const moods = [
-  { icon: "🤩", label: "Amazing", value: 5, color: "#22c55e", bg: "rgba(34,197,94,0.1)", border: "rgba(34,197,94,0.3)" },
-  { icon: "😊", label: "Good", value: 4, color: "#a855f7", bg: "rgba(168,85,247,0.1)", border: "rgba(168,85,247,0.3)" },
-  { icon: "😐", label: "Okay", value: 3, color: "#f5c842", bg: "rgba(245,200,66,0.1)", border: "rgba(245,200,66,0.3)" },
-  { icon: "😔", label: "Low", value: 2, color: "#f97316", bg: "rgba(249,115,22,0.1)", border: "rgba(249,115,22,0.3)" },
-  { icon: "😭", label: "Awful", value: 1, color: "#ef4444", bg: "rgba(239,68,68,0.1)", border: "rgba(239,68,68,0.3)" },
+  { icon: "🤩", label: "Amazing", value: 5 },
+  { icon: "😊", label: "Good", value: 4 },
+  { icon: "😐", label: "Okay", value: 3 },
+  { icon: "😔", label: "Low", value: 2 },
+  { icon: "😭", label: "Awful", value: 1 },
 ]
 
 const moodMessages: Record<number, string> = {
@@ -100,30 +98,37 @@ export function MoodTrackerDashboard() {
   const getMoodInfo = (value: number) => moods.find((m) => m.value === value)
 
   return (
-    <div style={{ fontFamily: "'Cabinet Grotesk', 'Nunito', sans-serif", color: "#f0e8ff" }}>
+    <div style={{ fontFamily: "'DM Sans', sans-serif", color: "#F5F5F5", background: "#06080F", padding: 0 }}>
 
-      {/* Log Mood Card */}
-      <div style={styles.card}>
-        <div style={styles.cardHeader}>
-          <div style={styles.cardTitle}>How are you feeling right now?</div>
-          <div style={styles.cardSub}>No judgment. Just honest.</div>
-        </div>
+      {/* Log Mood Section */}
+      <div style={{ marginBottom: 32 }}>
+        <h2 style={{ fontSize: 32, fontFamily: "'Cormorant Garamond', serif", fontWeight: 700, color: "#F5F5F5", marginBottom: 24 }}>
+          How are you feeling right now?
+        </h2>
 
         {/* Mood buttons */}
-        <div style={styles.moodGrid}>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(5, 1fr)", gap: 12, marginBottom: 20 }}>
           {moods.map((mood) => (
             <button
               key={mood.value}
               onClick={() => setSelectedMood(mood.value)}
               style={{
-                ...styles.moodBtn,
-                borderColor: selectedMood === mood.value ? mood.border : "rgba(255,255,255,0.06)",
-                background: selectedMood === mood.value ? mood.bg : "rgba(255,255,255,0.03)",
-                transform: selectedMood === mood.value ? "scale(1.08)" : "scale(1)",
+                background: selectedMood === mood.value ? "rgba(12, 242, 200, 0.08)" : "#0D1120",
+                border: `1px solid ${selectedMood === mood.value ? "#0CF2C8" : "rgba(255,255,255,0.07)"}`,
+                borderRadius: 0,
+                padding: "16px 12px",
+                cursor: "pointer",
+                textAlign: "center",
+                transition: "all 0.2s ease",
+                color: "#F5F5F5",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                gap: 8,
               }}
             >
-              <span style={{ fontSize: 28, display: "block", marginBottom: 6 }}>{mood.icon}</span>
-              <span style={{ fontSize: 11, fontWeight: 700, color: selectedMood === mood.value ? mood.color : "#7c6fa0" }}>
+              <span style={{ fontSize: 32, display: "block" }}>{mood.icon}</span>
+              <span style={{ fontSize: 12, fontWeight: 500, color: selectedMood === mood.value ? "#0CF2C8" : "#F5F5F5" }}>
                 {mood.label}
               </span>
             </button>
@@ -132,27 +137,42 @@ export function MoodTrackerDashboard() {
 
         {/* Human message after selection */}
         {selectedMood && !justSaved && (
-          <div style={styles.moodMessage}>
+          <div style={{ fontSize: 15, color: "#8B8B8B", lineHeight: 1.6, marginBottom: 20, fontStyle: "italic" }}>
             {moodMessages[selectedMood]}
           </div>
         )}
 
         {/* Saved confirmation */}
         {justSaved && (
-          <div style={{ ...styles.moodMessage, color: "#22c55e", borderColor: "rgba(34,197,94,0.2)", background: "rgba(34,197,94,0.07)" }}>
+          <div style={{ fontSize: 15, color: "#0CF2C8", lineHeight: 1.6, marginBottom: 20, fontStyle: "italic" }}>
             Logged 💜 You showed up for yourself today.
           </div>
         )}
 
         {/* Note */}
-        <div style={{ marginTop: 16 }}>
-          <label style={styles.label}>Add a note (optional)</label>
+        <div style={{ marginBottom: 20 }}>
+          <label style={{ fontSize: 12, fontWeight: 600, color: "#8B8B8B", display: "block", marginBottom: 10 }}>
+            Add a note (optional)
+          </label>
           <textarea
             placeholder="What's going on? What's on your mind?"
             value={note}
             onChange={(e) => setNote(e.target.value)}
-            rows={3}
-            style={styles.textarea}
+            rows={4}
+            style={{
+              width: "100%",
+              background: "#0D1120",
+              border: "1px solid rgba(255,255,255,0.07)",
+              borderRadius: 0,
+              padding: "12px 14px",
+              color: "#F5F5F5",
+              fontFamily: "'DM Sans', sans-serif",
+              fontSize: 14,
+              lineHeight: 1.6,
+              resize: "none",
+              outline: "none",
+              boxSizing: "border-box",
+            }}
           />
         </div>
 
@@ -160,40 +180,50 @@ export function MoodTrackerDashboard() {
           onClick={handleSaveMood}
           disabled={!selectedMood || loading}
           style={{
-            ...styles.saveBtn,
-            opacity: !selectedMood || loading ? 0.4 : 1,
+            background: selectedMood && !loading ? "#0CF2C8" : "#0CF2C8",
+            color: "#06080F",
+            border: "none",
+            borderRadius: 0,
+            padding: "12px 24px",
+            fontSize: 14,
+            fontWeight: 600,
             cursor: !selectedMood || loading ? "not-allowed" : "pointer",
+            opacity: !selectedMood || loading ? 0.4 : 1,
+            transition: "opacity 0.2s",
+            fontFamily: "'DM Sans', sans-serif",
           }}
         >
-          {loading ? "Saving..." : "Save mood → +20 XP"}
+          {loading ? "Saving..." : "Save mood"}
         </button>
       </div>
 
       {/* Chart */}
       {moodHistory.length > 1 && (
-        <div style={styles.card}>
-          <div style={styles.cardHeader}>
-            <div style={styles.cardTitle}>Your mood over time</div>
+        <div style={{ marginBottom: 32, borderTop: "1px solid rgba(255,255,255,0.07)", paddingTop: 24 }}>
+          <div style={{ marginBottom: 20 }}>
+            <h3 style={{ fontSize: 20, fontFamily: "'Cormorant Garamond', serif", fontWeight: 700, color: "#F5F5F5", marginBottom: 8 }}>
+              Your mood over time
+            </h3>
             {averageMood && (
-              <div style={styles.cardSub}>
-                Average: <strong style={{ color: "#c084fc" }}>{averageMood}/5</strong> across {moodHistory.length} logs
-              </div>
+              <p style={{ fontSize: 14, color: "#8B8B8B" }}>
+                Average: <span style={{ color: "#0CF2C8", fontWeight: 600 }}>{averageMood}/5</span> across {moodHistory.length} logs
+              </p>
             )}
           </div>
-          <div style={{ height: 200, marginTop: 8 }}>
+          <div style={{ height: 200, marginTop: 16 }}>
             <ResponsiveContainer width="100%" height="100%">
               <LineChart data={chartData}>
                 <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" />
-                <XAxis dataKey="date" tick={{ fill: "#7c6fa0", fontSize: 10 }} axisLine={false} tickLine={false} />
-                <YAxis domain={[1, 5]} ticks={[1, 2, 3, 4, 5]} tick={{ fill: "#7c6fa0", fontSize: 10 }} axisLine={false} tickLine={false} />
+                <XAxis dataKey="date" tick={{ fill: "#8B8B8B", fontSize: 10 }} axisLine={false} tickLine={false} />
+                <YAxis domain={[1, 5]} ticks={[1, 2, 3, 4, 5]} tick={{ fill: "#8B8B8B", fontSize: 10 }} axisLine={false} tickLine={false} />
                 <Tooltip
-                  contentStyle={{ background: "#1a1235", border: "1px solid rgba(124,58,237,0.3)", borderRadius: 12, color: "#f0e8ff", fontSize: 13 }}
+                  contentStyle={{ background: "#0D1120", border: "1px solid rgba(255,255,255,0.07)", borderRadius: 0, color: "#F5F5F5", fontSize: 13 }}
                   formatter={(val: any) => {
                     const m = moods.find(m => m.value === val)
                     return [m ? `${m.icon} ${m.label}` : val, "Mood"]
                   }}
                 />
-                <Line type="monotone" dataKey="mood" stroke="#7C3AED" strokeWidth={2.5} dot={{ r: 4, fill: "#a855f7", strokeWidth: 0 }} activeDot={{ r: 6, fill: "#c084fc" }} />
+                <Line type="monotone" dataKey="mood" stroke="#0CF2C8" strokeWidth={2.5} dot={{ r: 4, fill: "#0CF2C8", strokeWidth: 0 }} activeDot={{ r: 6, fill: "#0CF2C8" }} />
               </LineChart>
             </ResponsiveContainer>
           </div>
@@ -202,24 +232,24 @@ export function MoodTrackerDashboard() {
 
       {/* Recent entries */}
       {moodHistory.length > 0 && (
-        <div style={styles.card}>
-          <div style={styles.cardHeader}>
-            <div style={styles.cardTitle}>Recent logs</div>
-          </div>
-          <div style={{ display: "flex", flexDirection: "column", gap: 10, marginTop: 4 }}>
+        <div style={{ borderTop: "1px solid rgba(255,255,255,0.07)", paddingTop: 24 }}>
+          <h3 style={{ fontSize: 20, fontFamily: "'Cormorant Garamond', serif", fontWeight: 700, color: "#F5F5F5", marginBottom: 16 }}>
+            Recent logs
+          </h3>
+          <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
             {moodHistory.slice(0, 7).map((entry) => {
               const m = getMoodInfo(entry.mood_value)
               return (
-                <div key={entry.id} style={styles.entryRow}>
-                  <span style={{ fontSize: 26 }}>{m?.icon || "😐"}</span>
+                <div key={entry.id} style={{ display: "flex", gap: 12, alignItems: "flex-start" }}>
+                  <span style={{ fontSize: 28 }}>{m?.icon || "😐"}</span>
                   <div style={{ flex: 1 }}>
                     <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                      <span style={{ fontSize: 14, fontWeight: 700, color: m?.color || "#f0e8ff" }}>{m?.label}</span>
-                      <span style={{ fontSize: 11, color: "#7c6fa0" }}>
+                      <span style={{ fontSize: 14, fontWeight: 500, color: "#F5F5F5" }}>{m?.label}</span>
+                      <span style={{ fontSize: 11, color: "#8B8B8B" }}>
                         {new Date(entry.created_at).toLocaleDateString("en-US", { month: "short", day: "numeric" })}
                       </span>
                     </div>
-                    {entry.note && <p style={{ fontSize: 12, color: "#7c6fa0", marginTop: 3, lineHeight: 1.5 }}>{entry.note}</p>}
+                    {entry.note && <p style={{ fontSize: 13, color: "#8B8B8B", marginTop: 4, lineHeight: 1.5 }}>{entry.note}</p>}
                   </div>
                 </div>
               )
@@ -230,90 +260,14 @@ export function MoodTrackerDashboard() {
 
       {/* Empty state */}
       {moodHistory.length === 0 && (
-        <div style={{ ...styles.card, textAlign: "center", padding: "32px 20px" }}>
-          <div style={{ fontSize: 40, marginBottom: 12 }}>📊</div>
-          <div style={{ fontSize: 15, fontWeight: 700, color: "#f0e8ff", marginBottom: 6 }}>No mood logs yet</div>
-          <div style={{ fontSize: 13, color: "#7c6fa0" }}>Log your first mood above and start understanding yourself better.</div>
+        <div style={{ borderTop: "1px solid rgba(255,255,255,0.07)", paddingTop: 24, textAlign: "left" }}>
+          <p style={{ fontSize: 15, color: "#8B8B8B", lineHeight: 1.6 }}>
+            No mood logs yet — log your first mood above.
+          </p>
         </div>
       )}
     </div>
   )
 }
 
-const styles: Record<string, React.CSSProperties> = {
-  card: {
-    background: "#150e2b",
-    border: "1px solid #251a45",
-    borderRadius: 20,
-    padding: 20,
-    marginBottom: 14,
-  },
-  cardHeader: { marginBottom: 16 },
-  cardTitle: { fontSize: 16, fontWeight: 800, color: "#f0e8ff", marginBottom: 4 },
-  cardSub: { fontSize: 12, color: "#7c6fa0" },
-  moodGrid: {
-    display: "grid",
-    gridTemplateColumns: "repeat(5, 1fr)",
-    gap: 8,
-    marginBottom: 12,
-  },
-  moodBtn: {
-    background: "rgba(255,255,255,0.03)",
-    border: "2px solid rgba(255,255,255,0.06)",
-    borderRadius: 14,
-    padding: "12px 6px",
-    cursor: "pointer",
-    textAlign: "center",
-    transition: "all 0.2s",
-    color: "#f0e8ff",
-  },
-  moodMessage: {
-    background: "rgba(124,58,237,0.08)",
-    border: "1px solid rgba(124,58,237,0.2)",
-    borderRadius: 12,
-    padding: "12px 14px",
-    fontSize: 13,
-    color: "#c084fc",
-    lineHeight: 1.6,
-    marginBottom: 4,
-    fontStyle: "italic",
-  },
-  label: { fontSize: 12, fontWeight: 700, color: "#7c6fa0", display: "block", marginBottom: 8 },
-  textarea: {
-    width: "100%",
-    background: "rgba(255,255,255,0.04)",
-    border: "1px solid #251a45",
-    borderRadius: 12,
-    padding: "12px 14px",
-    color: "#f0e8ff",
-    fontFamily: "'Cabinet Grotesk', 'Nunito', sans-serif",
-    fontSize: 14,
-    lineHeight: 1.6,
-    resize: "none",
-    outline: "none",
-    boxSizing: "border-box",
-  },
-  saveBtn: {
-    width: "100%",
-    background: "linear-gradient(135deg, #7C3AED, #9333ea)",
-    color: "white",
-    border: "none",
-    borderRadius: 14,
-    padding: 16,
-    fontSize: 15,
-    fontWeight: 800,
-    marginTop: 14,
-    boxShadow: "0 4px 16px rgba(124,58,237,0.35)",
-    transition: "all 0.2s",
-    fontFamily: "'Cabinet Grotesk', 'Nunito', sans-serif",
-  },
-  entryRow: {
-    display: "flex",
-    alignItems: "flex-start",
-    gap: 12,
-    background: "#1a1235",
-    border: "1px solid #251a45",
-    borderRadius: 14,
-    padding: "12px 14px",
-  },
-}
+
