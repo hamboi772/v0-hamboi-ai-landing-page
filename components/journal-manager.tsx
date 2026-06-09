@@ -84,7 +84,7 @@ export function JournalManager() {
       })
       const data = await res.json()
       if (data.success) {
-        toast.success(editingEntry ? "Entry updated 💜" : "Entry saved! +15 XP 💜")
+        toast.success(editingEntry ? "Entry updated 💜" : "Entry saved 💜")
         setFormData({ title: "", content: "", mood_tag: "" })
         setIsCreating(false)
         setEditingEntry(null)
@@ -136,7 +136,7 @@ export function JournalManager() {
   }
 
   return (
-    <div style={{ fontFamily: "'Cabinet Grotesk', 'Nunito', sans-serif", color: "#f0e8ff" }}>
+    <div style={{ fontFamily: "'DM Sans', sans-serif", color: "#F5F5F5" }}>
 
       {/* New Entry / Edit Form */}
       {isCreating ? (
@@ -208,25 +208,24 @@ export function JournalManager() {
           {/* Buttons */}
           <div style={{ display: "flex", gap: 10 }}>
             <button onClick={handleSave} disabled={loading} style={{ ...styles.saveBtn, flex: 1 }}>
-              {loading ? "Saving..." : editingEntry ? "Update entry" : "Save entry → +15 XP"}
+              {loading ? "Saving..." : editingEntry ? "Update entry" : "Save entry"}
             </button>
             <button onClick={cancelEdit} style={styles.cancelBtn}>Cancel</button>
           </div>
         </div>
       ) : (
         <button onClick={() => setIsCreating(true)} style={styles.newEntryBtn}>
-          + New journal entry
+          + New entry
         </button>
       )}
 
       {/* Entries list */}
       {entries.length === 0 && !isCreating ? (
-        <div style={{ ...styles.card, textAlign: "center", padding: "40px 20px" }}>
-          <div style={{ fontSize: 40, marginBottom: 12 }}>📝</div>
-          <div style={{ fontSize: 15, fontWeight: 700, color: "#f0e8ff", marginBottom: 6 }}>No entries yet</div>
-          <div style={{ fontSize: 13, color: "#7c6fa0", lineHeight: 1.6 }}>
+        <div style={{ borderTop: "1px solid rgba(255,255,255,0.07)", paddingTop: 24, textAlign: "left" }}>
+          <p style={{ fontSize: 15, color: "#8B8B8B", lineHeight: 1.6 }}>
+            No entries yet.<br />
             Your journal is a safe space. Write anything — no one else can see it.
-          </div>
+          </p>
         </div>
       ) : (
         <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
@@ -294,7 +293,7 @@ export function JournalManager() {
             <div style={styles.dialogSub}>This can't be undone. Your words will be gone.</div>
             <div style={{ display: "flex", gap: 10, marginTop: 20 }}>
               <button onClick={() => setDeleteEntry(null)} style={styles.cancelBtn}>Keep it</button>
-              <button onClick={handleDelete} style={{ ...styles.saveBtn, flex: 1, background: "linear-gradient(135deg, #dc2626, #b91c1c)" }}>
+              <button onClick={handleDelete} style={{ ...styles.saveBtn, flex: 1, background: "#EF4444", color: "#FFFFFF" }}>
                 Yes, delete
               </button>
             </div>
@@ -306,89 +305,89 @@ export function JournalManager() {
 }
 
 const styles: Record<string, React.CSSProperties> = {
-  card: { background: "#150e2b", border: "1px solid #251a45", borderRadius: 20, padding: 20, marginBottom: 14 },
+  card: { background: "#0D1120", border: "1px solid rgba(255,255,255,0.07)", borderRadius: 0, padding: 20, marginBottom: 14 },
   cardHeader: { marginBottom: 16 },
-  cardTitle: { fontSize: 16, fontWeight: 800, color: "#f0e8ff", marginBottom: 4 },
-  cardSub: { fontSize: 12, color: "#7c6fa0" },
+  cardTitle: { fontSize: 18, fontWeight: 700, color: "#F5F5F5", marginBottom: 4, fontFamily: "'Cormorant Garamond', serif" },
+  cardSub: { fontSize: 12, color: "#8B8B8B" },
   prompt: {
-    background: "rgba(124,58,237,0.08)", border: "1px solid rgba(124,58,237,0.2)",
-    borderRadius: 12, padding: "12px 14px", fontSize: 13, color: "#c084fc",
+    background: "rgba(12, 242, 200, 0.08)", border: "1px solid rgba(12, 242, 200, 0.2)",
+    borderRadius: 0, padding: "12px 14px", fontSize: 13, color: "#0CF2C8",
     lineHeight: 1.6, marginBottom: 16, fontStyle: "italic",
     display: "flex", flexDirection: "column" as const, gap: 6,
   },
   promptBtn: {
-    background: "none", border: "none", color: "#7c6fa0", fontSize: 11,
-    fontWeight: 700, cursor: "pointer", padding: 0, textAlign: "left" as const,
+    background: "none", border: "none", color: "#8B8B8B", fontSize: 11,
+    fontWeight: 600, cursor: "pointer", padding: 0, textAlign: "left" as const,
   },
-  label: { fontSize: 12, fontWeight: 700, color: "#7c6fa0", display: "block", marginBottom: 8 },
+  label: { fontSize: 12, fontWeight: 600, color: "#8B8B8B", display: "block", marginBottom: 8 },
   input: {
-    width: "100%", background: "rgba(255,255,255,0.04)", border: "1px solid #251a45",
-    borderRadius: 12, padding: "12px 14px", color: "#f0e8ff",
-    fontFamily: "'Cabinet Grotesk', 'Nunito', sans-serif", fontSize: 14,
+    width: "100%", background: "#0F1219", border: "1px solid rgba(255,255,255,0.07)",
+    borderRadius: 0, padding: "12px 14px", color: "#F5F5F5",
+    fontFamily: "'DM Sans', sans-serif", fontSize: 14,
     outline: "none", boxSizing: "border-box" as const,
   },
   textarea: {
-    width: "100%", background: "rgba(255,255,255,0.04)", border: "1px solid #251a45",
-    borderRadius: 12, padding: "12px 14px", color: "#f0e8ff",
-    fontFamily: "'Cabinet Grotesk', 'Nunito', sans-serif", fontSize: 14,
+    width: "100%", background: "#0F1219", border: "1px solid rgba(255,255,255,0.07)",
+    borderRadius: 0, padding: "12px 14px", color: "#F5F5F5",
+    fontFamily: "'DM Sans', sans-serif", fontSize: 14,
     lineHeight: 1.7, resize: "none" as const, outline: "none", boxSizing: "border-box" as const,
   },
   moodTagGrid: { display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 8 },
   moodTagBtn: {
-    background: "rgba(255,255,255,0.03)", border: "2px solid rgba(255,255,255,0.06)",
-    borderRadius: 12, padding: "10px 6px", cursor: "pointer",
+    background: "#0D1120", border: "1px solid rgba(255,255,255,0.07)",
+    borderRadius: 0, padding: "10px 6px", cursor: "pointer",
     display: "flex", flexDirection: "column" as const, alignItems: "center", gap: 4,
     transition: "all 0.2s",
   },
   saveBtn: {
-    background: "linear-gradient(135deg, #7C3AED, #9333ea)", color: "white",
-    border: "none", borderRadius: 14, padding: "14px 20px",
-    fontSize: 14, fontWeight: 800, cursor: "pointer",
-    fontFamily: "'Cabinet Grotesk', 'Nunito', sans-serif",
-    boxShadow: "0 4px 16px rgba(124,58,237,0.35)",
+    background: "#0CF2C8", color: "#06080F",
+    border: "none", borderRadius: 0, padding: "14px 20px",
+    fontSize: 14, fontWeight: 600, cursor: "pointer",
+    fontFamily: "'DM Sans', sans-serif",
+    boxShadow: "none",
   },
   cancelBtn: {
-    background: "rgba(255,255,255,0.05)", border: "1px solid #251a45",
-    borderRadius: 14, padding: "14px 20px", color: "#7c6fa0",
-    fontSize: 14, fontWeight: 700, cursor: "pointer",
-    fontFamily: "'Cabinet Grotesk', 'Nunito', sans-serif",
+    background: "transparent", border: "1px solid rgba(255,255,255,0.07)",
+    borderRadius: 0, padding: "14px 20px", color: "#F5F5F5",
+    fontSize: 14, fontWeight: 600, cursor: "pointer",
+    fontFamily: "'DM Sans', sans-serif",
   },
   newEntryBtn: {
-    width: "100%", background: "linear-gradient(135deg, #7C3AED, #9333ea)",
-    color: "white", border: "none", borderRadius: 16, padding: 18,
-    fontSize: 15, fontWeight: 800, cursor: "pointer", marginBottom: 14,
-    fontFamily: "'Cabinet Grotesk', 'Nunito', sans-serif",
-    boxShadow: "0 4px 16px rgba(124,58,237,0.35)",
+    width: "auto", background: "transparent",
+    color: "#0CF2C8", border: "1px solid rgba(12, 242, 200, 0.3)", borderRadius: 0, padding: "10px 16px",
+    fontSize: 13, fontWeight: 600, cursor: "pointer", marginBottom: 14,
+    fontFamily: "'DM Sans', sans-serif",
+    boxShadow: "none",
   },
   entryCard: {
-    background: "#150e2b", border: "1px solid #251a45",
-    borderRadius: 18, overflow: "hidden", transition: "border-color 0.2s",
+    background: "#0D1120", border: "1px solid rgba(255,255,255,0.07)",
+    borderRadius: 0, overflow: "hidden", transition: "border-color 0.2s",
   },
   entryHeader: {
     display: "flex", alignItems: "flex-start", gap: 12,
     padding: "16px 16px 12px", cursor: "pointer",
   },
-  entryTitle: { fontSize: 15, fontWeight: 800, color: "#f0e8ff" },
-  entryDate: { fontSize: 11, color: "#7c6fa0", display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap" as const },
+  entryTitle: { fontSize: 15, fontWeight: 600, color: "#F5F5F5" },
+  entryDate: { fontSize: 11, color: "#8B8B8B", display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap" as const },
   moodTagPill: {
-    background: "rgba(124,58,237,0.1)", border: "1px solid rgba(124,58,237,0.2)",
-    borderRadius: 99, padding: "2px 8px", fontSize: 10, fontWeight: 700, color: "#c084fc",
+    background: "rgba(12, 242, 200, 0.1)", border: "1px solid rgba(12, 242, 200, 0.2)",
+    borderRadius: 99, padding: "2px 8px", fontSize: 10, fontWeight: 600, color: "#0CF2C8",
   },
-  entryPreview: { fontSize: 13, color: "#7c6fa0", lineHeight: 1.6, padding: "0 16px 16px" },
+  entryPreview: { fontSize: 13, color: "#8B8B8B", lineHeight: 1.6, padding: "0 16px 16px" },
   entryFull: {
-    fontSize: 14, color: "#c4b5fd", lineHeight: 1.8,
+    fontSize: 14, color: "#C0C0C0", lineHeight: 1.8,
     padding: "0 16px 16px", whiteSpace: "pre-wrap" as const,
   },
-  entryActions: { display: "flex", gap: 10, marginTop: 16, paddingTop: 14, borderTop: "1px solid #251a45" },
+  entryActions: { display: "flex", gap: 10, marginTop: 16, paddingTop: 14, borderTop: "1px solid rgba(255,255,255,0.07)" },
   editBtn: {
-    background: "rgba(124,58,237,0.1)", border: "1px solid rgba(124,58,237,0.2)",
-    borderRadius: 10, padding: "8px 14px", color: "#c084fc",
-    fontSize: 13, fontWeight: 700, cursor: "pointer",
+    background: "transparent", border: "1px solid rgba(12, 242, 200, 0.3)",
+    borderRadius: 0, padding: "8px 14px", color: "#0CF2C8",
+    fontSize: 13, fontWeight: 600, cursor: "pointer",
   },
   deleteBtn: {
-    background: "rgba(239,68,68,0.08)", border: "1px solid rgba(239,68,68,0.2)",
-    borderRadius: 10, padding: "8px 14px", color: "#f87171",
-    fontSize: 13, fontWeight: 700, cursor: "pointer",
+    background: "transparent", border: "1px solid rgba(239,68,68,0.3)",
+    borderRadius: 0, padding: "8px 14px", color: "#EF4444",
+    fontSize: 13, fontWeight: 600, cursor: "pointer",
   },
   overlay: {
     position: "fixed" as const, inset: 0, background: "rgba(0,0,0,0.75)",
@@ -396,9 +395,9 @@ const styles: Record<string, React.CSSProperties> = {
     display: "flex", alignItems: "center", justifyContent: "center", padding: 20,
   },
   dialog: {
-    background: "#1a1235", border: "1px solid #251a45", borderRadius: 24,
+    background: "#0D1120", border: "1px solid rgba(255,255,255,0.07)", borderRadius: 0,
     padding: "28px 24px", width: "100%", maxWidth: 360, textAlign: "center" as const,
   },
-  dialogTitle: { fontSize: 18, fontWeight: 800, color: "#f0e8ff", marginBottom: 8 },
-  dialogSub: { fontSize: 13, color: "#7c6fa0", lineHeight: 1.5 },
+  dialogTitle: { fontSize: 18, fontWeight: 700, color: "#F5F5F5", marginBottom: 8, fontFamily: "'Cormorant Garamond', serif" },
+  dialogSub: { fontSize: 13, color: "#8B8B8B", lineHeight: 1.5 },
 }
