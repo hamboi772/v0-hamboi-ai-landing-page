@@ -69,35 +69,38 @@ export default function DidYouKnowCard() {
         </div>
       </div>
 
-      {/* Fact */}
-      <div
-        className={`transition-all duration-300 mb-6 ${
-          isAnimating ? "opacity-0 translate-y-2" : "opacity-100 translate-y-0"
-        }`}
-      >
-        <p className="text-2xl font-serif font-bold leading-relaxed" style={{ color: "#F5F5F5" }}>
-          {current.fact}
-        </p>
-      </div>
-
-      {/* Dot indicator */}
-      <div className="flex items-center justify-between">
-        <div className="flex gap-1">
-          {facts.map((_, i) => (
-            <div
-              key={i}
-              className="transition-all duration-300"
-              style={{
-                width: i === currentIndex ? "24px" : "6px",
-                height: "3px",
-                background: i === currentIndex ? "#F5F5F5" : "rgba(255, 255, 255, 0.2)",
-              }}
-            />
-          ))}
+      {/* Fact and controls */}
+      <div className="flex flex-col">
+        {/* Fact */}
+        <div
+          className={`transition-all duration-300 mb-6 flex-grow ${
+            isAnimating ? "opacity-0 translate-y-2" : "opacity-100 translate-y-0"
+          }`}
+        >
+          <p className="text-2xl font-serif font-bold leading-relaxed" style={{ color: "#F5F5F5" }}>
+            {current.fact}
+          </p>
         </div>
-        <p className="text-xs" style={{ color: "#8B8B8B" }}>
-          Tap for next fact
-        </p>
+
+        {/* Dot indicator and tap text */}
+        <div className="flex flex-col gap-4">
+          <div className="flex gap-1">
+            {facts.map((_, i) => (
+              <div
+                key={i}
+                className="transition-all duration-300"
+                style={{
+                  width: i === currentIndex ? "24px" : "6px",
+                  height: "3px",
+                  background: i === currentIndex ? "#F5F5F5" : "rgba(255, 255, 255, 0.2)",
+                }}
+              />
+            ))}
+          </div>
+          <p className="text-xs font-sans" style={{ color: "rgba(255, 255, 255, 0.35)" }}>
+            Tap for next fact
+          </p>
+        </div>
       </div>
     </div>
   )
