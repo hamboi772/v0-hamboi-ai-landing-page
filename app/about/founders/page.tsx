@@ -8,15 +8,17 @@ const founders = [
     name: "Abiodun Abdulhameed Abolarinwa",
     image: "/images/founder-abdulhameed.webp",
     title: "Founder & CEO",
-    bio: "I built Hamboi because I wanted the friend I wished I had. At 15, I know what Nigerian teens face — the pressure, the silence, the moments no one talks about.",
-    badges: ["🥉 2025 FIRST Global Bronze Medal", "Dr. Mae Jemison Award", "Team Nigeria"],
+    bio: "A young, smart and thoughtful researcher who built Hamboi because he wanted the friend he wished he had at 15. He owns the vision, the product, and every moment no one talks about — driven by curiosity, purpose, and a deep belief that teenagers deserve better.",
+    badges: ["🏅 2025 FIRST Global Bronze Medal", "Dr. Mae Jemison Award", "Team Nigeria"],
+    readMore: true,
   },
   {
     name: "Fareeah Bada",
     image: "/images/authors/fareeah-bada.jpg",
     title: "Co-Founder, Content & Marketing",
-    bio: "Head Girl at Ansar-ud-Deen Academy. Writer, strategist, and the voice that makes Hamboi feel real to the teens we serve. She brings the ideas, the innovations, and the content that keeps Hamboi growing — owning everything from articles to social media.",
+    bio: "A curious and thoughtful individual with a strong interest in learning, research, and creativity. She enjoys exploring new ideas, writing, and contributing to meaningful projects. With a calm and open-minded approach, she values growth, originality, and continuous learning — and brings all of that to everything she builds at Hamboi.",
     badges: ["✍️ Author of 2 published articles on Hamboi"],
+    readMore: false,
   },
 ]
 
@@ -39,117 +41,231 @@ const values = [
   },
 ]
 
+const HAIRLINE = "rgba(255,255,255,0.07)"
+const TEAL = "#0CF2C8"
+const FG = "#F5F5F5"
+const MUTED = "#8B8B8B"
+const BG = "#06080F"
+
 export default function FoundersPage() {
   return (
-    <div className="min-h-screen bg-background">
-      {/* Header */}
-      <header className="sticky top-0 z-50 border-b border-border bg-background/80 backdrop-blur-sm">
-        <div className="container mx-auto px-4 py-4">
-          <div className="flex items-center justify-between">
-            <Link href="/">
-              <span className="font-serif text-xl font-bold text-foreground">Hamboi</span>
-            </Link>
-            <Link href="/">
-              <button className="flex items-center gap-2 text-sm border border-border px-4 py-2 rounded-none hover:bg-muted transition-colors">
-                <ArrowLeft className="h-4 w-4" />
-                Back
-              </button>
-            </Link>
-          </div>
+    <div className="min-h-screen" style={{ backgroundColor: BG, fontFamily: "'DM Sans', sans-serif", color: FG }}>
+
+      {/* ── Nav ── */}
+      <header
+        className="sticky top-0 z-50 backdrop-blur-sm"
+        style={{ borderBottom: `1px solid ${HAIRLINE}`, backgroundColor: "rgba(6,8,15,0.85)" }}
+      >
+        <div className="container mx-auto px-6 py-4 flex items-center justify-between">
+          <Link href="/">
+            <span style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 22, fontWeight: 700, color: FG }}>
+              Hamboi
+            </span>
+          </Link>
+          <Link href="/">
+            <button
+              className="flex items-center gap-2 text-sm transition-colors hover:bg-white/5"
+              style={{ border: `1px solid ${HAIRLINE}`, color: MUTED, padding: "8px 16px" }}
+            >
+              <ArrowLeft className="h-4 w-4" />
+              Back
+            </button>
+          </Link>
         </div>
       </header>
 
-      {/* Page Header */}
-      <section className="container mx-auto px-4 py-20">
-        <h1 className="text-6xl font-serif font-bold text-foreground mb-4">
+      {/* ── Page Header ── */}
+      <section className="container mx-auto px-6 pt-20 pb-16" style={{ borderBottom: `1px solid ${HAIRLINE}` }}>
+        <h1
+          style={{
+            fontFamily: "'Cormorant Garamond', serif",
+            fontSize: "clamp(2.5rem, 6vw, 5rem)",
+            fontWeight: 700,
+            color: FG,
+            lineHeight: 1.08,
+            marginBottom: 20,
+            maxWidth: 800,
+          }}
+        >
           The people behind Hamboi
         </h1>
-        <p className="text-xl text-muted-foreground max-w-2xl font-sans">
+        <p style={{ fontSize: 20, color: MUTED, maxWidth: 540, lineHeight: 1.6 }}>
           Built by teenagers who understand what teenagers go through.
         </p>
       </section>
 
-      {/* Founders Grid */}
-      <section className="container mx-auto px-4 py-20">
-        <div className="grid md:grid-cols-2 gap-16">
+      {/* ── How It Started ── */}
+      <section className="container mx-auto px-6 py-20" style={{ borderBottom: `1px solid ${HAIRLINE}` }}>
+        <div className="max-w-2xl">
+          <h2
+            style={{
+              fontFamily: "'Cormorant Garamond', serif",
+              fontSize: "clamp(2rem, 4vw, 3.5rem)",
+              fontWeight: 600,
+              fontStyle: "italic",
+              color: FG,
+              marginBottom: 32,
+            }}
+          >
+            How it started
+          </h2>
+          <p style={{ fontSize: 17, color: MUTED, lineHeight: 1.85, marginBottom: 40 }}>
+            Hamboi started with a question — why is it so hard to talk about how you feel?
+            Abiodun built it because he wanted the friend he wished he had at 15.
+            Not an app. Not a helpline. A space that actually gets you.
+          </p>
+
+          {/* Pull quote */}
+          <div style={{ borderTop: `1px solid ${HAIRLINE}`, paddingTop: 40 }}>
+            <blockquote
+              style={{
+                fontFamily: "'Cormorant Garamond', serif",
+                fontSize: "clamp(1.6rem, 3.5vw, 2.4rem)",
+                fontWeight: 500,
+                fontStyle: "italic",
+                color: FG,
+                lineHeight: 1.3,
+              }}
+            >
+              &ldquo;We built Hamboi because we needed it too.&rdquo;
+            </blockquote>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Founder Cards ── */}
+      <section className="container mx-auto px-6 py-20" style={{ borderBottom: `1px solid ${HAIRLINE}` }}>
+        <div className="grid md:grid-cols-2" style={{ gap: 0 }}>
           {founders.map((founder, idx) => (
-            <div key={idx} className="border border-border" style={{ borderColor: "rgba(255,255,255,0.07)" }}>
-              {/* Image */}
-              <div className="aspect-square overflow-hidden bg-muted">
+            <div
+              key={idx}
+              style={{
+                borderRight: idx === 0 ? `1px solid ${HAIRLINE}` : "none",
+                paddingRight: idx === 0 ? 56 : 0,
+                paddingLeft: idx === 1 ? 56 : 0,
+              }}
+            >
+              {/* Photo */}
+              <div
+                className="w-full overflow-hidden"
+                style={{
+                  aspectRatio: "4 / 5",
+                  marginBottom: 32,
+                  border: `1px solid ${HAIRLINE}`,
+                }}
+              >
                 <Image
                   src={founder.image}
                   alt={founder.name}
-                  width={400}
-                  height={400}
-                  className="w-full h-full object-cover"
+                  width={600}
+                  height={750}
+                  className="w-full h-full object-cover object-top"
                 />
               </div>
 
-              {/* Content */}
-              <div className="p-8">
-                <h3 className="text-2xl font-serif font-bold text-foreground mb-1">
-                  {founder.name}
-                </h3>
-                <p className="text-sm font-medium mb-6" style={{ color: "#0CF2C8" }}>
-                  {founder.title}
-                </p>
+              {/* Name */}
+              <h3
+                style={{
+                  fontFamily: "'Cormorant Garamond', serif",
+                  fontSize: 28,
+                  fontWeight: 700,
+                  color: FG,
+                  marginBottom: 6,
+                  lineHeight: 1.15,
+                }}
+              >
+                {founder.name}
+              </h3>
 
-                {/* Bio */}
-                <p className="text-base text-muted-foreground leading-relaxed mb-8">
-                  {founder.bio}
-                </p>
+              {/* Title */}
+              <p
+                style={{
+                  fontSize: 13,
+                  fontWeight: 600,
+                  color: TEAL,
+                  marginBottom: 20,
+                  letterSpacing: "0.02em",
+                }}
+              >
+                {founder.title}
+              </p>
 
-                {/* Badges */}
-                <div className="flex flex-wrap gap-2 mb-8">
-                  {founder.badges.map((badge, i) => (
-                    <span
-                      key={i}
-                      className="text-xs px-3 py-1 border"
-                      style={{
-                        borderColor: "rgba(255,255,255,0.07)",
-                        color: "#F5F5F5",
-                      }}
-                    >
-                      {badge}
-                    </span>
-                  ))}
-                </div>
+              {/* Bio */}
+              <p
+                style={{
+                  fontSize: 15,
+                  color: MUTED,
+                  lineHeight: 1.8,
+                  marginBottom: 24,
+                }}
+              >
+                {founder.bio}
+              </p>
 
-                {/* Read Story Link */}
-                {idx === 0 && (
-                  <FounderCardButton href="/about/article" text="Read full story" />
-                )}
+              {/* Badges */}
+              <div className="flex flex-wrap gap-2" style={{ marginBottom: 24 }}>
+                {founder.badges.map((badge, i) => (
+                  <span
+                    key={i}
+                    style={{
+                      fontSize: 11,
+                      color: FG,
+                      border: `1px solid ${HAIRLINE}`,
+                      padding: "4px 10px",
+                      letterSpacing: "0.01em",
+                    }}
+                  >
+                    {badge}
+                  </span>
+                ))}
               </div>
+
+              {/* Read story link */}
+              {founder.readMore && (
+                <FounderCardButton href="/about/article" text="Read full story" />
+              )}
             </div>
           ))}
         </div>
       </section>
 
-      {/* Values Section */}
-      <section className="container mx-auto px-4 py-20 border-t border-border" style={{ borderTopColor: "rgba(255,255,255,0.07)" }}>
-        <h2 className="text-5xl font-serif font-bold text-foreground mb-16">
+      {/* ── Values ── */}
+      <section className="container mx-auto px-6 py-20" style={{ borderBottom: `1px solid ${HAIRLINE}` }}>
+        <h2
+          style={{
+            fontFamily: "'Cormorant Garamond', serif",
+            fontSize: "clamp(2rem, 4vw, 3.5rem)",
+            fontWeight: 700,
+            color: FG,
+            marginBottom: 60,
+          }}
+        >
           Our values
         </h2>
 
-        <div className="grid grid-cols-2 gap-0">
+        <div className="grid grid-cols-2" style={{ borderTop: `1px solid ${HAIRLINE}`, borderLeft: `1px solid ${HAIRLINE}` }}>
           {values.map((value, idx) => (
             <div
               key={idx}
-              className="p-8 border-r border-b"
               style={{
-                borderColor: "rgba(255,255,255,0.07)",
+                padding: 40,
+                borderRight: `1px solid ${HAIRLINE}`,
+                borderBottom: `1px solid ${HAIRLINE}`,
               }}
             >
-              {/* Teal accent bar */}
-              <div
-                className="w-8 h-1 mb-6"
-                style={{ backgroundColor: "#0CF2C8" }}
-              />
-
-              <h3 className="text-xl font-serif font-bold text-foreground mb-3">
+              <div style={{ width: 32, height: 2, backgroundColor: TEAL, marginBottom: 24 }} />
+              <h3
+                style={{
+                  fontFamily: "'Cormorant Garamond', serif",
+                  fontSize: 22,
+                  fontWeight: 700,
+                  color: FG,
+                  marginBottom: 12,
+                }}
+              >
                 {value.title}
               </h3>
-              <p className="text-base text-muted-foreground leading-relaxed">
+              <p style={{ fontSize: 14, color: MUTED, lineHeight: 1.75 }}>
                 {value.description}
               </p>
             </div>
@@ -157,12 +273,13 @@ export default function FoundersPage() {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="container mx-auto px-4 py-12 border-t border-border" style={{ borderTopColor: "rgba(255,255,255,0.07)" }}>
-        <p className="text-sm text-muted-foreground text-center">
-          © {new Date().getFullYear()} Hamboi Mindcare. Built for teens everywhere.
+      {/* ── Footer ── */}
+      <footer className="container mx-auto px-6 py-10 text-center">
+        <p style={{ fontSize: 13, color: MUTED }}>
+          &copy; {new Date().getFullYear()} Hamboi Mindcare. Built for teens everywhere.
         </p>
       </footer>
+
     </div>
   )
 }
