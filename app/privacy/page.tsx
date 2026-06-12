@@ -127,7 +127,7 @@ export default function PrivacyPage() {
               </ul>
               <p className="mt-4">
                 To exercise these rights, contact us at{" "}
-                <a href="mailto:privacy@hamboi.ai" className="text-hamboi-purple hover:underline">
+                <a href="mailto:hamboimindcare.help@gmail.com" className="text-hamboi-purple hover:underline">
                   hamboimindcare.help@gmail.com
                 </a>
               </p>
@@ -151,8 +151,8 @@ export default function PrivacyPage() {
               <ul className="list-none p-0 space-y-1">
                 <li>
                   Email:{" "}
-                  <a href="mailto:privacy@hamboi.ai" className="text-hamboi-purple hover:underline">
-                    privacy@hamboi.ai
+                  <a href="mailto:hamboimindcare.help@gmail.com" className="text-hamboi-purple hover:underline">
+                    hamboimindcare.help@gmail.com
                   </a>
                 </li>
                 <li>Address: Lagos, Nigeria</li>
