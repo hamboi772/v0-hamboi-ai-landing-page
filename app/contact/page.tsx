@@ -1,143 +1,254 @@
 "use client"
+
 import { useState } from "react"
+import Link from "next/link"
+import { ArrowLeft, ArrowUpRight } from "lucide-react"
+
+const TEAL = "#0CF2C8"
+const HAIRLINE = "rgba(255,255,255,0.07)"
+
+const faqs = [
+  {
+    q: "Is Hamboi Mindcare free?",
+    a: "Yes. Hamboi Mindcare is completely free for all African teenagers. No subscriptions, no hidden fees.",
+  },
+  {
+    q: "Is my conversation private?",
+    a: "Absolutely. Your conversations are not linked to your personal identity and are never shared with anyone.",
+  },
+  {
+    q: "Is this a replacement for therapy?",
+    a: "No. Hamboi Mindcare is a supportive tool, not a medical or therapy service. If you need professional help, please reach out to a qualified mental health professional.",
+  },
+  {
+    q: "Who built Hamboi Mindcare?",
+    a: "Hamboi Mindcare was built by Abiodun Abdul Hameed, a 15-year-old from Nigeria and 2025 FIRST Global Bronze Medalist.",
+  },
+  {
+    q: "How can I get involved?",
+    a: "Check out our Volunteer page for opportunities, or email us directly at hamboimindcare.help@gmail.com.",
+  },
+]
+
+const socials = [
+  {
+    platform: "TikTok",
+    handle: "@hamboimindcare",
+    url: "https://tiktok.com/@hamboimindcare",
+  },
+  {
+    platform: "YouTube",
+    handle: "@Hamboimindcare",
+    url: "https://youtube.com/@Hamboimindcare",
+  },
+  {
+    platform: "Instagram",
+    handle: "@hamboimindcare",
+    url: "https://instagram.com/hamboimindcare",
+  },
+]
 
 export default function ContactPage() {
   const [openFAQ, setOpenFAQ] = useState<number | null>(null)
 
-  const faqs = [
-    {
-      q: "Is Hamboi Mindcare free?",
-      a: "Yes! Hamboi Mindcare is completely free for all African teenagers. No subscriptions, no hidden fees.",
-    },
-    {
-      q: "Is my conversation private?",
-      a: "Absolutely. Your conversations are not linked to your personal identity and are not shared with anyone.",
-    },
-    {
-      q: "Is this a replacement for therapy?",
-      a: "No. Hamboi Mindcare is a supportive tool, not a medical or therapy service. If you need professional help, please reach out to a qualified mental health professional.",
-    },
-    {
-      q: "Who built Hamboi Mindcare?",
-      a: "Hamboi Mindcare was built by Abiodun Abdul Hameed, a 15-year-old from Nigeria and 2025 FIRST Global Bronze Medalist 🥉.",
-    },
-    {
-      q: "How can I get involved?",
-      a: "Check out our Careers page for volunteer opportunities, or email us directly at abiodunhamboihameed@gmail.com.",
-    },
-  ]
-
   return (
-    <div className="min-h-screen bg-[#0f0a1e] text-white">
+    <div
+      className="min-h-screen font-sans"
+      style={{ backgroundColor: "#06080F", color: "#F5F5F5" }}
+    >
+      {/* Nav */}
+      <header
+        className="sticky top-0 z-50 flex items-center justify-between px-6 py-4"
+        style={{
+          borderBottom: `1px solid ${HAIRLINE}`,
+          backgroundColor: "rgba(6,8,15,0.9)",
+          backdropFilter: "blur(12px)",
+        }}
+      >
+        <Link href="/">
+          <span className="font-serif text-xl font-semibold" style={{ color: "#F5F5F5" }}>
+            Hamboi
+          </span>
+        </Link>
+        <Link href="/">
+          <button
+            className="flex items-center gap-2 text-sm transition-colors"
+            style={{ color: "#8B8B8B" }}
+            onMouseEnter={e => (e.currentTarget.style.color = "#F5F5F5")}
+            onMouseLeave={e => (e.currentTarget.style.color = "#8B8B8B")}
+          >
+            <ArrowLeft className="h-4 w-4" />
+            Back
+          </button>
+        </Link>
+      </header>
 
       {/* Hero */}
-      <div className="relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-purple-900/30 via-transparent to-green-900/20" />
-        <div className="relative max-w-4xl mx-auto px-6 py-20 text-center">
-          <h1 className="text-4xl md:text-6xl font-bold mb-6">
-            Get in{" "}
-            <span className="bg-gradient-to-r from-purple-400 to-green-400 bg-clip-text text-transparent">
-              Touch
-            </span>
+      <section
+        className="px-6 py-24 md:py-32"
+        style={{ borderBottom: `1px solid ${HAIRLINE}` }}
+      >
+        <div className="max-w-3xl mx-auto">
+          <p
+            className="text-xs font-semibold tracking-widest uppercase mb-6"
+            style={{ color: TEAL }}
+          >
+            Contact
+          </p>
+          <h1
+            className="font-serif leading-tight mb-6"
+            style={{ fontSize: "clamp(2.8rem, 7vw, 5.5rem)", fontWeight: 400, color: "#F5F5F5" }}
+          >
+            Let&apos;s talk.
           </h1>
-          <p className="text-xl text-gray-300 max-w-2xl mx-auto leading-relaxed">
-            Have a question, suggestion, or just want to say hi? We'd love to hear from you. Every message is read personally.
+          <p
+            className="text-base leading-relaxed max-w-xl"
+            style={{ color: "#8B8B8B", lineHeight: 1.75 }}
+          >
+            Have a question, suggestion, or just want to say hi? Every message is read personally.
           </p>
         </div>
-      </div>
+      </section>
 
-      <div className="max-w-4xl mx-auto px-6 py-16">
+      <div className="max-w-3xl mx-auto px-6">
 
         {/* Email */}
-        <div className="bg-gradient-to-br from-purple-900/30 to-green-900/20 border border-purple-500/20 rounded-2xl p-8 mb-16 text-center hover:border-purple-400/40 transition-colors">
-          <div className="text-4xl mb-4">📧</div>
-          <h2 className="text-2xl font-bold mb-2">Email Us</h2>
-          <p className="text-gray-400 mb-4">For partnerships, press, volunteering, or general questions:</p>
-          <a
-            href="mailto:abiodunhamboihameed@gmail.com"
-            className="inline-block bg-green-500 hover:bg-green-400 text-white font-bold px-4 md:px-8 py-3 rounded-full transition-all hover:scale-105 max-w-full break-words text-sm md:text-base"
+        <section
+          className="py-16"
+          style={{ borderBottom: `1px solid ${HAIRLINE}` }}
+        >
+          <p
+            className="text-xs font-semibold tracking-widest uppercase mb-8"
+            style={{ color: "#8B8B8B" }}
           >
-            abiodunhamboihameed@gmail.com
+            Email
+          </p>
+          <p className="text-base mb-6" style={{ color: "#8B8B8B", lineHeight: 1.75 }}>
+            For partnerships, press, volunteering, or general questions:
+          </p>
+          <a
+            href="mailto:hamboimindcare.help@gmail.com"
+            className="inline-flex items-center gap-2 text-base font-medium transition-opacity hover:opacity-70"
+            style={{ color: TEAL }}
+          >
+            hamboimindcare.help@gmail.com
+            <ArrowUpRight className="h-4 w-4" />
           </a>
-        </div>
+        </section>
 
-        {/* Social Media */}
-        <h2 className="text-3xl font-bold text-center mb-10">
-          Follow{" "}
-          <span className="text-green-400">Us</span>
-        </h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
-          {[
-            {
-              icon: "🎵",
-              platform: "TikTok",
-              handle: "@hamboimindcare",
-              url: "https://tiktok.com/@hamboimindcare",
-              color: "hover:border-pink-500/60 hover:bg-pink-900/10",
-            },
-            {
-              icon: "▶️",
-              platform: "YouTube",
-              handle: "@Hamboimindcare",
-              url: "https://youtube.com/@Hamboimindcare",
-              color: "hover:border-red-500/60 hover:bg-red-900/10",
-            },
-            {
-              icon: "📸",
-              platform: "Instagram",
-              handle: "@hamboimindcare",
-              url: "https://instagram.com/hamboimindcare",
-              color: "hover:border-purple-500/60 hover:bg-purple-900/10",
-            },
-          ].map((item, i) => (
-            <a
-              key={i}
-              href={item.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={`bg-white/5 border border-white/10 rounded-xl p-6 text-center transition-all duration-300 hover:scale-105 ${item.color}`}
-            >
-              <div className="text-4xl mb-3">{item.icon}</div>
-              <h3 className="font-bold text-white mb-1">{item.platform}</h3>
-              <p className="text-gray-400 text-sm">{item.handle}</p>
-            </a>
-          ))}
-        </div>
+        {/* Social */}
+        <section
+          className="py-16"
+          style={{ borderBottom: `1px solid ${HAIRLINE}` }}
+        >
+          <p
+            className="text-xs font-semibold tracking-widest uppercase mb-8"
+            style={{ color: "#8B8B8B" }}
+          >
+            Follow Us
+          </p>
+          <div className="flex flex-col" style={{ borderTop: `1px solid ${HAIRLINE}` }}>
+            {socials.map((s, i) => (
+              <a
+                key={i}
+                href={s.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-between py-5 group transition-colors"
+                style={{ borderBottom: `1px solid ${HAIRLINE}` }}
+              >
+                <div>
+                  <span
+                    className="font-serif text-xl font-normal transition-colors group-hover:text-white"
+                    style={{ color: "#F5F5F5" }}
+                  >
+                    {s.platform}
+                  </span>
+                  <span
+                    className="block text-sm mt-0.5"
+                    style={{ color: "#8B8B8B" }}
+                  >
+                    {s.handle}
+                  </span>
+                </div>
+                <ArrowUpRight
+                  className="h-5 w-5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                  style={{ color: "#8B8B8B" }}
+                />
+              </a>
+            ))}
+          </div>
+        </section>
 
         {/* FAQ */}
-        <h2 className="text-3xl font-bold text-center mb-10">
-          Frequently Asked{" "}
-          <span className="text-purple-400">Questions</span>
-        </h2>
-        <div className="space-y-4 mb-16">
-          {faqs.map((faq, i) => (
-            <div
-              key={i}
-              className={`border rounded-xl overflow-hidden transition-all duration-300 cursor-pointer ${
-                openFAQ === i
-                  ? "border-purple-500/50 bg-purple-900/20"
-                  : "border-white/10 bg-white/5 hover:border-purple-500/30"
-              }`}
-              onClick={() => setOpenFAQ(openFAQ === i ? null : i)}
-            >
-              <div className="flex justify-between items-center px-6 py-4">
-                <h3 className="font-semibold text-white">{faq.q}</h3>
-                <span className="text-purple-400 text-xl transition-transform duration-300" style={{ transform: openFAQ === i ? "rotate(45deg)" : "rotate(0deg)" }}>+</span>
-              </div>
-              {openFAQ === i && (
-                <div className="px-6 pb-4">
-                  <p className="text-gray-300 text-sm leading-relaxed">{faq.a}</p>
+        <section className="py-16">
+          <p
+            className="text-xs font-semibold tracking-widest uppercase mb-8"
+            style={{ color: "#8B8B8B" }}
+          >
+            FAQ
+          </p>
+          <h2
+            className="font-serif mb-10"
+            style={{ fontSize: "clamp(1.8rem, 4vw, 2.8rem)", fontWeight: 400, color: "#F5F5F5" }}
+          >
+            Frequently asked questions
+          </h2>
+          <div style={{ borderTop: `1px solid ${HAIRLINE}` }}>
+            {faqs.map((faq, i) => (
+              <div
+                key={i}
+                style={{ borderBottom: `1px solid ${HAIRLINE}` }}
+              >
+                <button
+                  className="w-full flex items-center justify-between py-5 text-left group"
+                  onClick={() => setOpenFAQ(openFAQ === i ? null : i)}
+                >
+                  <span
+                    className="text-base font-medium pr-8 transition-colors"
+                    style={{ color: openFAQ === i ? "#F5F5F5" : "#C0C0C0" }}
+                  >
+                    {faq.q}
+                  </span>
+                  <span
+                    className="flex-shrink-0 w-5 h-5 flex items-center justify-center text-lg transition-transform duration-300"
+                    style={{
+                      color: TEAL,
+                      transform: openFAQ === i ? "rotate(45deg)" : "rotate(0deg)",
+                    }}
+                  >
+                    +
+                  </span>
+                </button>
+                <div
+                  className="overflow-hidden transition-all duration-300"
+                  style={{
+                    maxHeight: openFAQ === i ? "200px" : "0",
+                    opacity: openFAQ === i ? 1 : 0,
+                  }}
+                >
+                  <p
+                    className="pb-5 text-sm leading-relaxed"
+                    style={{ color: "#8B8B8B", lineHeight: 1.75 }}
+                  >
+                    {faq.a}
+                  </p>
                 </div>
-              )}
-            </div>
-          ))}
-        </div>
+              </div>
+            ))}
+          </div>
+        </section>
 
       </div>
 
       {/* Footer note */}
-      <div className="text-center py-8 text-gray-500 text-sm">
-        <p>Hamboi Mindcare is a support tool, not a replacement for professional mental health care.</p>
+      <div
+        className="px-6 py-8 text-center"
+        style={{ borderTop: `1px solid ${HAIRLINE}` }}
+      >
+        <p className="text-xs" style={{ color: "#8B8B8B" }}>
+          Hamboi Mindcare is a support tool, not a replacement for professional mental health care.
+        </p>
       </div>
     </div>
   )
