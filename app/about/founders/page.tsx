@@ -15,7 +15,7 @@ const founders = [
   {
     name: "Fareeah Bada",
     image: "/images/authors/fareeah-bada.jpg",
-    title: "Co-Founder, Content & Marketing",
+    title: "Co-Founder, Content & Social media manager",
     bio: "A curious and thoughtful individual with a strong interest in learning, research, and creativity. She enjoys exploring new ideas, writing, and contributing to meaningful projects. With a calm and open-minded approach, she values growth, originality, and continuous learning — and brings all of that to everything she builds at Hamboi.",
     badges: ["✍️ Author of 2 published articles on Hamboi"],
     readMore: false,
