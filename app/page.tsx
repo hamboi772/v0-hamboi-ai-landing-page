@@ -1,5 +1,6 @@
 import { Header } from "@/components/header"
 import { HeroSection } from "@/components/hero-section"
+import { MissionStatement } from "@/components/mission-statement"
 import { FeaturesSection } from "@/components/features-section"
 import { CrisisBanner } from "@/components/crisis-banner"
 import { DonationSection } from "@/components/donation-section"
@@ -28,6 +29,7 @@ export default function HomePage() {
       <CrisisBanner />
       <Header />
       <HeroSection />
+      <MissionStatement />
       <DailyWellnessTipWrapper />
       <FeaturesSection />
       <HowItWorksSection />
