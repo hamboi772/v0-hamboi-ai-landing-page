@@ -9,7 +9,7 @@ const WHITE = "#F5F5F5"
 
 const abiodunBadges = [
   "🏅 2025 FIRST Global Bronze Medalist",
-  "🌍 Team Nigeria",
+  "🇳🇬 Team Nigeria",
   "Dr. Mae Jemison Award",
 ]
 
@@ -195,7 +195,7 @@ export function OurStorySection() {
                 fontWeight: 500,
               }}
             >
-              Founder &amp; CEO, Age 15
+              Founder &amp; Youth innovator, Age 15
             </p>
 
             {/* Bio */}
@@ -293,7 +293,7 @@ export function OurStorySection() {
                 fontWeight: 500,
               }}
             >
-              Co-Founder, Content &amp; Marketing
+              Co-Founder, Content &amp; Social media manager
             </p>
 
             {/* Expandable bio — client component */}
