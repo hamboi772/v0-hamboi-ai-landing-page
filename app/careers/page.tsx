@@ -3,6 +3,7 @@
 import Link from "next/link"
 import { ArrowLeft } from "lucide-react"
 
+
 export default function CareersPage() {
   return (
     <div className="min-h-screen" style={{ backgroundColor: "#06080F" }}>
