@@ -106,7 +106,7 @@ export function FeaturesSection() {
       <div className="container mx-auto px-4">
         <div className="text-center space-y-6 mb-20 reveal">
           <h2 className="text-5xl md:text-6xl lg:text-7xl font-black text-white leading-tight">
-            Everything You Need 💚
+            Everything You Need
           </h2>
           <p className="text-lg md:text-xl text-hamboi-text-muted max-w-3xl mx-auto leading-relaxed">
             Real tools for real life. We've got mood tracking, 24/7 support, and strategies that actually work.

@@ -174,8 +174,8 @@ export default function TermsPage() {
               <ul className="list-none p-0 space-y-1">
                 <li>
                   Email:{" "}
-                  <a href="mailto:legal@hamboi.ai" className="text-hamboi-purple hover:underline">
-                    legal@hamboi.ai
+                  <a href="mailto:hamboimindcare.help@gmail.com" className="text-hamboi-purple hover:underline">
+                    hamboimindcare.help@gmail.com
                   </a>
                 </li>
                 <li>Address: Lagos, Nigeria</li>

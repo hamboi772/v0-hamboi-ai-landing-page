@@ -1,13 +1,19 @@
 
 import type React from "react"
 import type { Metadata, Viewport } from "next"
-import { Geist, Geist_Mono } from "next/font/google"
+import { Cormorant_Garamond, DM_Sans } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import { ResizeObserverFix } from "@/components/resize-observer-fix"
 import "./globals.css"
 
-const _geist = Geist({ subsets: ["latin"] })
-const _geistMono = Geist_Mono({ subsets: ["latin"] })
+const _cormorantGaramond = Cormorant_Garamond({ 
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"]
+})
+const _dmSans = DM_Sans({ 
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"]
+})
 
 export const metadata: Metadata = {
   title: "Hamboi Mindcare - Your Mental Health Companion for Teens",
@@ -66,7 +72,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className="bg-background">
       <head>
         <link rel="manifest" href="/manifest.json" />
         <meta name="mobile-web-app-capable" content="yes" />

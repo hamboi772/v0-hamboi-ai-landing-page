@@ -284,19 +284,18 @@ export function SurveySection() {
   }
 
   return (
-    <section className="py-20 px-4 bg-gradient-to-b from-hamboi-dark-bg via-[#1a1a3e] to-hamboi-dark-bg">
+    <section className="py-20 px-4 bg-background border-t border-border">
       <div className="max-w-2xl mx-auto">
 
         {/* ── Header ── */}
         <div className="text-center mb-14">
-          <div className="inline-flex items-center gap-2 bg-purple-900/40 border border-purple-500/40 text-purple-300 px-4 py-2 rounded-full text-sm font-bold mb-6">
+          <div className="inline-flex items-center gap-2 border px-4 py-2 text-sm font-bold mb-6" style={{ borderColor: "rgba(255, 255, 255, 0.07)", color: "#8B8B8B" }}>
             💬 Find your Hamboi type
           </div>
-          <h2 className="text-4xl md:text-5xl font-black text-white mb-5 leading-tight">
-            What kind of person<br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400">are you really?</span>
+          <h2 className="text-4xl md:text-5xl font-serif font-bold text-foreground mb-5 leading-tight">
+            What kind of person are you really?
           </h2>
-          <p className="text-gray-400 text-lg max-w-xl mx-auto">
+          <p className="text-lg max-w-xl mx-auto" style={{ color: "#8B8B8B" }}>
             4 quick questions. Hamboi chats with you, then shows you your mental health type — and exactly how the app was built for you.
           </p>
         </div>
@@ -304,30 +303,30 @@ export function SurveySection() {
         {/* ── Intro card ── */}
         {stage === "intro" && (
           <div style={{
-            background: "#0F0A1E", border: "1px solid rgba(124,58,237,0.35)",
-            borderRadius: 24, padding: "40px 32px", textAlign: "center",
-            boxShadow: "0 0 60px rgba(124,58,237,0.12)",
+            background: "#0F1219", border: "1px solid rgba(255, 255, 255, 0.07)",
+            borderRadius: 0, padding: "40px 32px", textAlign: "center",
+            boxShadow: "none",
           }}>
             <div style={{ fontSize: 56, marginBottom: 20 }}>💜</div>
-            <h3 style={{ fontSize: 22, fontWeight: 900, color: "#f0e8ff", marginBottom: 10, fontFamily: "'Nunito',sans-serif" }}>
+            <h3 style={{ fontSize: 22, fontWeight: 700, color: "#F5F5F5", marginBottom: 10, fontFamily: "'DM Sans', sans-serif" }}>
               Talk to Hamboi
             </h3>
-            <p style={{ fontSize: 14, color: "#7c6fa0", lineHeight: 1.7, marginBottom: 28, maxWidth: 340, margin: "0 auto 28px" }}>
+            <p style={{ fontSize: 14, color: "#8B8B8B", lineHeight: 1.7, marginBottom: 28, maxWidth: 340, margin: "0 auto 28px" }}>
               Answer 4 honest questions and find out your mental health persona — plus how Hamboi was designed specifically for someone like you.
             </p>
             <button
               onClick={startChat}
               style={{
-                background: "linear-gradient(135deg,#7C3AED,#9333ea)",
-                color: "white", border: "none", borderRadius: 14,
-                padding: "14px 32px", fontSize: 15, fontWeight: 800,
-                cursor: "pointer", fontFamily: "'Nunito',sans-serif",
-                boxShadow: "0 4px 20px rgba(124,58,237,0.4)",
+                background: "#F5F5F5",
+                color: "#06080F", border: "none", borderRadius: 0,
+                padding: "14px 32px", fontSize: 15, fontWeight: 700,
+                cursor: "pointer", fontFamily: "'DM Sans', sans-serif",
+                boxShadow: "none",
               }}
             >
               Start the conversation →
             </button>
-            <p style={{ fontSize: 11, color: "#4a3f6b", marginTop: 16 }}>
+            <p style={{ fontSize: 11, color: "#606060", marginTop: 16 }}>
               Anonymous · Takes about 1 minute · Not a diagnosis
             </p>
           </div>
@@ -336,22 +335,22 @@ export function SurveySection() {
         {/* ── Chat ── */}
         {stage === "chat" && (
           <div style={{
-            background: "#0F0A1E", border: "1px solid rgba(124,58,237,0.25)",
-            borderRadius: 24, overflow: "hidden",
-            boxShadow: "0 0 60px rgba(124,58,237,0.1)",
-            fontFamily: "'Nunito',sans-serif",
+            background: "#0F1219", border: "1px solid rgba(255, 255, 255, 0.07)",
+            borderRadius: 0, overflow: "hidden",
+            boxShadow: "none",
+            fontFamily: "'DM Sans', sans-serif",
           }}>
             {/* Chat header */}
-            <div style={{ background: "#150e2b", borderBottom: "1px solid #1e1535", padding: "14px 20px", display: "flex", alignItems: "center", gap: 12 }}>
+            <div style={{ background: "#06080F", borderBottom: "1px solid rgba(255, 255, 255, 0.07)", padding: "14px 20px", display: "flex", alignItems: "center", gap: 12 }}>
               <div style={avatarStyle}>H</div>
               <div>
-                <div style={{ fontSize: 15, fontWeight: 800, color: "#f0e8ff" }}>Hamboi</div>
-                <div style={{ fontSize: 11, color: "#22c55e", display: "flex", alignItems: "center", gap: 4 }}>
-                  <div style={{ width: 6, height: 6, borderRadius: "50%", background: "#22c55e" }} />
+                <div style={{ fontSize: 15, fontWeight: 700, color: "#F5F5F5" }}>Hamboi</div>
+                <div style={{ fontSize: 11, color: "#0CF2C8", display: "flex", alignItems: "center", gap: 4 }}>
+                  <div style={{ width: 6, height: 6, borderRadius: "50%", background: "#0CF2C8" }} />
                   Online
                 </div>
               </div>
-              <div style={{ marginLeft: "auto", fontSize: 12, color: "#4a3f6b" }}>
+              <div style={{ marginLeft: "auto", fontSize: 12, color: "#606060" }}>
                 {currentQ + 1}/{QUESTIONS.length}
               </div>
             </div>
@@ -373,9 +372,9 @@ export function SurveySection() {
                   {msg.from === "hamboi" && <div style={avatarStyle}>H</div>}
                   <div style={{
                     maxWidth: "72%",
-                    background: msg.from === "hamboi" ? "#1e1535" : "linear-gradient(135deg,#7C3AED,#9333ea)",
-                    color: "#f0e8ff",
-                    borderRadius: msg.from === "hamboi" ? "18px 18px 18px 4px" : "18px 18px 4px 18px",
+                    background: msg.from === "hamboi" ? "#1A1D26" : "#F5F5F5",
+                    color: msg.from === "hamboi" ? "#F5F5F5" : "#06080F",
+                    borderRadius: 0,
                     padding: "11px 15px", fontSize: 14, lineHeight: 1.5, fontWeight: 500,
                   }}>
                     {msg.text}
@@ -392,19 +391,19 @@ export function SurveySection() {
                   key={i}
                   onClick={() => handleReply(r)}
                   style={{
-                    background: "rgba(124,58,237,0.06)", border: "1px solid rgba(124,58,237,0.2)",
-                    borderRadius: 12, padding: "11px 16px", textAlign: "left",
-                    color: "#c4b5fd", fontSize: 13, fontWeight: 700, cursor: "pointer",
-                    fontFamily: "'Nunito',sans-serif", transition: "all 0.15s",
+                    background: "transparent", border: "1px solid rgba(255, 255, 255, 0.12)",
+                    borderRadius: 0, padding: "11px 16px", textAlign: "left",
+                    color: "#F5F5F5", fontSize: 13, fontWeight: 600, cursor: "pointer",
+                    fontFamily: "'DM Sans', sans-serif", transition: "all 0.15s",
                   }}
-                  onMouseEnter={e => (e.currentTarget.style.background = "rgba(124,58,237,0.15)")}
-                  onMouseLeave={e => (e.currentTarget.style.background = "rgba(124,58,237,0.06)")}
+                  onMouseEnter={e => (e.currentTarget.style.background = "rgba(255, 255, 255, 0.05)")}
+                  onMouseLeave={e => (e.currentTarget.style.background = "transparent")}
                 >
                   {r.text}
                 </button>
               ))}
               {!canReply && !isTyping && (
-                <div style={{ textAlign: "center", fontSize: 12, color: "#4a3f6b", padding: "6px 0" }}>Hamboi is thinking...</div>
+                <div style={{ textAlign: "center", fontSize: 12, color: "#606060", padding: "6px 0" }}>Hamboi is thinking...</div>
               )}
             </div>
           </div>
@@ -420,40 +419,40 @@ export function SurveySection() {
           }}>
             {/* Persona card */}
             <div style={{
-              background: "#0F0A1E", border: `1px solid ${persona.color}40`,
-              borderRadius: 24, overflow: "hidden",
-              boxShadow: `0 0 60px ${persona.color}18`,
+              background: "#0F1219", border: "1px solid rgba(255, 255, 255, 0.07)",
+              borderRadius: 0, overflow: "hidden",
+              boxShadow: "none",
             }}>
               {/* Top banner */}
               <div style={{
-                background: `linear-gradient(135deg, ${persona.color}22, #150e2b)`,
-                borderBottom: `1px solid ${persona.color}30`,
+                background: "#06080F",
+                borderBottom: "1px solid rgba(255, 255, 255, 0.07)",
                 padding: "32px 24px", textAlign: "center",
               }}>
                 <div style={{ fontSize: 56, marginBottom: 12 }}>{persona.emoji}</div>
-                <div style={{ fontSize: 11, color: "#7c6fa0", textTransform: "uppercase", letterSpacing: 3, marginBottom: 6 }}>
+                <div style={{ fontSize: 11, color: "#8B8B8B", textTransform: "uppercase", letterSpacing: 3, marginBottom: 6 }}>
                   Your Hamboi type
                 </div>
-                <h3 style={{ fontSize: 28, fontWeight: 900, color: "#f0e8ff", marginBottom: 8 }}>{persona.name}</h3>
-                <p style={{ fontSize: 16, color: persona.color, fontWeight: 700 }}>{persona.tagline}</p>
+                <h3 style={{ fontSize: 28, fontWeight: 700, color: "#F5F5F5", marginBottom: 8, fontFamily: "'Cormorant Garamond', serif" }}>{persona.name}</h3>
+                <p style={{ fontSize: 16, color: "#0CF2C8", fontWeight: 600 }}>{persona.tagline}</p>
               </div>
 
               <div style={{ padding: "24px" }}>
                 {/* Description */}
-                <p style={{ fontSize: 14, color: "#a89cc8", lineHeight: 1.8, marginBottom: 20, textAlign: "center" }}>
+                <p style={{ fontSize: 14, color: "#8B8B8B", lineHeight: 1.8, marginBottom: 20, textAlign: "center" }}>
                   {persona.description}
                 </p>
 
                 {/* Hamboi message */}
                 <div style={{
-                  background: "#150e2b", border: "1px solid #1e1535",
-                  borderRadius: 16, padding: "16px", marginBottom: 20,
+                  background: "#1A1D26", border: "1px solid rgba(255, 255, 255, 0.07)",
+                  borderRadius: 0, padding: "16px", marginBottom: 20,
                   display: "flex", gap: 12, alignItems: "flex-start",
                 }}>
                   <div style={avatarStyle}>H</div>
                   <div>
-                    <div style={{ fontSize: 11, color: "#7c6fa0", marginBottom: 5 }}>Hamboi says</div>
-                    <div style={{ fontSize: 14, color: "#f0e8ff", lineHeight: 1.6, fontStyle: "italic" }}>
+                    <div style={{ fontSize: 11, color: "#8B8B8B", marginBottom: 5 }}>Hamboi says</div>
+                    <div style={{ fontSize: 14, color: "#F5F5F5", lineHeight: 1.6, fontStyle: "italic" }}>
                       "{persona.message}"
                     </div>
                   </div>
@@ -461,18 +460,18 @@ export function SurveySection() {
 
                 {/* Features */}
                 <div style={{ marginBottom: 24 }}>
-                  <div style={{ fontSize: 11, color: "#7c6fa0", textTransform: "uppercase", letterSpacing: 2, marginBottom: 12 }}>
+                  <div style={{ fontSize: 11, color: "#8B8B8B", textTransform: "uppercase", letterSpacing: 2, marginBottom: 12 }}>
                     Built for you in Hamboi
                   </div>
                   <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
                     {persona.features.map((f, i) => (
                       <div key={i} style={{
                         display: "flex", alignItems: "center", gap: 10,
-                        background: `${persona.color}0f`, border: `1px solid ${persona.color}25`,
-                        borderRadius: 12, padding: "10px 14px",
+                        background: "transparent", border: "1px solid rgba(255, 255, 255, 0.07)",
+                        borderRadius: 0, padding: "10px 14px",
                       }}>
-                        <div style={{ width: 8, height: 8, borderRadius: "50%", background: persona.color, flexShrink: 0 }} />
-                        <span style={{ fontSize: 13, fontWeight: 700, color: "#f0e8ff" }}>{f}</span>
+                        <div style={{ width: 8, height: 8, borderRadius: 0, background: "#0CF2C8", flexShrink: 0 }} />
+                        <span style={{ fontSize: 13, fontWeight: 600, color: "#F5F5F5" }}>{f}</span>
                       </div>
                     ))}
                   </div>
@@ -481,11 +480,11 @@ export function SurveySection() {
                 {/* CTAs */}
                 <button
                   style={{
-                    width: "100%", background: "linear-gradient(135deg,#7C3AED,#9333ea)",
-                    color: "white", border: "none", borderRadius: 14, padding: "15px 0",
-                    fontSize: 15, fontWeight: 800, cursor: "pointer",
-                    fontFamily: "'Nunito',sans-serif",
-                    boxShadow: "0 4px 20px rgba(124,58,237,0.35)", marginBottom: 10,
+                    width: "100%", background: "#F5F5F5",
+                    color: "#06080F", border: "none", borderRadius: 0, padding: "15px 0",
+                    fontSize: 15, fontWeight: 700, cursor: "pointer",
+                    fontFamily: "'DM Sans', sans-serif",
+                    boxShadow: "none", marginBottom: 10,
                   }}
                   onClick={() => document.getElementById("hero")?.scrollIntoView({ behavior: "smooth" })}
                 >
@@ -495,9 +494,9 @@ export function SurveySection() {
                   onClick={reset}
                   style={{
                     width: "100%", background: "transparent",
-                    border: "1px solid #1e1535", borderRadius: 14, padding: "12px 0",
-                    fontSize: 13, fontWeight: 700, color: "#7c6fa0", cursor: "pointer",
-                    fontFamily: "'Nunito',sans-serif",
+                    border: "1px solid rgba(255, 255, 255, 0.07)", borderRadius: 0, padding: "12px 0",
+                    fontSize: 13, fontWeight: 600, color: "#F5F5F5", cursor: "pointer",
+                    fontFamily: "'DM Sans', sans-serif",
                   }}
                 >
                   Retake the quiz
@@ -508,9 +507,9 @@ export function SurveySection() {
         )}
 
         {/* Crisis note */}
-        <p className="text-center text-xs text-gray-600 mt-8">
-          This is not a diagnostic tool. If you're in crisis, call MANI Nigeria free on{" "}
-          <span className="text-purple-400 font-bold">0809 111 6264</span> (24/7).
+        <p className="text-center text-xs mt-8" style={{ color: "#8B8B8B" }}>
+          This is not a diagnostic tool. If you&apos;re in crisis, call MANI Nigeria free on{" "}
+          <span style={{ color: "#0CF2C8", fontWeight: 600 }}>0809 111 6264</span> (24/7).
         </p>
       </div>
 

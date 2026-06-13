@@ -21,23 +21,20 @@ export default function FeaturesPage() {
           </Button>
         </Link>
 
-        <div className="space-y-6 mb-8">
-          <h1 className="text-3xl md:text-4xl font-bold text-hamboi-dark">
-            Your Wellness{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-hamboi-purple to-hamboi-blue">
-              Dashboard
-            </span>
+        <div className="space-y-6 mb-12">
+          <h1 className="text-5xl md:text-6xl font-serif font-bold text-foreground">
+            Your Wellness
           </h1>
-          <p className="text-lg text-hamboi-dark/70">
+          <p className="text-lg text-muted-foreground">
             Track your mood, journal your thoughts, and share support with others
           </p>
         </div>
 
         <Tabs defaultValue="mood" className="space-y-6">
-          <TabsList className="grid w-full grid-cols-3">
-            <TabsTrigger value="mood">Mood Tracker</TabsTrigger>
-            <TabsTrigger value="journal">Journal</TabsTrigger>
-            <TabsTrigger value="referral">Share & Refer</TabsTrigger>
+          <TabsList className="flex gap-8 bg-transparent border-b border-border p-0 rounded-none h-auto w-full justify-start">
+            <TabsTrigger value="mood" className="rounded-none border-b-2 border-transparent data-[state=active]:border-accent data-[state=active]:bg-transparent px-0 py-3 text-base font-medium font-sans">Mood Tracker</TabsTrigger>
+            <TabsTrigger value="journal" className="rounded-none border-b-2 border-transparent data-[state=active]:border-accent data-[state=active]:bg-transparent px-0 py-3 text-base font-medium font-sans">Journal</TabsTrigger>
+            <TabsTrigger value="referral" className="rounded-none border-b-2 border-transparent data-[state=active]:border-accent data-[state=active]:bg-transparent px-0 py-3 text-base font-medium font-sans">Share & Refer</TabsTrigger>
           </TabsList>
 
           <TabsContent value="mood">

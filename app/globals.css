@@ -3,91 +3,80 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  /* Gen Z Dark Mode Color Palette - Bold & Vibrant */
-  --background: #0F0F1E;
-  --foreground: #FFFFFF;
-  --card: #1A1A2E;
-  --card-foreground: #FFFFFF;
-  --popover: #1A1A2E;
-  --popover-foreground: #FFFFFF;
-  --primary: #22C55E;
-  --primary-foreground: #0F0F1E;
-  --secondary: #7C3AED;
-  --secondary-foreground: #FFFFFF;
-  --muted: #3A3A4E;
-  --muted-foreground: #A0A0B0;
-  --accent: #EC4899;
-  --accent-foreground: #FFFFFF;
+  /* Editorial Dark Palette */
+  --background: #06080F;
+  --foreground: #F5F5F5;
+  --card: #0F1219;
+  --card-foreground: #F5F5F5;
+  --popover: #0F1219;
+  --popover-foreground: #F5F5F5;
+  --primary: #F5F5F5;
+  --primary-foreground: #06080F;
+  --secondary: #8B8B8B;
+  --secondary-foreground: #F5F5F5;
+  --muted: #1A1D26;
+  --muted-foreground: #8B8B8B;
+  --accent: #C0C0C0;
+  --accent-foreground: #06080F;
   --destructive: #EF4444;
   --destructive-foreground: #FFFFFF;
-  --border: #2A2A3E;
-  --input: #2A2A3E;
-  --ring: #7C3AED;
-  --chart-1: #22C55E;
-  --chart-2: #7C3AED;
-  --chart-3: #06B6D4;
-  --chart-4: #EC4899;
-  --chart-5: #F59E0B;
-  --radius: 1.5rem;
-  --sidebar: #1A1A2E;
-  --sidebar-foreground: #FFFFFF;
-  --sidebar-primary: #22C55E;
-  --sidebar-primary-foreground: #0F0F1E;
-  --sidebar-accent: #7C3AED;
-  --sidebar-accent-foreground: #FFFFFF;
-  --sidebar-border: #2A2A3E;
-  --sidebar-ring: #7C3AED;
-
-  /* Gen Z Brand Colors */
-  --hamboi-purple: #7C3AED;
-  --hamboi-green: #22C55E;
-  --hamboi-cyan: #06B6D4;
-  --hamboi-pink: #EC4899;
-  --hamboi-dark-bg: #0F0F1E;
-  --hamboi-dark-card: #1A1A2E;
-  --hamboi-text: #FFFFFF;
-  --hamboi-text-muted: #A0A0B0;
+  --border: #1A1D26;
+  --input: #0F1219;
+  --ring: #F5F5F5;
+  --chart-1: #F5F5F5;
+  --chart-2: #C0C0C0;
+  --chart-3: #8B8B8B;
+  --chart-4: #606060;
+  --chart-5: #404040;
+  --radius: 0rem;
+  --sidebar: #0F1219;
+  --sidebar-foreground: #F5F5F5;
+  --sidebar-primary: #F5F5F5;
+  --sidebar-primary-foreground: #06080F;
+  --sidebar-accent: #C0C0C0;
+  --sidebar-accent-foreground: #06080F;
+  --sidebar-border: #1A1D26;
+  --sidebar-ring: #F5F5F5;
 }
 
 .dark {
-  /* Already using dark mode by default in :root */
-  --background: #0F0F1E;
-  --foreground: #FFFFFF;
-  --card: #1A1A2E;
-  --card-foreground: #FFFFFF;
-  --popover: #1A1A2E;
-  --popover-foreground: #FFFFFF;
-  --primary: #22C55E;
-  --primary-foreground: #0F0F1E;
-  --secondary: #7C3AED;
-  --secondary-foreground: #FFFFFF;
-  --muted: #3A3A4E;
-  --muted-foreground: #A0A0B0;
-  --accent: #EC4899;
-  --accent-foreground: #FFFFFF;
+  --background: #06080F;
+  --foreground: #F5F5F5;
+  --card: #0F1219;
+  --card-foreground: #F5F5F5;
+  --popover: #0F1219;
+  --popover-foreground: #F5F5F5;
+  --primary: #F5F5F5;
+  --primary-foreground: #06080F;
+  --secondary: #8B8B8B;
+  --secondary-foreground: #F5F5F5;
+  --muted: #1A1D26;
+  --muted-foreground: #8B8B8B;
+  --accent: #C0C0C0;
+  --accent-foreground: #06080F;
   --destructive: #EF4444;
   --destructive-foreground: #FFFFFF;
-  --border: #2A2A3E;
-  --input: #2A2A3E;
-  --ring: #7C3AED;
-  --chart-1: #22C55E;
-  --chart-2: #7C3AED;
-  --chart-3: #06B6D4;
-  --chart-4: #EC4899;
-  --chart-5: #F59E0B;
-  --sidebar: #1A1A2E;
-  --sidebar-foreground: #FFFFFF;
-  --sidebar-primary: #22C55E;
-  --sidebar-primary-foreground: #0F0F1E;
-  --sidebar-accent: #7C3AED;
-  --sidebar-accent-foreground: #FFFFFF;
-  --sidebar-border: #2A2A3E;
-  --sidebar-ring: #7C3AED;
+  --border: #1A1D26;
+  --input: #0F1219;
+  --ring: #F5F5F5;
+  --chart-1: #F5F5F5;
+  --chart-2: #C0C0C0;
+  --chart-3: #8B8B8B;
+  --chart-4: #606060;
+  --chart-5: #404040;
+  --sidebar: #0F1219;
+  --sidebar-foreground: #F5F5F5;
+  --sidebar-primary: #F5F5F5;
+  --sidebar-primary-foreground: #06080F;
+  --sidebar-accent: #C0C0C0;
+  --sidebar-accent-foreground: #06080F;
+  --sidebar-border: #1A1D26;
+  --sidebar-ring: #F5F5F5;
 }
 
 @theme inline {
-  --font-sans: "Poppins", "Poppins Fallback", sans-serif;
-  --font-mono: "Geist Mono", "Geist Mono Fallback";
+  --font-sans: "DM Sans", "DM Sans Fallback", sans-serif;
+  --font-serif: "Cormorant Garamond", "Cormorant Garamond Fallback", serif;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -112,10 +101,10 @@
   --color-chart-3: var(--chart-3);
   --color-chart-4: var(--chart-4);
   --color-chart-5: var(--chart-5);
-  --radius-sm: calc(var(--radius) - 4px);
-  --radius-md: calc(var(--radius) - 2px);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) + 4px);
+  --radius-sm: 0rem;
+  --radius-md: 0rem;
+  --radius-lg: 0rem;
+  --radius-xl: 0rem;
   --color-sidebar: var(--sidebar);
   --color-sidebar-foreground: var(--sidebar-foreground);
   --color-sidebar-primary: var(--sidebar-primary);
@@ -124,16 +113,6 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
-
-  /* Gen Z Brand Colors */
-  --color-hamboi-purple: var(--hamboi-purple);
-  --color-hamboi-green: var(--hamboi-green);
-  --color-hamboi-cyan: var(--hamboi-cyan);
-  --color-hamboi-pink: var(--hamboi-pink);
-  --color-hamboi-dark-bg: var(--hamboi-dark-bg);
-  --color-hamboi-dark-card: var(--hamboi-dark-card);
-  --color-hamboi-text: var(--hamboi-text);
-  --color-hamboi-text-muted: var(--hamboi-text-muted);
 }
 
 @layer base {
@@ -142,6 +121,8 @@
   }
   body {
     @apply bg-background text-foreground;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' result='noise'/%3E%3C/filter%3E%3Crect width='400' height='400' fill='%23060810' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
+    background-attachment: fixed;
   }
 }
 

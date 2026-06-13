@@ -6,8 +6,8 @@ import { MessageSquare, Sparkles, LayoutDashboard, Download, Smartphone, X } fro
 import { ChatDemoModal } from "@/components/chat-demo-modal"
 import { AppStoreBadges } from "@/components/app-store-badges"
 import { ParticleCanvas } from "@/components/particle-canvas"
+import { TypewriterHeadline } from "@/components/typewriter-headline"
 import Link from "next/link"
-import Image from "next/image"
 
 export function HeroSection() {
   const [isChatDemoOpen, setIsChatDemoOpen] = useState(false)
@@ -101,32 +101,10 @@ export function HeroSection() {
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             <div className="space-y-8">
               <div className="inline-flex items-center gap-2 px-4 py-2 bg-hamboi-purple/20 rounded-full text-hamboi-green text-sm font-bold border border-hamboi-purple/40 animate-fade-in">
-                {/* Rotating brain logo */}
-                <span
-                  className="animate-brain inline-flex items-center justify-center w-6 h-6"
-                  aria-hidden="true"
-                  style={{ display: "inline-block" }}
-                >
-                  <Image
-                    src="/icon-512.png"
-                    alt=""
-                    width={24}
-                    height={24}
-                    className="rounded-full"
-                    priority
-                  />
-                </span>
                 <span>Your feelings matter 💜</span>
               </div>
 
-              <div className="space-y-4">
-                <h1 className="text-6xl md:text-7xl lg:text-8xl font-black text-white leading-[1.1] text-balance animate-fade-in-up">
-                  Real Talk About
-                </h1>
-                <h2 className="text-6xl md:text-7xl lg:text-8xl font-black bg-gradient-to-r from-hamboi-green via-hamboi-cyan to-hamboi-purple bg-clip-text text-transparent animate-fade-in-up" style={{ animationDelay: "0.1s" }}>
-                  Mental Health
-                </h2>
-              </div>
+              <TypewriterHeadline />
 
               <p className="text-lg md:text-xl text-hamboi-text-muted max-w-xl text-pretty leading-relaxed">
                 No judgment here 💚 Just vibes, real support, and someone who actually gets it. Talk whenever, wherever — your AI friend is always down to listen.

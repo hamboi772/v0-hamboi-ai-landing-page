@@ -1,5 +1,6 @@
 import { Header } from "@/components/header"
 import { HeroSection } from "@/components/hero-section"
+import { MissionStatement } from "@/components/mission-statement"
 import { FeaturesSection } from "@/components/features-section"
 import { CrisisBanner } from "@/components/crisis-banner"
 import { DonationSection } from "@/components/donation-section"
@@ -7,6 +8,7 @@ import { MentalHealthResources } from "@/components/mental-health-resources"
 import { HowItWorksSection } from "@/components/how-it-works-section"
 import { DailyWellnessTipWrapper } from "@/components/daily-wellness-tip-wrapper"
 import { SafetyPrivacySection } from "@/components/safety-privacy-section"
+import { AboutUsSection } from "@/components/about-us-section"
 import { OurStorySection } from "@/components/our-story-section"
 import { BooksSection } from "@/components/books-section"
 import { SurveySection } from "@/components/survey-section"
@@ -28,8 +30,10 @@ export default function HomePage() {
       <CrisisBanner />
       <Header />
       <HeroSection />
+      <MissionStatement />
       <DailyWellnessTipWrapper />
       <FeaturesSection />
+      <AboutUsSection />
       <HowItWorksSection />
       <OurStorySection />
       <MotivationalMessagesSection />
