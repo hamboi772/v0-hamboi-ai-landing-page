@@ -7,7 +7,7 @@ const founders = [
   {
     name: "Abiodun Abdulhameed Abolarinwa",
     image: "/images/founder-abdulhameed.webp",
-    title: "Founder & CEO",
+    title: "Founder & Youth innovator",
     bio: "A young, smart and thoughtful researcher who built Hamboi because he wanted the friend he wished he had at 15. He owns the vision, the product, and every moment no one talks about — driven by curiosity, purpose, and a deep belief that teenagers deserve better.",
     badges: ["🏅 2025 FIRST Global Bronze Medal", "Dr. Mae Jemison Award", "Team Nigeria"],
     readMore: true,
