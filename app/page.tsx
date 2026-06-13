@@ -8,6 +8,7 @@ import { MentalHealthResources } from "@/components/mental-health-resources"
 import { HowItWorksSection } from "@/components/how-it-works-section"
 import { DailyWellnessTipWrapper } from "@/components/daily-wellness-tip-wrapper"
 import { SafetyPrivacySection } from "@/components/safety-privacy-section"
+import { AboutUsSection } from "@/components/about-us-section"
 import { OurStorySection } from "@/components/our-story-section"
 import { BooksSection } from "@/components/books-section"
 import { SurveySection } from "@/components/survey-section"
@@ -32,6 +33,7 @@ export default function HomePage() {
       <MissionStatement />
       <DailyWellnessTipWrapper />
       <FeaturesSection />
+      <AboutUsSection />
       <HowItWorksSection />
       <OurStorySection />
       <MotivationalMessagesSection />
