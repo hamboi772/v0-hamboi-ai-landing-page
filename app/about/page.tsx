@@ -86,7 +86,7 @@ export default function AboutPage() {
               </div>
               <div style={{ width: "1px", height: "40px", backgroundColor: "rgba(255,255,255,0.07)" }} />
               <div className="text-center">
-                <div className="text-3xl font-serif font-light" style={{ color: "#F5F5F5" }}>115+</div>
+                <div className="text-3xl font-serif font-light" style={{ color: "#F5F5F5" }}>200+</div>
                 <div className="text-sm" style={{ color: "#8B8B8B" }}>✓ customer interactions</div>
               </div>
             </div>
