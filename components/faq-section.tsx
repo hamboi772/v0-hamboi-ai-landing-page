@@ -19,7 +19,7 @@ const faqs = [
   {
     question: "What if I'm in crisis?",
     answer:
-      "Hamboi can detect when you might be in crisis and will immediately provide resources including the 988 Suicide & Crisis Lifeline, Crisis Text Line, and the Trevor Project (for LGBTQ+ youth). Your safety is our priority.",
+      "Hamboi can detect when you might be in crisis and will immediately provide resources including the 988 Suicide & Crisis Lifeline and Crisis Text Line. Your safety is our priority.",
   },
   {
     question: "How is my data protected?",

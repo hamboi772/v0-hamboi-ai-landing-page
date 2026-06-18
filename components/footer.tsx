@@ -5,7 +5,6 @@ const crisisResources = [
   { name: "MANI Nigeria (24/7)", description: "Call 0809 111 6264", href: "tel:08091116264" },
   { name: "988 Suicide & Crisis Lifeline", description: "Call or text 988 (International)", href: "tel:988" },
   { name: "Crisis Text Line", description: "Text HOME to 741741", href: "sms:741741" },
-  { name: "Trevor Project (LGBTQ+)", description: "1-866-488-7386", href: "tel:1-866-488-7386" },
 ]
 
 const footerLinks = {
