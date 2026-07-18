@@ -5,7 +5,7 @@ author:
   name: "Sekinat Abiodun"
   role: "Student Contributor"
   school: "Hamboi Mindcare Community"
-  bio: "Tomiwa is a high school student who believes that everyone has a story worth telling. He is passionate about breaking the silence around mental health in Nigerian schools."
+  bio: "Sekinat is a high school student who believes that everyone has a story worth telling. He is passionate about breaking the silence around mental health in Nigerian schools."
 category: "Student Voices"
 readTime: "4 min read"
 publishedDate: "May 2026"
