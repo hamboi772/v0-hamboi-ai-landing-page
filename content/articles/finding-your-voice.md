@@ -2,7 +2,7 @@
 title: "Finding Your Voice: Why Student Stories Matter"
 description: "In a world full of expert advice, sometimes the most powerful thing you can hear is 'I've been there too.' Discover the power of sharing your journey."
 author:
-  name: "Tomiwa Asaolu"
+  name: "Sekinat Abiodun"
   role: "Student Contributor"
   school: "Hamboi Mindcare Community"
   bio: "Tomiwa is a high school student who believes that everyone has a story worth telling. He is passionate about breaking the silence around mental health in Nigerian schools."
