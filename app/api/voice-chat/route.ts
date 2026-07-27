@@ -208,8 +208,10 @@ export async function POST(request: NextRequest) {
   try {
     const body = await request.json()
     const userMessage = body.message
-    const conversationId = body.conversationId // new: conversation ID from frontend
-    const authHeader = request.headers.get("Authorization") // new: auth token
+    const conversationId = body.conversationId // conversation ID from frontend (authenticated only)
+    const isAnonymous = body.isAnonymous // flag for anonymous session
+    const anonymousMessages = body.anonymousMessages || [] // anonymous message history from frontend
+    const authHeader = request.headers.get("Authorization") // auth token (only for authenticated)
 
     if (!userMessage || typeof userMessage !== "string" || !userMessage.trim()) {
       return NextResponse.json(
@@ -231,16 +233,24 @@ export async function POST(request: NextRequest) {
 
     const crisisResponse = detectCrisis(userMessageTrimmed)
     if (crisisResponse) {
-      // Save crisis message if conversation is provided
-      if (conversationId && authHeader) {
+      // Save crisis message if authenticated
+      if (conversationId && authHeader && !isAnonymous) {
         await saveMessageToConversation(conversationId, "user", userMessageTrimmed, authHeader)
         await saveMessageToConversation(conversationId, "assistant", crisisResponse, authHeader)
       }
+      // Anonymous crisis messages are NOT saved
       return NextResponse.json({ response: crisisResponse })
     }
 
-    // Load conversation history if conversation ID is provided
-    const contextMessages = conversationId && authHeader ? await getConversationContext(conversationId, authHeader) : []
+    // Load conversation history
+    let contextMessages = []
+    if (!isAnonymous && conversationId && authHeader) {
+      // Authenticated: load from database
+      contextMessages = await getConversationContext(conversationId, authHeader)
+    } else if (isAnonymous && anonymousMessages && anonymousMessages.length > 0) {
+      // Anonymous: use passed-in message history from client
+      contextMessages = anonymousMessages
+    }
 
     // Filter out system summary messages for the API call
     const historyMessages = contextMessages
@@ -254,11 +264,12 @@ export async function POST(request: NextRequest) {
 
     const { response, provider } = await callAI(messages)
 
-    // Save messages to conversation if provided
-    if (conversationId && authHeader) {
+    // Save messages only if authenticated (not anonymous)
+    if (!isAnonymous && conversationId && authHeader) {
       await saveMessageToConversation(conversationId, "user", userMessageTrimmed, authHeader)
       await saveMessageToConversation(conversationId, "assistant", response, authHeader)
     }
+    // Anonymous messages are returned to client but NOT persisted to database
 
     return NextResponse.json({ response, _provider: provider })
   } catch (error: any) {

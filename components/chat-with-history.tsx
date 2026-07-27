@@ -5,6 +5,16 @@ import { useState, useRef, useEffect } from "react"
 import { X, Loader2, Send, MessageSquare, Menu, ChevronLeft } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { ConversationSidebar } from "./conversation-sidebar"
+import { LoginPromptBanner } from "./login-prompt-banner"
+import { PasswordlessLoginModal } from "./passwordless-login-modal"
+import {
+  getOrCreateAnonymousSession,
+  getAnonymousMessages,
+  addAnonymousMessage,
+  clearAnonymousSession,
+  getCurrentAnonymousSession,
+} from "@/lib/anonymous-session"
+import { useAuthState } from "@/hooks/useAuthState"
 
 interface Message {
   id?: string
@@ -28,9 +38,26 @@ export function ChatWithHistory({ isOpen, onClose, authToken }: ChatWithHistoryP
   const [conversationId, setConversationId] = useState<string | null>(null)
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const [loadingConversation, setLoadingConversation] = useState(false)
+  const [isAnonymous, setIsAnonymous] = useState(true)
+  const [showLoginPrompt, setShowLoginPrompt] = useState(false)
+  const [showLoginModal, setShowLoginModal] = useState(false)
+  const [messageCount, setMessageCount] = useState(0)
+  const [anonymousSessionId, setAnonymousSessionId] = useState<string | null>(null)
 
+  const authState = useAuthState()
   const textInputRef = useRef<HTMLTextAreaElement>(null)
   const messagesEndRef = useRef<HTMLDivElement>(null)
+
+  // Initialize anonymous session on mount
+  useEffect(() => {
+    if (isOpen && !authState.isAuthenticated) {
+      const sessionId = getOrCreateAnonymousSession()
+      setAnonymousSessionId(sessionId)
+      setIsAnonymous(true)
+    } else if (isOpen && authState.isAuthenticated && authToken) {
+      setIsAnonymous(false)
+    }
+  }, [isOpen, authState.isAuthenticated, authToken])
 
   // Auto-scroll to bottom
   useEffect(() => {
@@ -63,6 +90,19 @@ export function ChatWithHistory({ isOpen, onClose, authToken }: ChatWithHistoryP
 
   // Create a new conversation
   const handleNewChat = async () => {
+    if (isAnonymous) {
+      // Start anonymous chat - just generate a new session ID
+      const sessionId = getOrCreateAnonymousSession()
+      setAnonymousSessionId(sessionId)
+      setMessages([])
+      setTextInput("")
+      setError("")
+      setMessageCount(0)
+      setShowLoginPrompt(false)
+      setSidebarOpen(false)
+      return
+    }
+
     if (!authToken) {
       setError("Please log in to start a chat")
       return
@@ -88,6 +128,7 @@ export function ChatWithHistory({ isOpen, onClose, authToken }: ChatWithHistoryP
       setMessages([])
       setTextInput("")
       setError("")
+      setMessageCount(0)
       setSidebarOpen(false)
     } catch (err) {
       console.error("[v0] Error creating conversation:", err)
@@ -131,7 +172,7 @@ export function ChatWithHistory({ isOpen, onClose, authToken }: ChatWithHistoryP
     const userMessage = textInput.trim()
     if (!userMessage || isProcessing) return
 
-    if (!conversationId) {
+    if (!conversationId && !isAnonymous) {
       setError("Please start a new chat first")
       return
     }
@@ -147,17 +188,33 @@ export function ChatWithHistory({ isOpen, onClose, authToken }: ChatWithHistoryP
     }
     setMessages((prev) => [...prev, newUserMessage])
 
+    // For anonymous sessions, store locally
+    if (isAnonymous) {
+      addAnonymousMessage("user", userMessage)
+    }
+
     try {
+      // Build the request body based on auth state
+      const requestBody: any = {
+        message: userMessage,
+        isAnonymous: isAnonymous,
+      }
+
+      if (!isAnonymous && conversationId) {
+        requestBody.conversationId = conversationId
+      } else if (isAnonymous) {
+        // Pass anonymous messages to server for context
+        const anonMessages = getAnonymousMessages()
+        requestBody.anonymousMessages = anonMessages
+      }
+
       const res = await fetch("/api/voice-chat", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: authToken || "",
+          ...(authToken ? { Authorization: authToken } : {}),
         },
-        body: JSON.stringify({
-          message: userMessage,
-          conversationId: conversationId,
-        }),
+        body: JSON.stringify(requestBody),
       })
 
       const data = await res.json()
@@ -169,6 +226,18 @@ export function ChatWithHistory({ isOpen, onClose, authToken }: ChatWithHistoryP
       }
 
       if (data.response) {
+        // Store assistant response locally if anonymous
+        if (isAnonymous) {
+          addAnonymousMessage("assistant", data.response)
+        }
+
+        // Track message count and show login prompt after 3-4 messages
+        const newCount = messageCount + 1
+        setMessageCount(newCount)
+        if (newCount >= 3 && isAnonymous && !showLoginPrompt) {
+          setShowLoginPrompt(true)
+        }
+
         // Display AI response with typewriter effect
         displayResponseWithTypewriter(data.response, () => {
           setMessages((prev) => [
@@ -191,6 +260,66 @@ export function ChatWithHistory({ isOpen, onClose, authToken }: ChatWithHistoryP
     }
   }
 
+  // Handle successful login and migration
+  const handleLoginSuccess = async () => {
+    setShowLoginModal(false)
+
+    // Check if user is now authenticated
+    if (authState.isAuthenticated && authToken) {
+      setIsAnonymous(false)
+
+      // Migrate anonymous messages if any
+      const anonymousSession = getCurrentAnonymousSession()
+      if (anonymousSession && anonymousSession.messages.length > 0) {
+        try {
+          // Auto-generate title from first user message
+          const firstUserMsg = anonymousSession.messages.find((m) => m.role === "user")
+          const title = firstUserMsg ? firstUserMsg.content.substring(0, 40) + "..." : "Migrated Conversation"
+
+          // Call migration API
+          const response = await fetch("/api/conversations/migrate", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: authToken,
+            },
+            body: JSON.stringify({
+              messages: anonymousSession.messages,
+              conversationTitle: title,
+            }),
+          })
+
+          if (response.ok) {
+            const data = await response.json()
+            setConversationId(data.conversation.id)
+
+            // Clear anonymous session
+            clearAnonymousSession()
+
+            // Convert anonymous messages to conversation format
+            const migratedMessages = anonymousSession.messages.map((msg) => ({
+              role: msg.role,
+              content: msg.content,
+              created_at: msg.createdAt,
+            }))
+            setMessages(migratedMessages)
+
+            // Refresh sidebar to show new conversation
+            setSidebarOpen(true)
+          }
+        } catch (err) {
+          console.error("[v0] Migration failed:", err)
+          // Even if migration fails, at least we logged in
+          setIsAnonymous(false)
+        }
+      } else {
+        // No messages to migrate, just start fresh
+        setConversationId(null)
+        setMessages([])
+      }
+    }
+  }
+
   // Reset on close
   useEffect(() => {
     if (!isOpen) {
@@ -199,6 +328,8 @@ export function ChatWithHistory({ isOpen, onClose, authToken }: ChatWithHistoryP
       setError("")
       setDisplayingMessage(null)
       setSidebarOpen(false)
+      setShowLoginPrompt(false)
+      setShowLoginModal(false)
     }
   }, [isOpen])
 
@@ -284,9 +415,17 @@ export function ChatWithHistory({ isOpen, onClose, authToken }: ChatWithHistoryP
             </button>
           </div>
 
+          {/* Login Prompt Banner */}
+          {showLoginPrompt && isAnonymous && (
+            <LoginPromptBanner
+              onLoginClick={() => setShowLoginModal(true)}
+              onDismiss={() => setShowLoginPrompt(false)}
+            />
+          )}
+
           {/* Messages Area */}
           <div className="overflow-y-auto px-6 py-4 space-y-4">
-            {!conversationId ? (
+            {!conversationId && !messages.length ? (
               <div className="text-center py-12 h-full flex flex-col items-center justify-center">
                 <div className="w-16 h-16 rounded-full bg-gradient-to-br from-hamboi-purple/30 to-hamboi-green/30 flex items-center justify-center mx-auto mb-4">
                   <MessageSquare className="h-8 w-8 text-hamboi-green" />
@@ -297,7 +436,7 @@ export function ChatWithHistory({ isOpen, onClose, authToken }: ChatWithHistoryP
                   for you.
                 </p>
                 <Button onClick={handleNewChat} className="bg-hamboi-purple hover:bg-hamboi-purple/80">
-                  New Chat
+                  {isAnonymous ? "Start Chatting" : "New Chat"}
                 </Button>
               </div>
             ) : loadingConversation ? (
@@ -369,8 +508,14 @@ export function ChatWithHistory({ isOpen, onClose, authToken }: ChatWithHistoryP
                   ref={textInputRef}
                   value={textInput}
                   onChange={(e) => setTextInput(e.target.value)}
-                  placeholder={conversationId ? "Type your message here..." : "Start a new chat first..."}
-                  disabled={isProcessing || !conversationId}
+                  placeholder={
+                    isProcessing
+                      ? "Waiting for response..."
+                      : !messages.length
+                        ? "Share what's on your mind..."
+                        : "Type your message here..."
+                  }
+                  disabled={isProcessing || (!messages.length && !conversationId && !isAnonymous)}
                   className="w-full bg-white border-2 border-hamboi-purple/20 focus:border-hamboi-purple rounded-2xl px-5 py-3 pr-14 text-[#1a1a2e] placeholder:text-[#888888] focus:outline-none resize-none transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                   rows={2}
                   onKeyDown={(e) => {
@@ -396,6 +541,9 @@ export function ChatWithHistory({ isOpen, onClose, authToken }: ChatWithHistoryP
           </div>
         </div>
       </div>
+
+      {/* Passwordless Login Modal */}
+      <PasswordlessLoginModal isOpen={showLoginModal} onClose={() => setShowLoginModal(false)} onLoginSuccess={handleLoginSuccess} />
     </div>
   )
 }
