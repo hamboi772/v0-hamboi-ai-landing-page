@@ -1,5 +1,3 @@
-import { v4 as uuidv4 } from 'uuid'
-
 const ANONYMOUS_SESSION_KEY = 'hamboi_anonymous_session_id'
 const ANONYMOUS_MESSAGES_KEY = 'hamboi_anonymous_messages'
 
@@ -17,6 +15,26 @@ export interface AnonymousSession {
 }
 
 /**
+ * Generate a simple session ID using crypto
+ */
+function generateSessionId(): string {
+  if (typeof window === 'undefined') {
+    // Fallback for server-side
+    return `session_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`
+  }
+  
+  // Use crypto for better randomness if available
+  if (typeof window !== 'undefined' && window.crypto) {
+    const arr = new Uint8Array(16)
+    window.crypto.getRandomValues(arr)
+    return Array.from(arr, (byte) => byte.toString(16).padStart(2, '0')).join('')
+  }
+  
+  // Fallback to simpler method
+  return `session_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`
+}
+
+/**
  * Get or create an anonymous session in localStorage
  */
 export function getOrCreateAnonymousSession(): string {
@@ -24,7 +42,7 @@ export function getOrCreateAnonymousSession(): string {
 
   let sessionId = localStorage.getItem(ANONYMOUS_SESSION_KEY)
   if (!sessionId) {
-    sessionId = uuidv4()
+    sessionId = generateSessionId()
     localStorage.setItem(ANONYMOUS_SESSION_KEY, sessionId)
   }
   return sessionId
@@ -58,7 +76,7 @@ export function addAnonymousMessage(
   if (typeof window === 'undefined') throw new Error('Cannot add anonymous message in server context')
 
   const message: AnonymousMessage = {
-    id: uuidv4(),
+    id: generateSessionId(),
     role,
     content,
     createdAt: new Date().toISOString(),
