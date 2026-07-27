@@ -3,14 +3,16 @@
 import { useState, useEffect, useRef, useCallback } from "react"
 import { Button } from "@/components/ui/button"
 import { MessageSquare, Sparkles, LayoutDashboard, Download, Smartphone, X } from "lucide-react"
-import { ChatDemoModal } from "@/components/chat-demo-modal"
+import { ChatWithHistory } from "@/components/chat-with-history"
 import { AppStoreBadges } from "@/components/app-store-badges"
 import { ParticleCanvas } from "@/components/particle-canvas"
 import { TypewriterHeadline } from "@/components/typewriter-headline"
 import Link from "next/link"
+import { createClient } from "@supabase/supabase-js"
 
 export function HeroSection() {
-  const [isChatDemoOpen, setIsChatDemoOpen] = useState(false)
+  const [isChatOpen, setIsChatOpen] = useState(false)
+  const [authToken, setAuthToken] = useState<string | undefined>(undefined)
   const [deferredPrompt, setDeferredPrompt] = useState<any>(null)
   const [isInstallable, setIsInstallable] = useState(false)
   const [isIOS, setIsIOS] = useState(false)
@@ -18,6 +20,30 @@ export function HeroSection() {
   const [parallaxY, setParallaxY] = useState(0)
   const heroRef = useRef<HTMLElement>(null)
   const rafRef = useRef<number>(0)
+
+  // Get auth token from Supabase session
+  useEffect(() => {
+    const getAuthToken = async () => {
+      try {
+        const url = process.env.NEXT_PUBLIC_SUPABASE_URL
+        const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+        if (!url || !key) return
+
+        const supabase = createClient(url, key)
+        const {
+          data: { session },
+        } = await supabase.auth.getSession()
+
+        if (session?.access_token) {
+          setAuthToken(session.access_token)
+        }
+      } catch (error) {
+        console.error("[v0] Error getting auth token:", error)
+      }
+    }
+
+    getAuthToken()
+  }, [])
 
   useEffect(() => {
     const isIOSDevice = /iPad|iPhone|iPod/.test(navigator.userAgent) && !(window as any).MSStream
@@ -114,7 +140,7 @@ export function HeroSection() {
                 <div className="flex flex-wrap gap-4">
                   <Button
                     size="lg"
-                    onClick={() => setIsChatDemoOpen(true)}
+                    onClick={() => setIsChatOpen(true)}
                     className="bg-hamboi-green hover:bg-emerald-500 text-hamboi-dark-bg font-bold text-lg px-10 py-7 rounded-2xl transition-all hover:scale-105 active:scale-95 cta-glow"
                   >
                     <MessageSquare className="h-6 w-6 mr-3" />
@@ -210,7 +236,7 @@ export function HeroSection() {
         </div>
       </section>
 
-      <ChatDemoModal isOpen={isChatDemoOpen} onClose={() => setIsChatDemoOpen(false)} />
+      <ChatWithHistory isOpen={isChatOpen} onClose={() => setIsChatOpen(false)} authToken={authToken} />
 
       {/* iOS Install Instructions Modal */}
       {showIOSInstructions && (

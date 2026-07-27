@@ -50,48 +50,63 @@ function checkRateLimit(ip: string): boolean {
   return true
 }
 
-// Load conversation history from Supabase
-async function getConversationHistory(sessionId: string, userId?: string) {
-  // If Supabase is available and we have a userId, load from DB
-  if (supabase && userId) {
-    const { data } = await supabase
-      .from("chat_messages")
-      .select("role, content")
-      .eq("user_id", userId)
-      .eq("session_id", sessionId)
-      .order("created_at", { ascending: true })
-      .limit(12) // last 6 exchanges
+// Fetch conversation context from Supabase (last ~20 messages)
+async function getConversationContext(conversationId: string, authHeader?: string) {
+  if (!authHeader) return []
 
-    if (data && data.length > 0) {
-      return data.map((m) => ({ role: m.role, content: m.content }))
-    }
+  try {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000"}/api/conversations/${conversationId}/context`,
+      {
+        headers: {
+          Authorization: authHeader,
+        },
+      }
+    )
+
+    if (!response.ok) return []
+
+    const data = await response.json()
+    return data.messages || []
+  } catch (error) {
+    console.error("[v0] Failed to fetch conversation context:", error)
+    return []
   }
-  return []
 }
 
-// Save messages to Supabase
-async function saveMessages(
-  sessionId: string,
-  userId: string,
-  userMsg: string,
-  botResponse: string
+// Save messages to conversation in Supabase
+async function saveMessageToConversation(
+  conversationId: string,
+  role: string,
+  content: string,
+  authHeader?: string
 ) {
-  if (!supabase) return
+  if (!authHeader) return null
 
-  await supabase.from("chat_messages").insert([
-    {
-      user_id: userId,
-      session_id: sessionId,
-      role: "user",
-      content: userMsg,
-    },
-    {
-      user_id: userId,
-      session_id: sessionId,
-      role: "assistant",
-      content: botResponse,
-    },
-  ])
+  try {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000"}/api/conversations/${conversationId}/messages`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: authHeader,
+        },
+        body: JSON.stringify({ role, content }),
+      }
+    )
+
+    if (!response.ok) {
+      console.error("[v0] Failed to save message:", await response.text())
+      return null
+    }
+
+    const data = await response.json()
+    return data.message
+  } catch (error) {
+    console.error("[v0] Failed to save message to conversation:", error)
+    return null
+  }
 }
 
 function detectCrisis(input: string): string | null {
@@ -193,8 +208,8 @@ export async function POST(request: NextRequest) {
   try {
     const body = await request.json()
     const userMessage = body.message
-    const sessionId = body.sessionId || "default"
-    const userId = body.userId || null // pass from frontend when user is logged in
+    const conversationId = body.conversationId // new: conversation ID from frontend
+    const authHeader = request.headers.get("Authorization") // new: auth token
 
     if (!userMessage || typeof userMessage !== "string" || !userMessage.trim()) {
       return NextResponse.json(
@@ -216,23 +231,33 @@ export async function POST(request: NextRequest) {
 
     const crisisResponse = detectCrisis(userMessageTrimmed)
     if (crisisResponse) {
-      if (userId) await saveMessages(sessionId, userId, userMessageTrimmed, crisisResponse)
+      // Save crisis message if conversation is provided
+      if (conversationId && authHeader) {
+        await saveMessageToConversation(conversationId, "user", userMessageTrimmed, authHeader)
+        await saveMessageToConversation(conversationId, "assistant", crisisResponse, authHeader)
+      }
       return NextResponse.json({ response: crisisResponse })
     }
 
-    // Load history from Supabase if user is logged in, otherwise empty
-    const history = userId ? await getConversationHistory(sessionId, userId) : []
+    // Load conversation history if conversation ID is provided
+    const contextMessages = conversationId && authHeader ? await getConversationContext(conversationId, authHeader) : []
+
+    // Filter out system summary messages for the API call
+    const historyMessages = contextMessages
+      .filter((m: any) => m.role !== "system")
+      .map((m: any) => ({ role: m.role, content: m.content }))
 
     const messages = [
-      ...history,
+      ...historyMessages,
       { role: "user", content: userMessageTrimmed },
     ]
 
     const { response, provider } = await callAI(messages)
 
-    // Save to Supabase if user is logged in
-    if (userId) {
-      await saveMessages(sessionId, userId, userMessageTrimmed, response)
+    // Save messages to conversation if provided
+    if (conversationId && authHeader) {
+      await saveMessageToConversation(conversationId, "user", userMessageTrimmed, authHeader)
+      await saveMessageToConversation(conversationId, "assistant", response, authHeader)
     }
 
     return NextResponse.json({ response, _provider: provider })
