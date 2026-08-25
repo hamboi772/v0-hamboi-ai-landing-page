@@ -14,7 +14,7 @@ const providers = [
     name: "Groq",
     url: "https://api.groq.com/openai/v1/chat/completions",
     key: process.env.GROQ_API_KEY,
-    model: "llama-3.3-70b-versatile",
+    model: "openai/gpt-oss-120b",
   },
   {
     name: "Cerebras",
@@ -160,7 +160,7 @@ async function callAI(messages: any[]): Promise<{ response: string; provider: st
         },
         body: JSON.stringify({
           model: provider.model,
-          max_tokens: 150,
+          max_tokens: 300,
           temperature: 0.7,
           messages: [{ role: "system", content: systemPrompt }, ...messages],
         }),
