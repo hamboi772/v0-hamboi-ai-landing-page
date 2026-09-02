@@ -127,7 +127,7 @@ export function ChatDemoModal({ isOpen, onClose }: ChatDemoModalProps) {
         setDisplayingMessage(null)
         callback()
       }
-    }, 25)
+    }, 12)
   }
 
   // Handle text submit
@@ -158,10 +158,13 @@ export function ChatDemoModal({ isOpen, onClose }: ChatDemoModalProps) {
 
       const data = await res.json()
 
-      if (data.error) {
+      if (!res.ok || data.error) {
         setError(
-          data.error === "quota-exceeded" ? "You have reached your message limit. Please try again later." : data.error,
+          data.error === "quota-exceeded"
+            ? "You have reached your message limit. Please try again later."
+            : "I couldn't send that just now. Please try again.",
         )
+        setConversation((prev) => prev.slice(0, -1))
         setIsProcessing(false)
         return
       }
@@ -182,11 +185,13 @@ export function ChatDemoModal({ isOpen, onClose }: ChatDemoModalProps) {
           setIsProcessing(false)
         })
       } else {
-        setError("I didn't get a response. Please try again.")
+        setConversation((prev) => prev.slice(0, -1))
+        setError("I couldn't send that just now. Please try again.")
         setIsProcessing(false)
       }
-    } catch (err) {
-      setError("Sorry, something went wrong. Please try again.")
+    } catch {
+      setConversation((prev) => prev.slice(0, -1))
+      setError("I couldn't send that just now. Please try again.")
       setIsProcessing(false)
     }
   }
@@ -302,7 +307,7 @@ export function ChatDemoModal({ isOpen, onClose }: ChatDemoModalProps) {
                 rows={2}
                 disabled={isProcessing}
                 onKeyDown={(e) => {
-                  if (e.key === "Enter" && !e.shiftKey) {
+                  if (e.key === "Enter" && !e.shiftKey && !e.nativeEvent.isComposing && e.keyCode !== 229) {
                     e.preventDefault()
                     handleTextSubmit()
                   }
