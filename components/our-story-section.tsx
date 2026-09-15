@@ -163,7 +163,7 @@ export function OurStorySection() {
               }}
             >
               <Image
-                src="/images/founder-abdulhameed.webp"
+                src="/images/abiodun-abdulhameed.jpg"
                 alt="Abiodun Abdulhameed Abolarinwa — Founder & CEO"
                 width={480}
                 height={600}
