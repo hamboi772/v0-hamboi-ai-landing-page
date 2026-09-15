@@ -45,11 +45,10 @@ export const articles: Article[] = [
     description:
       "Failure is one of the few experiences every human being shares. Learn how to turn setbacks into growth opportunities with the right mindset.",
     author: {
-      name: "Fareeah Bada",
-      role: "Head Girl",
-      school: "Ansar-ud-Deen Academy",
+      name: "Fareeah Bada"
+      school: "Summit University Offa",
       image: "/images/authors/fareeah-bada.jpg",
-      bio: "Fareeah Bada is the Head Girl of Ansar-ud-Deen Academy, where she leads by example both academically and in character. A passionate advocate for student wellbeing, Fareeah uses her voice and writing to inspire her peers to embrace resilience, self-reflection, and growth. Her article on dealing with failure reflects her belief that setbacks are not endings, but opportunities to become stronger.",
+      bio: "Fareeah Bada is a student at Summit university , where she leads by example both academically and in character. A passionate advocate for student wellbeing, Fareeah uses her voice and writing to inspire her peers to embrace resilience, self-reflection, and growth. Her article on dealing with failure reflects her belief that setbacks are not endings, but opportunities to become stronger.",
     },
     category: "Student Voices",
     readTime: "6 min read",
@@ -194,11 +193,10 @@ export const articles: Article[] = [
     description:
       "Stress is a natural response to pressure, but unmanaged stress can affect mental clarity, physical health, and overall well-being. Learn practical strategies for finding balance.",
     author: {
-      name: "Fareeah Bada",
-      role: "Head Girl",
-      school: "Ansar-ud-Deen Academy",
+      name: "Fareeah Bada"
+      school: "Summit University offa",
       image: "/images/authors/fareeah-bada.jpg",
-      bio: "Fareeah Bada is the Head Girl of Ansar-ud-Deen Academy, where she leads by example both academically and in character. A passionate advocate for student wellbeing, Fareeah uses her voice and writing to inspire her peers to embrace resilience, self-reflection, and growth.",
+      bio: "Fareeah Bada is a student of summit university, where she leads by example both academically and in character. A passionate advocate for student wellbeing, Fareeah uses her voice and writing to inspire her peers to embrace resilience, self-reflection, and growth.",
     },
     category: "Student Voices",
     readTime: "7 min read",
