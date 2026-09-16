@@ -196,7 +196,7 @@ export const articles: Article[] = [
       name: "Fareeah Bada"
       school: "Summit University offa",
       image: "/images/authors/fareeah-bada.jpg",
-      bio: "Fareeah Bada is a student of summit university, where she leads by example both academically and in character. A passionate advocate for student wellbeing, Fareeah uses her voice and writing to inspire her peers to embrace resilience, self-reflection, and growth.",
+      bio: "Fareeah Bada is a student of summit university offa, where she leads by example both academically and in character. A passionate advocate for student wellbeing, Fareeah uses her voice and writing to inspire her peers to embrace resilience, self-reflection, and growth.",
     },
     category: "Student Voices",
     readTime: "7 min read",
