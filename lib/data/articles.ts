@@ -583,7 +583,7 @@ export const articles: Article[] = [
       "Bullying isn't always loud. It can be subtle, repeated, and deeply personal. Learn how it affects you and practical ways to respond with confidence and seek support.",
     author: {
       name: "Tairu Rahamotallahi",
-      role: "Student Advocate",
+      role: "Prefect",
       school: "Ansar-ud-Deen Academy",
       image: "/images/authors/tairu-rahamotallahi.jpg",
       bio: "Tairu Rahamotallahi is a teenager and student committed to promoting kindness, empathy, and courage within the school environment. She is passionate about using her voice to eradicate bullying in schools and among teenagers, believing that every student deserves dignity, respect, and emotional safety.",
