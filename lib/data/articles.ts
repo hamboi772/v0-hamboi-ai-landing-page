@@ -193,7 +193,7 @@ export const articles: Article[] = [
     description:
       "Stress is a natural response to pressure, but unmanaged stress can affect mental clarity, physical health, and overall well-being. Learn practical strategies for finding balance.",
     author: {
-      name: "Fareeah Bada"
+      name: "Fareeah Bada", 
       school: "Summit University offa",
       image: "/images/authors/fareeah-bada.jpg",
       bio: "Fareeah Bada is a student of summit university offa, where she leads by example both academically and in character. A passionate advocate for student wellbeing, Fareeah uses her voice and writing to inspire her peers to embrace resilience, self-reflection, and growth.",
