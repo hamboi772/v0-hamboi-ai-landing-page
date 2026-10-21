@@ -305,11 +305,11 @@ export const articles: Article[] = [
     description:
       "You stayed up late, revised every page, pushed through the tiredness... and still the score disappointed. Here's how to process that pain and turn it into growth.",
     author: {
-      name: "Aliyah Ali",
+      name: "Ali Aliyah",
       role: "Youth Volunteer",
       school: "Ansar-ud-Deen Academy",
       image: "/images/authors/aliyah-ali.jpg",
-      bio: "Aliyah Ali is a graduate of Ansar-ud-Deen Academy and a Youth Volunteer, known for her inspiring and supportive nature. She is passionate about uplifting her peers through honest, relatable writing that speaks directly to the struggles students face every day.",
+      bio: "Ali Aliyah is a graduate of Ansar-ud-Deen Academy and a Youth Volunteer, known for her inspiring and supportive nature. She is passionate about uplifting her peers through honest, relatable writing that speaks directly to the struggles students face every day.",
     },
     category: "Student Voices",
     readTime: "5 min read",
