@@ -309,7 +309,7 @@ export const articles: Article[] = [
       role: "Youth Volunteer",
       school: "Ansar-ud-Deen Academy",
       image: "/images/authors/aliyah-ali.jpg",
-      bio: "Aliyah Ali is a Youth Volunteer known for her inspiring and supportive nature. She is passionate about uplifting her peers through honest, relatable writing that speaks directly to the struggles students face every day.",
+      bio: "Aliyah Ali is a graduate of Ansar-ud-Deen Academy and a Youth Volunteer, known for her inspiring and supportive nature. She is passionate about uplifting her peers through honest, relatable writing that speaks directly to the struggles students face every day.",
     },
     category: "Student Voices",
     readTime: "5 min read",
