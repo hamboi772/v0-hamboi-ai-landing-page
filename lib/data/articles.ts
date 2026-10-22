@@ -905,10 +905,10 @@ export const articles: Article[] = [
       "Mental health is just as important as physical health. Discover why teenage mental health matters and how to develop healthy coping strategies.",
     author: {
       name: "Shittu Robiu",
-      role: "Head Boy",
-      school: "Ansar-ud-Deen Academy",
+      role: "Youth Volunteer",
+      school: "",
       image: "/images/authors/shittu-robiu.jpg",
-      bio: "Shittu Robiu is the Head Boy of Ansar-ud-Deen Academy, where he leads with wisdom and compassion. Passionate about youth mental health and wellbeing, Shittu writes to inspire his peers to seek support and take care of their minds.",
+      bio: "Shittu Robiu is a youth volunteer and graduate of Ansar-ud-Deen Academy. He is passionate about helping young people build resilience, speak openly about mental health, and support one another with compassion.",
     },
     category: "Student Voices",
     readTime: "7 min read",
