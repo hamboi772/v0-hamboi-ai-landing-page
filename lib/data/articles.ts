@@ -766,10 +766,10 @@ export const articles: Article[] = [
       "Trauma is an invisible wound with real impact. Learn what trauma is, its different types, its effects on the mind and body, and pathways to healing and recovery.",
     author: {
       name: "Fathia King",
-      role: "Student Advocate",
-      school: "Ansar-ud-Deen Academy",
+      role: "Youth Volunteer",
+      school: "",
       image: "/images/authors/fathia-king.jpg",
-      bio: "Fathia King is a thoughtful and compassionate student at Ansar-ud-Deen Academy dedicated to raising awareness about mental health and trauma. Through her writing, she aims to help others understand and heal from invisible wounds.",
+      bio: "Fathia King is a youth volunteer and graduate of Ansar-ud-Deen Academy. She is passionate about helping others understand mental health, trauma, and healing with empathy and clarity.",
     },
     category: "Student Voices",
     readTime: "5 min read",
