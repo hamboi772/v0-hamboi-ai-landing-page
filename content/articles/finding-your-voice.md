@@ -2,10 +2,10 @@
 title: "Finding Your Voice: Why Student Stories Matter"
 description: "In a world full of expert advice, sometimes the most powerful thing you can hear is 'I've been there too.' Discover the power of sharing your journey."
 author:
-  name: "Sekinat Abiodun"
-  role: "Student Contributor"
-  school: "Hamboi Mindcare Community"
-  bio: "Sekinat is a high school student who believes that everyone has a story worth telling. He is passionate about breaking the silence around mental health in Nigerian schools."
+  name: "Aliyah Ali"
+  role: "Youth Volunteer"
+  school: ""
+  bio: "Aliyah is a student and youth volunteer who believes that everyone has a story worth telling. She is passionate about breaking the silence around mental health in Nigerian schools."
 category: "Student Voices"
 readTime: "4 min read"
 publishedDate: "May 2026"
@@ -15,11 +15,11 @@ featured: false
 
 Sharing your story isn't just about you. It's about the person who is currently where you used to be, feeling exactly how you used to feel.
 
-When I first started struggling with academic pressure, I felt like I was the only one. Everyone around me seemed to have it all together. I thought I was "broken" because I couldn't keep up with the constant demand for perfection.
+When I first started struggling with academic pressure, I felt like I was the only one. Everyone around me seemed to have it all together. I thought I was "broken" because I couldn't keep up with [...]
 
 ## The Power of "Me Too"
 
-Everything changed when a senior student shared her experience during an assembly. She didn't talk about her straight A's; she talked about the nights she cried because she felt overwhelmed. She talked about how she learned to ask for help.
+Everything changed when a senior student shared her experience during an assembly. She didn't talk about her straight A's; she talked about the nights she cried because she felt overwhelmed. She t[...]
 
 That was the first time I realized I wasn't alone. That "me too" moment was the beginning of my healing.
 
