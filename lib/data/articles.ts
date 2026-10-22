@@ -48,7 +48,7 @@ export const articles: Article[] = [
       name: "Fareeah Bada",
       school: "Summit University Offa",
       image: "/images/authors/fareeah-bada.jpg",
-      bio: "Fareeah Bada is a student at Summit university , where she leads by example both academically and in character. A passionate advocate for student wellbeing, Fareeah uses her voice and",
+      bio: "Fareeah Bada is a student at Summit university , where she leads by example both academically and in character. A passionate advocate for student wellbeing, Fareeah uses her voice and leadership to inspire peers to prioritise mental health and self-care.",
     },
     category: "Student Voices",
     readTime: "6 min read",
@@ -57,7 +57,7 @@ export const articles: Article[] = [
     content: [
       {
         type: "paragraph",
-        text: "Failure is one of the few experiences every human being shares. No matter how intelligent, talented, spiritual, or hardworking a person is, failure will show up at some point. It ma",
+        text: "Failure is one of the few experiences every human being shares. No matter how intelligent, talented, spiritual, or hardworking a person is, failure will show up at some point. It may come as a bad grade, a rejected idea, a missed opportunity, or a setback in a personal goal. But failure is not the end of the story. It is often the beginning of growth.",
       },
       {
         type: "heading",
@@ -65,11 +65,11 @@ export const articles: Article[] = [
       },
       {
         type: "paragraph",
-        text: 'Many people see failure as proof of inadequacy. They attach their identity to their mistakes: "I failed, therefore I am a failure." But failure is an event, not a personality. It is',
+        text: 'Many people see failure as proof of inadequacy. They attach their identity to their mistakes: "I failed, therefore I am a failure." But failure is an event, not a personality. It is not a reflection of your worth, but a signal that something can be improved.',
       },
       {
         type: "paragraph",
-        text: 'When we begin to see failure as information rather than condemnation, our mindset shifts. Instead of asking, "Why am I not good enough?" we start asking, "What can I learn from this',
+        text: 'When we begin to see failure as information rather than condemnation, our mindset shifts. Instead of asking, "Why am I not good enough?" we start asking, "What can I learn from this moment?"',
       },
       {
         type: "heading",
@@ -77,7 +77,7 @@ export const articles: Article[] = [
       },
       {
         type: "paragraph",
-        text: "It is important to acknowledge that failure hurts. It can bring embarrassment, disappointment, frustration, and even self-doubt. Pretending not to feel these emotions only delays he",
+        text: "It is important to acknowledge that failure hurts. It can bring embarrassment, disappointment, frustration, and even self-doubt. Pretending not to feel these emotions only delays healing.",
       },
       {
         type: "paragraph",
@@ -151,7 +151,7 @@ export const articles: Article[] = [
       },
       {
         type: "paragraph",
-        text: "One of the most dangerous consequences of failure is tying self-worth to achievement. A bad result does not erase your value. Academic results, business outcomes, or public opinion",
+        text: "One of the most dangerous consequences of failure is tying self-worth to achievement. A bad result does not erase your value. Academic results, business outcomes, or public opinion do not define who you are.",
       },
       {
         type: "paragraph",
@@ -183,7 +183,7 @@ export const articles: Article[] = [
       },
       {
         type: "paragraph",
-        text: "Failure is not the opposite of success; it is a component of success. When handled with reflection, resilience, and the right mindset, failure becomes one of life's most powerful t",
+        text: "Failure is not the opposite of success; it is a component of success. When handled with reflection, resilience, and the right mindset, failure becomes one of life's most powerful teachers.",
       },
     ],
   },
@@ -193,10 +193,10 @@ export const articles: Article[] = [
     description:
       "Stress is a natural response to pressure, but unmanaged stress can affect mental clarity, physical health, and overall well-being. Learn practical strategies for finding balance.",
     author: {
-      name: "Fareeah Bada", 
+      name: "Fareeah Bada",
       school: "Summit University offa",
       image: "/images/authors/fareeah-bada.jpg",
-      bio: "Fareeah Bada is a student of summit university offa, where she leads by example both academically and in character. A passionate advocate for student wellbeing, Fareeah uses her voice",
+      bio: "Fareeah Bada is a student of summit university offa, where she leads by example both academically and in character. A passionate advocate for student wellbeing, Fareeah uses her voice and leadership to inspire peers to prioritise mental health and self-care.",
     },
     category: "Student Voices",
     readTime: "7 min read",
@@ -205,7 +205,7 @@ export const articles: Article[] = [
     content: [
       {
         type: "paragraph",
-        text: "Stress is a natural response to pressure. It appears when demands exceed our perceived ability to cope, whether those demands come from school, work, relationships, finances, or pe",
+        text: "Stress is a natural response to pressure. It appears when demands exceed our perceived ability to cope, whether those demands come from school, work, relationships, finances, or personal expectations.",
       },
       {
         type: "heading",
@@ -213,7 +213,7 @@ export const articles: Article[] = [
       },
       {
         type: "paragraph",
-        text: "The first step in managing stress is awareness. Stress often feels overwhelming because its sources are unclear or ignored. Common stressors include heavy workloads, tight deadline",
+        text: "The first step in managing stress is awareness. Stress often feels overwhelming because its sources are unclear or ignored. Common stressors include heavy workloads, tight deadlines, unresolved conflicts, financial pressure, and constant comparison with others.",
       },
       {
         type: "paragraph",
@@ -225,7 +225,7 @@ export const articles: Article[] = [
       },
       {
         type: "paragraph",
-        text: "Stress affects people differently. Some experience headaches, fatigue, or loss of appetite, while others struggle with irritability, anxiety, or difficulty concentrating. These res",
+        text: "Stress affects people differently. Some experience headaches, fatigue, or loss of appetite, while others struggle with irritability, anxiety, or difficulty concentrating. These responses can be physical, emotional, or behavioral.",
       },
       {
         type: "paragraph",
@@ -259,7 +259,7 @@ export const articles: Article[] = [
       },
       {
         type: "paragraph",
-        text: "Managing stress also involves internal discipline. Negative self-talk and constant comparison intensify pressure. Replacing self-criticism with realistic expectations promotes emot",
+        text: "Managing stress also involves internal discipline. Negative self-talk and constant comparison intensify pressure. Replacing self-criticism with realistic expectations promotes emotional balance.",
       },
       {
         type: "paragraph",
@@ -295,7 +295,7 @@ export const articles: Article[] = [
       },
       {
         type: "paragraph",
-        text: "Stress is an unavoidable part of life, but it does not have to control it. With awareness, healthy habits, and emotional balance, stress can be managed effectively. When handled properly, stressful moments become opportunities to strengthen self-discipline, resilience, and personal growth.",
+        text: "Stress is an unavoidable part of life, but it does not have to control it. With awareness, healthy habits, and emotional balance, stress can be managed effectively. When handled properly, it can become a source of personal growth rather than constant overwhelm.",
       },
     ],
   },
@@ -307,9 +307,9 @@ export const articles: Article[] = [
     author: {
       name: "Ali Aliyah",
       role: "Youth Volunteer",
-      school: "Ansar-ud-Deen Academy",
+      school: "",
       image: "/images/authors/aliyah-ali.jpg",
-      bio: "Ali Aliyah is a graduate of Ansar-ud-Deen Academy and a Youth Volunteer, known for her inspiring and supportive nature. She is passionate about uplifting her peers through honest, relatable writing that speaks directly to the struggles students face every day.",
+      bio: "Ali Aliyah is a youth volunteer known for her inspiring and supportive nature. She is passionate about uplifting her peers through honest, relatable conversations about growth, resilience, and self-worth.",
     },
     category: "Student Voices",
     readTime: "5 min read",
@@ -326,7 +326,7 @@ export const articles: Article[] = [
       },
       {
         type: "paragraph",
-        text: "Here's the truth most people won't say out loud — your best won't always be enough right now, and that's okay. It doesn't mean you're broken. It means you're human in a world that isn't always fair.",
+        text: "Here's the truth most people won't say out loud — your best won't always be enough right now, and that's okay. It doesn't mean you're broken. It means you're human in a world that often treats effort as if it guarantees success.",
       },
       {
         type: "heading",
@@ -456,7 +456,7 @@ export const articles: Article[] = [
       role: "Founder",
       school: "Hamboi MindCare",
       image: "/images/founder-abdulhameed.webp",
-      bio: "Abiodun Abdul Hameed is the 15-year-old founder of Hamboi MindCare, a mental health platform built for Nigerian teens. Driven by his own experiences and a passion for youth wellbeing,",
+      bio: "Abiodun Abdul Hameed is the 15-year-old founder of Hamboi MindCare, a mental health platform built for Nigerian teens. Driven by his own experiences and a passion for youth wellbeing, he writes to help young people understand and manage their emotions.",
     },
     category: "Founder's Corner",
     readTime: "5 min read",
@@ -469,7 +469,7 @@ export const articles: Article[] = [
       },
       {
         type: "paragraph",
-        text: "It's that quiet feeling that you need to act a certain way just to fit in. Laugh when something isn't funny. Say yes when you want to say no. Pretend you're okay so you don't look",
+        text: "It's that quiet feeling that you need to act a certain way just to fit in. Laugh when something isn't funny. Say yes when you want to say no. Pretend you're okay so you don't look different.",
       },
       {
         type: "heading",
@@ -502,7 +502,7 @@ export const articles: Article[] = [
       },
       {
         type: "paragraph",
-        text: "As teens, friendships feel like everything. Being left out hurts. Being judged hurts. Social media doesn't help either — it makes it look like everyone else has life figured o",
+        text: "As teens, friendships feel like everything. Being left out hurts. Being judged hurts. Social media doesn't help either — it makes it look like everyone else has life figured out.",
       },
       {
         type: "paragraph",
@@ -568,7 +568,7 @@ export const articles: Article[] = [
       },
       {
         type: "paragraph",
-        text: "I want to give a huge shoutout to Shittu Robiu, Fareeah Bada, Ali Aliyah, Asaolu Tomiwa, and all my amazing friends who always have my back. You guys make life fun, keep me motivat",
+        text: "I want to give a huge shoutout to Shittu Robiu, Fareeah Bada, Ali Aliyah, Asaolu Tomiwa, and all my amazing friends who always have my back. You guys make life fun, keep me motivated, and remind me that I don't have to carry everything alone.",
       },
       {
         type: "paragraph",
@@ -586,7 +586,7 @@ export const articles: Article[] = [
       role: "Prefect",
       school: "Ansar-ud-Deen Academy",
       image: "/images/authors/tairu-rahamotallahi.jpg",
-      bio: "Tairu Rahamotallahi is a teenager and student committed to promoting kindness, empathy, and courage within the school environment. She is passionate about using her voice to eradicate",
+      bio: "Tairu Rahamotallahi is a teenager and student committed to promoting kindness, empathy, and courage within the school environment. She is passionate about using her voice to eradicate bullying and build a more inclusive community.",
     },
     category: "Student Voices",
     readTime: "6 min read",
@@ -751,11 +751,11 @@ export const articles: Article[] = [
       },
       {
         type: "paragraph",
-        text: "I refuse to stay silent in the face of bullying. Every student has the right to learn in a safe and supportive environment. As an advocate for change, I stand firmly against cruelt",
+        text: "I refuse to stay silent in the face of bullying. Every student has the right to learn in a safe and supportive environment. As an advocate for change, I stand firmly against cruelty and for kindness.",
       },
       {
         type: "paragraph",
-        text: "I believe kindness is not weakness — it is courage. Bullying harms more than we see, and I am committed to standing up for those who may feel unheard. Every student deserves dign",
+        text: "I believe kindness is not weakness — it is courage. Bullying harms more than we see, and I am committed to standing up for those who may feel unheard. Every student deserves dignity, respect, and safety.",
       },
     ],
   },
@@ -769,7 +769,7 @@ export const articles: Article[] = [
       role: "Student Advocate",
       school: "Ansar-ud-Deen Academy",
       image: "/images/authors/fathia-king.jpg",
-      bio: "Fathia King is a thoughtful and compassionate student at Ansar-ud-Deen Academy dedicated to raising awareness about mental health and trauma. Through her writing, she aims to help oth",
+      bio: "Fathia King is a thoughtful and compassionate student at Ansar-ud-Deen Academy dedicated to raising awareness about mental health and trauma. Through her writing, she aims to help others understand and heal from invisible wounds.",
     },
     category: "Student Voices",
     readTime: "5 min read",
@@ -778,7 +778,7 @@ export const articles: Article[] = [
     content: [
       {
         type: "paragraph",
-        text: "Trauma is a complex and multifaceted experience that can leave deep emotional scars. Whether it's a single event or a series of experiences, trauma can impact anyone, regardless of",
+        text: "Trauma is a complex and multifaceted experience that can leave deep emotional scars. Whether it's a single event or a series of experiences, trauma can impact anyone, regardless of age or background.",
       },
       {
         type: "heading",
@@ -786,7 +786,7 @@ export const articles: Article[] = [
       },
       {
         type: "paragraph",
-        text: "Trauma is a response to a distressing event or situation that overwhelms an individual's ability to cope. This can include physical or emotional abuse, natural disasters, accidents",
+        text: "Trauma is a response to a distressing event or situation that overwhelms an individual's ability to cope. This can include physical or emotional abuse, natural disasters, accidents, loss, or severe stress.",
       },
       {
         type: "heading",
@@ -844,7 +844,7 @@ export const articles: Article[] = [
       role: "Assistant Head Girl",
       school: "Ansar-ud-Deen Academy",
       image: "/images/authors/olapade-aisha.jpg",
-      bio: "Olapade Aisha is the Assistant Head Girl at Ansar-ud-Deen Academy, committed to fostering positive relationships and emotional well-being among her peers. Through her leadership and i",
+      bio: "Olapade Aisha is the Assistant Head Girl at Ansar-ud-Deen Academy, committed to fostering positive relationships and emotional well-being among her peers. Through her leadership and insight, she advocates for kinder circles and healthier bonds.",
     },
     category: "Student Voices",
     readTime: "5 min read",
@@ -853,7 +853,7 @@ export const articles: Article[] = [
     content: [
       {
         type: "paragraph",
-        text: "A circle is a group, it can be composed of friends or associates. It helps one grow, and can sometimes retard one's growth. Determining one's emotions through friends is easy as it",
+        text: "A circle is a group, it can be composed of friends or associates. It helps one grow, and can sometimes retard one's growth. Determining one's emotions through friends is easy as their energy affects your mood.",
       },
       {
         type: "heading",
@@ -869,15 +869,15 @@ export const articles: Article[] = [
       },
       {
         type: "paragraph",
-        text: "1) Happiness: One's happiness can be determined through one's circle. When one is with the right friends, one's mood equally brightens. The right circle always helps one grow and d",
+        text: "1) Happiness: One's happiness can be determined through one's circle. When one is with the right friends, one's mood equally brightens. The right circle always helps one grow and develop healthy habits.",
       },
       {
         type: "paragraph",
-        text: "2) Sadness: Hypocrisy and bad friends go together. Friends who ignore, who backbite and insult one another develop unhealthy members. Members who don't speak the truth and hide the",
+        text: "2) Sadness: Hypocrisy and bad friends go together. Friends who ignore, who backbite and insult one another develop unhealthy members. Members who don't speak the truth and hide their feelings often carry emotional pain in silence.",
       },
       {
         type: "paragraph",
-        text: "3) Withdrawal: This is the most common emotion exhibited due to a bad friendship circle. Friends that cannot speak the truth with one another end up causing untold harm to their fe",
+        text: "3) Withdrawal: This is the most common emotion exhibited due to a bad friendship circle. Friends that cannot speak the truth with one another end up causing untold harm to their feelings and peace.",
       },
       {
         type: "heading",
@@ -908,7 +908,7 @@ export const articles: Article[] = [
       role: "Head Boy",
       school: "Ansar-ud-Deen Academy",
       image: "/images/authors/shittu-robiu.jpg",
-      bio: "Shittu Robiu is the Head Boy of Ansar-ud-Deen Academy, where he leads with wisdom and compassion. Passionate about youth mental health and wellbeing, Shittu writes to inspire his peer",
+      bio: "Shittu Robiu is the Head Boy of Ansar-ud-Deen Academy, where he leads with wisdom and compassion. Passionate about youth mental health and wellbeing, Shittu writes to inspire his peers to seek support and take care of their minds.",
     },
     category: "Student Voices",
     readTime: "7 min read",
@@ -917,7 +917,7 @@ export const articles: Article[] = [
     content: [
       {
         type: "paragraph",
-        text: "Mental health is just as important as physical health, yet it is often overlooked, especially among teenagers. Young people today face many challenges — academic pressure, social",
+        text: "Mental health is just as important as physical health, yet it is often overlooked, especially among teenagers. Young people today face many challenges — academic pressure, social expectations, online comparison, and emotional uncertainty.",
       },
       {
         type: "heading",
@@ -925,7 +925,7 @@ export const articles: Article[] = [
       },
       {
         type: "paragraph",
-        text: "Mental health affects how we think, feel, and behave; it influences learning, relationships, decision-making, and overall well-being. Poor mental health can make everyday tasks fee",
+        text: "Mental health affects how we think, feel, and behave; it influences learning, relationships, decision-making, and overall well-being. Poor mental health can make everyday tasks feel heavier and harder than they should be.",
       },
       {
         type: "heading",
@@ -933,7 +933,7 @@ export const articles: Article[] = [
       },
       {
         type: "paragraph",
-        text: "Caring for mental health means understanding your emotions, managing stress, and seeking support when needed. Simple habits like talking to a trusted friend, getting enough rest, s",
+        text: "Caring for mental health means understanding your emotions, managing stress, and seeking support when needed. Simple habits like talking to a trusted friend, getting enough rest, staying active, and practising self-kindness can make a meaningful difference.",
       },
       {
         type: "paragraph",
@@ -945,15 +945,15 @@ export const articles: Article[] = [
       },
       {
         type: "paragraph",
-        text: "Support systems are essential, both in real life and online. Many teens find comfort in spaces where they can express themselves without judgment, learn about emotional health, and",
+        text: "Support systems are essential, both in real life and online. Many teens find comfort in spaces where they can express themselves without judgment, learn about emotional health, and connect with others facing similar struggles.",
       },
       {
         type: "paragraph",
-        text: "Hamboi Mindcare — Hope And Mind Balance Outreach Initiative — is one such platform that provides 24/7 emotional support through an AI-powered companion, mood-tracking tools, an",
+        text: "Hamboi Mindcare — Hope And Mind Balance Outreach Initiative — is one such platform that provides 24/7 emotional support through an AI-powered companion, mood-tracking tools, and a library of youth wellbeing resources.",
       },
       {
         type: "paragraph",
-        text: "The platform also offers crisis resources and access to professional guidance when needed, while featuring community-generated articles and real stories from teens, helping young p",
+        text: "The platform also offers crisis resources and access to professional guidance when needed, while featuring community-generated articles and real stories from teens, helping young people feel seen and supported.",
       },
       {
         type: "heading",
@@ -973,7 +973,7 @@ export const articles: Article[] = [
       },
       {
         type: "paragraph",
-        text: "By learning to recognize emotions, manage stress, and seek guidance, teenagers can develop the resilience and confidence needed to thrive. With supportive communities, education, a",
+        text: "By learning to recognize emotions, manage stress, and seek guidance, teenagers can develop the resilience and confidence needed to thrive. With supportive communities, education, and compassionate conversations, mental health can become a priority rather than a taboo topic.",
       },
       {
         type: "paragraph",
@@ -990,8 +990,8 @@ export const articles: Article[] = [
       name: "Nadia Tijani",
       role: "Student",
       school: "Ansar-ud-Deen Academy",
-      image: "https://i.ibb.co/ynqGxjgq/1000169449.jpg", // ✅ Updated to imgbb URL
-      bio: "Nadia Tijani is a passionate advocate for teenage mental health who writes about the struggles teens face at home and school. Through her personal insights, she helps readers understa",
+      image: "https://i.ibb.co/ynqGxjgq/1000169449.jpg",
+      bio: "Nadia Tijani is a passionate advocate for teenage mental health who writes about the struggles teens face at home and school. Through her personal insights, she helps readers understand how to navigate emotional challenges and build healthier support systems.",
     },
     category: "Student Voices",
     readTime: "8 min read",
@@ -1004,7 +1004,7 @@ export const articles: Article[] = [
       },
       {
         type: "paragraph",
-        text: "Emotional support means feeling understood, cared for, and valued by people around you. In schools, support from parents and teachers is crucial for the development of students bo",
+        text: "Emotional support means feeling understood, cared for, and valued by people around you. In schools, support from parents and teachers is crucial for the development of students both emotionally and academically.",
       },
       {
         type: "heading",
@@ -1016,7 +1016,7 @@ export const articles: Article[] = [
       },
       {
         type: "paragraph",
-        text: "Strict or hard parenting styles: When students are only corrected and not encouraged, it breaks their confidence and pushes them to please their parents or guardians rather than d",
+        text: "Strict or hard parenting styles: When students are only corrected and not encouraged, it breaks their confidence and pushes them to please their parents or guardians rather than develop naturally.",
       },
       {
         type: "paragraph",
@@ -1024,7 +1024,7 @@ export const articles: Article[] = [
       },
       {
         type: "paragraph",
-        text: "Poor communication: When students are unable to express what they have in mind, they become tense and anxious, and end up going through it alone. This takes a huge toll on their m",
+        text: "Poor communication: When students are unable to express what they have in mind, they become tense and anxious, and end up going through it alone. This takes a huge toll on their mental health.",
       },
       {
         type: "heading",
@@ -1055,7 +1055,7 @@ export const articles: Article[] = [
       },
       {
         type: "quote",
-        text: "Knowing that it's almost impossible for us students to change the manner of support from our parents and guardians, we can help ourselves or other people going through lack of sup",
+        text: "Knowing that it's almost impossible for us students to change the manner of support from our parents and guardians, we can help ourselves or other people going through lack of support by creating safe spaces and building community.",
       },
       {
         type: "heading",
@@ -1075,7 +1075,7 @@ export const articles: Article[] = [
       },
       {
         type: "paragraph",
-        text: "Remember, you are not alone in this struggle. Many teenagers face similar challenges, and reaching out—whether to a trusted friend, a mentor, or a platform like Hamboi Mindcare—can make a huge difference.",
+        text: "Remember, you are not alone in this struggle. Many teenagers face similar challenges, and reaching out—whether to a trusted friend, a mentor, or a platform like Hamboi Mindcare—can make a real difference.",
       },
     ],
   },
@@ -1089,7 +1089,7 @@ export const articles: Article[] = [
       role: "Student",
       school: "Ansar-ud-Deen Academy",
       image: "/images/authors/ayatullah-owodunni.jpg",
-      bio: "Ayatullah Oladunni is a student at Ansar-ud-Deen Academy who believes in the power of self-kindness and patience. She writes to remind her peers that growth often happens in the mome",
+      bio: "Ayatullah Oladunni is a student at Ansar-ud-Deen Academy who believes in the power of self-kindness and patience. She writes to remind her peers that growth often happens in the middle of uncertainty.",
     },
     category: "Student Voices",
     readTime: "5 min read",
@@ -1098,11 +1098,11 @@ export const articles: Article[] = [
     content: [
       {
         type: "paragraph",
-        text: "Life as a teenager can feel like a lot. One minute you are expected to act like an adult, the next you are reminded you are still a child. You are trying to figure out school, fri",
+        text: "Life as a teenager can feel like a lot. One minute you are expected to act like an adult, the next you are reminded you are still a child. You are trying to figure out school, friends, identity, future plans, and your own feelings all at once.",
       },
       {
         type: "paragraph",
-        text: "But there is more than just surviving—it’s called thriving. And it doesn’t mean having a perfect life. It means learning how to live, grow, and find your footing even when t",
+        text: "But there is more than just surviving—it’s called thriving. And it doesn’t mean having a perfect life. It means learning how to live, grow, and find your footing even when the process is messy.",
       },
       {
         type: "heading",
@@ -1110,11 +1110,11 @@ export const articles: Article[] = [
       },
       {
         type: "paragraph",
-        text: "Thriving isn’t about always being happy or having everything figured out. It is about knowing your worth, even on bad days. It means taking care of your mind, not just your grad",
+        text: "Thriving isn’t about always being happy or having everything figured out. It is about knowing your worth, even on bad days. It means taking care of your mind, not just your grades or appearance.",
       },
       {
         type: "paragraph",
-        text: "Good advice is having a plan or focusing on your future, but no one tells you how messy the journey can be. Some days you’ll feel motivated, other days you won’t even feel lik",
+        text: "Good advice is having a plan or focusing on your future, but no one tells you how messy the journey can be. Some days you’ll feel motivated, other days you won’t even feel like getting out of bed. That does not mean you're failing.",
       },
       {
         type: "heading",
@@ -1122,11 +1122,11 @@ export const articles: Article[] = [
       },
       {
         type: "paragraph",
-        text: "Everyone’s timeline is different. The person you think has it all together is probably struggling with something too. Life is not a race; it’s a process of becoming. Comparing",
+        text: "Everyone’s timeline is different. The person you think has it all together is probably struggling with something too. Life is not a race; it’s a process of becoming. Comparing yourself to others only steals your peace.",
       },
       {
         type: "paragraph",
-        text: "Your mental well-being is just as important as your achievements. Taking care of your mind, asking for help, resting, and building small healthy habits can make a big difference. ",
+        text: "Your mental well-being is just as important as your achievements. Taking care of your mind, asking for help, resting, and building small healthy habits can make a big difference.",
       },
       {
         type: "heading",
@@ -1134,11 +1134,11 @@ export const articles: Article[] = [
       },
       {
         type: "paragraph",
-        text: "Most importantly, your worth is not defined by grades, looks, or opinions. You matter simply because you exist. With self-kindness, patience, and faith, you can find your strength",
+        text: "Most importantly, your worth is not defined by grades, looks, or opinions. You matter simply because you exist. With self-kindness, patience, and faith, you can find your strength even in uncertain moments.",
       },
       {
         type: "paragraph",
-        text: "In the end, you’re not here just to survive your teenage years; you’re here to grow, discover yourself, and become the best version of who you are. Taking time to pray, reflec",
+        text: "In the end, you’re not here just to survive your teenage years; you’re here to grow, discover yourself, and become the best version of who you are. Taking time to pray, reflect, and rest is part of that process.",
       },
       {
         type: "quote",
