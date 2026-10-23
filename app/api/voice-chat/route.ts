@@ -1,11 +1,6 @@
 // Hamboi Mindcare - Multi-Provider Fallback + Supabase Persistence
 import { type NextRequest, NextResponse } from "next/server"
-import { createClient } from "@supabase/supabase-js"
-
-// Supabase client - only created if env vars exist
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
-const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
-const supabase = supabaseUrl && supabaseKey ? createClient(supabaseUrl, supabaseKey) : null
+import { createClient } from "@/lib/supabase/server"
 
 const rateLimitStore = new Map<string, { count: number; resetTime: number }>()
 
@@ -50,47 +45,23 @@ function checkRateLimit(ip: string): boolean {
   return true
 }
 
-// Load conversation history from Supabase
-async function getConversationHistory(sessionId: string, userId?: string) {
-  // If Supabase is available and we have a userId, load from DB
-  if (supabase && userId) {
-    const { data } = await supabase
-      .from("chat_messages")
-      .select("role, content")
-      .eq("user_id", userId)
-      .eq("session_id", sessionId)
-      .order("created_at", { ascending: true })
-      .limit(12) // last 6 exchanges
-
-    if (data && data.length > 0) {
-      return data.map((m) => ({ role: m.role, content: m.content }))
-    }
-  }
-  return []
+async function getConversationHistory(conversationId: string) {
+  if (!conversationId) return []
+  const supabase = await createClient()
+  const { data } = await supabase
+    .from("messages")
+    .select("role, content")
+    .eq("conversation_id", conversationId)
+    .order("created_at", { ascending: true })
+    .limit(20)
+  return data?.map((message) => ({ role: message.role, content: message.content })) ?? []
 }
 
-// Save messages to Supabase
-async function saveMessages(
-  sessionId: string,
-  userId: string,
-  userMsg: string,
-  botResponse: string
-) {
-  if (!supabase) return
-
-  await supabase.from("chat_messages").insert([
-    {
-      user_id: userId,
-      session_id: sessionId,
-      role: "user",
-      content: userMsg,
-    },
-    {
-      user_id: userId,
-      session_id: sessionId,
-      role: "assistant",
-      content: botResponse,
-    },
+async function saveMessages(conversationId: string, userMsg: string, botResponse: string) {
+  const supabase = await createClient()
+  await supabase.from("messages").insert([
+    { conversation_id: conversationId, role: "user", content: userMsg },
+    { conversation_id: conversationId, role: "assistant", content: botResponse },
   ])
 }
 
@@ -194,8 +165,9 @@ export async function POST(request: NextRequest) {
   try {
     const body = await request.json()
     const userMessage = body.message
-    const sessionId = body.sessionId || "default"
-    const userId = body.userId || null // pass from frontend when user is logged in
+    const conversationId = typeof body.conversationId === "string" ? body.conversationId : ""
+    const supabase = await createClient()
+    const { data: { user } } = await supabase.auth.getUser()
 
     if (!userMessage || typeof userMessage !== "string" || !userMessage.trim()) {
       return NextResponse.json(
@@ -204,8 +176,8 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    if (userMessage.trim().length > 500) {
-      return NextResponse.json({ response: "Abeg keep am short, I dey listen! 😊" })
+    if (userMessage.trim().length > 1000) {
+      return NextResponse.json({ error: "Message must be 1000 characters or fewer." }, { status: 400 })
     }
 
     const userMessageTrimmed = userMessage.trim()
@@ -217,12 +189,11 @@ export async function POST(request: NextRequest) {
 
     const crisisResponse = detectCrisis(userMessageTrimmed)
     if (crisisResponse) {
-      if (userId) await saveMessages(sessionId, userId, userMessageTrimmed, crisisResponse)
+      if (user && conversationId) await saveMessages(conversationId, userMessageTrimmed, crisisResponse)
       return NextResponse.json({ response: crisisResponse })
     }
 
-    // Load history from Supabase if user is logged in, otherwise empty
-    const history = userId ? await getConversationHistory(sessionId, userId) : []
+    const history = user && conversationId ? await getConversationHistory(conversationId) : []
 
     const messages = [
       ...history,
@@ -231,9 +202,8 @@ export async function POST(request: NextRequest) {
 
     const { response, provider } = await callAI(messages)
 
-    // Save to Supabase if user is logged in
-    if (userId) {
-      await saveMessages(sessionId, userId, userMessageTrimmed, response)
+    if (user && conversationId) {
+      await saveMessages(conversationId, userMessageTrimmed, response)
     }
 
     return NextResponse.json({ response, _provider: provider })

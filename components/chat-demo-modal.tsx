@@ -25,6 +25,8 @@ interface ConversationMessage {
   timestamp: Date
 }
 
+const GUEST_HISTORY_KEY = "hamboi-guest-chat-history"
+
 // Stable session id per browser tab — generated once on mount
 function generateSessionId() {
   return `session_${Date.now()}_${Math.random().toString(36).slice(2, 9)}`
@@ -60,51 +62,24 @@ export function ChatDemoModal({ isOpen, onClose }: ChatDemoModalProps) {
     conversationEndRef.current?.scrollIntoView({ behavior: "smooth" })
   }, [conversation, displayingMessage])
 
-  // Load last session when modal opens and user is logged in
   useEffect(() => {
-    const loadLastSession = async () => {
-      if (isOpen && userId) {
-        try {
-          const supabase = getSupabaseClient()
-          if (!supabase) return
-          const { data } = await supabase
-            .from("chat_messages")
-            .select("*")
-            .eq("user_id", userId)
-            .order("created_at", { ascending: true })
-            .limit(100)
-
-          if (data && data.length > 0) {
-            // Group messages by conversation (alternating user/assistant)
-            const messages: ConversationMessage[] = []
-            let currentUserMessage = ""
-            let currentAiMessage = ""
-
-            for (const msg of data) {
-              if (msg.role === "user") {
-                currentUserMessage = msg.content
-              } else if (msg.role === "assistant" && currentUserMessage) {
-                currentAiMessage = msg.content
-                messages.push({
-                  user: currentUserMessage,
-                  ai: currentAiMessage,
-                  timestamp: new Date(msg.created_at),
-                })
-                currentUserMessage = ""
-                currentAiMessage = ""
-              }
-            }
-
-            setConversation(messages)
-          }
-        } catch (err) {
-          console.error("Error loading last session:", err)
-        }
+    if (!isOpen) return
+    try {
+      const saved = window.localStorage.getItem(GUEST_HISTORY_KEY)
+      if (saved && !userId) {
+        const parsed = JSON.parse(saved) as Array<Omit<ConversationMessage, "timestamp"> & { timestamp: string }>
+        setConversation(parsed.map((message) => ({ ...message, timestamp: new Date(message.timestamp) })))
       }
+    } catch {
+      window.localStorage.removeItem(GUEST_HISTORY_KEY)
     }
-
-    loadLastSession()
   }, [isOpen, userId])
+
+  useEffect(() => {
+    if (!userId && conversation.length > 0) {
+      window.localStorage.setItem(GUEST_HISTORY_KEY, JSON.stringify(conversation))
+    }
+  }, [conversation, userId])
 
   // Focus input when modal opens
   useEffect(() => {
