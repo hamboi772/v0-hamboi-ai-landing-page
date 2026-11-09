@@ -41,7 +41,7 @@ export default function ArticlePage() {
             <div className="flex items-center gap-4 mb-8">
               <div className="w-12 h-12 rounded-none overflow-hidden border" style={{ borderColor: "rgba(255,255,255,0.07)" }}>
                 <Image
-                  src="/images/founder-abdulhameed.webp"
+                  src="/images/abiodun-abdulhameed.jpg"
                   alt="Abiodun Abdul Hameed"
                   width={48}
                   height={48}
@@ -203,7 +203,7 @@ export default function ArticlePage() {
               <div className="flex items-start gap-4">
                 <div className="w-16 h-16 rounded-none overflow-hidden border flex-shrink-0" style={{ borderColor: "rgba(255,255,255,0.07)" }}>
                   <Image
-                    src="/images/founder-abdulhameed.webp"
+                    src="/images/abiodun-abdulhameed.jpg"
                     alt="Abiodun Abdul Hameed"
                     width={64}
                     height={64}

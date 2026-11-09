@@ -455,7 +455,7 @@ export const articles: Article[] = [
       name: "Abiodun Abdul Hameed",
       role: "Founder",
       school: "Hamboi MindCare",
-      image: "/images/founder-abdulhameed.webp",
+      image: "/images/abiodun-abdulhameed.jpg",
       bio: "Abiodun Abdul Hameed is the 15-year-old founder of Hamboi MindCare, a mental health platform built for Nigerian teens. Driven by his own experiences and a passion for youth wellbeing, he writes to help young people understand and manage their emotions.",
     },
     category: "Founder's Corner",
