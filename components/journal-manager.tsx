@@ -44,25 +44,16 @@ export function JournalManager() {
   const [promptIdx, setPromptIdx] = useState(0)
   const [formData, setFormData] = useState({ title: "", content: "", mood_tag: "" })
 
-  const [userId] = useState(() => {
-    if (typeof window !== "undefined") {
-      let id = localStorage.getItem("hamboi_user_id")
-      if (!id) {
-        id = `user_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`
-        localStorage.setItem("hamboi_user_id", id)
-      }
-      return id
-    }
-    return ""
-  })
+  const [authRequired, setAuthRequired] = useState(false)
 
   useEffect(() => { fetchEntries() }, [])
 
   const fetchEntries = async () => {
     try {
-      const res = await fetch(`/api/journal?user_id=${userId}`)
+      const res = await fetch("/api/journal")
+      if (res.status === 401) { setAuthRequired(true); return }
       const data = await res.json()
-      if (data.success) setEntries(data.entries)
+      if (data.success) { setEntries(data.entries); setAuthRequired(false) }
     } catch (err) {
       console.error("[v0] Failed to fetch journal entries:", err)
     }
@@ -80,8 +71,13 @@ export function JournalManager() {
       const res = await fetch(url, {
         method,
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ user_id: userId, ...formData }),
+        body: JSON.stringify(formData),
       })
+      if (res.status === 401) {
+        setAuthRequired(true)
+        toast.error("Sign in through Hamboi chat to save your journal entries.")
+        return
+      }
       const data = await res.json()
       if (data.success) {
         toast.success(editingEntry ? "Entry updated 💜" : "Entry saved 💜")
@@ -104,6 +100,11 @@ export function JournalManager() {
     if (!deleteEntry) return
     try {
       const res = await fetch(`/api/journal/${deleteEntry}`, { method: "DELETE" })
+      if (res.status === 401) {
+        setAuthRequired(true)
+        toast.error("Sign in through Hamboi chat to manage saved entries.")
+        return
+      }
       const data = await res.json()
       if (data.success) {
         toast.success("Entry deleted")
@@ -137,13 +138,14 @@ export function JournalManager() {
 
   return (
     <div style={{ fontFamily: "'DM Sans', sans-serif", color: "#F5F5F5" }}>
+      {authRequired && <p role="status" style={{ color: "#8B8B8B", marginBottom: 20 }}>Sign in through Hamboi chat to view or save private journal entries.</p>}
 
       {/* New Entry / Edit Form */}
       {isCreating ? (
         <div style={styles.card}>
           <div style={styles.cardHeader}>
             <div style={styles.cardTitle}>{editingEntry ? "Edit entry" : "New journal entry"}</div>
-            <div style={styles.cardSub}>{editingEntry ? "Change what you wrote" : "This is just for you. No one else sees this."}</div>
+            <div style={styles.cardSub}>{editingEntry ? "Change what you wrote" : "Saved to your account. Avoid writing details you do not want processed or stored."}</div>
           </div>
 
           {/* Prompt */}
@@ -223,8 +225,10 @@ export function JournalManager() {
       {entries.length === 0 && !isCreating ? (
         <div style={{ borderTop: "1px solid rgba(255,255,255,0.07)", paddingTop: 24, textAlign: "left" }}>
           <p style={{ fontSize: 15, color: "#8B8B8B", lineHeight: 1.6 }}>
-            No entries yet.<br />
-            Your journal is a safe space. Write anything — no one else can see it.
+          {authRequired ? "Sign in to view saved entries." : "No entries yet."}<br />
+          {authRequired
+            ? "Sign in through Hamboi chat to access your journal."
+            : "Write only what you are comfortable saving to your account. This is not a private clinical record."}
           </p>
         </div>
       ) : (

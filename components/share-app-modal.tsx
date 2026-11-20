@@ -10,7 +10,7 @@ export function ShareAppModal() {
 
   const shareUrl = typeof window !== "undefined" ? window.location.origin : ""
   const shareText =
-    "I found this amazing mental health support app for Nigerian teens. Check out Hamboi MindCare - it has free AI chat, crisis hotlines, and wellness tips!"
+    "I found Hamboi MindCare, a youth mental-health awareness initiative with general wellbeing information and an AI chat tool. It isn't a therapy or emergency service."
 
   const handleCopyLink = async () => {
     try {

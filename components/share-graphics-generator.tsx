@@ -18,7 +18,7 @@ export function ShareGraphicsGenerator() {
               <p className="text-lg font-semibold mb-2">Get instant support:</p>
               <ul className="space-y-2">
                 <li>💬 AI-powered chat support</li>
-                <li>📞 Crisis hotlines</li>
+                <li>Links to official support information</li>
                 <li>📚 Mental health resources</li>
                 <li>💡 Daily wellness tips</li>
               </ul>

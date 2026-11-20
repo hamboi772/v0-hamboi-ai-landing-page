@@ -2,16 +2,10 @@
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { Phone, Clock, Shield, AlertTriangle, ArrowRight } from "lucide-react"
+import { Clock, Shield, AlertTriangle, ArrowRight } from "lucide-react"
 import Link from "next/link"
 import { nigerianMentalHealthResources } from "@/lib/data/nigerian-mental-health-resources"
-import { useState } from "react"
-
 export function MentalHealthResources() {
-  const [filter, setFilter] = useState<"all" | "crisis" | "counseling">("all")
-
-  const filteredResources =
-    filter === "all" ? nigerianMentalHealthResources : nigerianMentalHealthResources.filter((r) => r.type === filter)
 
   return (
     <section className="py-20 px-4 bg-gradient-to-b from-hamboi-dark-bg via-[#1a1a3e] to-hamboi-dark-bg">
@@ -21,50 +15,14 @@ export function MentalHealthResources() {
             Nigerian Mental Health Resources
           </h2>
           <p className="text-lg md:text-xl text-hamboi-text-muted max-w-2xl mx-auto leading-relaxed">
-            Free crisis hotlines and mental health support services available across Nigeria
+            A support organization&apos;s current contact details should always be checked on its official website.
           </p>
         </div>
 
-        <div className="flex gap-3 justify-center mb-10 flex-wrap">
-          <Button
-            variant={filter === "all" ? "default" : "outline"}
-            onClick={() => setFilter("all")}
-            className={
-              filter === "all"
-                ? "bg-gradient-to-r from-hamboi-purple to-hamboi-blue text-white hover:opacity-90"
-                : "border-hamboi-purple/30 text-hamboi-purple hover:bg-hamboi-purple/10"
-            }
-          >
-            All Resources
-          </Button>
-          <Button
-            variant={filter === "crisis" ? "default" : "outline"}
-            onClick={() => setFilter("crisis")}
-            className={
-              filter === "crisis"
-                ? "bg-gradient-to-r from-hamboi-purple to-hamboi-blue text-white hover:opacity-90"
-                : "border-hamboi-purple/30 text-hamboi-purple hover:bg-hamboi-purple/10"
-            }
-          >
-            Crisis Lines
-          </Button>
-          <Button
-            variant={filter === "counseling" ? "default" : "outline"}
-            onClick={() => setFilter("counseling")}
-            className={
-              filter === "counseling"
-                ? "bg-gradient-to-r from-hamboi-purple to-hamboi-blue text-white hover:opacity-90"
-                : "border-hamboi-purple/30 text-hamboi-purple hover:bg-hamboi-purple/10"
-            }
-          >
-            Counseling
-          </Button>
-        </div>
-
         <div className="grid md:grid-cols-2 gap-6">
-          {filteredResources.map((resource, index) => (
+          {nigerianMentalHealthResources.map((resource) => (
             <Card
-              key={index}
+              key={resource.name}
               className="border-2 border-hamboi-purple/40 hover:border-hamboi-purple/70 hover:shadow-xl hover:shadow-hamboi-purple/30 transition-all duration-300 smooth-hover bg-hamboi-dark-card backdrop-blur-sm"
             >
               <CardHeader>
@@ -84,20 +42,17 @@ export function MentalHealthResources() {
                   <span>{resource.availability}</span>
                 </div>
 
-                <div className="space-y-2">
-                  {resource.phone.map((number, idx) => (
-                    <a
-                      key={idx}
-                      href={`tel:${number.replace(/\s/g, "")}`}
-                      className="flex items-center gap-3 p-4 rounded-xl bg-hamboi-dark-bg hover:bg-hamboi-purple/20 transition-all border border-hamboi-purple/40 hover:border-hamboi-purple/70 smooth-hover"
-                    >
-                      <div className="w-8 h-8 rounded-full bg-hamboi-purple/30 flex items-center justify-center flex-shrink-0">
-                        <Phone className="h-4 w-4 text-hamboi-green" />
-                      </div>
-                      <span className="font-mono font-bold text-white">{number}</span>
-                    </a>
-                  ))}
-                </div>
+                {resource.website ? (
+                  <a
+                    href={resource.website}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="flex items-center gap-3 p-4 rounded-xl bg-hamboi-dark-bg hover:bg-hamboi-purple/20 transition-all border border-hamboi-purple/40"
+                  >
+                    <ArrowRight className="h-4 w-4 text-hamboi-green" />
+                    <span className="font-bold text-white">Visit official website for current contact details</span>
+                  </a>
+                ) : null}
               </CardContent>
             </Card>
           ))}
@@ -120,8 +75,7 @@ export function MentalHealthResources() {
             <div>
               <h3 className="font-bold text-red-900 mb-2 text-lg">In Case of Emergency</h3>
               <p className="text-red-800 leading-relaxed">
-                If you or someone you know is in immediate danger, please call <strong>112</strong> (National Emergency)
-                or <strong>767</strong> (Lagos Emergency) immediately.
+                If you or someone you know is in immediate danger, get a trusted adult or another person nearby and contact local emergency services now. Hamboi cannot contact them for you.
               </p>
             </div>
           </div>

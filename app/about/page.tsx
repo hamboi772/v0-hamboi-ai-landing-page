@@ -57,8 +57,8 @@ export default function AboutPage() {
       desc: "Your conversations are completely anonymous. We never store or share your personal identity.",
     },
     {
-      title: "Always Available",
-      desc: "Available 24/7 on any device. Support whenever and wherever you need it most.",
+title: "Accessible Information",
+    desc: "Mental-health awareness and wellbeing information for young people.",
     },
   ]
 

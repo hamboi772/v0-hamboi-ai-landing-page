@@ -36,22 +36,22 @@ export default function HomeScreen({ navigation }: any) {
 
         <View style={styles.featureCard}>
           <Text style={styles.featureIcon}>💬</Text>
-          <Text style={styles.featureTitle}>24/7 AI Support</Text>
+          <Text style={styles.featureTitle}>AI wellbeing chat</Text>
           <Text style={styles.featureDescription}>
-            Chat anytime about your feelings, stress, anxiety, or just need someone to listen
+            Ask for general mental-health information and wellbeing support when the service is available
           </Text>
         </View>
 
         <View style={styles.featureCard}>
           <Text style={styles.featureIcon}>🔒</Text>
-          <Text style={styles.featureTitle}>100% Private</Text>
-          <Text style={styles.featureDescription}>Your conversations are completely confidential and secure</Text>
+          <Text style={styles.featureTitle}>Know what gets saved</Text>
+          <Text style={styles.featureDescription}>Guest chats stay in this session; signed-in chats are saved to your account</Text>
         </View>
 
         <View style={styles.featureCard}>
           <Text style={styles.featureIcon}>🇳🇬</Text>
           <Text style={styles.featureTitle}>Nigerian Resources</Text>
-          <Text style={styles.featureDescription}>Access local crisis hotlines and mental health support services</Text>
+          <Text style={styles.featureDescription}>            Find current support information from official organizations</Text>
         </View>
 
         <TouchableOpacity style={styles.secondaryButton} onPress={() => navigation.navigate("Resources")}>
@@ -73,7 +73,7 @@ export default function HomeScreen({ navigation }: any) {
       </View>
 
       <View style={styles.footer}>
-        <Text style={styles.footerText}>Hamboi Mindcare - Here for you 24/7</Text>
+        <Text style={styles.footerText}>Hamboi MindCare - mental-health awareness and wellbeing information</Text>
       </View>
     </ScrollView>
   )

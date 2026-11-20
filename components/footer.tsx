@@ -2,9 +2,11 @@ import { Heart, Phone, MessageSquare, ExternalLink } from "lucide-react"
 import Link from "next/link"
 
 const crisisResources = [
-  { name: "MANI Nigeria (24/7)", description: "Call 0809 111 6264", href: "tel:08091116264" },
-  { name: "988 Suicide & Crisis Lifeline", description: "Call or text 988 (International)", href: "tel:988" },
-  { name: "Crisis Text Line", description: "Text HOME to 741741", href: "sms:741741" },
+  {
+    name: "MANI Nigeria",
+    description: "Check the official site for current support options",
+    href: "https://mentallyaware.org",
+  },
 ]
 
 const footerLinks = {
@@ -28,7 +30,7 @@ const footerLinks = {
     { name: "Privacy Policy", href: "/privacy" },
     { name: "Terms of Service", href: "/terms" },
     { name: "Cookie Policy", href: "/cookies" },
-    { name: "COPPA Compliance", href: "/coppa" },
+    { name: "Child Safety Information", href: "/coppa" }
   ],
 }
 
@@ -41,7 +43,7 @@ export function Footer() {
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <div className="flex items-center gap-2">
               <Phone className="h-5 w-5 text-hamboi-green font-bold" />
-              <span className="font-bold text-lg">In crisis? We're here 🆘</span>
+              <span className="font-bold text-lg">Need urgent help?</span>
             </div>
             <div className="flex flex-wrap justify-center gap-4 md:gap-8">
               {crisisResources.map((resource) => (
@@ -71,7 +73,7 @@ export function Footer() {
               <span className="text-xl font-bold">Hamboi Mindcare</span>
             </Link>
             <p className="text-hamboi-text-muted max-w-sm leading-relaxed">
-              Real support for real teens 💚 Always here when you need to talk. No judgment, just vibes and solid advice.
+              A youth-led initiative sharing mental-health awareness and wellbeing information for young people.
             </p>
             <div className="flex gap-4">
               <a

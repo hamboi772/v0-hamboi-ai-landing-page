@@ -8,7 +8,7 @@ import { nigerianMentalHealthResources } from "@/lib/data/nigerian-mental-health
 
 export const metadata = {
   title: "Resources | Hamboi Mindcare",
-  description: "Explore mental health resources, student stories, and crisis support available across Nigeria.",
+  description: "Explore youth wellbeing information, official support organization links, and student stories.",
 }
 
 export default function ResourcesPage() {
@@ -56,7 +56,7 @@ export default function ResourcesPage() {
           <div className="max-w-6xl mx-auto">
             <div className="flex items-center gap-3 mb-8">
               <Shield className="w-8 h-8 text-hamboi-green" />
-              <h2 className="text-3xl font-bold">Help & Hotlines</h2>
+              <h2 className="text-3xl font-bold">Support Resources</h2>
             </div>
 
             <div className="grid md:grid-cols-2 gap-6">
@@ -104,7 +104,7 @@ export default function ResourcesPage() {
                 <div>
                   <h3 className="font-bold text-red-200 mb-1">In Case of Emergency</h3>
                   <p className="text-red-100/70 text-sm">
-                    If you are in immediate danger, call <strong>112</strong> (National) or <strong>767</strong> (Lagos) immediately.
+                    If you are in immediate danger, get a trusted adult or another person physically nearby and contact local emergency services now. Hamboi cannot contact them for you.
                   </p>
                 </div>
               </div>

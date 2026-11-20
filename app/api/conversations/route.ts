@@ -23,7 +23,7 @@ export async function POST(request: NextRequest) {
 
   const body = await request.json().catch(() => ({}))
   const title = typeof body.title === "string" && body.title.trim() ? body.title.trim().slice(0, 80) : "New chat"
-  const messages = Array.isArray(body.messages) ? body.messages : []
+  const messages: unknown[] = Array.isArray(body.messages) ? body.messages : []
 
   const { data: conversation, error } = await supabase
     .from("conversations")
@@ -37,7 +37,7 @@ export async function POST(request: NextRequest) {
     .filter((message: unknown): message is { user: string; ai: string } => {
       if (!message || typeof message !== "object") return false
       const item = message as { user?: unknown; ai?: unknown }
-      return typeof item.user === "string" && typeof item.ai === "string" && item.user.trim() && item.ai.trim()
+      return typeof item.user === "string" && typeof item.ai === "string" && Boolean(item.user.trim()) && Boolean(item.ai.trim())
     })
     .slice(0, 100)
     .flatMap((message) => [

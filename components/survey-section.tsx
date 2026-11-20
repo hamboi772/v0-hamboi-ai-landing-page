@@ -508,8 +508,7 @@ export function SurveySection() {
 
         {/* Crisis note */}
         <p className="text-center text-xs mt-8" style={{ color: "#8B8B8B" }}>
-          This is not a diagnostic tool. If you&apos;re in crisis, call MANI Nigeria free on{" "}
-          <span style={{ color: "#0CF2C8", fontWeight: 600 }}>0809 111 6264</span> (24/7).
+          This is not a diagnostic tool. If you may be in immediate danger, get a trusted adult or someone nearby and contact local emergency services.
         </p>
       </div>
 

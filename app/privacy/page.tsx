@@ -3,15 +3,14 @@ import { Footer } from "@/components/footer"
 import { Shield, Lock, Eye, Trash2, Bell, Users } from "lucide-react"
 
 export const metadata = {
-  title: "Privacy Policy | Hamboi AI",
-  description: "Learn how Hamboi AI protects your privacy and keeps your conversations secure.",
+  title: "Privacy Policy | Hamboi MindCare",
+  description: "How Hamboi MindCare uses and stores information you share with the service.",
 }
 
 export default function PrivacyPage() {
   return (
     <div className="min-h-screen bg-background">
       <Header />
-
       <main className="pt-24 pb-16">
         <div className="container mx-auto px-4 max-w-4xl">
           <div className="text-center mb-12">
@@ -19,149 +18,59 @@ export default function PrivacyPage() {
               <Shield className="h-8 w-8 text-hamboi-purple" />
             </div>
             <h1 className="text-4xl md:text-5xl font-bold mb-4">Privacy Policy</h1>
-            <p className="text-muted-foreground">Last updated: December 5, 2025</p>
+            <p className="text-muted-foreground">Last updated: November 20, 2026</p>
           </div>
 
           <div className="prose prose-lg max-w-none">
             <div className="bg-hamboi-purple/5 rounded-2xl p-6 mb-8">
               <p className="text-lg font-medium text-hamboi-purple mb-0">
-                Your privacy matters. We built Hamboi AI with privacy-first principles because we know how important it
-                is for you to have a safe space to express yourself.
+                Hamboi is a youth mental-health awareness and support tool, not a confidential therapy service. Please avoid sharing details you would not want processed or stored.
               </p>
             </div>
 
             <section className="mb-10">
-              <div className="flex items-center gap-3 mb-4">
-                <Lock className="h-6 w-6 text-hamboi-purple" />
-                <h2 className="text-2xl font-bold m-0">What We Collect</h2>
-              </div>
-              <p>We collect minimal information to provide you with the best experience:</p>
+              <div className="flex items-center gap-3 mb-4"><Lock className="h-6 w-6 text-hamboi-purple" /><h2 className="text-2xl font-bold m-0">Information You Share</h2></div>
               <ul className="space-y-2">
-                <li>
-                  <strong>Account Information:</strong> Email address and password (encrypted) when you create an
-                  account
-                </li>
-                <li>
-                  <strong>Conversation Data:</strong> Your chats with Hamboi AI to provide personalized support
-                </li>
-                <li>
-                  <strong>Usage Data:</strong> How you interact with the app to improve our service
-                </li>
-                <li>
-                  <strong>Device Information:</strong> Basic device info for app compatibility
-                </li>
+                <li><strong>Account details:</strong> Email and authentication information when you register or sign in.</li>
+                <li><strong>Saved content:</strong> Signed-in conversations and any journal, mood, or reading-progress information you choose to save.</li>
+                <li><strong>Guest conversations:</strong> Guest chat is held in the current browser session and is not saved as account history.</li>
+                <li><strong>Messages to the AI:</strong> Your message is sent to an AI provider to generate a response. The provider processes the content under its own terms.</li>
               </ul>
             </section>
 
             <section className="mb-10">
-              <div className="flex items-center gap-3 mb-4">
-                <Eye className="h-6 w-6 text-hamboi-purple" />
-                <h2 className="text-2xl font-bold m-0">How We Use Your Data</h2>
-              </div>
-              <ul className="space-y-2">
-                <li>To provide personalized mental health support</li>
-                <li>To improve Hamboi AI's responses and helpfulness</li>
-                <li>To detect crisis situations and provide emergency resources</li>
-                <li>To send important updates about the service (optional)</li>
-              </ul>
-              <p className="mt-4 font-medium text-hamboi-purple">We NEVER sell your data to third parties. Ever.</p>
+              <div className="flex items-center gap-3 mb-4"><Eye className="h-6 w-6 text-hamboi-purple" /><h2 className="text-2xl font-bold m-0">How Information Is Used</h2></div>
+              <p>Information is used to operate the features you request, provide AI responses, and maintain the service. Hamboi does not contact a parent, emergency service, or crisis organization on your behalf.</p>
             </section>
 
             <section className="mb-10">
-              <div className="flex items-center gap-3 mb-4">
-                <Shield className="h-6 w-6 text-hamboi-purple" />
-                <h2 className="text-2xl font-bold m-0">How We Protect Your Data</h2>
-              </div>
-              <ul className="space-y-2">
-                <li>
-                  <strong>End-to-End Encryption:</strong> All conversations are encrypted in transit and at rest
-                </li>
-                <li>
-                  <strong>Secure Servers:</strong> Data stored on industry-leading secure cloud infrastructure
-                </li>
-                <li>
-                  <strong>Regular Audits:</strong> We conduct security audits to ensure data protection
-                </li>
-                <li>
-                  <strong>Limited Access:</strong> Only authorized personnel can access systems, never individual chats
-                </li>
-              </ul>
+              <div className="flex items-center gap-3 mb-4"><Shield className="h-6 w-6 text-hamboi-purple" /><h2 className="text-2xl font-bold m-0">Storage and Security</h2></div>
+              <p>Hamboi is not end-to-end encrypted. Signed-in content is stored in the application database and may be accessible to authorized service operators or infrastructure providers. Do not treat the service as a private clinical record or send passwords, addresses, or other identifying details in chat.</p>
+              <p>We do not claim independent security audits or legal certifications. See the current feature behavior in the app and contact us if you need details about a specific data request.</p>
             </section>
 
             <section className="mb-10">
-              <div className="flex items-center gap-3 mb-4">
-                <Users className="h-6 w-6 text-hamboi-purple" />
-                <h2 className="text-2xl font-bold m-0">For Users Under 18</h2>
-              </div>
-              <p>
-                Hamboi AI is designed for teenagers aged 13-19. We comply with COPPA (Children's Online Privacy
-                Protection Act) and GDPR requirements for minors.
-              </p>
-              <ul className="space-y-2">
-                <li>Users under 13 require parental consent</li>
-                <li>Parents can request access to or deletion of their child's data</li>
-                <li>We never target advertising to minors</li>
-                <li>Optional parent dashboard for transparency (teen controls what's shared)</li>
-              </ul>
+              <div className="flex items-center gap-3 mb-4"><Users className="h-6 w-6 text-hamboi-purple" /><h2 className="text-2xl font-bold m-0">Young People and Families</h2></div>
+              <p>Hamboi is intended for teenagers and young people. The service does not currently provide age verification, a parent dashboard, or a parent-consent workflow. We do not represent the service as certified or compliant with COPPA or GDPR. A parent or guardian can help you decide what is appropriate to share online.</p>
             </section>
 
             <section className="mb-10">
-              <div className="flex items-center gap-3 mb-4">
-                <Trash2 className="h-6 w-6 text-hamboi-purple" />
-                <h2 className="text-2xl font-bold m-0">Your Rights</h2>
-              </div>
-              <p>You have full control over your data:</p>
-              <ul className="space-y-2">
-                <li>
-                  <strong>Access:</strong> Request a copy of all your data
-                </li>
-                <li>
-                  <strong>Delete:</strong> Delete your account and all associated data
-                </li>
-                <li>
-                  <strong>Export:</strong> Download your conversation history
-                </li>
-                <li>
-                  <strong>Opt-out:</strong> Disable data collection for improvement purposes
-                </li>
-              </ul>
-              <p className="mt-4">
-                To exercise these rights, contact us at{" "}
-                <a href="mailto:hamboimindcare.help@gmail.com" className="text-hamboi-purple hover:underline">
-                  hamboimindcare.help@gmail.com
-                </a>
-              </p>
+              <div className="flex items-center gap-3 mb-4"><Trash2 className="h-6 w-6 text-hamboi-purple" /><h2 className="text-2xl font-bold m-0">Deletion and Requests</h2></div>
+              <p>You can delete saved conversations from chat history. For other access or deletion requests, contact us at <a href="mailto:hamboimindcare.help@gmail.com" className="text-hamboi-purple hover:underline">hamboimindcare.help@gmail.com</a>. We will confirm what data can be located and removed; account-wide deletion is not currently self-service.</p>
             </section>
 
             <section className="mb-10">
-              <div className="flex items-center gap-3 mb-4">
-                <Bell className="h-6 w-6 text-hamboi-purple" />
-                <h2 className="text-2xl font-bold m-0">Crisis Situations</h2>
-              </div>
-              <p>
-                If our AI detects that you may be in immediate danger, we may share limited information with crisis
-                services to ensure your safety. This is the only situation where we would share your data without
-                explicit consent.
-              </p>
+              <div className="flex items-center gap-3 mb-4"><Bell className="h-6 w-6 text-hamboi-purple" /><h2 className="text-2xl font-bold m-0">Urgent Situations</h2></div>
+              <p>Hamboi is not monitored as an emergency service and cannot dispatch help. If you or someone else may be in immediate danger, contact local emergency services and get a trusted adult or another person physically near you now.</p>
             </section>
 
             <section className="mb-10">
-              <h2 className="text-2xl font-bold mb-4">Contact Us</h2>
-              <p>Questions about privacy? We're here to help.</p>
-              <ul className="list-none p-0 space-y-1">
-                <li>
-                  Email:{" "}
-                  <a href="mailto:hamboimindcare.help@gmail.com" className="text-hamboi-purple hover:underline">
-                    hamboimindcare.help@gmail.com
-                  </a>
-                </li>
-                <li>Address: Lagos, Nigeria</li>
-              </ul>
+              <h2 className="text-2xl font-bold mb-4">Contact</h2>
+              <p>Questions or data requests: <a href="mailto:hamboimindcare.help@gmail.com" className="text-hamboi-purple hover:underline">hamboimindcare.help@gmail.com</a>.</p>
             </section>
           </div>
         </div>
       </main>
-
       <Footer />
     </div>
   )

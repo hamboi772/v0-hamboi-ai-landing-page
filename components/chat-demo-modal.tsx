@@ -93,17 +93,42 @@ export function ChatDemoModal({ isOpen, onClose }: { isOpen: boolean; onClose: (
   }
 
   const signIn = async (event: React.FormEvent) => {
-    event.preventDefault(); setAuthError("")
+    event.preventDefault()
+    setAuthError("")
     const supabase = getSupabaseClient()
     if (!supabase) return setAuthError("Sign in is unavailable right now.")
-    const result = authMode === "sign-in" ? await supabase.auth.signInWithPassword({ email, password }) : await supabase.auth.signUp({ email, password, options: { emailRedirectTo: process.env.NEXT_PUBLIC_DEV_SUPABASE_REDIRECT_URL || `${window.location.origin}/auth/callback` } })
-    if (result.error) return setAuthError("That email or password could not be used. Please try again.")
-    if (authMode === "sign-up" && !result.data.user?.aud) return setAuthError("Check your email to confirm your account.")
-    const signedInUser = result.data.user
-    if (!signedInUser) return setAuthError("Check your email to finish signing in.")
-    setUserId(signedInUser.id)
-    if (conversation.length) { await createSavedChat(conversation); window.sessionStorage.removeItem(GUEST_HISTORY_KEY) }
-    setSheet(null); setEmail(""); setPassword(""); await loadChats()
+
+    try {
+      const result = authMode === "sign-in"
+        ? await supabase.auth.signInWithPassword({ email, password })
+        : await supabase.auth.signUp({
+            email,
+            password,
+            options: {
+              emailRedirectTo: process.env.NEXT_PUBLIC_DEV_SUPABASE_REDIRECT_URL || `${window.location.origin}/auth/callback`,
+            },
+          })
+
+      if (result.error) return setAuthError("That email or password could not be used. Please try again.")
+      if (authMode === "sign-up" && !result.data.session) {
+        return setAuthError("Check your email to confirm your account. Your guest chat is still in this tab; sign in after confirming to save it.")
+      }
+      if (!result.data.user || !result.data.session) {
+        return setAuthError("Sign in was not completed. Your guest chat is still in this tab.")
+      }
+
+      if (conversation.length) {
+        await createSavedChat(conversation)
+        window.sessionStorage.removeItem(GUEST_HISTORY_KEY)
+      }
+      setUserId(result.data.user.id)
+      setSheet(null)
+      setEmail("")
+      setPassword("")
+      await loadChats()
+    } catch {
+      setAuthError("We couldn't finish signing in or saving this chat. Your guest chat is still in this tab; please try again.")
+    }
   }
 
   const submit = async (e?: React.FormEvent) => {

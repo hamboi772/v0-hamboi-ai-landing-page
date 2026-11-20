@@ -1,60 +1,51 @@
 import { type NextRequest, NextResponse } from "next/server"
-import { createClient } from "@supabase/supabase-js"
+import { getAuthenticatedSupabase } from "@/lib/supabase/require-user"
 
 export async function POST(request: NextRequest) {
+  const { supabase, user } = await getAuthenticatedSupabase()
+  if (!user) return NextResponse.json({ error: "Sign in required" }, { status: 401 })
+
   try {
-    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
-    const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY
-
-    if (!supabaseUrl || !supabaseKey) {
-      return NextResponse.json({ error: "Database not configured" }, { status: 503 })
-    }
-
-    const supabase = createClient(supabaseUrl, supabaseKey)
-
     const body = await request.json()
-    const { user_id, title, content, mood_tag } = body
+    const title = typeof body.title === "string" ? body.title.trim() : ""
+    const content = typeof body.content === "string" ? body.content.trim() : ""
+    const moodTag = typeof body.mood_tag === "string" ? body.mood_tag.trim() : null
+
+    if (!title || title.length > 120 || !content || content.length > 12000 || (moodTag && moodTag.length > 80)) {
+      return NextResponse.json({ error: "Check the entry fields and try again" }, { status: 400 })
+    }
 
     const { data, error } = await supabase
       .from("journal_entries")
-      .insert({ user_id, title, content, mood_tag: mood_tag || null })
-      .select()
+      .insert({ user_id: user.id, title, content, mood_tag: moodTag || null })
+      .select("id, user_id, title, content, mood_tag, created_at, updated_at")
       .single()
 
-    if (error) throw error
+    if (error) {
+      console.error("Journal save failed", error.code)
+      return NextResponse.json({ error: "Failed to save entry" }, { status: 500 })
+    }
 
     return NextResponse.json({ success: true, entry: data })
-  } catch (error) {
-    console.error("Journal error:", error)
-    return NextResponse.json({ error: "Failed to save entry" }, { status: 500 })
+  } catch {
+    return NextResponse.json({ error: "Invalid request" }, { status: 400 })
   }
 }
 
-export async function GET(request: NextRequest) {
-  try {
-    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
-    const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY
+export async function GET() {
+  const { supabase, user } = await getAuthenticatedSupabase()
+  if (!user) return NextResponse.json({ error: "Sign in required" }, { status: 401 })
 
-    if (!supabaseUrl || !supabaseKey) {
-      return NextResponse.json({ error: "Database not configured" }, { status: 503 })
-    }
+  const { data, error } = await supabase
+    .from("journal_entries")
+    .select("id, user_id, title, content, mood_tag, created_at, updated_at")
+    .eq("user_id", user.id)
+    .order("created_at", { ascending: false })
 
-    const supabase = createClient(supabaseUrl, supabaseKey)
-
-    const { searchParams } = new URL(request.url)
-    const user_id = searchParams.get("user_id")
-
-    const { data, error } = await supabase
-      .from("journal_entries")
-      .select("*")
-      .eq("user_id", user_id)
-      .order("created_at", { ascending: false })
-
-    if (error) throw error
-
-    return NextResponse.json({ success: true, entries: data || [] })
-  } catch (error) {
-    console.error("Fetch journal error:", error)
+  if (error) {
+    console.error("Journal fetch failed", error.code)
     return NextResponse.json({ error: "Failed to fetch entries" }, { status: 500 })
   }
+
+  return NextResponse.json({ success: true, entries: data ?? [] })
 }

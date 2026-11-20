@@ -949,7 +949,7 @@ export const articles: Article[] = [
       },
       {
         type: "paragraph",
-        text: "Hamboi Mindcare — Hope And Mind Balance Outreach Initiative — is one such platform that provides 24/7 emotional support through an AI-powered companion, mood-tracking tools, and a library of youth wellbeing resources.",
+        text: "Hamboi MindCare — Hope And Mind Balance Outreach Initiative — provides general mental-health information, wellbeing resources, and an AI-powered companion. The AI is not a crisis or emergency service.",
       },
       {
         type: "paragraph",

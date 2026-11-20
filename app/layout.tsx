@@ -18,20 +18,20 @@ const _dmSans = DM_Sans({
 export const metadata: Metadata = {
   title: "Hamboi Mindcare - Your Mental Health Companion for Teens",
   description:
-    "Talk to Hamboi Mindcare anytime you need support. 24/7 mental health companion designed specifically for teenagers. Private, safe, and always here for you.",
+    "Hamboi MindCare shares mental-health awareness and wellbeing information for young people. Its AI chat is not a therapy or emergency service.",
   keywords: ["mental health", "teens", "anxiety", "stress", "AI companion", "teen support", "emotional wellness"],
   authors: [{ name: "Abdulhameed Abolarinwa Abiodun" }],
   manifest: "/manifest.json",
   openGraph: {
     title: "Hamboi Mindcare - Your Mental Health Matters",
-    description: "Talk to Hamboi Mindcare anytime you need support. Private, safe, and always here for you.",
+    description: "Hamboi MindCare shares mental-health awareness and wellbeing information for young people. Its AI chat is not a therapy or emergency service.",
     type: "website",
     url: "https://hamboimindcare.site",
   },
   twitter: {
     card: "summary_large_image",
     title: "Hamboi Mindcare - Your Mental Health Matters",
-    description: "Talk to Hamboi Mindcare anytime you need support. Private, safe, and always here for you.",
+    description: "Hamboi MindCare shares mental-health awareness and wellbeing information for young people. Its AI chat is not a therapy or emergency service.",
   },
   appleWebApp: {
     capable: true,

@@ -66,7 +66,7 @@ export default function TermsPage() {
                 <li>A tool to help you understand and process your feelings</li>
                 <li>A resource for learning coping strategies</li>
                 <li>A safe, judgment-free space to express yourself</li>
-                <li>Available 24/7 when you need someone to "talk" to</li>
+                <li>Available when the service is online; AI replies are not monitored by a person</li>
               </ul>
             </section>
 
@@ -87,9 +87,8 @@ export default function TermsPage() {
             <section className="mb-10">
               <h2 className="text-2xl font-bold mb-4">5. Age Requirements</h2>
               <ul className="space-y-2">
-                <li>The Service is designed for users aged 13-19</li>
-                <li>Users under 13 require verifiable parental consent</li>
-                <li>Parents/guardians may monitor their minor's usage through optional dashboard features</li>
+                <li>The Service is intended for teenagers and young people; it does not currently verify a user&apos;s age</li>
+                <li>The Service does not currently provide a parental-consent workflow or parent dashboard</li>
               </ul>
             </section>
 
@@ -111,23 +110,10 @@ export default function TermsPage() {
                 <h2 className="text-2xl font-bold m-0">7. Crisis Situations</h2>
               </div>
               <p>
-                If you are experiencing a mental health emergency, thoughts of self-harm, or are in immediate danger:
+                If you or someone else may be in immediate danger, seek help from someone who can be physically present:
               </p>
               <div className="bg-red-50 border border-red-200 rounded-xl p-4 mt-4">
-                <ul className="space-y-2 mb-0">
-                  <li>
-                    <strong>Call 988</strong> (Suicide & Crisis Lifeline - US)
-                  </li>
-                  <li>
-                    <strong>Text HOME to 741741</strong> (Crisis Text Line)
-                  </li>
-                  <li>
-                    <strong>Call your local emergency services</strong>
-                  </li>
-                  <li>
-                    <strong>Go to your nearest emergency room</strong>
-                  </li>
-                </ul>
+                <p className="mb-0">Contact a trusted adult or someone physically nearby and reach local emergency services now. Hamboi cannot contact them for you; do not wait for an AI reply in an emergency.</p>
               </div>
             </section>
 
@@ -162,8 +148,8 @@ export default function TermsPage() {
               </p>
               <ul className="space-y-2">
                 <li>Continuously improving our AI to be more helpful and empathetic</li>
-                <li>Protecting your privacy and keeping your conversations confidential</li>
-                <li>Providing accurate crisis resources when needed</li>
+                <li>Explaining how account data and AI message processing work</li>
+                <li>Sharing only support contact details that we can direct users to verify through official sources</li>
                 <li>Listening to user feedback and making Hamboi better for everyone</li>
               </ul>
             </section>

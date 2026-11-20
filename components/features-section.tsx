@@ -12,13 +12,13 @@ const BG = "#06080F"
 const features = [
   {
     icon: MessageCircle,
-    title: "Chat 24/7",
-    description: "Someone's always here. 3am existential crisis? We got you.",
+    title: "AI wellbeing chat",
+    description: "Get general mental-health information and supportive next steps when the service is available.",
   },
   {
     icon: Shield,
-    title: "No Drama Zone",
-    description: "Talk without the judgment. Your words, your rules, completely private.",
+    title: "No Judgment",
+    description: "Explore what you're feeling. Signed-in chats are saved to your account and AI providers process messages.",
   },
   {
     icon: LineChart,
@@ -33,7 +33,7 @@ const features = [
   {
     icon: AlertCircle,
     title: "When It's Bad",
-    description: "Crisis hotlines, resources, pro help. You're not alone in this.",
+    description: "General information and links to official support organizations. Check their sites for current contact options.",
   },
   {
     icon: Heart,

@@ -147,8 +147,8 @@ export function MotivationalMessagesSection() {
           </div>
 
           <div className="bg-hamboi-dark-card rounded-2xl p-6 text-center border border-hamboi-purple/40 hover:border-hamboi-purple/70 transition-all">
-            <div className="text-3xl font-black text-hamboi-cyan mb-2">24/7</div>
-            <p className="text-sm text-hamboi-text-muted font-medium">Support is always available</p>
+<div className="text-3xl font-black text-hamboi-cyan mb-2">AI</div>
+              <p className="text-sm text-hamboi-text-muted font-medium">Wellbeing information when the service is available</p>
           </div>
 
           <div className="bg-hamboi-dark-card rounded-2xl p-6 text-center border border-hamboi-purple/40 hover:border-hamboi-purple/70 transition-all">

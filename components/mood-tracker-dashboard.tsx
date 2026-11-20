@@ -33,18 +33,7 @@ export function MoodTrackerDashboard() {
   const [loading, setLoading] = useState(false)
   const [moodHistory, setMoodHistory] = useState<MoodEntry[]>([])
   const [justSaved, setJustSaved] = useState(false)
-
-  const [userId] = useState(() => {
-    if (typeof window !== "undefined") {
-      let id = localStorage.getItem("hamboi_user_id")
-      if (!id) {
-        id = `user_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`
-        localStorage.setItem("hamboi_user_id", id)
-      }
-      return id
-    }
-    return ""
-  })
+  const [authRequired, setAuthRequired] = useState(false)
 
   useEffect(() => {
     fetchMoodHistory()
@@ -52,9 +41,10 @@ export function MoodTrackerDashboard() {
 
   const fetchMoodHistory = async () => {
     try {
-      const response = await fetch(`/api/moods?user_id=${userId}&days=30`)
+      const response = await fetch("/api/moods")
+      if (response.status === 401) { setAuthRequired(true); return }
       const data = await response.json()
-      if (data.success) setMoodHistory(data.moods)
+      if (data.success) { setMoodHistory(data.moods); setAuthRequired(false) }
     } catch (error) {
       console.error("[v0] Failed to fetch mood history:", error)
     }
@@ -67,8 +57,13 @@ export function MoodTrackerDashboard() {
       const response = await fetch("/api/moods", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ user_id: userId, mood_value: selectedMood, note: note.trim() || null }),
+        body: JSON.stringify({ mood_value: selectedMood, note: note.trim() || null }),
       })
+      if (response.status === 401) {
+        setAuthRequired(true)
+        toast.error("Sign in through Hamboi chat to save mood history.")
+        return
+      }
       const data = await response.json()
       if (data.success) {
         toast.success("Mood saved! +20 XP 💜")
@@ -99,6 +94,7 @@ export function MoodTrackerDashboard() {
 
   return (
     <div style={{ fontFamily: "'DM Sans', sans-serif", color: "#F5F5F5", background: "#06080F", padding: 0 }}>
+      {authRequired && <p role="status" style={{ color: "#8B8B8B", marginBottom: 20 }}>Sign in through Hamboi chat to view or save your mood history.</p>}
 
       {/* Log Mood Section */}
       <div style={{ marginBottom: 32 }}>

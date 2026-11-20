@@ -4,32 +4,32 @@ const faqs = [
   {
     question: "Is Hamboi Mindcare free?",
     answer:
-      "Hamboi offers a free tier with essential features including unlimited conversations, mood tracking, and access to coping strategies. Premium features like advanced insights and priority support are available with a subscription.",
+      "Some Hamboi features are available at no cost. Check the feature or payment screen for current availability and any charges before using a paid feature.",
   },
   {
     question: "How does the AI work?",
     answer:
-      "Hamboi uses advanced AI trained specifically for teen mental health support. It listens to what you share, provides empathetic responses, and offers evidence-based coping strategies. It learns your preferences over time to give more personalized support.",
+      "When you send a message, it is sent to an AI provider to generate a response. Hamboi does not learn your preferences over time, and replies can be mistaken or incomplete.",
   },
   {
     question: "Is it a replacement for therapy?",
     answer:
-      "No, Hamboi is a support tool, not a replacement for professional therapy or medical advice. We encourage seeking help from licensed professionals for serious mental health concerns. Hamboi can complement therapy by providing 24/7 support between sessions.",
+      "No. Hamboi shares general mental-health information and support, but it is not a therapist, doctor, or emergency service. A trusted adult or qualified professional can help with ongoing or serious concerns.",
   },
   {
     question: "What if I'm in crisis?",
     answer:
-      "Hamboi can detect when you might be in crisis and will immediately provide resources including the 988 Suicide & Crisis Lifeline and Crisis Text Line. Your safety is our priority.",
+      "Hamboi cannot contact anyone for you or guarantee crisis resources. If you or someone else may be in immediate danger, get a trusted adult or another person nearby and contact local emergency services now.",
   },
   {
-    question: "How is my data protected?",
+    question: "How is my data used?",
     answer:
-      "All conversations are end-to-end encrypted. We're COPPA and GDPR compliant. Your data is never sold to third parties. You can delete all your data at any time. We conduct regular security audits to ensure your information stays safe.",
+      "Guest chats are kept in the current browser session; signed-in chats are saved to your account. Messages are processed by an AI provider. Hamboi is not end-to-end encrypted, so avoid sharing details you would not want processed or stored.",
   },
   {
     question: "Can parents see my conversations?",
     answer:
-      "Your conversations with Hamboi are private by default. Parents can access an optional dashboard that shows general usage patterns and mood trends, but they cannot read your actual conversations without your explicit permission.",
+      "Hamboi does not currently have a parent dashboard. Signed-in chats are saved to the account, so only share information you are comfortable storing with the service.",
   },
 ]
 

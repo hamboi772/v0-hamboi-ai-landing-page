@@ -1,60 +1,47 @@
 import { type NextRequest, NextResponse } from "next/server"
-import { createClient } from "@supabase/supabase-js"
+import { getAuthenticatedSupabase } from "@/lib/supabase/require-user"
 
 export async function POST(request: NextRequest) {
+  const { supabase, user } = await getAuthenticatedSupabase()
+  if (!user) return NextResponse.json({ error: "Sign in required" }, { status: 401 })
+
   try {
-    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
-    const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY
-
-    if (!supabaseUrl || !supabaseKey) {
-      return NextResponse.json({ error: "Database not configured" }, { status: 503 })
-    }
-
-    const supabase = createClient(supabaseUrl, supabaseKey)
-
     const body = await request.json()
-    const { mood_value, note, user_id } = body
+    const moodValue = body.mood_value
+    const note = typeof body.note === "string" ? body.note.trim() : ""
+    if (!Number.isInteger(moodValue) || moodValue < 1 || moodValue > 5 || note.length > 1000) {
+      return NextResponse.json({ error: "Invalid mood entry" }, { status: 400 })
+    }
 
     const { data, error } = await supabase
       .from("moods")
-      .insert({ user_id, mood_value, note: note || null })
-      .select()
+      .insert({ user_id: user.id, mood_value: moodValue, note: note || null })
+      .select("id, user_id, mood_value, note, created_at")
       .single()
 
-    if (error) throw error
-
+    if (error) {
+      console.error("Mood save failed", error.code)
+      return NextResponse.json({ error: "Failed to save mood" }, { status: 500 })
+    }
     return NextResponse.json({ success: true, mood: data })
-  } catch (error) {
-    console.error("Mood error:", error)
-    return NextResponse.json({ error: "Failed to save mood" }, { status: 500 })
+  } catch {
+    return NextResponse.json({ error: "Invalid request" }, { status: 400 })
   }
 }
 
-export async function GET(request: NextRequest) {
-  try {
-    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
-    const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY
+export async function GET() {
+  const { supabase, user } = await getAuthenticatedSupabase()
+  if (!user) return NextResponse.json({ error: "Sign in required" }, { status: 401 })
 
-    if (!supabaseUrl || !supabaseKey) {
-      return NextResponse.json({ error: "Database not configured" }, { status: 503 })
-    }
+  const { data, error } = await supabase
+    .from("moods")
+    .select("id, user_id, mood_value, note, created_at")
+    .eq("user_id", user.id)
+    .order("created_at", { ascending: true })
 
-    const supabase = createClient(supabaseUrl, supabaseKey)
-
-    const { searchParams } = new URL(request.url)
-    const user_id = searchParams.get("user_id")
-
-    const { data, error } = await supabase
-      .from("moods")
-      .select("*")
-      .eq("user_id", user_id)
-      .order("created_at", { ascending: true })
-
-    if (error) throw error
-
-    return NextResponse.json({ success: true, moods: data || [] })
-  } catch (error) {
-    console.error("Fetch moods error:", error)
+  if (error) {
+    console.error("Mood fetch failed", error.code)
     return NextResponse.json({ error: "Failed to fetch moods" }, { status: 500 })
   }
+  return NextResponse.json({ success: true, moods: data ?? [] })
 }

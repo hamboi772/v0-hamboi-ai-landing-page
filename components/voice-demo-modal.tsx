@@ -5,16 +5,7 @@ import { useState, useRef, useEffect, useCallback } from "react"
 import { X, Mic, Square, Loader2, Volume2, VolumeX, Send, MessageSquare, AlertCircle } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
-import { createClient } from "@supabase/supabase-js"
-
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-)
-
-function generateSessionId() {
-  return `session_${Date.now()}_${Math.random().toString(36).slice(2, 9)}`
-}
+import { createClient } from "@/lib/supabase/client"
 
 // Speech Recognition Types
 interface SpeechRecognitionEvent extends Event {
@@ -82,87 +73,28 @@ export function VoiceDemoModal({ isOpen, onClose }: VoiceDemoModalProps) {
   const [ttsSupported, setTtsSupported] = useState(true)
   const [browserName, setBrowserName] = useState("")
   const [userId, setUserId] = useState<string | null>(null)
+  const [voiceConversationId, setVoiceConversationId] = useState<string | null>(null)
 
-  const sessionIdRef = useRef<string>(generateSessionId())
   const textInputRef = useRef<HTMLTextAreaElement>(null)
-  const recordingIntervalRef = useRef<NodeJS.Timeout | null>(null)
+  const recordingIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null)
   const recognitionRef = useRef<SpeechRecognition | null>(null)
   const finalTranscriptRef = useRef("")
   const shouldProcessOnEndRef = useRef(false)
   const synthRef = useRef<SpeechSynthesis | null>(null)
-  const historyLoadedRef = useRef(false)
 
-  // ── Get logged-in user ──────────────────────────────────────────────────────
   useEffect(() => {
-    supabase.auth.getUser().then(({ data }) => {
-      if (data?.user) setUserId(data.user.id)
+    const supabase = createClient()
+    if (!supabase) return
+    void supabase.auth.getUser().then((result: { data: { user: { id: string } | null } }) => setUserId(result.data.user?.id ?? null))
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event: string, session: { user: { id: string } } | null) => {
+      setUserId(session?.user?.id ?? null)
+      if (!session?.user) {
+        setVoiceConversationId(null)
+        setConversation([])
+      }
     })
+    return () => subscription.unsubscribe()
   }, [])
-
-  // ── Load last conversation when modal opens ─────────────────────────────────
-  useEffect(() => {
-    if (isOpen && userId && !historyLoadedRef.current) {
-      loadHistory(userId)
-    }
-  }, [isOpen, userId])
-
-  async function loadHistory(uid: string) {
-    try {
-      // Find most recent session
-      const { data: sessions } = await supabase
-        .from("chat_messages")
-        .select("session_id")
-        .eq("user_id", uid)
-        .order("created_at", { ascending: false })
-        .limit(1)
-
-      if (!sessions || sessions.length === 0) return
-
-      const lastSessionId = sessions[0].session_id
-      sessionIdRef.current = lastSessionId
-
-      // Load messages from that session
-      const { data: messages } = await supabase
-        .from("chat_messages")
-        .select("role, content")
-        .eq("user_id", uid)
-        .eq("session_id", lastSessionId)
-        .order("created_at", { ascending: true })
-
-      if (!messages || messages.length === 0) return
-
-      // Pair into conversation format
-      const paired: ConversationMessage[] = []
-      for (let i = 0; i < messages.length; i += 2) {
-        const u = messages[i]
-        const a = messages[i + 1]
-        if (u && a) paired.push({ user: u.content, ai: a.content })
-      }
-
-      if (paired.length > 0) {
-        setConversation(paired)
-        const last = paired[paired.length - 1]
-        setTranscript(last.user)
-        setResponse(last.ai)
-        setDisplayedResponse(last.ai)
-        historyLoadedRef.current = true
-      }
-    } catch (err) {
-      console.error("Failed to load history:", err)
-    }
-  }
-
-  async function saveToSupabase(userMsg: string, aiMsg: string) {
-    if (!userId) return
-    try {
-      await supabase.from("chat_messages").insert([
-        { user_id: userId, session_id: sessionIdRef.current, role: "user", content: userMsg },
-        { user_id: userId, session_id: sessionIdRef.current, role: "assistant", content: aiMsg },
-      ])
-    } catch (err) {
-      console.error("Failed to save:", err)
-    }
-  }
 
   // ── Speech setup ────────────────────────────────────────────────────────────
   useEffect(() => {
@@ -245,43 +177,45 @@ export function VoiceDemoModal({ isOpen, onClose }: VoiceDemoModalProps) {
 
   // ── Process transcript ──────────────────────────────────────────────────────
   const processTranscript = useCallback(async (text: string) => {
-    if (!text.trim()) {
+    const trimmedText = text.trim()
+    if (!trimmedText) {
       setError("I didn't catch that. Could you try speaking again?")
       setIsProcessing(false)
       return
     }
 
     try {
+      let activeConversationId = voiceConversationId
+      if (userId && !activeConversationId) {
+        const createResponse = await fetch("/api/conversations", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ title: "Voice conversation" }),
+        })
+        if (!createResponse.ok) throw new Error("Could not create saved conversation")
+        const result = await createResponse.json()
+        activeConversationId = result.conversation.id
+        setVoiceConversationId(activeConversationId)
+      }
+
       const res = await fetch("/api/voice-chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          text,
-          message: text,           // support both field names
-          sessionId: sessionIdRef.current,
-          userId: userId,           // ← key addition for persistence
-        }),
+        body: JSON.stringify({ message: trimmedText, conversationId: activeConversationId || undefined }),
       })
-
       const data = await res.json()
+      if (!res.ok || !data.response) throw new Error("Could not get a reply")
 
-      if (data.error) { setError(data.error); return }
-
-      if (data.response) {
-        setTranscript(text)
-        setResponse(data.response)
-        setConversation((prev) => [...prev.slice(-4), { user: text, ai: data.response }])
-        await saveToSupabase(text, data.response)   // ← save to Supabase
-        if (ttsEnabled && synthRef.current) speakResponse(data.response)
-      } else {
-        setError("I didn't get a response. Please try again.")
-      }
-    } catch (err) {
-      setError("Sorry, something went wrong. Please try again.")
+      setTranscript(trimmedText)
+      setResponse(data.response)
+      setConversation((prev) => [...prev.slice(-4), { user: trimmedText, ai: data.response }])
+      if (ttsEnabled && synthRef.current) speakResponse(data.response)
+    } catch {
+      setError("I couldn't send that just now. Please try again.")
     } finally {
       setIsProcessing(false)
     }
-  }, [userId, ttsEnabled, speakResponse])
+  }, [userId, voiceConversationId, ttsEnabled, speakResponse])
 
   // ── Voice recording ─────────────────────────────────────────────────────────
   const startRecording = async () => {
@@ -397,7 +331,11 @@ export function VoiceDemoModal({ isOpen, onClose }: VoiceDemoModalProps) {
         <div className="text-center text-white pt-8 pb-6">
           <h2 className="text-3xl md:text-4xl font-bold mb-2">Talk to Hamboi</h2>
           <p className="text-white/70">Share what's on your mind. I'm here to listen.</p>
-          {userId && <p className="text-xs text-green-300 mt-1">● Conversation saved</p>}
+          {userId && voiceConversationId ? (
+            <p className="text-xs text-green-300 mt-1">Conversation saved to your account</p>
+          ) : !userId ? (
+            <p className="text-xs text-white/60 mt-1">Guest voice chats are not saved. Sign in through chat to save conversations.</p>
+          ) : null}
         </div>
 
         {!speechSupported && inputMode === "voice" && (

@@ -1,25 +1,25 @@
-import { Lock, Shield, AlertTriangle, Users, CheckCircle } from "lucide-react"
+import { Lock, Shield, AlertTriangle, CheckCircle } from "lucide-react"
 
 const safetyFeatures = [
   {
     icon: Lock,
-    title: "End-to-End Encryption",
-    description: "All your conversations are encrypted and secure.",
+    title: "Guest chats stay in your session",
+    description: "Sign in if you want conversations saved to your account.",
   },
   {
     icon: Shield,
-    title: "COPPA/GDPR Compliant",
-    description: "We follow the strictest privacy laws to protect you.",
+    title: "Know what happens to your chat",
+    description: "Messages are sent to an AI provider to generate a reply.",
   },
   {
     icon: AlertTriangle,
-    title: "Crisis Detection",
-    description: "Immediate resources when you need professional help.",
+    title: "Not emergency care",
+    description: "Hamboi cannot contact emergency services or someone near you.",
   },
   {
-    icon: Users,
-    title: "Optional Parent Dashboard",
-    description: "Parents can stay informed while respecting your privacy.",
+    icon: CheckCircle,
+    title: "You choose what to share",
+    description: "Avoid details you would not want processed or saved.",
   },
 ]
 
@@ -31,10 +31,10 @@ export function SafetyPrivacySection() {
           <div className="space-y-8">
             <div className="space-y-6">
               <h2 className="text-5xl md:text-6xl font-black text-white leading-tight">
-                Your Privacy Is Sacred
+                Your Safety Matters
               </h2>
               <p className="text-lg md:text-xl text-hamboi-text-muted leading-relaxed">
-                Your conversations are 100% private and secure. We built Hamboi with your safety as our top priority.
+                Hamboi is a support and awareness tool, not a private therapy service or emergency response service. Please share only what you are comfortable having processed by an AI provider.
               </p>
             </div>
 
@@ -68,10 +68,10 @@ export function SafetyPrivacySection() {
 
                 <div className="space-y-3">
                   {[
-                    "Your data is never sold to third parties",
-                    "Conversations are encrypted at rest and in transit",
-                    "You can delete your data anytime",
-                    "Regular security audits by experts",
+                    "Signed-in conversations are saved to your account",
+                    "Guest conversations are not saved as account history",
+                    "Saved chats can be deleted from chat history",
+                    "Hamboi does not contact emergency services on your behalf",
                   ].map((item, i) => (
                     <div key={i} className="flex items-center gap-3">
                       <CheckCircle className="h-5 w-5 text-hamboi-green flex-shrink-0" />

@@ -199,8 +199,8 @@ export function HeroSection() {
                       <MessageSquare className="w-6 h-6 text-hamboi-purple" />
                     </div>
                     <div>
-                      <p className="font-bold text-white text-sm">Always Here</p>
-                      <p className="text-xs text-hamboi-text-muted">24/7 support</p>
+                      <p className="font-bold text-white text-sm">AI Support Tool</p>
+                      <p className="text-xs text-hamboi-text-muted">AI wellbeing information</p>
                     </div>
                   </div>
                 </div>

@@ -4,6 +4,7 @@ import { useEffect, useState } from "react"
 import { Heart, Smile, Meh, Frown, AlertCircle } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { toast } from "sonner"
+import { createClient } from "@/lib/supabase/client"
 
 const moods = [
   { icon: Heart, label: "Great", color: "text-green-500", value: 5 },
@@ -18,25 +19,19 @@ export function DailyCheckIn() {
   const [selectedMood, setSelectedMood] = useState<number | null>(null)
   const [saving, setSaving] = useState(false)
 
-  const [userId] = useState(() => {
-    if (typeof window !== "undefined") {
-      let id = localStorage.getItem("hamboi_user_id")
-      if (!id) {
-        id = `user_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`
-        localStorage.setItem("hamboi_user_id", id)
-      }
-      return id
-    }
-    return ""
-  })
-
   useEffect(() => {
-    const lastCheckIn = localStorage.getItem("hamboi_last_checkin")
-    const today = new Date().toDateString()
+    let timer: ReturnType<typeof setTimeout> | undefined
+    const supabase = createClient()
+    if (!supabase) return
 
-    if (lastCheckIn !== today) {
-      setTimeout(() => setShowCheckIn(true), 5000)
-    }
+    void supabase.auth.getUser().then((result: { data: { user: { id: string } | null } }) => {
+      if (!result.data.user) return
+      const lastCheckIn = localStorage.getItem("hamboi_last_checkin")
+      const today = new Date().toDateString()
+      if (lastCheckIn !== today) timer = setTimeout(() => setShowCheckIn(true), 5000)
+    })
+
+    return () => { if (timer) clearTimeout(timer) }
   }, [])
 
   const handleMoodSelect = async (value: number) => {
@@ -47,11 +42,7 @@ export function DailyCheckIn() {
       const response = await fetch("/api/moods", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          user_id: userId,
-          mood_value: value,
-          note: null,
-        }),
+        body: JSON.stringify({ mood_value: value, note: null }),
       })
 
       const data = await response.json()
