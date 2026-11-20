@@ -8,6 +8,7 @@ const WHITE = "#F5F5F5"
 
 const abiodunBadges = [
   "🏅 2025 FIRST Global Bronze Medalist",
+  "🏅 2026 FIRST Global Bronze Medal — Engineering Documentation",
   "🇳🇬 Team Nigeria",
   "Dr. Mae Jemison Award",
 ]
@@ -91,7 +92,7 @@ export function OurStorySection() {
               maxWidth: 600,
             }}
           >
-            &ldquo;We built Hamboi because we needed it too.&rdquo;
+            &ldquo;I built Hamboi because I needed it too.&rdquo;
           </p>
         </div>
 
@@ -173,7 +174,7 @@ export function OurStorySection() {
                 fontWeight: 500,
               }}
             >
-              Founder &amp; Youth innovator, Age 15
+              Founder &amp; Youth innovator, Age 16
             </p>
 
             <p
