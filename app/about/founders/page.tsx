@@ -9,16 +9,13 @@ const founders = [
     image: "/images/founder-abdulhameed.webp",
     title: "Founder & Youth innovator",
     bio: "A young, smart and thoughtful researcher who built Hamboi because he wanted the friend he wished he had at 15. He owns the vision, the product, and every moment no one talks about — driven by curiosity, purpose, and a deep belief that teenagers deserve better.",
-    badges: ["🏅 2025 FIRST Global Bronze Medal", "Dr. Mae Jemison Award", "Team Nigeria"],
+    badges: [
+      "🏅 2025 FIRST Global Bronze Medal",
+      "🏅 2026 FIRST Global Bronze Medal — Engineering Documentation",
+      "Dr. Mae Jemison Award",
+      "Team Nigeria",
+    ],
     readMore: true,
-  },
-  {
-    name: "Fareeah Bada",
-    image: "/images/authors/fareeah-bada.jpg",
-    title: "content & Social media manager",
-    bio: "A curious and thoughtful individual with a strong interest in learning, research, and creativity. She enjoys exploring new ideas, writing, and contributing to meaningful projects. With a calm and open-minded approach, she values growth, originality, and continuous learning — and brings all of that to everything she builds at Hamboi.",
-    badges: ["✍️ Author of 2 published articles on Hamboi"],
-    readMore: false,
   },
 ]
 
@@ -127,7 +124,7 @@ export default function FoundersPage() {
                 lineHeight: 1.3,
               }}
             >
-              &ldquo;We built Hamboi because we needed it too.&rdquo;
+              &ldquo;I built Hamboi because I needed it too.&rdquo;
             </blockquote>
           </div>
         </div>
@@ -135,14 +132,14 @@ export default function FoundersPage() {
 
       {/* ── Founder Cards ── */}
       <section className="container mx-auto px-6 py-20" style={{ borderBottom: `1px solid ${HAIRLINE}` }}>
-        <div className="grid md:grid-cols-2" style={{ gap: 0 }}>
+        <div className="grid md:grid-cols-1 max-w-xl" style={{ gap: 0 }}>
           {founders.map((founder, idx) => (
             <div
               key={idx}
               style={{
-                borderRight: idx === 0 ? `1px solid ${HAIRLINE}` : "none",
-                paddingRight: idx === 0 ? 56 : 0,
-                paddingLeft: idx === 1 ? 56 : 0,
+                borderRight: "none",
+                paddingRight: 0,
+                paddingLeft: 0,
               }}
             >
               {/* Photo */}
@@ -187,7 +184,7 @@ export default function FoundersPage() {
                   letterSpacing: "0.02em",
                 }}
               >
-                {founder.title}
+                {founder.title}, Age 16
               </p>
 
               {/* Bio */}
