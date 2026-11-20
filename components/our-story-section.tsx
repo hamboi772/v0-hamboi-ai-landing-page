@@ -1,6 +1,5 @@
-import Image from "next/image"
 import Link from "next/link"
-import { FareeahBioExpand } from "@/components/fareeah-bio-expand"
+import Image from "next/image"
 
 const HAIRLINE = "1px solid rgba(255,255,255,0.07)"
 const TEAL = "#0CF2C8"
@@ -13,8 +12,6 @@ const abiodunBadges = [
   "Dr. Mae Jemison Award",
 ]
 
-const fareeahBadges = ["✍️ Author of 2 published articles on Hamboi"]
-
 export function OurStorySection() {
   return (
     <section
@@ -26,7 +23,6 @@ export function OurStorySection() {
       }}
     >
       <div style={{ maxWidth: 1100, margin: "0 auto", padding: "0 24px" }}>
-
         {/* ── Section label ── */}
         <p
           style={{
@@ -79,9 +75,7 @@ export function OurStorySection() {
           }}
         >
           Hamboi started with a question. Why is it so hard to talk about how you feel? Abiodun built it because he
-          wanted the friend he wished he had at 15. Fareeah joined because she believed in that question too and knew
-          exactly how to make the answer feel real. Together they built Hamboi. Not an app. Not a helpline. A space
-          that actually gets you.
+          wanted the friend he wished he had at 15. It is not an app. Not a helpline. A space that actually gets you.
         </p>
 
         {/* ── Hairline + pull quote ── */}
@@ -136,23 +130,9 @@ export function OurStorySection() {
           </p>
         </div>
 
-        {/* ── Founder cards — two columns ── */}
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
-            gap: 0,
-          }}
-        >
-          {/* ── Founder 1: Abiodun ── */}
-          <div
-            style={{
-              borderRight: HAIRLINE,
-              paddingRight: 48,
-              paddingBottom: 16,
-            }}
-          >
-            {/* Image */}
+        {/* ── Founder card ── */}
+        <div style={{ maxWidth: 540 }}>
+          <div style={{ paddingBottom: 16 }}>
             <div
               style={{
                 width: "100%",
@@ -171,7 +151,6 @@ export function OurStorySection() {
               />
             </div>
 
-            {/* Name */}
             <h3
               style={{
                 fontFamily: "'Cormorant Garamond', serif",
@@ -185,7 +164,6 @@ export function OurStorySection() {
               Abiodun Abdulhameed Abolarinwa
             </h3>
 
-            {/* Title */}
             <p
               style={{
                 fontFamily: "'DM Sans', sans-serif",
@@ -198,7 +176,6 @@ export function OurStorySection() {
               Founder &amp; Youth innovator, Age 15
             </p>
 
-            {/* Bio */}
             <p
               style={{
                 fontFamily: "'DM Sans', sans-serif",
@@ -213,7 +190,6 @@ export function OurStorySection() {
               purpose, and a deep belief that teenagers deserve better.
             </p>
 
-            {/* Badges */}
             <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginBottom: 28 }}>
               {abiodunBadges.map((b) => (
                 <span
@@ -233,7 +209,6 @@ export function OurStorySection() {
               ))}
             </div>
 
-            {/* Link to full article */}
             <Link
               href="/about/article"
               style={{
@@ -246,78 +221,6 @@ export function OurStorySection() {
             >
               Read full story &rarr;
             </Link>
-          </div>
-
-          {/* ── Founder 2: Fareeah ── */}
-          <div style={{ paddingLeft: 48, paddingBottom: 16 }}>
-            {/* Image */}
-            <div
-              style={{
-                width: "100%",
-                aspectRatio: "4 / 5",
-                overflow: "hidden",
-                marginBottom: 28,
-                border: HAIRLINE,
-              }}
-            >
-              <Image
-                src="/images/authors/fareeah-bada.jpg"
-                alt="Fareeah Bada — Co-Founder, Content & Marketing"
-                width={480}
-                height={600}
-                style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top", display: "block" }}
-              />
-            </div>
-
-            {/* Name */}
-            <h3
-              style={{
-                fontFamily: "'Cormorant Garamond', serif",
-                fontSize: 26,
-                fontWeight: 500,
-                color: WHITE,
-                marginBottom: 4,
-                lineHeight: 1.2,
-              }}
-            >
-              Fareeah Bada
-            </h3>
-
-            {/* Title */}
-            <p
-              style={{
-                fontFamily: "'DM Sans', sans-serif",
-                fontSize: 13,
-                color: TEAL,
-                marginBottom: 20,
-                fontWeight: 500,
-              }}
-            >
-              Co-Founder, Content &amp; Social media manager
-            </p>
-
-            {/* Expandable bio — client component */}
-            <FareeahBioExpand />
-
-            {/* Badges */}
-            <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginTop: 24 }}>
-              {fareeahBadges.map((b) => (
-                <span
-                  key={b}
-                  style={{
-                    fontFamily: "'DM Sans', sans-serif",
-                    fontSize: 12,
-                    color: WHITE,
-                    border: "1px solid rgba(255,255,255,0.12)",
-                    padding: "5px 12px",
-                    borderRadius: 0,
-                    whiteSpace: "nowrap",
-                  }}
-                >
-                  {b}
-                </span>
-              ))}
-            </div>
           </div>
         </div>
       </div>
